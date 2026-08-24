@@ -163,6 +163,39 @@ def endpoint(model: str = DEFAULT_MODEL, key: str | None = None) -> str:
     return f"{API_BASE}/{model}:generateContent?key={k}"
 
 
+def _scrub(msg: str, key: str | None) -> str:
+    """Replace any occurrence of `key` in `msg` with its masked fingerprint.
+
+    Google's API takes the key as a URL query parameter, so the key is inside
+    every request URL -- and several exception types embed the URL they failed
+    on. `http.client.InvalidURL` is the one that bit us on 2026-08-25: it is an
+    `HTTPException`, so neither the `HTTPError` nor the `URLError` handler in
+    `check()` caught it, and it reached stdout carrying the whole key.
+
+    Scrubbing the message is the durable fix rather than adding one more
+    `except` clause, because the next exception type to embed a URL would leak
+    again. Anything that returns a message derived from a request must pass it
+    through here first.
+
+    Two subtleties, both found by the regression test rather than by reasoning:
+
+    * Exceptions often render the URL with `repr()`, so a key containing a
+      newline appears as the two characters `\\n` and the literal key string
+      does not match. So we scrub the whitespace-separated FRAGMENTS too.
+    * A malformed key file can hold several keys (that is exactly how the leak
+      was discovered -- `old:`/`new:` labelled lines). Every fragment long
+      enough to be a secret is scrubbed, not just the first.
+    """
+    if not key or not msg:
+        return msg
+    out = msg.replace(key, describe(key))
+    # Longest first, so a fragment can never partially clobber a longer one.
+    for frag in sorted(key.split(), key=len, reverse=True):
+        if len(frag) > 12:
+            out = out.replace(frag, describe(frag))
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Live check
 # ---------------------------------------------------------------------------
@@ -209,9 +242,15 @@ def check(model: str = DEFAULT_MODEL, timeout: int = 30) -> tuple[bool, str]:
             404: f"model {model!r} not found for this key",
             429: "rate limited (key works)",
         }.get(exc.code, "")
-        return exc.code == 429, f"HTTP {exc.code} ({hint}) {detail}"
+        return exc.code == 429, _scrub(f"HTTP {exc.code} ({hint}) {detail}", key)
     except urllib.error.URLError as exc:
-        return False, f"network error: {exc.reason}"
+        return False, _scrub(f"network error: {exc.reason}", key)
+    except Exception as exc:
+        # Catch-all on purpose. `http.client.InvalidURL` is neither HTTPError
+        # nor URLError, so before 2026-08-25 it escaped both handlers above and
+        # printed the request URL -- key included. Never let a request-derived
+        # message reach a caller unscrubbed, whatever its type.
+        return False, _scrub(f"{type(exc).__name__}: {exc}", key)
     except Exception as exc:  # noqa: BLE001
         return False, f"{exc.__class__.__name__}: {exc}"
 
