@@ -8,6 +8,13 @@ geminiAPI.txt
 .geminiAPI
 .geminiAPI*
 *gemini*key*
+# ...but current/gemini_key.py is CODE, not a credential: it only resolves
+# $GEMINI_API_KEY -> $GEMINI_KEY_FILE -> geminiAPI.txt -> Colab userdata, and was
+# verified 2026-08-25 to embed no literal key. The *gemini*key* pattern above was
+# silently ignoring it, so it stayed untracked and a fresh checkout LOST it --
+# proven by it being absent from a new worktree, which made nonrouted_baseline.py
+# (RQ2) unimportable. Keep the broad pattern; negate this one file.
+!current/gemini_key.py
 .zshrc
 .bashrc
 .profile
