@@ -1,0 +1,126 @@
+claim_id,q_id,claim,gold_type,V1
+Q1_C01,Q1,Albert Einstein published four papers in 1905.,TEMPORAL,QUANTITATIVE
+Q1_C02,Q1,Albert Einstein worked at the Swiss Patent Office in Bern in 1905.,TEMPORAL,TEMPORAL
+Q1_C03,Q1,Albert Einstein derived the equation E=mc².,RELATIONAL,RELATIONAL
+Q1_C04,Q1,The equation E=mc² shows that mass and energy are interchangeable.,RELATIONAL,RELATIONAL
+Q1_C05,Q1,Albert Einstein proposed that light consists of discrete packets called quanta.,RELATIONAL,RELATIONAL
+Q1_C06,Q1,Albert Einstein explained the photoelectric effect by proposing that light consists of discrete packets called quanta.,RELATIONAL,RELATIONAL
+Q1_C07,Q1,Albert Einstein received the Nobel Prize in Physics in 1921.,TEMPORAL,TEMPORAL
+Q1_C08,Q1,Albert Einstein published the general theory of relativity in 1915.,TEMPORAL,TEMPORAL
+Q1_C09,Q1,The general theory of relativity describes gravity as the curvature of spacetime.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE
+Q1_C10,Q1,Albert Einstein predicted that gravity bends light.,RELATIONAL,RELATIONAL
+Q1_C11,Q1,Arthur Eddington verified that gravity bends light during a solar eclipse in 1919.,TEMPORAL,TEMPORAL
+Q1_C12,Q1,Albert Einstein spent his final years at the Institute for Advanced Study in Princeton.,RELATIONAL,ENTITY_ATTRIBUTE
+Q2_C01,Q2,The 2008 financial crisis began with a collapse in the United States housing market.,RELATIONAL,RELATIONAL
+Q2_C02,Q2,Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006.,RELATIONAL,TEMPORAL
+Q2_C03,Q2,Investment banks bundled high-risk loans into mortgage-backed securities.,RELATIONAL,RELATIONAL
+Q2_C04,Q2,Investment banks sold mortgage-backed securities to global investors.,RELATIONAL,RELATIONAL
+Q2_C05,Q2,Home prices peaked in 2006.,RELATIONAL,TEMPORAL
+Q2_C06,Q2,Home prices fell after 2006.,RELATIONAL,TEMPORAL
+Q2_C07,Q2,Millions of homeowners defaulted on their loans.,RELATIONAL,RELATIONAL
+Q2_C08,Q2,"Lehman Brothers filed for bankruptcy on September 15, 2008.",TEMPORAL,TEMPORAL
+Q2_C09,Q2,The bankruptcy of Lehman Brothers triggered a global liquidity freeze.,RELATIONAL,RELATIONAL
+Q2_C10,Q2,The U.S. government passed the Emergency Economic Stabilization Act of 2008.,TEMPORAL,TEMPORAL
+Q2_C11,Q2,The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.,QUANTITATIVE,QUANTITATIVE
+Q2_C12,Q2,The 2008 financial crisis led to the Great Recession.,RELATIONAL,RELATIONAL
+Q2_C13,Q2,The global GDP contracted by 0.1% in 2009.,QUANTITATIVE,QUANTITATIVE
+Q5_C01,Q5,The IPCC Sixth Assessment Report was published in 2023.,CITATION,CITATION
+Q5_C02,Q5,The IPCC Sixth Assessment Report states that human activities have caused global warming.,CITATION,CITATION
+Q5_C03,Q5,Human activities have caused global warming.,RELATIONAL,RELATIONAL
+Q5_C04,Q5,Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.,QUANTITATIVE,QUANTITATIVE
+Q5_C05,Q5,The emission of greenhouse gases from fossil fuel combustion and land use drives global warming.,RELATIONAL,RELATIONAL
+Q5_C06,Q5,The IPCC Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.,CITATION,CITATION
+Q5_C07,Q5,A temperature rise causes more frequent and intense extreme weather events.,RELATIONAL,RELATIONAL
+Q5_C08,Q5,Reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius.,RELATIONAL,QUANTITATIVE
+Q5_C09,Q5,Net-zero emissions must be achieved by 2050 to stabilize the global climate.,TEMPORAL,TEMPORAL
+Q7_C01,Q7,The Silk Road began during the Han Dynasty around 130 BCE.,TEMPORAL,TEMPORAL
+Q7_C02,Q7,Emperor Wu dispatched Zhang Qian to establish alliances in Central Asia.,RELATIONAL,RELATIONAL
+Q7_C03,Q7,The Silk Road network of trade routes connected Chang'an in China to the Mediterranean Sea.,RELATIONAL,RELATIONAL
+Q7_C04,Q7,"The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.",QUANTITATIVE,QUANTITATIVE
+Q7_C05,Q7,Merchants transported Chinese silk westward.,RELATIONAL,RELATIONAL
+Q7_C06,Q7,Merchants transported Chinese lacquerware westward.,RELATIONAL,RELATIONAL
+Q7_C07,Q7,Merchants transported Chinese paper westward.,RELATIONAL,RELATIONAL
+Q7_C08,Q7,Merchants received horses from the Roman Empire.,RELATIONAL,RELATIONAL
+Q7_C09,Q7,Merchants received glassware from the Roman Empire.,RELATIONAL,RELATIONAL
+Q7_C10,Q7,Merchants received grapes from the Roman Empire.,RELATIONAL,RELATIONAL
+Q7_C11,Q7,Buddhism spread from India to China during the 1st century CE.,RELATIONAL,TEMPORAL
+Q7_C12,Q7,Genghis Khan led Mongol conquests in the 13th century.,RELATIONAL,TEMPORAL
+Q7_C13,Q7,Mongol conquests secured the Silk Road routes.,RELATIONAL,RELATIONAL
+Q7_C14,Q7,The Pax Mongolica increased trade volume.,RELATIONAL,RELATIONAL
+Q7_C15,Q7,The Black Death plague traveled from Central Asia to Europe in the 14th century.,RELATIONAL,TEMPORAL
+Q7_C16,Q7,The Ottoman Empire blocked traditional paths to the East in 1453.,RELATIONAL,TEMPORAL
+Q7_C17,Q7,Maritime trade routes replaced land travel after 1453.,RELATIONAL,TEMPORAL
+Q9_C01,Q9,Classical computers use bits to represent data as either a 0 or a 1.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE
+Q9_C02,Q9,Quantum computers use qubits that exist in superpositions of both states simultaneously.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE
+Q9_C03,Q9,Quantum systems can perform certain calculations exponentially faster than classical binary systems.,RELATIONAL,RELATIONAL
+Q9_C04,Q9,Peter Shor developed an algorithm in 1994 that allows quantum computers to factor large integers efficiently.,TEMPORAL,TEMPORAL
+Q9_C05,Q9,Classical computers require sub-exponential time to solve the factoring problems addressed by Peter Shor's algorithm.,RELATIONAL,RELATIONAL
+Q9_C06,Q9,Google claimed quantum supremacy in 2019.,TEMPORAL,CITATION
+Q9_C07,Q9,Google used a 53-qubit processor called Sycamore to claim quantum supremacy.,QUANTITATIVE,QUANTITATIVE
+Q9_C08,Q9,The Sycamore processor completed a specific sampling task in 200 seconds.,QUANTITATIVE,QUANTITATIVE
+Q9_C09,Q9,"A classical supercomputer would take 10,000 years to complete the sampling task performed by the Sycamore processor.",QUANTITATIVE,QUANTITATIVE
+Q10_C01,Q10,"Archduke Franz Ferdinand was assassinated on June 28, 1914.",TEMPORAL,TEMPORAL
+Q10_C02,Q10,The assassination of Archduke Franz Ferdinand triggered a series of alliance obligations between European powers.,RELATIONAL,RELATIONAL
+Q10_C03,Q10,Germany entered the conflict due to mutual defense treaties.,RELATIONAL,RELATIONAL
+Q10_C04,Q10,Austria-Hungary entered the conflict due to mutual defense treaties.,RELATIONAL,RELATIONAL
+Q10_C05,Q10,Great Britain entered the conflict due to mutual defense treaties.,RELATIONAL,RELATIONAL
+Q10_C06,Q10,France entered the conflict due to mutual defense treaties.,RELATIONAL,RELATIONAL
+Q10_C07,Q10,Russia entered the conflict due to mutual defense treaties.,RELATIONAL,RELATIONAL
+Q10_C08,Q10,The war resulted in approximately 20 million deaths.,QUANTITATIVE,QUANTITATIVE
+Q10_C09,Q10,The war resulted in 21 million wounded soldiers.,QUANTITATIVE,QUANTITATIVE
+Q10_C10,Q10,The Treaty of Versailles was signed in 1919.,TEMPORAL,TEMPORAL
+Q10_C11,Q10,The Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations.,QUANTITATIVE,QUANTITATIVE
+Q10_C12,Q10,The conflict led to the collapse of the German empire.,RELATIONAL,RELATIONAL
+Q10_C13,Q10,The conflict led to the collapse of the Austro-Hungarian empire.,RELATIONAL,RELATIONAL
+Q10_C14,Q10,The conflict led to the collapse of the Ottoman empire.,RELATIONAL,RELATIONAL
+Q10_C15,Q10,The conflict led to the collapse of the Russian empire.,RELATIONAL,RELATIONAL
+Q10_C16,Q10,"The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Poland.",RELATIONAL,RELATIONAL
+Q10_C17,Q10,"The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Czechoslovakia.",RELATIONAL,RELATIONAL
+Q10_C18,Q10,"The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Yugoslavia.",RELATIONAL,RELATIONAL
+Q10_C19,Q10,The League of Nations formed in 1920.,TEMPORAL,TEMPORAL
+Q11_C01,Q11,The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year.,CITATION,CITATION
+Q11_C02,Q11,The World Health Organization updated its Global Air Quality Guidelines in 2021.,TEMPORAL,TEMPORAL
+Q11_C03,Q11,The World Health Organization's Global Air Quality Guidelines lower the recommended levels of fine particulate matter.,CITATION,CITATION
+Q11_C04,Q11,The Global Air Quality Guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter.,CITATION,CITATION
+Q11_C05,Q11,High levels of fine particulate matter cause respiratory infections in human populations.,RELATIONAL,RELATIONAL
+Q11_C06,Q11,High levels of fine particulate matter cause heart disease in human populations.,RELATIONAL,RELATIONAL
+Q11_C07,Q11,High levels of fine particulate matter cause strokes in human populations.,RELATIONAL,RELATIONAL
+Q11_C08,Q11,"Ambient air pollution is a primary driver of respiratory infections, heart disease, and strokes.",RELATIONAL,RELATIONAL
+Q11_C09,Q11,"Household air pollution from solid fuels is a primary driver of respiratory infections, heart disease, and strokes.",RELATIONAL,RELATIONAL
+Q11_C10,Q11,The World Health Organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality.,CITATION,CITATION
+Q11_C11,Q11,Pollution-related deaths result from the inhalation of toxic chemicals and particles.,RELATIONAL,RELATIONAL
+Q11_C12,Q11,Toxic chemicals and particles enter the bloodstream through the lungs.,RELATIONAL,RELATIONAL
+Q12_C01,Q12,The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,CITATION
+Q12_C02,Q12,Low education levels in childhood and adolescence increase the risk of dementia.,RELATIONAL,RELATIONAL
+Q12_C03,Q12,Hypertension is a midlife risk factor for dementia.,RELATIONAL,RELATIONAL
+Q12_C04,Q12,Obesity is a midlife risk factor for dementia.,RELATIONAL,RELATIONAL
+Q12_C05,Q12,Diabetes is a midlife risk factor for dementia.,RELATIONAL,RELATIONAL
+Q12_C06,Q12,Hearing loss is a midlife risk factor for dementia.,RELATIONAL,RELATIONAL
+Q12_C07,Q12,Smoking is a midlife risk factor for dementia.,RELATIONAL,RELATIONAL
+Q12_C08,Q12,Social isolation is a later life risk factor for dementia.,RELATIONAL,RELATIONAL
+Q12_C09,Q12,Physical inactivity is a later life risk factor for dementia.,RELATIONAL,RELATIONAL
+Q12_C10,Q12,Air pollution is a later life risk factor for dementia.,RELATIONAL,RELATIONAL
+Q12_C11,Q12,The 2020 Lancet Commission reports that treating hypertension and hearing loss provides the largest potential reductions in risk.,CITATION,CITATION
+Q12_C12,Q12,Treating hypertension and hearing loss provides the largest potential reductions in dementia risk.,RELATIONAL,RELATIONAL
+Q12_C13,Q12,Vascular damage is a causal pathway through which modifiable risk factors contribute to dementia.,RELATIONAL,RELATIONAL
+Q12_C14,Q12,Cognitive decline is a causal pathway through which modifiable risk factors contribute to dementia.,RELATIONAL,RELATIONAL
+Q12_C15,Q12,Addressing the 12 modifiable risk factors can prevent or delay approximately 12 million cases of dementia globally.,QUANTITATIVE,QUANTITATIVE
+Q13_C01,Q13,The CDC recommends a specific immunization schedule for children from birth through age 18.,CITATION,CITATION
+Q13_C02,Q13,The CDC immunization schedule includes vaccines for polio.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE
+Q13_C03,Q13,The CDC immunization schedule includes vaccines for measles.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE
+Q13_C04,Q13,The CDC immunization schedule includes vaccines for mumps.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE
+Q13_C05,Q13,The CDC immunization schedule includes vaccines for rubella.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE
+Q13_C06,Q13,Infants typically receive their first dose of the Hepatitis B vaccine within 24 hours of birth.,ENTITY_ATTRIBUTE,QUANTITATIVE
+Q13_C07,Q13,The CDC updates the immunization recommendations annually.,RELATIONAL,RELATIONAL
+Q13_C08,Q13,Healthcare providers use the CDC guidelines to determine the timing for each injection.,RELATIONAL,RELATIONAL
+Q13_C09,Q13,Healthcare providers use the CDC guidelines to determine the dosage for each injection.,RELATIONAL,RELATIONAL
+Q13_C10,Q13,The current immunization schedule is accessible on the official CDC website.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE
+Q14_C01,Q14,The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.,CITATION,CITATION
+Q14_C02,Q14,The global extreme poverty rate remained stagnant at 8.4% of the population.,QUANTITATIVE,QUANTITATIVE
+Q14_C03,Q14,The global extreme poverty rate of 8.4% represents approximately 685 million people living on less than $2.15 per day.,QUANTITATIVE,QUANTITATIVE
+Q14_C04,Q14,The COVID-19 pandemic pushed an estimated 70 million to 100 million additional people into extreme poverty between 2020 and 2022.,QUANTITATIVE,QUANTITATIVE
+Q14_C05,Q14,Conflict and climate shocks in Sub-Saharan Africa caused a 10% increase in food insecurity during 2023.,QUANTITATIVE,QUANTITATIVE
+Q14_C06,Q14,High inflation rates in low-income countries reduced the purchasing power of households by an average of 5% in 2022.,QUANTITATIVE,QUANTITATIVE
+Q14_C07,Q14,Rising fuel costs caused increased malnutrition in rural regions.,RELATIONAL,RELATIONAL
+Q14_C08,Q14,Debt distress exists in 60% of low-income countries.,QUANTITATIVE,QUANTITATIVE
+Q14_C09,Q14,Debt distress in 60% of low-income countries limits government spending on healthcare and education.,RELATIONAL,QUANTITATIVE

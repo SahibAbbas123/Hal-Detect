@@ -1,0 +1,21 @@
+claim_id,q_id,claim,type,subject,property,value,secondary,gold_verdict,gold_type,synthetic,factscore_label,source_model,rarity,region,extractor
+FS_0001,FS_Oliver_Letwin,Letwin was involved in the creation of the National Health Service.,RELATIONAL,Oliver Letwin,involved_in,creation of the National Health Service,{},FALSE,,FALSE,NS,ChatGPT,medium,Europe/Middle East,gemini
+FS_0002,FS_Liam_Payne,Payne explores other genres.,RELATIONAL,Liam Payne,explores_genres,other genres,{},TRUE,,FALSE,S,PerplexityAI,very freq,Europe/Middle East,gemini
+FS_0003,FS_Vincenzo_Tusa,Vincenzo Tusa died on 5 March 2009.,TEMPORAL,Vincenzo Tusa,date_of_death,5 March 2009,{},TRUE,,FALSE,S,PerplexityAI,very rare,Europe/Middle East,gemini
+FS_0004,FS_Jimmy_Bartel,He was awarded the medal in 2011.,TEMPORAL,Jimmy Bartel,award_received,2011,{},TRUE,,FALSE,S,InstructGPT,freq,Asia/Pacific,gemini
+FS_0005,FS_Samantha_Ruth_Prabhu,She donates her earnings from endorsements.,RELATIONAL,Samantha Ruth Prabhu,donates_earnings,her earnings from endorsements,{},TRUE,,FALSE,S,PerplexityAI,medium,Asia/Pacific,gemini
+FS_0006,"FS_William_Waldegrave,_Baro",He served as Paymaster General.,ENTITY_ATTRIBUTE,"William Waldegrave, Baron Waldegrave of North Hill",position_held,Paymaster General,{},FALSE,,FALSE,NS,InstructGPT,medium,Europe/Middle East,gemini
+FS_0007,FS_James_B._Donovan,He is remembered for his successful defense of Adolf Eichmann.,ENTITY_ATTRIBUTE,James B. Donovan,notable_achievement,successful defense of Adolf Eichmann,{},FALSE,,FALSE,NS,InstructGPT,freq,North America,gemini
+FS_0008,FS_Gonzalo_Fonseca,The son was named Bruno Fonseca.,ENTITY_ATTRIBUTE,Gonzalo Fonseca,child,Bruno Fonseca,{},TRUE,,FALSE,S,PerplexityAI,rare,Latin America/Africa,gemini
+FS_0009,FS_Jack_Leach,He plays for Somerset.,ENTITY_ATTRIBUTE,Jack Leach,employer,Somerset,{},FALSE,,FALSE,NS,InstructGPT,very freq,Europe/Middle East,gemini
+FS_0010,FS_Regina_Martínez_Pérez,Proceso is a Mexican news magazine.,ENTITY_ATTRIBUTE,Regina Martínez Pérez,description,Mexican news magazine,{},TRUE,,FALSE,S,PerplexityAI,rare,Latin America/Africa,gemini
+FS_0011,FS_Mauro_Icardi,He made a Serie A debut.,RELATIONAL,Mauro Icardi,debut,Serie A,{},TRUE,,FALSE,S,InstructGPT,very freq,Latin America/Africa,gemini
+FS_0012,FS_Carolina_Portesi_Peroni,She is the CEO of Carolina Portesi.,ENTITY_ATTRIBUTE,Carolina Portesi Peroni,position_held,CEO of Carolina Portesi,{},FALSE,,FALSE,NS,InstructGPT,very rare,Europe/Middle East,gemini
+FS_0013,FS_Doug_Sheehan,He has appeared in The Last Boy Scout.,ENTITY_ATTRIBUTE,Doug Sheehan,film_appearance,The Last Boy Scout,{},FALSE,,FALSE,NS,InstructGPT,very rare,North America,gemini
+FS_0014,FS_Fran_Unsworth,She was appointed as the Director of BBC News.,ENTITY_ATTRIBUTE,Fran Unsworth,position_held,Director of BBC News,{},TRUE,,FALSE,S,PerplexityAI,medium,Europe/Middle East,gemini
+FS_0015,FS_Song_Kang,"Song Kang was born on April 23, 1994.",TEMPORAL,Song Kang,date_of_birth,"April 23, 1994",{},TRUE,,FALSE,S,ChatGPT,very rare,Asia/Pacific,gemini
+FS_0016,FS_Andrew_Shue,CafeMom is an online social networking site.,ENTITY_ATTRIBUTE,Andrew Shue,description,an online social networking site,{},TRUE,,FALSE,S,InstructGPT,freq,North America,gemini
+FS_0017,FS_Ji_Sung,He is best known for his role in Secret.,RELATIONAL,Ji Sung,,,{},FALSE,,FALSE,NS,InstructGPT,very freq,Asia/Pacific,rules(gemini-failed:HTTPError)
+FS_0018,FS_Mike_Trivisonno,Trivisonno's talk show aired on weekdays.,ENTITY_ATTRIBUTE,Mike Trivisonno,show_schedule,weekdays,{},FALSE,,FALSE,NS,PerplexityAI,rare,North America,gemini
+FS_0019,FS_Shahnaz_Pahlavi,She is an accomplished sculptor.,ENTITY_ATTRIBUTE,Shahnaz Pahlavi,occupation,sculptor,{},FALSE,,FALSE,NS,InstructGPT,freq,Europe/Middle East,gemini
+FS_0020,FS_Hibo_Wardere,She received the MBE  in 2018.,TEMPORAL,Hibo Wardere,award_received,MBE in 2018,{},FALSE,,FALSE,NS,InstructGPT,rare,Latin America/Africa,gemini

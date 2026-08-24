@@ -1,0 +1,707 @@
+﻿Q1 — Einstein (9 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	Albert Einstein was born on 14 March 1879 in Ulm.
+	TEMPORAL
+	Date is primary verifiable element
+	2
+	Albert Einstein worked as a patent clerk in Bern while developing major ideas in physics.
+	ENTITY_ATTRIBUTE
+	Describes role/occupation — what Einstein was
+	3
+	In 1905 Albert Einstein published four influential papers.
+	TEMPORAL
+	1905 is primary verifiable element; "four" is incidental
+	4
+	The four papers explained the photoelectric effect, Brownian motion, and the theory of special relativity.
+	RELATIONAL
+	"explained" = functional relationship between papers and concepts
+	5
+	Albert Einstein's work on special relativity introduced the mass-energy relation E=mc².
+	RELATIONAL
+	"introduced" = causal/functional verb
+	6
+	Albert Einstein developed the theory of general relativity in 1915.
+	TEMPORAL
+	Year is primary verifiable element
+	7
+	Albert Einstein received the Nobel Prize in Physics in 1921 for explaining the photoelectric effect and helping establish quantum theory.
+	TEMPORAL
+	1921 is primary; reason is secondary context
+	8
+	Albert Einstein moved to the United States in 1933.
+	TEMPORAL
+	Year is primary verifiable element
+	9
+	Albert Einstein worked at the Institute for Advanced Study until his death in Princeton on 18 April 1955.
+	TEMPORAL
+	Death date is primary verifiable element
+	________________
+
+
+Q2 — Financial Crisis (12 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	The 2008 global financial crisis was mainly caused by the collapse of the U.S. housing bubble.
+	RELATIONAL
+	Causal link: crisis caused by bubble collapse
+	2
+	Banks issued large numbers of risky subprime mortgages to borrowers with poor credit.
+	RELATIONAL
+	Action/process describing bank behavior
+	3
+	Housing prices stopped rising.
+	RELATIONAL
+	Describes a process/state change
+	4
+	Borrowers began defaulting on loans.
+	RELATIONAL
+	"defaulting" is a process/action not a property
+	5
+	Mortgage-backed securities and related financial derivatives rapidly lost value across the financial system.
+	RELATIONAL
+	Describes a process — verifiable via financial records
+	6
+	Major financial institutions that held these assets faced severe losses.
+	RELATIONAL
+	Describes consequence/action — verifiable in principle
+	7
+	Lehman Brothers filed for bankruptcy in September 2008.
+	TEMPORAL
+	Month/year is primary verifiable element
+	8
+	The bankruptcy of Lehman Brothers triggered global panic in financial markets and a tightening of bank lending.
+	RELATIONAL
+	Causal: bankruptcy → panic — verifiable via historical records
+	9
+	The 2008 global financial crisis caused the Great Recession.
+	RELATIONAL
+	Direct causal link between two events
+	10
+	The Great Recession led to widespread declines in economic output, falling stock markets, and a sharp rise in unemployment worldwide.
+	RELATIONAL
+	Causal chain: recession → multiple outcomes
+	11
+	Governments and central banks responded with large bank bailouts, stimulus programs, and extremely low interest rates to stabilize the financial system.
+	RELATIONAL
+	Functional response: action taken to achieve outcome
+	12
+	The 2008 global financial crisis led to major regulatory reforms including the Dodd-Frank Act in the United States.
+	RELATIONAL
+	Causal: crisis → regulatory outcome
+	________________
+
+
+Q3 — DNA (12 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	DNA is the molecule that carries genetic information used for the growth, development, and functioning of living organisms.
+	ENTITY_ATTRIBUTE
+	Defines what DNA is — structural/functional descriptor
+	2
+	DNA has a double-helix structure composed of two strands that twist around each other.
+	ENTITY_ATTRIBUTE
+	Structural property assigned to DNA
+	3
+	Each strand of DNA is made of repeating nucleotides.
+	ENTITY_ATTRIBUTE
+	Compositional property of strands
+	4
+	Each nucleotide contains a deoxyribose sugar.
+	ENTITY_ATTRIBUTE
+	Compositional property of nucleotide
+	5
+	Each nucleotide contains a phosphate group.
+	ENTITY_ATTRIBUTE
+	Compositional property of nucleotide
+	6
+	Each nucleotide contains one of four nitrogen bases: adenine, thymine, cytosine, or guanine.
+	ENTITY_ATTRIBUTE
+	Compositional property — four bases form a logical unit
+	7
+	The nitrogen bases pair specifically through hydrogen bonds.
+	RELATIONAL
+	"pair through" = mechanism — describes how bases interact
+	8
+	Adenine pairs with thymine.
+	RELATIONAL
+	Describes relationship between two entities
+	9
+	Cytosine pairs with guanine.
+	RELATIONAL
+	Describes relationship between two entities
+	10
+	The pairing of nitrogen bases holds the two strands together.
+	RELATIONAL
+	"holds together" = functional relationship
+	11
+	The sequence of these bases stores genetic information that determines how proteins are produced in cells.
+	RELATIONAL
+	"determines how proteins are produced" = causal chain
+	12
+	DNA can replicate by separating its strands and using each strand as a template to form a new complementary strand.
+	RELATIONAL
+	"replicates by separating" = functional mechanism
+	________________
+
+
+Q4 — Tesla (12 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	Nikola Tesla was a Serbian-American inventor and engineer.
+	ENTITY_ATTRIBUTE
+	Assigns nationality and role to person
+	2
+	Nikola Tesla was known for pioneering work in electricity and electromagnetism.
+	ENTITY_ATTRIBUTE
+	Reputation descriptor assigned to person
+	3
+	Nikola Tesla was born in 1856 in Smiljan in the Austrian Empire (now Croatia).
+	TEMPORAL
+	Year is primary; birthplace is secondary context
+	4
+	Nikola Tesla moved to the United States in 1884 to work as an engineer.
+	TEMPORAL
+	Year is primary verifiable element
+	5
+	Nikola Tesla helped design the modern alternating-current electrical system.
+	ENTITY_ATTRIBUTE
+	Achievement as attribute of person
+	6
+	The modern alternating-current electrical system allows electricity to be transmitted efficiently over long distances.
+	RELATIONAL
+	"allows transmission" = functional relationship
+	7
+	Nikola Tesla invented the AC induction motor.
+	ENTITY_ATTRIBUTE
+	Invention as attribute of person
+	8
+	Nikola Tesla discovered the rotating magnetic field that powers many electric machines.
+	RELATIONAL
+	"powers many electric machines" = functional relationship
+	9
+	Nikola Tesla invented the Tesla coil in 1891.
+	TEMPORAL
+	Year is primary verifiable element
+	10
+	Nikola Tesla demonstrated an early remote-controlled boat in 1898.
+	TEMPORAL
+	Year is primary verifiable element
+	11
+	Nikola Tesla conducted research into wireless power transmission and radio communication.
+	ENTITY_ATTRIBUTE
+	Research area as attribute of person
+	12
+	Nikola Tesla obtained more than 100 patents.
+	QUANTITATIVE
+	Numerical count is primary verifiable element
+	________________
+
+
+Q5 — IPCC (8 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	The latest IPCC Sixth Assessment Report (AR6) exists.
+	CITATION
+	Pure source-existence claim — dual-emit anchor
+	2
+	Human activities have unequivocally caused global warming.
+	RELATIONAL
+	Causal link: human activities → warming — verifiable via scientific consensus
+	3
+	Human activities have raised global surface temperatures by about 1.1°C above pre-industrial levels.
+	QUANTITATIVE
+	1.1°C measurement is primary verifiable element
+	4
+	Climate change is already affecting every region of the world through more frequent heatwaves, heavy rainfall, droughts, rising sea levels, and other extreme events.
+	RELATIONAL
+	Causal/functional: climate change → regional impacts — verifiable in principle
+	5
+	Global temperatures are likely to reach or exceed 1.5°C of warming between about 2021 and 2040 under many emission scenarios.
+	QUANTITATIVE
+	1.5°C measurement is primary; date range is context
+	6
+	Each additional increment of warming will intensify climate risks to ecosystems, food systems, water resources, and human health.
+	RELATIONAL
+	Causal: warming → intensified risks — verifiable in principle
+	7
+	Rapid and sustained reductions in greenhouse-gas emissions could slow warming within decades and reduce the severity of future impacts.
+	RELATIONAL
+	Functional: reductions → slowed warming
+	8
+	Limiting warming to about 1.5°C requires global emissions to fall sharply this decade including reductions of roughly 43% by 2030 compared with 2019 levels.
+	QUANTITATIVE
+	43% is primary verifiable element; 2030 is context
+	________________
+
+
+Q6 — Immune System (10 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	The human immune system protects the body from harmful organisms such as bacteria, viruses, fungi, and toxins through a network of cells, tissues, and chemical signals.
+	RELATIONAL
+	"protects through" = functional relationship
+	2
+	The human immune system works through two main components: the innate immune system and the adaptive immune system.
+	ENTITY_ATTRIBUTE
+	Structural composition — describes what the system has
+	3
+	The innate immune system acts as the first line of defense and responds quickly using physical barriers like skin and mucus as well as immune cells that attack invading pathogens.
+	RELATIONAL
+	"acts as, responds using" = functional description
+	4
+	Neutrophils and macrophages can recognize common features of microbes, engulf them, and trigger inflammation to recruit more immune cells to the infection site.
+	RELATIONAL
+	"recognize, engulf, trigger" = functional actions
+	5
+	If pathogens survive the initial response, the adaptive immune system produces a more targeted attack using specialized white blood cells called B cells and T cells.
+	RELATIONAL
+	Conditional functional mechanism
+	6
+	B cells create antibodies that bind to specific antigens on pathogens.
+	RELATIONAL
+	"create antibodies that bind" = functional mechanism
+	7
+	T cells destroy infected cells or coordinate other immune responses.
+	RELATIONAL
+	"destroy/coordinate" = functional actions
+	8
+	The adaptive immune system forms immunological memory.
+	ENTITY_ATTRIBUTE
+	"forms" here describes a property/capability of the system
+	9
+	After an infection the body remembers the pathogen and can respond much faster during future exposures.
+	RELATIONAL
+	"remembers and responds faster" = functional mechanism
+	10
+	Immunological memory is the biological basis for how vaccines provide long-term protection against many diseases.
+	RELATIONAL
+	"is the basis for how vaccines work" = causal
+	________________
+
+
+Q7 — Silk Road (10 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	The Silk Road was a vast network of trade routes that connected East Asia with the Middle East and Europe.
+	ENTITY_ATTRIBUTE
+	Describes what the Silk Road was — structural descriptor
+	2
+	The Silk Road connected East Asia with the Middle East and Europe from about the 2nd century BCE to the mid-15th century.
+	TEMPORAL
+	Time span is primary verifiable element
+	3
+	The Silk Road began during the Han Dynasty in China.
+	TEMPORAL
+	Time-ordered event — "began during" is temporal
+	4
+	The Silk Road stretched roughly 4,000 miles across Central Asia.
+	QUANTITATIVE
+	Distance measurement is primary verifiable element
+	5
+	The Silk Road linked cities such as Chang'an (modern Xi'an) with regions around the Mediterranean.
+	ENTITY_ATTRIBUTE
+	Geographic description — linking is an attribute of the route
+	6
+	Merchants transported goods such as Chinese silk, spices, tea, precious stones, and metals via the Silk Road.
+	RELATIONAL
+	"transported goods" = action/function
+	7
+	Europe and other regions sent items like wool, gold, and silver via the Silk Road.
+	RELATIONAL
+	"sent items" = action
+	8
+	The Silk Road enabled major cultural exchanges spreading religions such as Buddhism and Christianity as well as technologies, scientific knowledge, and artistic traditions.
+	RELATIONAL
+	"enabled exchanges" = functional consequence
+	9
+	The Silk Road connected different civilizations economically and politically helping cities along the routes grow into major centers of commerce and culture.
+	RELATIONAL
+	Causal: connection → city growth
+	10
+	The Silk Road linked the Eastern and Western worlds shaping global trade, cultural interaction, and the development of societies across Eurasia.
+	RELATIONAL
+	"shaping global trade" = causal consequence
+	________________
+
+
+Q8 — Roman Empire (14 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	The Roman Empire began as the Roman Republic.
+	ENTITY_ATTRIBUTE
+	Describes origin/identity of entity
+	2
+	The Roman Empire transitioned into an empire in 27 BCE.
+	TEMPORAL
+	Year is primary verifiable element
+	3
+	Augustus became the first emperor of the Roman Empire.
+	ENTITY_ATTRIBUTE
+	Role/title assigned to named person
+	4
+	At its height during the 2nd century CE the Roman Empire controlled territories from Britain to the Middle East.
+	TEMPORAL
+	"2nd century CE" is primary verifiable element
+	5
+	The Roman Empire unified much of the Mediterranean world under Roman law, trade, and infrastructure.
+	RELATIONAL
+	"unified under" = functional achievement/action
+	6
+	Rome rose through strong military organization, effective administration, and extensive trade networks that allowed it to expand across Europe, North Africa, and parts of Asia.
+	RELATIONAL
+	Causal: military/admin/trade → expansion
+	7
+	Rome's cities, roads, and legal systems helped create one of the most powerful and influential civilizations in ancient history.
+	RELATIONAL
+	"helped create" = causal; subjective qualifier stripped
+	8
+	The Roman Empire began to weaken in the 3rd century CE due to political instability, economic problems such as inflation and heavy taxation, and reliance on slave labor that limited innovation.
+	TEMPORAL
+	"3rd century CE" is primary verifiable element
+	9
+	Frequent changes of emperors and corruption within government institutions further weakened central authority.
+	RELATIONAL
+	Causal: instability → weakened authority
+	10
+	Rome faced increasing external pressure from Germanic tribes and other groups.
+	RELATIONAL
+	"faced pressure" = action/process — not a static property
+	11
+	The empire's vast size made it difficult to defend and govern effectively.
+	RELATIONAL
+	Causal: size → governance difficulty
+	12
+	Military overextension and costly defense of long borders drained resources and reduced the empire's stability.
+	RELATIONAL
+	Causal: overextension → resource drain
+	13
+	The Western Roman Empire officially fell in 476 CE when the Germanic leader Odoacer deposed the last emperor Romulus Augustulus.
+	TEMPORAL
+	Year is primary verifiable element
+	14
+	The Eastern Roman Empire, known as the Byzantine Empire, continued until 1453.
+	TEMPORAL
+	End date is primary verifiable element
+	________________
+
+
+Q9 — Quantum Computing (10 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	Quantum computing is a type of computation that uses quantum bits.
+	ENTITY_ATTRIBUTE
+	Defines what quantum computing is
+	2
+	Quantum bits are also known as qubits.
+	ENTITY_ATTRIBUTE
+	Identity/alias descriptor
+	3
+	Qubits can exist in multiple states simultaneously due to superposition.
+	ENTITY_ATTRIBUTE
+	Property of qubits — what they can do as a characteristic
+	4
+	Unlike classical bits which are either 0 or 1, qubits can represent 0 and 1 at the same time allowing quantum computers to process complex calculations more efficiently.
+	ENTITY_ATTRIBUTE
+	Comparative property of qubits — describes what they are
+	5
+	Quantum computers leverage entanglement where qubits become correlated such that the state of one instantly affects the state of another.
+	RELATIONAL
+	"correlated such that state affects state" = functional relationship
+	6
+	Classical computers rely on deterministic logic gates and sequential operations.
+	ENTITY_ATTRIBUTE
+	Describes what classical computers use — property
+	7
+	Quantum computers use quantum gates that manipulate qubits probabilistically.
+	ENTITY_ATTRIBUTE
+	Describes what quantum computers use — property
+	8
+	Quantum algorithms such as Shor's algorithm for factoring integers and Grover's algorithm for database search can outperform classical algorithms in certain tasks.
+	RELATIONAL
+	"can outperform" = comparative functional claim
+	9
+	The hardware for quantum computing such as superconducting circuits or trapped ions requires extreme conditions like near absolute zero temperatures.
+	ENTITY_ATTRIBUTE
+	Requirement as property of hardware
+	10
+	Quantum computing is currently limited by error rates and qubit scalability.
+	ENTITY_ATTRIBUTE
+	Current limitation as property/state of the system
+	________________
+
+
+Q10 — World War I (10 claims)
+#
+	Claim
+	Type
+	Justification
+	1
+	World War I was caused by a combination of militarism, alliances, imperialism, and nationalism.
+	RELATIONAL
+	Causal: four factors → war
+	2
+	World War I was caused by the assassination of Archduke Franz Ferdinand of Austria-Hungary in 1914.
+	TEMPORAL
+	1914 is primary; causal framing is secondary — split recommended: assassination date → TEMPORAL, assassination caused WWI → RELATIONAL
+	3
+	European powers had formed complex alliances such as the Triple Entente and Triple Alliance which escalated a regional conflict into a global war.
+	RELATIONAL
+	"escalated into global war" = causal consequence
+	4
+	Competition for colonies and economic dominance increased tensions.
+	RELATIONAL
+	Causal: competition → increased tensions
+	5
+	Nationalist movements in the Balkans fueled instability.
+	RELATIONAL
+	Causal: movements → instability
+	6
+	World War I resulted in unprecedented casualties with over 16 million deaths and 20 million wounded.
+	QUANTITATIVE
+	Numerical figures are primary verifiable elements
+	7
+	World War I led to the collapse of the Austro-Hungarian, Ottoman, Russian, and German empires.
+	RELATIONAL
+	Causal: war → collapse of empires
+	8
+	The Treaty of Versailles imposed harsh reparations on Germany.
+	RELATIONAL
+	"imposed reparations" = action with consequence
+	9
+	The Treaty of Versailles created economic hardship and political instability that contributed to World War II.
+	RELATIONAL
+	Causal chain: treaty → hardship → WWII
+	10
+	World War I prompted the formation of the League of Nations to prevent future conflicts.
+	RELATIONAL
+	Causal: war → formation of institution
+	________________
+
+
+Final distribution — 109 claims:
+Type
+	Count
+	%
+	RELATIONAL
+	55
+	50.5%
+	ENTITY_ATTRIBUTE
+	27
+	24.8%
+	TEMPORAL
+	19
+	17.4%
+	QUANTITATIVE
+	5
+	4.6%
+	CITATION
+	1
+	0.9%
+	Total
+	109
+	100%
+	
+
+________________
+
+
+Final tabularized classification:
+Gemini (15 claims)
+#
+	Claim
+	Type
+	Justification
+	G1
+	WHO reports 99% of population breathes air exceeding safety limits
+	CITATION
+	Explicitly attributes to named source (WHO); source-wrapped claim
+	G2
+	Air pollution leads to millions of deaths from stroke and heart disease annually
+	RELATIONAL
+	Causal link: pollution → deaths
+	G3
+	The 2023 IPCC Sixth Assessment Report exists
+	CITATION
+	Pure source-existence claim
+	G4
+	Greenhouse gas emissions must be reduced by 43% by 2030 to limit warming to 1.5°C
+	QUANTITATIVE
+	43% is primary verifiable number
+	G5
+	The Lancet Commission on dementia prevention exists
+	CITATION
+	Pure source-existence claim
+	G6
+	The Lancet Commission identifies 14 modifiable risk factors for dementia
+	RELATIONAL
+	Describes what Commission does — functional action
+	G7
+	The 14 risk factors could prevent or delay 45% of dementia cases
+	QUANTITATIVE
+	45% is primary verifiable element
+	G8
+	NASA data shows sea levels risen approximately 91mm since 1993
+	QUANTITATIVE
+	91mm is primary verifiable measurement; NASA is context not wrapped citation
+	G9
+	Global sea level rise is caused by ice melt and ocean warming
+	RELATIONAL
+	Causal relationship
+	G10
+	CDC maintains childhood vaccine schedule to protect against 11 primary diseases
+	RELATIONAL
+	Functional purpose claim
+	G11
+	CDC adds seasonal recommendations for RSV immunizations in infants
+	RELATIONAL
+	Functional action by named entity — flag for verification
+	G12
+	World Bank found extreme poverty affected roughly 682 million people in 2022
+	QUANTITATIVE
+	682 million is primary verifiable element
+	G13
+	Highest concentration of extreme poverty resides in Sub-Saharan Africa
+	ENTITY_ATTRIBUTE
+	Locational property assigned to phenomenon
+	G14
+	The UN Human Development Report exists
+	CITATION
+	Pure source-existence claim
+	G15
+	UN HDR warns Great Divergence forming in access to technologies and education
+	RELATIONAL
+	Source existence already in G14; embedded fact is causal/functional
+	________________
+
+
+Grok (16 claims)
+#
+	Claim
+	Type
+	Justification
+	Gr1
+	The World Health Organization exists
+	CITATION
+	Pure source-existence claim
+	Gr2
+	Ambient air pollution caused 4.2 million premature deaths worldwide in 2019
+	QUANTITATIVE
+	4.2 million is primary verifiable element
+	Gr3
+	The 4.2 million deaths were primarily from heart disease, stroke, COPD, lung cancer, respiratory infections
+	RELATIONAL
+	Causal breakdown of deaths by cause
+	Gr4
+	The IPCC Sixth Assessment Report Synthesis (2023) exists
+	CITATION
+	Pure source-existence claim
+	Gr5
+	Human activities have caused 1.1°C of global warming above pre-industrial levels
+	QUANTITATIVE
+	1.1°C is primary verifiable measurement
+	Gr6
+	Climate impacts are more widespread and severe than previously assessed
+	RELATIONAL
+	Comparative relational claim
+	Gr7
+	The 2024 Lancet Commission on dementia prevention exists
+	CITATION
+	Pure source-existence claim
+	Gr8
+	The 2024 Lancet Commission identifies 14 risk factors including vision loss and LDL cholesterol
+	RELATIONAL
+	Source existence in Gr7; embedded fact is functional action
+	Gr9
+	The 14 risk factors could prevent or delay about 45% of dementia cases
+	QUANTITATIVE
+	45% is primary verifiable element
+	Gr10
+	Sea level rise rate increased from 2.1mm/year in 1993 to 4.5mm/year by 2024
+	QUANTITATIVE
+	Rate numbers are primary; flag as post-cutoff UNVERIFIABLE candidate
+	Gr11
+	CDC recommends Child and Adolescent Immunization Schedule for ages 0-18
+	RELATIONAL
+	Functional recommendation action
+	Gr12
+	CDC schedule includes DTaP, Hib, PCV, IPV, MMR, varicella, Tdap at specified ages
+	ENTITY_ATTRIBUTE
+	Describes contents/properties of the schedule
+	Gr13
+	Nearly 700 million people (8.5%) lived in extreme poverty on less than $2.15/day around 2022
+	QUANTITATIVE
+	Multiple numbers are primary verifiable elements
+	Gr14
+	Nature journal published advances in CRISPR including AI-designed systems reducing off-target effects
+	RELATIONAL
+	Functional content claim; flag as UNVERIFIABLE — too vague
+	Gr15
+	The UN Human Development Reports exist
+	CITATION
+	Pure source-existence claim
+	Gr16
+	Inequality causes significant losses in development across health, education, income worldwide
+	RELATIONAL
+	Causal relationship
+	________________
+
+
+Updated distribution across all 140 claims (109 original + 31 new):
+Type
+	Original 109
+	New 31
+	Total 140
+	%
+	CITATION
+	1
+	9
+	10
+	7.1%
+	TEMPORAL
+	~23
+	0
+	~23
+	16.4%
+	QUANTITATIVE
+	~5
+	11
+	~16
+	11.4%
+	ENTITY_ATTRIBUTE
+	~22
+	2
+	~24
+	17.1%
+	RELATIONAL
+	~58
+	9
+	~67
+	47.9%

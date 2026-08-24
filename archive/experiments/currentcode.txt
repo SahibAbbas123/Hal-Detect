@@ -1,0 +1,428 @@
+"""
+HalDetect Pipeline — Extraction, Deduplication, Classification
+CSE 700 · University of Chittagong · 2026
+
+Pipeline stages implemented here:
+    1. Paragraph generation (LLM)
+    2. Atomization (LLM) — with subjectivity filter built into prompt
+    3. Deduplication (Sentence-BERT, τ = 0.90)
+    4. Drift check (Sentence-BERT cosine sim vs source paragraph)
+    5. Classification (LLM, few-shot, temperature=0, seed=42)
+    6. Structured JSON extraction per claim (LLM)
+    7. CSV output for manual gold labeling
+
+Verifiers (TEMPORAL, ENTITY_ATTRIBUTE, CITATION, QUANTITATIVE, RELATIONAL)
+are separate modules — not implemented here.
+"""
+
+import requests
+import json
+import csv
+import re
+from datetime import datetime
+from sentence_transformers import SentenceTransformer, util
+
+# =============================================================================
+# CONFIGURATION
+# =============================================================================
+
+OLLAMA_URL   = "http://localhost:11434/api/generate"
+MODEL_NAME   = "gemma4:31b-cloud"
+DRIFT_FLAG_THRESHOLD = 0.50   # below this: flag claim as potentially hallucinated by LLM
+DEDUP_THRESHOLD      = 0.90   # above this: treat as duplicate, drop second
+
+embedder = SentenceTransformer("all-MiniLM-L6-v2")
+
+# =============================================================================
+# LLM CALL
+# =============================================================================
+
+def call_llm(prompt: str, expect_json: bool = False) -> str:
+    """
+    Single entry point for all LLM calls.
+    temperature=0 + seed=42 ensures deterministic, reproducible output.
+    expect_json=True activates Ollama grammar-constrained decoding.
+    """
+    payload = {
+        "model": MODEL_NAME,
+        "prompt": prompt,
+        "stream": False,
+        "options": {
+            "temperature": 0,
+            "seed": 42,
+            "num_ctx": 8192
+        }
+    }
+    if expect_json:
+        payload["format"] = "json"
+
+    try:
+        response = requests.post(OLLAMA_URL, json=payload, timeout=120)
+        response.raise_for_status()
+        return response.json()["response"].strip()
+    except requests.exceptions.RequestException as e:
+        print(f"  [ERROR] LLM call failed: {e}")
+        return ""
+
+# =============================================================================
+# STAGE 1 — PARAGRAPH GENERATION
+# =============================================================================
+
+def generate_paragraph(question: str) -> str:
+    """
+    Generate a factually dense paragraph from a question.
+    Instructs the LLM to use specific facts, not vague characterizations.
+    """
+    prompt = (
+        f"{question}\n\n"
+        "Answer in 5–7 sentences. Use specific, verifiable facts: names, dates, "
+        "numbers, causal relationships. Do not use bullet points or headers. "
+        "Write in plain declarative sentences only. "
+        "Avoid vague phrases like 'revolutionized', 'was influential', or 'is considered'."
+    )
+    return call_llm(prompt)
+
+# =============================================================================
+# STAGE 2 — ATOMIZATION
+# =============================================================================
+
+ATOMIZATION_PROMPT_TEMPLATE = """Break the following paragraph into a list of atomic factual claims.
+
+Rules:
+- Each claim must express exactly one verifiable fact.
+- Each claim must be self-contained: resolve all pronouns (e.g. "He" → full name).
+- Only extract objectively verifiable claims: dates, counts, roles, named inventions, causal events, measurements, source attributions.
+- Skip subjective characterizations that no source can confirm or deny (e.g. "revolutionized", "was a visionary", "is considered great").
+- If a sentence contains a named source AND an embedded fact (e.g. "The WHO states that air pollution causes 7 million deaths"), emit TWO claims:
+    (a) "[Source] reported/stated that [specific claim]" — routes to CITATION verifier
+    (b) The embedded fact alone — routes to its own type verifier
+- Do not merge distinct facts. Do not add facts not present in the paragraph.
+
+Output one claim per line. No numbering, no bullets, no explanation.
+
+Paragraph:
+{paragraph}"""
+
+def atomize(paragraph: str) -> list[str]:
+    prompt = ATOMIZATION_PROMPT_TEMPLATE.format(paragraph=paragraph)
+    raw = call_llm(prompt)
+    claims = [line.strip() for line in raw.split("\n") if line.strip()]
+    return claims
+
+# =============================================================================
+# STAGE 3 — DEDUPLICATION
+# =============================================================================
+
+def deduplicate(claims: list[str]) -> tuple[list[str], int]:
+    """
+    Remove near-duplicate claims using Sentence-BERT cosine similarity.
+    Threshold τ = 0.90 per HalDetect essentials spec.
+    Returns (deduplicated list, number of claims dropped).
+    Both raw and deduplicated counts are retained as metadata.
+    """
+    if not claims:
+        return [], 0
+
+    embeddings = embedder.encode(claims, convert_to_tensor=True)
+    kept_indices = [0]
+
+    for i in range(1, len(claims)):
+        sims = [util.cos_sim(embeddings[i], embeddings[j]).item() for j in kept_indices]
+        if max(sims) < DEDUP_THRESHOLD:
+            kept_indices.append(i)
+
+    dropped = len(claims) - len(kept_indices)
+    return [claims[i] for i in kept_indices], dropped
+
+# =============================================================================
+# STAGE 4 — DRIFT CHECK
+# =============================================================================
+
+def compute_drift(paragraph: str, claims: list[str]) -> list[float]:
+    """
+    Measures cosine similarity between each claim and the source paragraph.
+    Low score = claim may have been paraphrased or hallucinated by LLM during atomization.
+    Threshold 0.50: flag for review, do NOT auto-discard.
+    """
+    para_emb = embedder.encode(paragraph, convert_to_tensor=True)
+    scores = []
+    for claim in claims:
+        claim_emb = embedder.encode(claim, convert_to_tensor=True)
+        sim = util.cos_sim(para_emb, claim_emb).item()
+        scores.append(round(sim, 3))
+    return scores
+
+# =============================================================================
+# STAGE 5 — CLASSIFICATION (LLM, FEW-SHOT)
+# =============================================================================
+
+# Few-shot examples drawn directly from the 140-claim corpus (ground truth).
+# Priority order matches taxonomy rules doc Section 3.1.
+CLASSIFICATION_PROMPT_TEMPLATE = """Classify the following claim into exactly one taxonomy type.
+
+PRIORITY ORDER (apply top-down, stop at first match):
+1. CITATION     — claim names a specific source (org, report, journal) that made a specific assertion.
+                  The source must be named AND the assertion must be attributable to it.
+                  "WHO exists" is NOT a CITATION claim. "The WHO reported X" IS.
+2. TEMPORAL     — the primary verifiable element is a date, year, or era.
+                  A year mentioned only as context (e.g. "during the 1905 crisis") does NOT make it TEMPORAL.
+3. QUANTITATIVE — the primary verifiable element is a specific number, percentage, or measurement.
+                  Vague quantities ("millions", "many") do NOT qualify.
+4. ENTITY_ATTRIBUTE — describes what an entity IS, HAS, or its static role/property.
+5. RELATIONAL   — default. Describes what something DOES, CAUSES, HOW it works, or comparative claims.
+
+Examples from annotated corpus:
+- "Albert Einstein was born on 14 March 1879 in Ulm." → TEMPORAL
+- "Nikola Tesla obtained more than 100 patents." → QUANTITATIVE
+- "Nikola Tesla was a Serbian-American inventor and engineer." → ENTITY_ATTRIBUTE
+- "The 2008 crisis was primarily caused by the collapse of the U.S. housing bubble." → RELATIONAL
+- "The IPCC Sixth Assessment Report states that human activities have caused 1.1°C of warming." → CITATION
+- "Lehman Brothers filed for bankruptcy in September 2008." → TEMPORAL
+- "Human activities have raised global surface temperatures by about 1.1°C." → QUANTITATIVE
+- "DNA has a double-helix structure composed of two strands." → ENTITY_ATTRIBUTE
+- "The bankruptcy of Lehman Brothers triggered global panic in financial markets." → RELATIONAL
+- "Albert Einstein explained the photoelectric effect." → RELATIONAL
+
+Claim: "{claim}"
+
+Reply with exactly one word — the type label. Nothing else."""
+
+def classify_claim(claim: str) -> str:
+    prompt = CLASSIFICATION_PROMPT_TEMPLATE.format(claim=claim)
+    raw = call_llm(prompt).upper().strip()
+
+    for cat in ["CITATION", "TEMPORAL", "QUANTITATIVE", "ENTITY_ATTRIBUTE", "RELATIONAL"]:
+        if cat in raw:
+            return cat
+
+    # Fallback: should rarely trigger given temperature=0 and explicit prompt
+    return "RELATIONAL"
+
+# =============================================================================
+# STAGE 6 — STRUCTURED JSON EXTRACTION
+# =============================================================================
+
+EXTRACTION_PROMPT_TEMPLATE = """Extract the structured elements from this factual claim. Return valid JSON only.
+
+Claim: "{claim}"
+
+Return exactly this structure:
+{{
+  "claim": "<the original claim verbatim>",
+  "subject": "<primary entity the claim is about>",
+  "property": "<what is being asserted, e.g. birth_year, nationality, inventor_of, cause_of>",
+  "value": "<the asserted value or target>",
+  "secondary_context": {{}}
+}}
+
+Rules:
+- "subject" must be a named entity (person, organization, event, concept).
+- "property" should be a short snake_case descriptor usable as a Wikidata/DBpedia property label.
+- "value" should be the specific fact being claimed (a year, a name, a number, a place).
+- "secondary_context" holds any additional entities or qualifiers (e.g. location, unit).
+- JSON only. No explanation, no preamble."""
+
+def extract_structure(claim: str) -> dict:
+    prompt = EXTRACTION_PROMPT_TEMPLATE.format(claim=claim)
+    raw = call_llm(prompt, expect_json=True)
+
+    try:
+        # Strip markdown fences if model adds them despite instruction
+        clean = re.sub(r"```json|```", "", raw).strip()
+        return json.loads(clean)
+    except json.JSONDecodeError:
+        # Return minimal valid structure so pipeline continues
+        return {
+            "claim": claim,
+            "subject": None,
+            "property": None,
+            "value": None,
+            "secondary_context": {}
+        }
+
+# =============================================================================
+# FULL PIPELINE
+# =============================================================================
+
+def process_question(question: str, q_id: str) -> dict:
+    print(f"\n[{q_id}] {question}")
+
+    # Stage 1: Generate paragraph
+    paragraph = generate_paragraph(question)
+    # print(f"  Paragraph ({len(paragraph)} chars): {paragraph[:80]}...")
+    print(f"\n  [FULL PARAGRAPH]:\n{paragraph}\n")
+
+    # Stage 2: Atomize
+    raw_claims = atomize(paragraph)
+    raw_count = len(raw_claims)
+    print(f"  Atomized: {raw_count} claims")
+
+    # Stage 3: Deduplicate
+    claims, dropped = deduplicate(raw_claims)
+    print(f"  After dedup: {len(claims)} claims ({dropped} dropped)")
+
+    # Stage 4: Drift check (batch)
+    drift_scores = compute_drift(paragraph, claims)
+
+    # Stages 5 + 6: Classify and extract per claim
+    processed = []
+    type_counts = {"CITATION": 0, "TEMPORAL": 0, "QUANTITATIVE": 0,
+                   "ENTITY_ATTRIBUTE": 0, "RELATIONAL": 0}
+
+    for idx, (claim, drift) in enumerate(zip(claims, drift_scores)):
+        flagged = drift < DRIFT_FLAG_THRESHOLD
+
+        claim_type   = classify_claim(claim)
+        structured   = extract_structure(claim)
+
+        type_counts[claim_type] += 1
+
+        processed.append({
+            "q_id":       q_id,
+            "claim_id":   f"{q_id}_C{idx+1:02d}",
+            "claim":      claim,
+            "type":       claim_type,
+            "drift":      drift,
+            "flagged":    flagged,
+            "subject":    structured.get("subject"),
+            "property":   structured.get("property"),
+            "value":      structured.get("value"),
+            "secondary":  json.dumps(structured.get("secondary_context", {})),
+            # Gold label fields — left blank for manual annotation
+            "gold_type":    "",
+            "gold_verdict": "",
+            "notes":        ""
+        })
+
+        status = " ⚠ DRIFT" if flagged else ""
+        # print(f"    [{claim_type}] drift={drift}{status} | {claim[:70]}")
+        print(f"    [{claim_type}] drift={drift}{status} | {claim}")
+
+    return {
+        "q_id":        q_id,
+        "question":    question,
+        "paragraph":   paragraph,
+        "raw_count":   raw_count,
+        "dedup_count": len(claims),
+        "dropped":     dropped,
+        "type_counts": type_counts,
+        "claims":      processed
+    }
+
+# =============================================================================
+# OUTPUT — CSV FOR MANUAL GOLD LABELING
+# =============================================================================
+
+def save_csv(all_results: list[dict], filepath: str):
+    """
+    Saves all claims to CSV with blank gold_type, gold_verdict, notes columns.
+    This is the file you fill in manually for the pilot dataset.
+    """
+    fieldnames = [
+        "q_id", "claim_id", "claim", "type", "drift", "flagged",
+        "subject", "property", "value", "secondary",
+        "gold_type", "gold_verdict", "notes"
+    ]
+    with open(filepath, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for result in all_results:
+            for claim_row in result["claims"]:
+                writer.writerow(claim_row)
+    print(f"\nCSV saved to: {filepath}")
+
+def print_summary(all_results: list[dict]):
+    print("\n" + "=" * 60)
+    print("PIPELINE SUMMARY")
+    print("=" * 60)
+
+    total_raw   = sum(r["raw_count"]   for r in all_results)
+    total_dedup = sum(r["dedup_count"] for r in all_results)
+    total_drop  = sum(r["dropped"]     for r in all_results)
+    total_flagged = sum(
+        1 for r in all_results for c in r["claims"] if c["flagged"]
+    )
+
+    global_types = {"CITATION": 0, "TEMPORAL": 0, "QUANTITATIVE": 0,
+                    "ENTITY_ATTRIBUTE": 0, "RELATIONAL": 0}
+    for r in all_results:
+        for t, count in r["type_counts"].items():
+            global_types[t] += count
+
+    print(f"Questions processed : {len(all_results)}")
+    print(f"Raw claims          : {total_raw}")
+    print(f"After dedup         : {total_dedup} ({total_drop} dropped)")
+    print(f"Drift-flagged       : {total_flagged} (drift < {DRIFT_FLAG_THRESHOLD})")
+
+    print("\n" + "-" * 60)
+    print("CUMULATIVE TYPE DISTRIBUTION (all questions)")
+    print("-" * 60)
+    for t in ["CITATION", "TEMPORAL", "QUANTITATIVE", "ENTITY_ATTRIBUTE", "RELATIONAL"]:
+        count = global_types[t]
+        pct = (count / total_dedup * 100) if total_dedup else 0
+        print(f"  {t:<20} {count:>4}  ({pct:>5.1f}%)")
+
+    print("\n" + "-" * 60)
+    print("PER-QUESTION TYPE BREAKDOWN")
+    print("-" * 60)
+    print(f"{'Q_ID':<6} {'Total':<8} {'CITATION':<10} {'TEMPORAL':<10} {'QUANTITATIVE':<15} {'ENTITY_ATTR':<15} {'RELATIONAL':<12}")
+    print("-" * 60)
+    for r in all_results:
+        q_id = r['q_id']
+        total = r['dedup_count']
+        citation = r['type_counts'].get('CITATION', 0)
+        temporal = r['type_counts'].get('TEMPORAL', 0)
+        quantitative = r['type_counts'].get('QUANTITATIVE', 0)
+        entity_attr = r['type_counts'].get('ENTITY_ATTRIBUTE', 0)
+        relational = r['type_counts'].get('RELATIONAL', 0)
+        print(f"{q_id:<6} {total:<8} {citation:<10} {temporal:<10} {quantitative:<15} {entity_attr:<15} {relational:<12}")
+
+    print("\n" + "-" * 60)
+    print("SUMMARY STATISTICS")
+    print("-" * 60)
+    print(f"  Average claims per question : {total_dedup / len(all_results):.1f}")
+    print(f"  Deduplication rate          : {(total_drop / total_raw * 100):.1f}% ({total_drop}/{total_raw})")
+    print(f"  Drift-flagged rate          : {(total_flagged / total_dedup * 100):.1f}% ({total_flagged}/{total_dedup})")
+    print(f"  Most common type            : {max(global_types, key=global_types.get)} ({global_types[max(global_types, key=global_types.get)]} claims)")
+    print(f"  Least common type           : {min(global_types, key=global_types.get)} ({global_types[min(global_types, key=global_types.get)]} claims)")
+
+# =============================================================================
+# ENTRY POINT
+# =============================================================================
+
+if __name__ == "__main__":
+
+    # Revised 10-question set — balanced across all 5 taxonomy types
+    # Dropped: Q3 (DNA), Q4 (Tesla), Q6 (Immune) — too ENTITY_ATTRIBUTE-heavy, no CITATION
+    # Added: policy/research questions to ensure CITATION + QUANTITATIVE coverage
+    # 
+    # Target distribution:
+    #   CITATION (7%): Q5, Q11, Q12, Q13, Q14
+    #   TEMPORAL (16%): Q1, Q2, Q5, Q7, Q10
+    #   QUANTITATIVE (11%): Q2, Q5, Q10, Q11, Q12, Q13, Q14
+    #   ENTITY_ATTRIBUTE (17%): Q1, Q9, Q14
+    #   RELATIONAL (48%): Q2, Q7, Q9, Q10, Q11, Q12, Q13, Q14
+    questions = [
+        ("Q1",  "Tell me about Albert Einstein's life, work, and major contributions to physics."),
+        ("Q2",  "What were the main causes and outcomes of the 2008 global financial crisis?"),
+        ("Q5",  "What are the key findings of the latest IPCC report on climate change?"),
+        ("Q7",  "What is the history and significance of the Silk Road?"),
+        ("Q9",  "What is quantum computing and how does it differ from classical computing?"),
+        ("Q10", "What were the causes and global consequences of World War I?"),
+        ("Q11", "What does the World Health Organization report about air pollution and public health?"),
+        ("Q12", "According to the Lancet Commission, what are the main risk factors for dementia prevention?"),
+        ("Q13", "What does the CDC recommend regarding childhood vaccine schedules in the United States?"),
+        ("Q14", "What does recent research report about global poverty statistics and causes?"),
+    ]
+
+    all_results = []
+    for q_id, question in questions:
+        result = process_question(question, q_id)
+        all_results.append(result)
+
+    print_summary(all_results)
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    csv_path  = f"haldetect_claims_{timestamp}.csv"
+    save_csv(all_results, csv_path)
+    

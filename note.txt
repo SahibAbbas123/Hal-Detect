@@ -1,0 +1,41 @@
+10am - 20pm
+DSEX
+daily volume, turnover, transaction/trade executinos, YTD (full form?), symbols traded 81 gainer 290 looser 45 unchanged --> try memorizing regularly
+trigger (the side scroller)
+wtchlist
+splits - how many orders (need to look up)
+bid - buyer
+offer - seller
+share caegories A B N Z -> depends on yearly dividend; maturation date vary
+public and block market
+
+app - trade express 2.0
+
+---
+
+
+equity trading:
+publicly listed company gular share gular ownership becha kena.
+approacehs: day trading, swing trading, position trading, value investing, growth investing
+> Growth Share (check squar pharm, city bank etc - at least one in each domain)
+> stock statistics - try remembering and memorizing the top ones'
+
+key concepts:
+bid prie, ask price, spread, market order, limit order, stop-loss order
+
+risks:
+market volatility, company-specific events, econ factors such as interest rates, inflation, geopli events, poor risk mgt
+
+Main brokerage services:
+1. equity trading: buying and selling listed shares, dse trading, market and limit orders
+2. bo account services: opening bo accounts, CDBL related services, BO account maintenance, transfer of shares
+3. margin financing: providing margin facilties to eligible clients, financing against approved sercurities, monitoring margin exposure and risk  (try a simple example of profit and another of loss)
+4. portfolio mgt: discretionary portfolio mgt, investment advice, portfolio monitoring and rebalancing, performance reporting
+5. research advisory
+6. ipo and 
+7. isntitutional brokerage
+8. fixed income/bond trading: 2,5,10,15,20 yrs worthy bonds --> practice some real-life mathematical examples
+
+> depository participant (dp) services vs brokerage
+
+summary: brokerage services = trading + do account + margin + portfolio mgt + research + ipo + bonds + digital services + client support

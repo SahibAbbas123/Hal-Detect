@@ -1,0 +1,56 @@
+# --- secrets: never commit ---
+# geminiAPI.txt is NOT the only copy of the key. `.geminiAPI` (dotfile, same
+# 53-char value) and `.zshrc` (holds a live ANTHROPIC_AUTH_TOKEN) were both
+# caught STAGED on 2026-08-25, before the first commit. Re-check with
+#   git diff --cached --name-only | grep -iE "gemini|zshrc|rc$|env|key|token"
+# before EVERY commit, not just the first one.
+geminiAPI.txt
+.geminiAPI
+.geminiAPI*
+*gemini*key*
+.zshrc
+.bashrc
+.profile
+*.key
+*.pem
+.env
+.env.*
+!.env.example
+
+# --- virtualenv ---
+# .venv*/ also covers .venv-pdf/ (pdf-skill tooling, kept out of the pinned
+# thesis venv so the torch/transformers pins stay reproducible).
+.venv*/
+venv/
+__pycache__/
+*.py[cod]
+
+# --- API / model caches -------------------------------------------------
+# These are large and machine-local, BUT read the caching rule before you
+# decide to delete any of them: thesis numbers come from a single cached run,
+# and Gemini query generation is non-deterministic without its cache. Ignoring
+# them in git is fine; deleting them mid-experiment is not.
+*_cache.json
+verifier_cache*.json
+relational_cache.json
+relational_retrieval_cache.json
+relational_nli_cache.json
+llm_baseline_cache.json
+*.json.bak-*
+archive/caches/
+
+# --- large, re-downloadable, or derived (keeps history reviewable) ---------
+# data/ is FActScore + FEVER (54M, re-downloadable). factscore-repo is an
+# embedded git clone -- git warns about it and it is re-clonable.
+data/
+factscore-repo/
+*.zip
+
+# --- OS noise ---
+.DS_Store
+Thumbs.db
+
+# --- scratch ---
+/tmp/
+*.tmp
+*.log

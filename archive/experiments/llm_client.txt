@@ -1,0 +1,250 @@
+Loading weights: 100%|██████████| 103/103 [00:00<00:00, 6949.13it/s]
+
+[Q1] Tell me about Albert Einstein's life, work, and major contributions to physics.
+
+  [FULL PARAGRAPH]:
+Albert Einstein published four groundbreaking papers in 1905 while working at the Swiss Patent Office in Bern. He derived the equation E=mc² to show that mass and energy are interchangeable. He explained the photoelectric effect by proposing that light consists of discrete packets called quanta. This work earned him the Nobel Prize in Physics in 1921. In 1915, he published the general theory of relativity to describe gravity as the curvature of spacetime. He predicted that gravity bends light, which Arthur Eddington verified during a solar eclipse in 1919. Einstein spent his final years at the Institute for Advanced Study in Princeton.
+
+  Atomized: 12 claims
+  After dedup: 12 claims (0 dropped)
+    [TEMPORAL] drift=0.64 | Albert Einstein published four papers in 1905.
+    [TEMPORAL] drift=0.58 | Albert Einstein worked at the Swiss Patent Office in Bern in 1905.
+    [RELATIONAL] drift=0.598 | Albert Einstein derived the equation E=mc².
+    [RELATIONAL] drift=0.377 ⚠ DRIFT | The equation E=mc² shows that mass and energy are interchangeable.
+    [RELATIONAL] drift=0.572 | Albert Einstein proposed that light consists of discrete packets called quanta.
+    [RELATIONAL] drift=0.573 | Albert Einstein explained the photoelectric effect by proposing that light consists of discrete packets called quanta.
+    [TEMPORAL] drift=0.681 | Albert Einstein received the Nobel Prize in Physics in 1921.
+    [TEMPORAL] drift=0.726 | Albert Einstein published the general theory of relativity in 1915.
+    [ENTITY_ATTRIBUTE] drift=0.421 ⚠ DRIFT | The general theory of relativity describes gravity as the curvature of spacetime.
+    [RELATIONAL] drift=0.698 | Albert Einstein predicted that gravity bends light.
+    [TEMPORAL] drift=0.61 | Arthur Eddington verified that gravity bends light during a solar eclipse in 1919.
+    [RELATIONAL] drift=0.615 | Albert Einstein spent his final years at the Institute for Advanced Study in Princeton.
+
+[Q2] What were the main causes and outcomes of the 2008 global financial crisis?
+
+  [FULL PARAGRAPH]:
+The 2008 financial crisis began with a collapse in the United States housing market. Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006. Investment banks bundled these high-risk loans into mortgage-backed securities and sold them to global investors. Home prices peaked in 2006 and then fell, causing millions of homeowners to default on their loans. Lehman Brothers filed for bankruptcy on September 15, 2008, triggering a global liquidity freeze. The U.S. government passed the Emergency Economic Stabilization Act of 2008 to provide $700 billion for bank bailouts. This crisis led to the Great Recession, which saw the global GDP contract by 0.1% in 2009.
+
+  Atomized: 13 claims
+  After dedup: 13 claims (0 dropped)
+    [RELATIONAL] drift=0.715 | The 2008 financial crisis began with a collapse in the United States housing market.
+    [TEMPORAL] drift=0.453 ⚠ DRIFT | Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006.
+    [RELATIONAL] drift=0.5 | Investment banks bundled high-risk loans into mortgage-backed securities.
+    [RELATIONAL] drift=0.478 ⚠ DRIFT | Investment banks sold mortgage-backed securities to global investors.
+    [TEMPORAL] drift=0.44 ⚠ DRIFT | Home prices peaked in 2006.
+    [TEMPORAL] drift=0.468 ⚠ DRIFT | Home prices fell after 2006.
+    [RELATIONAL] drift=0.498 ⚠ DRIFT | Millions of homeowners defaulted on their loans.
+    [TEMPORAL] drift=0.621 | Lehman Brothers filed for bankruptcy on September 15, 2008.
+    [RELATIONAL] drift=0.602 | The bankruptcy of Lehman Brothers triggered a global liquidity freeze.
+    [TEMPORAL] drift=0.561 | The U.S. government passed the Emergency Economic Stabilization Act of 2008.
+    [QUANTITATIVE] drift=0.685 | The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.
+    [RELATIONAL] drift=0.634 | The 2008 financial crisis led to the Great Recession.
+    [TEMPORAL] drift=0.405 ⚠ DRIFT | The global GDP contracted by 0.1% in 2009.
+
+[Q5] What are the key findings of the latest IPCC report on climate change?
+
+  [FULL PARAGRAPH]:
+The IPCC Sixth Assessment Report published in 2023 states that human activities have unequivocally caused global warming. Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850. This warming is driven by the emission of greenhouse gases from fossil fuel combustion and land use. The report warns that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s. This temperature rise causes more frequent and intense extreme weather events. Rapid reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius. Net-zero emissions must be achieved by 2050 to stabilize the global climate.
+
+  Atomized: 10 claims
+  After dedup: 9 claims (1 dropped)
+    [CITATION] drift=0.51 | The IPCC Sixth Assessment Report was published in 2023.
+    [CITATION] drift=0.812 | The IPCC Sixth Assessment Report states that human activities have caused global warming.
+    [RELATIONAL] drift=0.698 | Human activities have caused global warming.
+    [QUANTITATIVE] drift=0.609 | Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.
+    [RELATIONAL] drift=0.609 | The emission of greenhouse gases from fossil fuel combustion and land use drives global warming.
+    [CITATION] drift=0.765 | The IPCC Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.
+    [RELATIONAL] drift=0.358 ⚠ DRIFT | A temperature rise causes more frequent and intense extreme weather events.
+    [QUANTITATIVE] drift=0.69 | Reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius.
+    [TEMPORAL] drift=0.669 | Net-zero emissions must be achieved by 2050 to stabilize the global climate.
+
+[Q7] What is the history and significance of the Silk Road?
+
+  [FULL PARAGRAPH]:
+The Silk Road began during the Han Dynasty around 130 BCE when Emperor Wu dispatched Zhang Qian to establish alliances in Central Asia. This network of trade routes connected Chang'an in China to the Mediterranean Sea over a distance of approximately 6,400 kilometers. Merchants transported Chinese silk, lacquerware, and paper westward in exchange for horses, glassware, and grapes from the Roman Empire. The movement of people facilitated the spread of Buddhism from India to China during the 1st century CE. Mongol conquests under Genghis Khan in the 13th century secured these routes and increased trade volume through the Pax Mongolica. The Black Death plague traveled along these paths from Central Asia to Europe in the 14th century. Maritime trade routes replaced land travel after the Ottoman Empire blocked traditional paths to the East in 1453.
+
+  Atomized: 17 claims
+  After dedup: 17 claims (0 dropped)
+    [TEMPORAL] drift=0.731 | The Silk Road began during the Han Dynasty around 130 BCE.
+    [RELATIONAL] drift=0.517 | Emperor Wu dispatched Zhang Qian to establish alliances in Central Asia.
+    [RELATIONAL] drift=0.721 | The Silk Road network of trade routes connected Chang'an in China to the Mediterranean Sea.
+    [QUANTITATIVE] drift=0.662 | The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.
+    [RELATIONAL] drift=0.667 | Merchants transported Chinese silk westward.
+    [RELATIONAL] drift=0.537 | Merchants transported Chinese lacquerware westward.
+    [RELATIONAL] drift=0.529 | Merchants transported Chinese paper westward.
+    [RELATIONAL] drift=0.382 ⚠ DRIFT | Merchants received horses from the Roman Empire.
+    [RELATIONAL] drift=0.287 ⚠ DRIFT | Merchants received glassware from the Roman Empire.
+    [RELATIONAL] drift=0.338 ⚠ DRIFT | Merchants received grapes from the Roman Empire.
+    [TEMPORAL] drift=0.532 | Buddhism spread from India to China during the 1st century CE.
+    [TEMPORAL] drift=0.584 | Genghis Khan led Mongol conquests in the 13th century.
+    [RELATIONAL] drift=0.732 | Mongol conquests secured the Silk Road routes.
+    [RELATIONAL] drift=0.498 ⚠ DRIFT | The Pax Mongolica increased trade volume.
+    [TEMPORAL] drift=0.544 | The Black Death plague traveled from Central Asia to Europe in the 14th century.
+    [TEMPORAL] drift=0.376 ⚠ DRIFT | The Ottoman Empire blocked traditional paths to the East in 1453.
+    [TEMPORAL] drift=0.526 | Maritime trade routes replaced land travel after 1453.
+
+[Q9] What is quantum computing and how does it differ from classical computing?
+
+  [FULL PARAGRAPH]:
+Classical computers use bits to represent data as either a 0 or a 1. Quantum computers use qubits that exist in superpositions of both states simultaneously. This capability allows quantum systems to perform certain calculations exponentially faster than classical binary systems. In 1994, Peter Shor developed an algorithm that allows quantum computers to factor large integers efficiently. Classical computers require sub-exponential time to solve the same factoring problems. Google claimed quantum supremacy in 2019 using a 53-qubit processor called Sycamore. This processor completed a specific sampling task in 200 seconds that would take a classical supercomputer 10,000 years.
+
+  Atomized: 9 claims
+  After dedup: 9 claims (0 dropped)
+    [ENTITY_ATTRIBUTE] drift=0.486 ⚠ DRIFT | Classical computers use bits to represent data as either a 0 or a 1.
+    [ENTITY_ATTRIBUTE] drift=0.63 | Quantum computers use qubits that exist in superpositions of both states simultaneously.
+    [RELATIONAL] drift=0.685 | Quantum systems can perform certain calculations exponentially faster than classical binary systems.
+    [TEMPORAL] drift=0.805 | Peter Shor developed an algorithm in 1994 that allows quantum computers to factor large integers efficiently.
+    [RELATIONAL] drift=0.667 | Classical computers require sub-exponential time to solve the factoring problems addressed by Peter Shor's algorithm.
+    [TEMPORAL] drift=0.557 | Google claimed quantum supremacy in 2019.
+    [QUANTITATIVE] drift=0.717 | Google used a 53-qubit processor called Sycamore to claim quantum supremacy.
+    [QUANTITATIVE] drift=0.476 ⚠ DRIFT | The Sycamore processor completed a specific sampling task in 200 seconds.
+    [QUANTITATIVE] drift=0.617 | A classical supercomputer would take 10,000 years to complete the sampling task performed by the Sycamore processor.
+
+[Q10] What were the causes and global consequences of World War I?
+
+  [FULL PARAGRAPH]:
+The assassination of Archduke Franz Ferdinand on June 28, 1914, triggered a series of alliance obligations between European powers. Germany, Austria-Hungary, Great Britain, France, and Russia entered the conflict due to these mutual defense treaties. The war resulted in approximately 20 million deaths and 21 million wounded soldiers. The 1919 Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations. The conflict led to the collapse of the German, Austro-Hungarian, Ottoman, and Russian empires. These collapses created new sovereign states including Poland, Czechoslovakia, and Yugoslavia. The League of Nations formed in 1920 to prevent future global conflicts through diplomacy.
+
+  Atomized: 19 claims
+  After dedup: 19 claims (0 dropped)
+    [TEMPORAL] drift=0.574 | Archduke Franz Ferdinand was assassinated on June 28, 1914.
+    [RELATIONAL] drift=0.667 | The assassination of Archduke Franz Ferdinand triggered a series of alliance obligations between European powers.
+    [RELATIONAL] drift=0.514 | Germany entered the conflict due to mutual defense treaties.
+    [RELATIONAL] drift=0.543 | Austria-Hungary entered the conflict due to mutual defense treaties.
+    [RELATIONAL] drift=0.41 ⚠ DRIFT | Great Britain entered the conflict due to mutual defense treaties.
+    [RELATIONAL] drift=0.402 ⚠ DRIFT | France entered the conflict due to mutual defense treaties.
+    [RELATIONAL] drift=0.403 ⚠ DRIFT | Russia entered the conflict due to mutual defense treaties.
+    [QUANTITATIVE] drift=0.446 ⚠ DRIFT | The war resulted in approximately 20 million deaths.
+    [QUANTITATIVE] drift=0.364 ⚠ DRIFT | The war resulted in 21 million wounded soldiers.
+    [TEMPORAL] drift=0.557 | The Treaty of Versailles was signed in 1919.
+    [QUANTITATIVE] drift=0.589 | The Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations.
+    [RELATIONAL] drift=0.432 ⚠ DRIFT | The conflict led to the collapse of the German empire.
+    [RELATIONAL] drift=0.457 ⚠ DRIFT | The conflict led to the collapse of the Austro-Hungarian empire.
+    [RELATIONAL] drift=0.379 ⚠ DRIFT | The conflict led to the collapse of the Ottoman empire.
+    [RELATIONAL] drift=0.313 ⚠ DRIFT | The conflict led to the collapse of the Russian empire.
+    [RELATIONAL] drift=0.385 ⚠ DRIFT | The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Poland.
+    [RELATIONAL] drift=0.336 ⚠ DRIFT | The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Czechoslovakia.
+    [RELATIONAL] drift=0.375 ⚠ DRIFT | The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Yugoslavia.
+    [TEMPORAL] drift=0.506 | The League of Nations formed in 1920.
+
+[Q11] What does the World Health Organization report about air pollution and public health?
+
+  [FULL PARAGRAPH]:
+The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year. In 2021, the organization updated its Global Air Quality Guidelines to lower the recommended levels of fine particulate matter. These guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter. High levels of these pollutants cause respiratory infections, heart disease, and strokes in human populations. Ambient air pollution and household air pollution from solid fuels are the primary drivers of these health risks. The organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality. These deaths result from the inhalation of toxic chemicals and particles that enter the bloodstream through the lungs.
+
+  Atomized: 15 claims
+  After dedup: 12 claims (3 dropped)
+    [CITATION] drift=0.759 | The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year.
+    [TEMPORAL] drift=0.636 | The World Health Organization updated its Global Air Quality Guidelines in 2021.
+    [CITATION] drift=0.695 | The World Health Organization's Global Air Quality Guidelines lower the recommended levels of fine particulate matter.
+    [CITATION] drift=0.712 | The Global Air Quality Guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter.
+    [RELATIONAL] drift=0.595 | High levels of fine particulate matter cause respiratory infections in human populations.
+    [RELATIONAL] drift=0.598 | High levels of fine particulate matter cause heart disease in human populations.
+    [RELATIONAL] drift=0.521 | High levels of fine particulate matter cause strokes in human populations.
+    [RELATIONAL] drift=0.682 | Ambient air pollution is a primary driver of respiratory infections, heart disease, and strokes.
+    [RELATIONAL] drift=0.669 | Household air pollution from solid fuels is a primary driver of respiratory infections, heart disease, and strokes.
+    [CITATION] drift=0.679 | The World Health Organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality.
+    [RELATIONAL] drift=0.726 | Pollution-related deaths result from the inhalation of toxic chemicals and particles.
+    [RELATIONAL] drift=0.498 ⚠ DRIFT | Toxic chemicals and particles enter the bloodstream through the lungs.
+
+[Q12] According to the Lancet Commission, what are the main risk factors for dementia prevention?
+
+  [FULL PARAGRAPH]:
+The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases. In childhood and adolescence, low education levels increase risk. Midlife risk factors include hypertension, obesity, diabetes, hearing loss, and smoking. Later life factors include social isolation, physical inactivity, and air pollution. The commission reports that treating hypertension and hearing loss provides the largest potential reductions in risk. These factors contribute to dementia through causal pathways like vascular damage and cognitive decline. Addressing these 12 factors can prevent or delay approximately 12 million cases of dementia globally.
+
+  Atomized: 16 claims
+  After dedup: 15 claims (1 dropped)
+    [CITATION] drift=0.802 | The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.
+    [RELATIONAL] drift=0.701 | Low education levels in childhood and adolescence increase the risk of dementia.
+    [RELATIONAL] drift=0.805 | Hypertension is a midlife risk factor for dementia.
+    [RELATIONAL] drift=0.731 | Obesity is a midlife risk factor for dementia.
+    [RELATIONAL] drift=0.739 | Diabetes is a midlife risk factor for dementia.
+    [RELATIONAL] drift=0.766 | Hearing loss is a midlife risk factor for dementia.
+    [RELATIONAL] drift=0.702 | Smoking is a midlife risk factor for dementia.
+    [RELATIONAL] drift=0.615 | Social isolation is a later life risk factor for dementia.
+    [RELATIONAL] drift=0.658 | Physical inactivity is a later life risk factor for dementia.
+    [RELATIONAL] drift=0.678 | Air pollution is a later life risk factor for dementia.
+    [CITATION] drift=0.527 | The 2020 Lancet Commission reports that treating hypertension and hearing loss provides the largest potential reductions in risk.
+    [RELATIONAL] drift=0.799 | Treating hypertension and hearing loss provides the largest potential reductions in dementia risk.
+    [RELATIONAL] drift=0.732 | Vascular damage is a causal pathway through which modifiable risk factors contribute to dementia.
+    [RELATIONAL] drift=0.714 | Cognitive decline is a causal pathway through which modifiable risk factors contribute to dementia.
+    [QUANTITATIVE] drift=0.771 | Addressing the 12 modifiable risk factors can prevent or delay approximately 12 million cases of dementia globally.
+
+[Q13] What does the CDC recommend regarding childhood vaccine schedules in the United States?
+
+  [FULL PARAGRAPH]:
+The CDC recommends a specific immunization schedule for children from birth through age 18. This schedule includes vaccines for diseases such as polio, measles, mumps, and rubella. Infants typically receive their first dose of the Hepatitis B vaccine within 24 hours of birth. The CDC updates these recommendations annually to reflect new clinical data and vaccine developments. Following this schedule prevents the spread of vaccine-preventable diseases in the community. Healthcare providers use these guidelines to determine the precise timing and dosage for each injection. Parents can access the current schedule on the official CDC website.
+
+  Atomized: 10 claims
+  After dedup: 10 claims (0 dropped)
+    [CITATION] drift=0.731 | The CDC recommends a specific immunization schedule for children from birth through age 18.
+    [ENTITY_ATTRIBUTE] drift=0.549 | The CDC immunization schedule includes vaccines for polio.
+    [ENTITY_ATTRIBUTE] drift=0.535 | The CDC immunization schedule includes vaccines for measles.
+    [ENTITY_ATTRIBUTE] drift=0.564 | The CDC immunization schedule includes vaccines for mumps.
+    [ENTITY_ATTRIBUTE] drift=0.518 | The CDC immunization schedule includes vaccines for rubella.
+    [TEMPORAL] drift=0.878 | Infants typically receive their first dose of the Hepatitis B vaccine within 24 hours of birth.
+    [RELATIONAL] drift=0.51 | The CDC updates the immunization recommendations annually.
+    [RELATIONAL] drift=0.496 ⚠ DRIFT | Healthcare providers use the CDC guidelines to determine the timing for each injection.
+    [RELATIONAL] drift=0.402 ⚠ DRIFT | Healthcare providers use the CDC guidelines to determine the dosage for each injection.
+    [ENTITY_ATTRIBUTE] drift=0.528 | The current immunization schedule is accessible on the official CDC website.
+
+[Q14] What does recent research report about global poverty statistics and causes?
+
+  [FULL PARAGRAPH]:
+The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population. This figure represents approximately 685 million people living on less than $2.15 per day. The COVID-19 pandemic pushed an estimated 70 million to 100 million additional people into extreme poverty between 2020 and 2022. Conflict and climate shocks in Sub-Saharan Africa caused a 10% increase in food insecurity during 2023. High inflation rates in low-income countries reduced the purchasing power of households by an average of 5% in 2022. These economic shocks created a causal link between rising fuel costs and increased malnutrition in rural regions. Debt distress in 60% of low-income countries now limits government spending on healthcare and education.
+
+  Atomized: 9 claims
+  After dedup: 9 claims (0 dropped)
+    [CITATION] drift=0.742 | The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.
+    [QUANTITATIVE] drift=0.634 | The global extreme poverty rate remained stagnant at 8.4% of the population.
+    [QUANTITATIVE] drift=0.662 | The global extreme poverty rate of 8.4% represents approximately 685 million people living on less than $2.15 per day.
+    [TEMPORAL] drift=0.704 | The COVID-19 pandemic pushed an estimated 70 million to 100 million additional people into extreme poverty between 2020 and 2022.
+    [TEMPORAL] drift=0.697 | Conflict and climate shocks in Sub-Saharan Africa caused a 10% increase in food insecurity during 2023.
+    [QUANTITATIVE] drift=0.587 | High inflation rates in low-income countries reduced the purchasing power of households by an average of 5% in 2022.
+    [RELATIONAL] drift=0.492 ⚠ DRIFT | Rising fuel costs caused increased malnutrition in rural regions.
+    [QUANTITATIVE] drift=0.476 ⚠ DRIFT | Debt distress exists in 60% of low-income countries.
+    [QUANTITATIVE] drift=0.584 | Debt distress in 60% of low-income countries limits government spending on healthcare and education.
+
+============================================================
+PIPELINE SUMMARY
+============================================================
+Questions processed : 10
+Raw claims          : 130
+After dedup         : 125 (5 dropped)
+Drift-flagged       : 33 (drift < 0.5)
+
+------------------------------------------------------------
+CUMULATIVE TYPE DISTRIBUTION (all questions)
+------------------------------------------------------------
+  CITATION               11  (  8.8%)
+  TEMPORAL               27  ( 21.6%)
+  QUANTITATIVE           16  ( 12.8%)
+  ENTITY_ATTRIBUTE        8  (  6.4%)
+  RELATIONAL             63  ( 50.4%)
+
+------------------------------------------------------------
+PER-QUESTION TYPE BREAKDOWN
+------------------------------------------------------------
+Q_ID   Total    CITATION   TEMPORAL   QUANTITATIVE    ENTITY_ATTR     RELATIONAL  
+------------------------------------------------------------
+Q1     12       0          5          0               1               6           
+Q2     13       0          6          1               0               6           
+Q5     9        3          1          2               0               3           
+Q7     17       0          6          1               0               10          
+Q9     9        0          2          3               2               2           
+Q10    19       0          3          3               0               13          
+Q11    12       4          1          0               0               7           
+Q12    15       2          0          1               0               12          
+Q13    10       1          1          0               5               3           
+Q14    9        1          2          5               0               1           
+
+------------------------------------------------------------
+SUMMARY STATISTICS
+------------------------------------------------------------
+  Average claims per question : 12.5
+  Deduplication rate          : 3.8% (5/130)
+  Drift-flagged rate          : 26.4% (33/125)
+  Most common type            : RELATIONAL (63 claims)
+  Least common type           : ENTITY_ATTRIBUTE (8 claims)
+
+CSV saved to: haldetect_claims_20260524_045439.csv

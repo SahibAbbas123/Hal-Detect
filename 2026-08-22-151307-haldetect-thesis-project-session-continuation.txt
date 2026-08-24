@@ -1,0 +1,1351 @@
+ ▐▛███▛█   Claude Code v2.1.239
+▝▜██████▀  Sonnet 5 · Claude Pro
+  ▝▝ ▝▝    ~/8th Semester Materials/ThesisCode_copy
+
+
+❯ HalDetect Thesis Project — Session Continuation                               
+                                                                                
+  Context                                                                       
+                                                                                
+  This is a taxonomy-routed hallucination detection system for LLM-generated    
+  text.                                                                         
+                                                                                
+  Recent completion (2026-08-21):                                               
+  - Workspace audit and reorganization: cleaned up file structure into          
+  current/, archive/, reference/, latest/                                       
+  - Entity-resolution QID bug fixed in TEMPORAL and ENTITY_ATTRIBUTE verifiers: 
+    - Panama Canal: now resolves to Q7350 (correct) instead of Q498979 (Canal   
+  Zone)                                                                         
+    - Rosetta Stone: now resolves to Q48584 (stele) instead of Q4048553 (punk   
+  band)                                                                         
+    - Both now report honest gaps instead of confident-wrong verdicts           
+    - New Phase 4 (EA) and Phase 2 (TEMPORAL) cells added to                    
+  current/HalDetect_latest.ipynb (76 cells total)                               
+    - New output CSVs: entity_attribute_b3_verified_results_phase4.csv,         
+  temporal_b3_verified_results_phase2.csv                                       
+  - Cache paths restored: relational_retrieval_cache.json,                      
+  relational_nli_cache.json, split verifier_cache_wikidata.json                 
+                                                                                
+  Key reference docs:                                                           
+  - CLAUDE.md — current project status and highest-priority work                
+  - WORKSPACE_AUDIT.md — full audit trail of the reorganization                 
+  - reference/haldetect_fingerprints.md — version-identification fingerprints   
+  - current/README.md, archive/README.md, reference/README.md — directory       
+  guides                                                                        
+                                                                                
+  Next High-Priority Work (pick one to start)                                   
+                                                                                
+  1. Re-run Phase 2 gold (126 claims) through both fixed verifiers — the fix is 
+  complete and tested on Batch 3; Phase 2 is smaller and the thesis currently   
+  cites pre-fix numbers. Run: cd current && python HalDetect_latest.ipynb       
+  (cells 67 for EA, 73 for TEMPORAL to see before/after).                       
+  2. Tackle PROPERTY_TO_WIKIDATA coverage — 25/34 Batch 3 claims now fail on    
+  unmapped property (honest gaps, not wrong verdicts). Needs structural fix:    
+  either per-claim-type property candidates, or querying the entity's actual    
+  statements instead of a static map.                                           
+  3. Archive verifier_cache_temporal.json — confirmed v1-era orphan, no live    
+  cell opens it. One-line cleanup.                                              
+                                                                                
+  Start by reading CLAUDE.md for the full picture, then let me know which path  
+  you'd like to take. summary recap: We're building HalDetect, a hallucination  
+  detector that routes LLM claims to type-specific verifiers. Just fixed a      
+  critical QID-resolution bug that was producing confident wrong verdicts       
+  instead of honest gaps. Next: re-run Phase 2 gold (126 claims) through the    
+  fixed verifiers. are you ready, yes, or no?                                   
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Yes, ready. I confirmed the setup: current/HalDetect_latest.ipynb and all the
+  relevant cache files (relational_nli_cache.json,
+  relational_retrieval_cache.json, verifier_cache_wikidata.json) are present,
+  matching what CLAUDE.md describes.
+
+  One gap: this environment has no jupyter and no nbformat installed, so I can't
+  execute the notebook directly as-is. Before I start on re-running Phase 2
+  gold (126 claims) through the fixed TEMPORAL/EA verifiers, want me to:
+
+  1. Install nbformat/nbclient (or jupyter nbconvert --execute) here and run the
+     notebook end-to-end, or
+  2. Extract the live verifier logic from cells 67/69/73/75 into a standalone
+     script that reads haldetect_phase2_goldlabeled (3).csv and runs just those
+     verifiers (faster, avoids executing the whole 76-cell notebook)?
+
+  I'd lean toward option 2 — it's more targeted and avoids re-running unrelated
+  cells (e.g. relational NLI, citation) — but let me know if you want the full
+  notebook re-executed instead.
+
+✻ Baked for 17s
+
+※ recap: Overall goal: rebuild HalDetect's Phase 2 gold results with the fixed TEMPORAL/EA verifiers. Setup's confirmed ready; next I need you to pick: install jupyter and run the full notebook, or let me extract just the verifier cells into a standalone script. (disable recaps in /config)
+
+❯ regarding the gap you mentioned, claude from a different chat says it handled 
+  the situation as following:                                                   
+  I never actually used Jupyter or nbformat. Here's what I did instead:         
+                                                                                
+  For notebook manipulation:                                                    
+  - Treated HalDetect_latest.ipynb as raw JSON (which it is)                    
+  - Loaded with json.load(), parsed the cell structure directly, inserted new   
+  cells, wrote back with json.dump()                                            
+  - Validated round-trip with json.load() to catch syntax errors                
+  - Never touched nbformat — the JSON structure is straightforward enough that  
+  direct manipulation works                                                     
+                                                                                
+  For running verifier code:                                                    
+  - Stripped the !pip install magic lines (Jupyter-specific syntax)             
+  - Ran the resulting Python as standalone scripts: .venv/bin/python            
+  run_new_ea_phase4.py                                                          
+  - Never invoked jupyter — the .py files are self-contained once magics are    
+  removed                                                                       
+                                                                                
+  Why this works:                                                               
+  - A .ipynb is just JSON with a specific schema — you don't need nbformat to   
+  read/write it, only to validate or convert formats                            
+  - Notebook cells are plain Python once magics are stripped — you don't need   
+  Jupyter to run them                                                           
+  - The SBERT loader, Wikidata queries, CSV I/O all work fine as standalone     
+  Python                                                                        
+                                                                                
+  The tradeoff:                                                                 
+  - Can't use Jupyter's % magics, inline plotting, or kernel state              
+  - Can't iterate interactively in cells (what notebooks are for)               
+  - But for non-interactive end-to-end runs and programmatic cell manipulation, 
+  the JSON approach is cleaner                                                  
+                                                                                
+  If you need to iterate or visualize, you'd need to install jupyter. But for   
+  the validation runs I did (end-to-end verifier execution, cell insertion,     
+  metadata checks), avoiding the dependency was fine.                           
+  whatever you do, i need you keep track in case we need to take a few steps    
+  back. dont start without my confirmation.                                     
+
+⏺ That approach is sound — a .ipynb is just JSON, so json.load/json.dump plus
+  stripping !pip install and other magics is a valid way to run cells as plain
+  Python without Jupyter. I'll use the same method.
+
+  For tracking / rollback safety, here's what I'll do before touching anything:
+
+  1. No overwrite of the notebook itself for the run — I'll extract the live
+     verifier cells (67 EA-Phase4, 69 EA-Phase3-superseded [skip], 73
+     TEMPORAL-Phase1 [skip], 75 TEMPORAL-Phase2) into standalone scripts under a
+     new current/phase2_rerun/ folder, not edit HalDetect_latest.ipynb in
+     place. That way the notebook stays untouched and reversible by
+     construction.
+  2. Snapshot the two cache files (verifier_cache_wikidata.json and any
+     relational caches touched) before running, so a bad run can be reverted by
+     restoring the snapshot.
+  3. Run against current/haldetect_phase2_goldlabeled (3).csv (need to confirm
+     this is really the 126-claim Phase 2 gold set by row count/content, not
+     just filename — per the standing rule in CLAUDE.md).
+  4. Output new CSVs with a clear phase2-rerun naming, never overwrite existing
+     *_phase2.csv / *_phase4.csv files from the Batch 3 run.
+  5. Keep a short log of exactly what was extracted from which cell, what ran,
+     and what changed — so we can step back cleanly if something looks wrong.
+
+  I have not started yet — no files read beyond directory listing, nothing
+  written. Confirm and I'll begin with step 1 (extracting/verifying cell
+  contents) and report back before running anything against live
+  Wikidata/network calls.
+
+✻ Cooked for 12s
+
+❯ /model                                                                        
+  ⎿  Set model to Opus 5 and saved as your default for new sessions
+
+❯ /model                                                                        
+  ⎿  Set model to Opus 5 and saved as your default for new sessions
+
+❯ /model                                                                        
+  ⎿  Set model to Opus 5 and saved as your default for new sessions with high
+     effort
+
+❯ /Users/sahibabc/Downloads/thoughts.txt why dont you go through this txt?      
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Read it. These are the right questions to be asking — #1 in particular is the
+  one a committee member will ask at the defense, so it's worth answering
+  properly now rather than discovering it live.
+
+  1. Does an LLM-with-search make the verifier ensemble useless?
+
+  Not useless, but the threat is real and you should not answer it the
+  comfortable way.
+
+  The comfortable answer is "manual checking doesn't scale, so automation wins."
+  That's true but it dodges the actual question, which isn't manual vs. 
+  automated — it's my automation vs. the LLM's automation of the same check.
+  That's an empirical question, and right now your thesis is arguing against an
+  opponent you haven't measured.
+
+  Three things genuinely separate your approach, in descending order of
+  strength:
+
+  Independence (strongest, and you're underusing it). If GPT hallucinates a
+  claim and you ask GPT-with-search to check it, the errors are correlated —
+  same parametric priors, same training data, same sycophancy toward
+  confidently-phrased inputs. A SPARQL query against Wikidata has zero
+  correlation with the generator. That's a methodological argument, not a
+  performance argument, and it's the one that's hardest to attack. Detection
+  literature takes this seriously.
+
+  Attributable failure. Your verifiers fail in enumerable ways: retrieval missed
+  the passage, NLI threshold miscalibrated, entity resolved to the wrong QID,
+  property unmapped. Every one is a named, loggable, fixable class. An LLM
+  reading the same source fails by producing "FALSE, because [plausible
+  sentence]" where the sentence may be invented — unbounded and untraceable. The
+  Panama Canal / Rosetta Stone bug is your evidence for this. You found it
+  because the pipeline was decomposed. An LLM verifier making the identical
+  error would have emitted a confident paragraph and nobody would ever have
+  known. That's not a hypothetical advantage; it already happened in your own
+  project.
+
+  Determinism and cost. Same claim → same verdict, forever. An LLM's verdict
+  drifts across model versions, which makes reproducibility of your thesis
+  results impossible if the verifier is a frontier model. And a SPARQL lookup is
+  milliseconds and free.
+
+  Now the uncomfortable part: on raw numbers, a search-enabled frontier model
+  will probably beat you on coverage and possibly on accuracy. HalDetect's best
+  type is 80.77% at 55.32% coverage; two types are at zero. If you report a
+  single global accuracy you will lose that comparison badly. The thesis
+  survives this only if it's framed as "structured verification trades coverage
+  for auditable, independent, reproducible verdicts" — which is already what
+  your CLAUDE.md says the research bet is. You just need the number to prove the
+  trade is real.
+
+  So the concrete recommendation: run an LLM-with-search baseline on the same 
+  Batch 3 and Phase 2 gold sets. It's the highest-value experiment available to
+  you. If HalDetect is competitive on its covered claims, that's a strong
+  result. If it isn't, you learn that now instead of at the defense, and the
+  contribution reframes around independence — still publishable, more honest.
+  Not running it is the only losing move.
+
+  2. Will the scores go up?
+
+  Some, yes — but I'd push back on "greater scores" as the primary target,
+  because it creates a trap you've already walked past once.
+
+  Your QID fix reduced coverage, 8.3% → 0% on TEMPORAL. If the objective
+  function is "bigger numbers," that fix looks like a regression, and the
+  incentive is to revert it. It obviously shouldn't be reverted — it converted
+  two confident-wrong verdicts into honest gaps. So make that a reported metric:
+  confident-wrong verdicts went 2 → 0 on Batch 3. That's a real improvement,
+  it's defensible, and it aligns the metric with the honest engineering move
+  instead of against it.
+
+  Where actual score gains are available: TEMPORAL/EA coverage is a
+  property-mapping problem, and it's the clearest win on the board — Wikidata
+  triples are precise, so accuracy on newly-covered claims should be high.
+  RELATIONAL's 80.77% is already respectable; its 55.32% coverage is the softer
+  number and harder to move. And report per-type, always. A global number
+  averaged across a broken CITATION verifier and a nonexistent QUANTITATIVE one
+  will look terrible no matter what you do to the working parts.
+
+  3. Root-cause analysis
+
+  Agreed, and it's already paying off in your project. Run it on the current
+  bottleneck:
+
+  ▎ TEMPORAL coverage is 0% → 25/34 claims hit an unmapped property → 
+  ▎ PROPERTY_TO_WIKIDATA is a static hand-written dict → because the design 
+  ▎ assumed claim predicates form a small closed set → but free-text claims 
+  ▎ produce open-vocabulary predicates → root: predicate mapping is treated as a
+  ▎ lookup problem when it is a matching/retrieval problem.
+
+  And on the bug you just fixed:
+
+  ▎ Wrong entity chosen → "has the property" was the acceptance test → 
+  ▎ resolution and lookup were fused into one step → root: a correctness check 
+  ▎ was used as an identity check.
+
+  Both roots have the same shape — a convenient proxy substituted for the 
+  quantity actually of interest. That's a generalizable finding about building
+  verification pipelines, and it's the kind of observation that makes a thesis
+  feel like research rather than engineering notes. Worth stating explicitly in
+  the writeup.
+
+  4. Wikimedia vs. Wikidata — and no, not a rework from scratch
+
+  "Wikimedia" is several different things, and the distinction matters:
+
+  - Wikidata SPARQL — what you use now. Precise, but you must guess the PID in
+    advance. Hence the 25/34 failures.
+  - Wikidata wbgetentities — returns all statements for an entity in one call.
+  - MediaWiki / Wikipedia REST — full article text, already used by RELATIONAL.
+
+  The move that helps is the second one, and it's not a rewrite — it's a change
+  to your property-lookup function. Instead of "query Q7350 for P571," fetch
+  Q7350's full statement set and rank its ~50 statements against the claim's
+  predicate. That converts "did I guess the right PID" into a matching problem,
+  and you already have SBERT loaded from the resolution fix.
+
+  The strong argument for it: it would have caught both known bugs. Panama
+  Canal's P1619 and Rosetta Stone's P186 would both have been sitting right
+  there in the returned statement set. The fix your architecture already needs
+  is the same fix that would have prevented the bug you just spent time on.
+
+  Caveat per your standing rule — I haven't opened the SPARQL code to confirm
+  how cleanly resolution and lookup are separated. CLAUDE.md says resolve_entity
+  now commits before querying, which suggests the seam exists, but I'd verify
+  that before sizing it.
+
+  On the transcripts
+
+  The first video is an ad for a community and "use LangGraph" isn't
+  thesis-relevant, but one line is: measure retrieval quality before you trust 
+  an answer. That applies directly. RELATIONAL's 55.32% coverage is a retrieval
+  number, and right now you can't distinguish "we never retrieved the passage"
+  from "we retrieved it and NLI got it wrong." Those need opposite fixes.
+  Logging retrieval recall separately is cheap and immediately useful. Query
+  rewriting applies too — the extracted claim is probably not the best Wikipedia
+  search string.
+
+  The second video maps onto your pipeline almost one-to-one: resolution →
+  property matching → evidence → verdict. You're already 1/4 instrumented, since
+  resolution_score/resolution_detail are exactly that practice. Extending the
+  same logging to the property layer would make the next bottleneck as
+  diagnosable as the last one was.
+
+  Which is the answer to your question #1, demonstrated rather than argued: the
+  QID bug was findable because the pipeline was decomposed and logged. That
+  property is the contribution.
+
+  ---
+
+  Still holding on the Phase 2 rerun — nothing touched, no files written. When
+  you're ready, tell me which to start: the Phase 2 gold rerun as scoped
+  earlier, the LLM-with-search baseline, or the wbgetentities property fix. My
+  ranking would be baseline first (it's cheap and it determines how you frame
+  everything else), then the property fix, then the rerun — but the rerun is the
+  one you already asked for, so say the word.
+
+  result: Analyzed thoughts.txt — key finding: the thesis needs an
+  LLM-with-search baseline to defend its core premise, and the TEMPORAL/EA
+  property gap is fixable via Wikidata wbgetentities (full statement set) rather
+  than static PID mapping, which would also have caught both known bugs.
+
+✻ Sautéed for 1m 51s
+
+※ recap: Goal is HalDetect, your taxonomy-routed hallucination detector; I analyzed thoughts.txt and nothing has been run yet. Next: pick one to start — LLM-with-search baseline, the Wikidata property fix, or the Phase 2 gold rerun. (disable recaps in /config)
+
+❯ /model 
+  ⎿  Kept model as Opus 5
+
+❯ i still need to build/fix citation and quantitative verifiers. having said    
+  that, proceed what requires least effort and should yield highest ROI and     
+  progress upward                                                               
+
+⏺ Right — ordering by effort-to-ROI rather than by the original plan. Here's the
+  ladder I'll climb, and one important reorder:
+
+  Rung 0 (minutes): archive the orphan verifier_cache_temporal.json. Free
+  hygiene.
+  Rung 1 (highest ROI/effort): the wbgetentities property fix. Unblocks TEMPORAL
+  and EA — 25/34 Batch 3 claims — reuses SBERT already loaded, touches one
+  function.
+  Rung 2: Phase 2 gold rerun. Moved after the property fix, not before — running
+  it now would just produce a table of zeros, since the property gap is the
+  live bottleneck. After the fix it actually measures something.
+  Rung 3: QUANTITATIVE. Cheaper than it looks once rung 1 lands — numeric
+  Wikidata properties (P2048 height, P1082 population) come back in the same
+  statement fetch; the only new work is unit normalization and tolerance
+  comparison. Same entity resolution, same fetch, different comparison operator.
+  Rung 4: CITATION. Genuinely separate — needs a different backend
+  (Crossref/OpenAlex), shares nothing with the Wikidata machinery. Last.
+
+  Starting with verification before I touch anything, per the standing rule.
+
+⏺ Creating worktree(property-fix)
+  ⎿  Error: Cannot create a worktree: not in a git repository and no 
+     WorktreeCreate hooks are configured. Configure 
+     WorktreeCreate/WorktreeRemove hooks in settings.json to use worktree 
+     isolation with other VCS systems.
+
+⏺ Worktree isolation unavailable (not a git repo), so I'll work in place with
+  explicit backups and a work log. Verifying ground truth first.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Notebook structure matches CLAUDE.md exactly — 76 cells, cell 57 = Phase 3e(i)
+  relational, 69 = Phase 4 EA, 75 = Phase 2 temporal. And
+  verifier_cache_temporal.json appears only in docs, never in the notebook —
+  orphan confirmed.
+
+  Extracting the live verifier cells to inspect the property-lookup layer.
+
+  Ran 3 shell commands (ctrl+o to expand)
+⏺ Key finding: wbgetentities is already in both cells (fetch_candidate_meta) —
+  used only to pull labels/aliases/descriptions for resolution scoring. The
+  machinery I need is already wired; I just need it to also fetch claims.
+  Reading the exact bottleneck.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ PROPERTY_TO_WIKIDATA in EA is 7 entries total — that's the entire coverage
+  ceiling. Reading the verify function to find the splice point.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Full picture confirmed. The bottleneck is line 428: unmapped property returns
+  UNVERIFIABLE before the entity is even resolved. Design is clear. Doing Rung 0
+  and checking data shape first.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Data verified: Phase 2 gold = exactly 126 rows (26 TEMPORAL + 13 EA), Batch 3
+  = 122 rows (12 TEMPORAL + 22 EA = the 34 subjects CLAUDE.md cites). Everything
+  matches. Rung 0 now.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Rung 0 complete — orphan archived. Now the property fix. Checking the Python
+  environment before I build.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Environment sorted — .venv has requests + sentence_transformers + torch.
+  Writing the work log and the new resolver as a new standalone file (nothing
+  existing modified).
+
+⏺ Write(WORKLOG_2026-08-22.md)
+  ⎿  Wrote 87 lines to WORKLOG_2026-08-22.md
+       1 # Work log — 2026-08-22 (property-matching fix)
+       2 
+       3 Rollback-oriented log. Every step numbered, every reversal noted
+       4 
+       5 ## Ladder (effort-ascending, ROI-descending)
+       6 
+       7 0. Archive orphan `verifier_cache_temporal.json` — DONE
+         GRESS
+       9 2. Phase 2 gold rerun (126 claims) — after rung 1
+      10 3. QUANTITATIVE verifier — rides on rung 1's statement fetch
+     … +102 lines (ctrl+o to expand)
+
+⏺ Work log in place. Now the resolver module.
+
+⏺ Write(current/property_resolver.py)
+  ⎿  Wrote 525 lines to current/property_resolver.py
+       1 """
+       2 HalDetect — Property Resolver (Wikidata statement-set matching)
+       3 ===============================================================
+       4 
+       5 Replaces the static ``PROPERTY_TO_WIKIDATA`` lookup with retriev
+       6 entity's ACTUAL Wikidata statements.
+       7 
+       8 Root cause this addresses (5-Why)
+       9 ---------------------------------
+      10 TEMPORAL/EA coverage is 0%
+     … +604 lines (ctrl+o to expand)
+
+⏺ Backing up the shared cache before anything writes to it, then running the
+  self-test against the two known bugs.
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 1 line, removed 1 line
+      19  
+      20  Both known Batch 3 bugs are covered by this approach — in each 
+          case the correct
+      21  property was already sitting in the entity's statement set:
+      22 -  * Panama Canal   Q48584 -> P1619 = 1914-08-15   (map said P57
+         -1, which Q7350 lacks)                                          
+      22 +  * Panama Canal   Q7350  -> P1619 = 1914-08-15   (map said P57
+         +1, which Q7350 lacks)                                          
+      23    * Rosetta Stone  Q48584 -> P186  = granodiorite (map said P52
+          7, which it lacks)
+      24  
+      25  Design notes
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+⏺ Very informative failure — and the mechanism actually works. Look at the
+  rankings: P1619 (date of official opening) came back #1 for Panama Canal, and
+  P186 (made from material) came back #1 for Rosetta Stone. Both correct
+  properties, both rank 1, found purely from the entity's own statements. The
+  datatype filter did its job.
+
+  The failure is my scoring blend, and it's a real structural flaw, not a tuning
+  nit: I reused 0.5*tier + 0.5*sim from resolve_entity. When the lexical tier
+  is 0 — which is normal here, since consists_of shares no tokens with made from
+  material — the score is capped at 0.5, making a 0.60 threshold mathematically
+  unreachable for any semantic-only match. I imported a blend calibrated for
+  entity resolution into a problem with a different score range. (Same
+  "convenient proxy" pattern as the original bug, ironically.)
+
+  Fixing tier to act as a bonus over similarity rather than a 50% cap.
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 20 lines, removed 2 lines
+      300  TIER_NORM = {3: 1.0, 2: 0.66, 1: 0.33, 0: 0.0}
+      301  
+      302  
+      303 +TIER_BONUS = 0.40                                             
+      304 +                                                              
+      305 +                                                              
+      306  def _score(tier: int, sim: float) -> float:
+      304 -    """Identical blend to resolve_entity, so thresholds mean t
+          -he same thing."""                                             
+      305 -    return 0.5 * TIER_NORM[tier] + 0.5 * sim                  
+      307 +    """Semantic similarity, boosted (never capped) by lexical 
+          +agreement.                                                    
+      308  
+      309 +    NOT the 0.5*tier + 0.5*sim blend used by resolve_entity. T
+          +hat blend is                                                  
+      310 +    correct for entity resolution, where the subject string an
+          +d the entity                                                  
+      311 +    label are drawn from the same vocabulary and an exact lexi
+          +cal hit is the                                                
+      312 +    norm. It is WRONG here: claim predicates and Wikidata prop
+          +erty labels come                                              
+      313 +    from different vocabularies, so tier is legitimately 0 for
+          + most correct                                                 
+      314 +    matches ('consists_of' shares no token with 'made from mat
+          +erial'). Under                                                
+      315 +    the old blend tier=0 caps the score at 0.50, putting a 0.6
+          +0 threshold out                                               
+      316 +    of mathematical reach for every semantic-only match — whic
+          +h is exactly                                                  
+      317 +    what the self-test caught: P1619 and P186 both ranked #1 a
+          +nd were still                                                 
+      318 +    rejected.                                                 
+      319  
+      320 +    Here similarity carries the signal and tier only pulls it 
+          +toward 1.0, so                                                
+      321 +    ranking is unchanged but the score range is honest.       
+      322 +    """                                                       
+      323 +    return sim + (1.0 - sim) * TIER_BONUS * TIER_NORM[tier]   
+      324 +                                                              
+      325 +                                                              
+      326  def match_property(prop: str, claim_type: str, entity_claims: 
+           dict,
+      327                     cache: dict, claim_text: str = "") -> dict:
+      328      """Pick the PID from the entity's OWN statements that best
+            matches `prop`.
+
+⏺ Now exposing tier/sim separately so the threshold can be calibrated on real
+  distribution rather than guessed.
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 4 lines, removed 3 lines
+      385      scored = []
+      386      for p in cands:
+      387          tier = _label_tier(pred, meta[p])
+      388 -        scored.append((p, _score(tier, best_sim.get(p, 0.0)), 
+      389 -                       meta[p].get("label", "")))             
+      388 +        sim = best_sim.get(p, 0.0)                            
+      389 +        scored.append((p, _score(tier, sim), meta[p].get("labe
+          +l", ""),                                                      
+      390 +                       tier, round(sim, 3)))                  
+      391      scored.sort(key=lambda t: -t[1])
+      392  
+      392 -    top_pid, top_score, top_label = scored[0]                 
+      393 +    top_pid, top_score, top_label = scored[0][0], scored[0][1]
+          +, scored[0][2]                                                
+      394      if top_score < PROPERTY_THRESHOLD:
+      395          return {"pid": None, "score": top_score, "route": "gap
+           ",
+      396                  "detail": (f"best candidate {top_pid} ({top_la
+           bel}) scored "
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 1 line, removed 1 line
+      355      if mapped and mapped in cands:
+      356          return {"pid": mapped, "score": 1.0, "route": "mapped"
+           ,
+      357                  "detail": f"static map hit, present on entity 
+           ({mapped})",
+      358 -                "candidates": [(mapped, 1.0, meta[mapped].get(
+          -"label", ""))]}                                               
+      358 +                "candidates": [(mapped, 1.0, meta[mapped].get(
+          +"label", ""), 3, 1.0)]}                                       
+      359  
+      360      # Retrieval: score every surviving candidate on its own la
+           bel + aliases.
+      361      model = get_sbert()
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 2 lines, removed 2 lines
+      517          print(f"        values: {out.get('values', [])[:4]}")
+      518          print(f"        {out['detail']}")
+      519          if out.get("candidates"):
+      520 -            top = ", ".join(f"{p}({l})@{s:.2f}"               
+      521 -                            for p, s, l in out["candidates"][:
+          -4])                                                           
+      520 +            top = ", ".join(f"{c[0]}({c[2]})@{c[1]:.2f}[t{c[3]
+          +} s{c[4]}]"                                                   
+      521 +                            for c in out["candidates"][:4])   
+      522              print(f"        top: {top}")
+      523          print()
+      524      print(f"{ok}/{len(cases)} passed")
+
+  Ran 1 shell command (ctrl+o to expand)
+⏺ Rosetta Stone now passes and returns the correct value granodiorite. Panama
+  Canal ranks P1619 #1 but lands at 0.569, just under the 0.60 floor.
+
+  I won't tune the threshold to make two cases pass — that's overfitting to 2
+  points. Running the full 34-claim Batch 3 diagnostic to calibrate against the
+  real distribution, the same way RESOLUTION_THRESHOLD was calibrated (15/15
+  correct at 0.60).
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ 1/34 — barely above baseline. But note row 14: Rosetta Stone consists_of shows
+  gap here while the self-test passed it against Q48584. That means the
+  diagnostic's crude wbsearchentities top-1 resolver is picking a different
+  entity than the notebook's calibrated resolve_entity, so this number is
+  measuring resolution and property matching together. Checking the actual
+  scores and QIDs.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Now I have real diagnostic data, and it exposes a second bug of mine. Compare
+  row 13: Rosetta Stone consists_of resolved to Q48584 — the correct entity —
+  yet scored 0.433 with top candidate P1343 (described by source). The self-test
+  scored P186 at 0.686 on that same entity.
+
+  The difference: the diagnostic passes claim_text, and my query is f"{pred}. 
+  {claim_text}". The claim sentence drags the embedding toward the claim's
+  overall topic and buries the property. Verifying that directly.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Confirmed decisively: predicate-only gives P186 @0.686 (matched); adding claim
+  text drops it to 0.397 and nearly loses rank. The predicate is a property 
+  name and Wikidata labels are property names — matching name-to-name is the
+  right granularity; appending a full sentence mixes granularities. Fixing.
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 7 lines, removed 2 lines
+      373                  "detail": "no English labels for candidate pro
+           perties",
+      374                  "candidates": []}
+      375  
+      376 -    query = pred if not claim_text else f"{pred}. {claim_text}
+          -"                                                             
+      377 -    embs = model.encode([query] + surfaces, convert_to_tensor=
+          -True,                                                         
+      376 +    # Predicate ONLY. `claim_text` is deliberately NOT appende
+          +d: the predicate                                              
+      377 +    # is a property *name* and Wikidata labels are property *n
+          +ames*, so this is                                             
+      378 +    # a name-to-name match. Appending the full claim sentence 
+          +mixes granularity                                             
+      379 +    # and swamps the signal — measured on Q48584/'consists_of'
+          +, P186 falls from                                             
+      380 +    # 0.686 (matched) to 0.397 (rejected) and nearly loses ran
+          +k to P1343                                                    
+      381 +    # 'described by source'. The parameter is kept for callers
+          +/logging only.                                                
+      382 +    embs = model.encode([pred] + surfaces, convert_to_tensor=T
+          +rue,                                                          
+      383                          show_progress_bar=False)
+      384      sims = sbert_util.cos_sim(embs[0], embs[1:])[0]
+      385  
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ 47.1% coverage, up from 2.9%. But coverage is not correctness, and I can
+  already see a problem in rows 27–31: human liver consists_of → P361 (part of) 
+  = "human". That's inverted — P361 says the liver is part of a human, not what
+  it consists of. Shipping that would trade honest gaps for confident-wrong
+  verdicts, which is exactly the regression the QID fix just eliminated.
+  Auditing all 16 matches for precision.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ The audit is the real result here, and it's a regression warning. Of the 16
+  matches, roughly 5 are correct and 11 are wrong — and since all 16 gold
+  verdicts are TRUE, those 11 would become new confident-wrong verdicts. That's
+  precisely the failure class the QID fix just drove to zero on Batch 3. I'm not
+  shipping this as-is.
+
+  Three enumerable failure classes, all distinct:
+
+  - External-ID leakage — Mount Everest tallest_peak_in → P3109 = "10640".
+    That's a Peakbagger mountain ID, matched because "peak" is in its label. My
+    TYPE_TO_DATATYPES wrongly allowed external-id.
+  - Inverse-direction confusion — human liver consists_of → P361 (part of) = 
+    "human", and Lobules consists_of → P361 = "liver". SBERT captures topical
+    relatedness, not directional semantics; "part of" and "consists of" are
+    near-identical in embedding space and opposite in meaning.
+  - Topical-but-absent — Champollion decipherment_year → P569 (date of birth) = 
+    1790 vs claimed 1822. The entity simply has no decipherment-year property,
+    so the matcher confidently returns the nearest available date.
+
+  That third one is the important one, and it's a genuine finding:
+  retrieval-with-threshold always has a "best" candidate. The old static map
+  failed loudly (unmapped → honest gap); naive matching fails quietly (wrong
+  property → wrong verdict).
+
+  And critically, threshold tuning cannot fix it — correct matches span
+  0.686–0.925, wrong ones span 0.649–0.746. They overlap. Structural guards are
+  required, so I'm adding those rather than tuning a number.
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 55 lines, removed 2 lines
+       78  
+       79  # Datatype prior: which Wikidata value types can possibly sati
+           sfy each claim
+       80  # type. Filtering on this before scoring is what makes matchin
+           g precise.
+       81 +#                                                             
+       82 +# `external-id` is deliberately EXCLUDED. Measured on Batch 3 
+          +it is pure noise:                                             
+       83 +# 'tallest_peak_in' matched P3109 (Peakbagger mountain ID) = "
+          +10640" against a                                              
+       84 +# claimed value of "Asia", purely because "peak" appears in th
+          +e ID's label.                                                 
+       85 +# External IDs are opaque database keys, never claim values. S
+          +ame reasoning                                                 
+       86 +# drops bare `string`, which is dominated by identifiers and f
+          +ormatter URLs.                                                
+       87  TYPE_TO_DATATYPES = {
+       88      "TEMPORAL": {"time"},
+       83 -    "ENTITY_ATTRIBUTE": {"wikibase-item", "string", "monolingu
+          -altext",                                                      
+       84 -                         "wikibase-lexeme", "external-id"},   
+       89 +    "ENTITY_ATTRIBUTE": {"wikibase-item", "monolingualtext"}, 
+       90      "QUANTITATIVE": {"quantity"},
+       91  }
+       92  
+       93 +# ------------------------------------------------------------
+          +-----------------                                             
+       94 +# DIRECTIONAL GUARD                                           
+       95 +# ------------------------------------------------------------
+          +-----------------                                             
+       96 +# SBERT scores topical relatedness, not directional semantics:
+          + 'part of' and                                                
+       97 +# 'consists of' are near-identical in embedding space and OPPO
+          +SITE in meaning.                                              
+       98 +# Measured on Batch 3 this produced 7 confident-wrong matches 
+          +--                                                            
+       99 +#   human liver 'consists_of' -> P361 (part of) = "human"     
+      100 +#   Lobules     'consists_of' -> P361 (part of) = "liver"     
+      101 +#   Denali      'tallest_mountain_in' -> P610 (highest point) 
+          += Denali itself                                               
+      102 +# -- every one of which would have flipped a gold-TRUE claim t
+          +o FALSE.                                                      
+      103 +#                                                             
+      104 +# This is a STRUCTURAL property of how Wikidata models relatio
+          +ns, so it is                                                  
+      105 +# encoded as a direction rule rather than patched per claim.  
+      106 +                                                              
+      107 +# Predicate says: subject CONTAINS / COMPRISES the value.     
+      108 +_MERONYM_PREDICATES = re.compile(                             
+      109 +    r"\b(consists?_?of|comprises?|contains?|composed_?of|made_
+          +?(up_?)?of|"                                                  
+      110 +    r"has_?(part|component|member|program|ingredient)s?|includ
+          +es?)\b")                                                      
+      111 +                                                              
+      112 +# Properties that say the reverse: subject IS CONTAINED IN / I
+          +S A KIND OF.                                                  
+      113 +# Accepting one of these for a meronym predicate inverts the c
+          +laim.                                                         
+      114 +_HOLONYM_PROPERTIES = {                                       
+      115 +    "P361",   # part of                                       
+      116 +    "P279",   # subclass of                                   
+      117 +    "P31",    # instance of                                   
+      118 +    "P1269",  # facet of                                      
+      119 +    "P138",   # named after                                   
+      120 +}                                                             
+      121 +                                                              
+      122 +# Superlative-containment predicates ('tallest peak in X') are
+          + not a property                                               
+      123 +# of the subject at all -- Wikidata models them on the CONTAIN
+          +ER (X's P610                                                  
+      124 +# 'highest point' == subject). Matching them forward always pi
+          +cks something                                                 
+      125 +# wrong, so they are forced to an honest gap pending an invers
+          +e-lookup path.                                                
+      126 +_SUPERLATIVE_PREDICATES = re.compile(                         
+      127 +    r"\b(tallest|highest|largest|longest|biggest|deepest|small
+          +est)_"                                                        
+      128 +    r"(peak|mountain|point|lake|river|building|city)_?(in|of)\
+          +b")                                                           
+      129 +                                                              
+      130 +                                                              
+      131 +def directional_veto(pred: str, pid: str) -> str | None:      
+      132 +    """Return a reason string if `pid` is directionally wrong 
+          +for `pred`."""                                                
+      133 +    if _SUPERLATIVE_PREDICATES.search(pred):                  
+      134 +        return (f"superlative-containment predicate '{pred}' i
+          +s modelled on the "                                           
+      135 +                f"container, not the subject — needs inverse l
+          +ookup, not {pid}")                                            
+      136 +    if _MERONYM_PREDICATES.search(pred) and pid in _HOLONYM_PR
+          +OPERTIES:                                                     
+      137 +        return (f"'{pred}' asserts subject contains value, but
+          + {pid} asserts the "                                          
+      138 +                f"inverse (subject is contained in / is a kind
+          + of value)")                                                  
+      139 +    return None                                               
+      140 +                                                              
+      141  # Retained as a prior/shortcut only — NOT a gate. If the mappe
+           d PID is present
+      142  # in the entity's statements we take it; otherwise we fall thr
+           ough to matching.
+      143  PROPERTY_TO_WIKIDATA = {
+
+⏺ Wiring the veto into candidate selection, and fixing the regexes to match the
+  normalized (space-separated) predicate form.
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 3 lines, removed 2 lines
+      106  
+      107  # Predicate says: subject CONTAINS / COMPRISES the value.
+      108  _MERONYM_PREDICATES = re.compile(
+      109 -    r"\b(consists?_?of|comprises?|contains?|composed_?of|made_
+          -?(up_?)?of|"                                                  
+      110 -    r"has_?(part|component|member|program|ingredient)s?|includ
+          -es?)\b")                                                      
+      109 +    r"\b(consists?[\s_]*of|comprises?|contains?|composed[\s_]*
+          +of|"                                                          
+      110 +    r"made[\s_]*(up[\s_]*)?of|has[\s_]*(part|component|member|
+          +program|"                                                     
+      111 +    r"ingredient)s?|includes?)\b")                            
+      112  
+      113  # Properties that say the reverse: subject IS CONTAINED IN / I
+           S A KIND OF.
+      114  # Accepting one of these for a meronym predicate inverts the c
+           laim.
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 2 lines, removed 2 lines
+      125  # 'highest point' == subject). Matching them forward always pi
+           cks something
+      126  # wrong, so they are forced to an honest gap pending an invers
+           e-lookup path.
+      127  _SUPERLATIVE_PREDICATES = re.compile(
+      128 -    r"\b(tallest|highest|largest|longest|biggest|deepest|small
+          -est)_"                                                        
+      129 -    r"(peak|mountain|point|lake|river|building|city)_?(in|of)\
+          -b")                                                           
+      128 +    r"\b(tallest|highest|largest|longest|biggest|deepest|small
+          +est)[\s_]*"                                                   
+      129 +    r"(peak|mountain|point|lake|river|building|city)[\s_]*(in|
+          +of)\b")                                                       
+      130  
+      131  
+      132  def directional_veto(pred: str, pid: str) -> str | None:
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 16 lines
+      403                             f"datatype {sorted(allowed)}"),
+      404                  "candidates": []}
+      405  
+      406 +    # Directional guard, applied BEFORE scoring so a wrong-dir
+          +ection property                                               
+      407 +    # can never win on similarity alone.                      
+      408 +    superlative = _SUPERLATIVE_PREDICATES.search(pred)        
+      409 +    if superlative:                                           
+      410 +        return {"pid": None, "score": 0.0, "route": "gap",    
+      411 +                "detail": directional_veto(pred, "-"), "candid
+          +ates": []}                                                    
+      412 +                                                              
+      413 +    vetoed = {p: directional_veto(pred, p) for p in cands}    
+      414 +    kept = [p for p in cands if not vetoed[p]]                
+      415 +    if not kept:                                              
+      416 +        blocked = ", ".join(sorted(p for p in cands if vetoed[
+          +p]))                                                          
+      417 +        return {"pid": None, "score": 0.0, "route": "gap",    
+      418 +                "detail": f"all candidates directionally vetoe
+          +d ({blocked})",                                               
+      419 +                "candidates": []}                             
+      420 +    cands = kept                                              
+      421 +                                                              
+      422      # Fast path: the static map's guess, but only if the entit
+           y really has it
+      423      # AND it survived the datatype filter. Prior, not gate.
+      424      mapped = PROPERTY_TO_WIKIDATA.get((prop or "").lower())
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Guards cut coverage 47% → 20.6%. Auditing the surviving 7 to get the precision
+  number that actually matters.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Precision audit of the 7: 5 correct (all four Rosetta Stone properties +
+  discovery year — P186 granodiorite, P575 1799, P282 Demotic, P407 Ancient 
+  Greek), 1 clearly wrong (Champollion decipherment_year → P569 date of birth,
+  1790 vs claimed 1822), 1 borderline (ISRO has_program → P1056 product 
+  produced).
+
+  The Champollion case is the "topical-but-absent" hazard in pure form: SBERT
+  reads decipherment **year** ≈ **date** of birth at 0.746 because the generic
+  time scaffolding dominates the distinctive word. Adding a targeted guard that
+  strips that scaffolding before comparing.
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 21 lines
+      129      r"(peak|mountain|point|lake|river|building|city)[\s_]*(in|
+           of)\b")
+      130  
+      131  
+      132 +# ------------------------------------------------------------
+          +-----------------                                             
+      133 +# CORE-TERM GUARD (TEMPORAL)                                  
+      134 +# ------------------------------------------------------------
+          +-----------------                                             
+      135 +# Every TEMPORAL predicate and every time-valued property labe
+          +l shares the same                                             
+      136 +# scaffolding ('year', 'date', 'time', 'of'), which dominates 
+          +the embedding and                                             
+      137 +# makes unrelated dates look alike. Measured on Batch 3:      
+      138 +#   'decipherment_year' matched P569 'date of birth' @0.746 --
+          + 1790 vs a claimed                                            
+      139 +#   1822, i.e. a gold-TRUE claim flipped to FALSE by comparing
+          + a decipherment                                               
+      140 +#   year against a birth date.                                
+      141 +# Stripping the scaffolding leaves the word that actually carr
+          +ies the claim                                                 
+      142 +# ('decipherment' vs 'birth'), which separates cleanly.       
+      143 +_TIME_SCAFFOLD = {"year", "date", "time", "day", "month", "of"
+          +, "in", "on",                                                 
+      144 +                  "at", "the", "when", "period", "era"}       
+      145 +CORE_SIM_THRESHOLD = 0.35                                     
+      146 +                                                              
+      147 +                                                              
+      148 +def _core_terms(text: str) -> str:                            
+      149 +    toks = [t for t in _norm(text).split() if t not in _TIME_S
+          +CAFFOLD]                                                      
+      150 +    return " ".join(toks) if toks else _norm(text)            
+      151 +                                                              
+      152 +                                                              
+      153  def directional_veto(pred: str, pid: str) -> str | None:
+      154      """Return a reason string if `pid` is directionally wrong 
+           for `pred`."""
+      155      if _SUPERLATIVE_PREDICATES.search(pred):
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 24 lines
+      486                         tier, round(sim, 3)))
+      487      scored.sort(key=lambda t: -t[1])
+      488  
+      489 +    # Core-term guard: for TEMPORAL, re-check the winner on co
+          +ntent words alone                                             
+      490 +    # so shared time-scaffolding cannot carry an unrelated dat
+          +e over the line.                                              
+      491 +    if claim_type == "TEMPORAL" and scored:                   
+      492 +        pred_core = _core_terms(pred)                         
+      493 +        surviving = []                                        
+      494 +        for c in scored:                                      
+      495 +            lab_core = _core_terms(c[2])                      
+      496 +            ce = model.encode([pred_core, lab_core], convert_t
+          +o_tensor=True,                                                
+      497 +                              show_progress_bar=False)        
+      498 +            core_sim = float(sbert_util.cos_sim(ce[0], ce[1])[
+          +0][0])                                                        
+      499 +            if core_sim >= CORE_SIM_THRESHOLD:                
+      500 +                surviving.append(c)                           
+      501 +            elif c is scored[0]:                              
+      502 +                top_core_fail = (c[0], c[2], core_sim)        
+      503 +        if not surviving:                                     
+      504 +            p, lab, cs = top_core_fail if "top_core_fail" in d
+          +ir() else (                                                   
+      505 +                scored[0][0], scored[0][2], 0.0)              
+      506 +            return {"pid": None, "score": scored[0][1], "route
+          +": "gap",                                                     
+      507 +                    "detail": (f"core-term guard: '{pred_core}
+          +' vs '{_core_terms(lab)}' "                                   
+      508 +                               f"={cs:.3f} < {CORE_SIM_THRESHO
+          +LD} — {p} ({lab}) is a "                                      
+      509 +                               f"different kind of date, not t
+          +his claim's"),                                                
+      510 +                    "candidates": scored[:5]}                 
+      511 +        scored = surviving                                    
+      512 +                                                              
+      513      top_pid, top_score, top_label = scored[0][0], scored[0][1]
+           , scored[0][2]
+      514      if top_score < PROPERTY_THRESHOLD:
+      515          return {"pid": None, "score": top_score, "route": "gap
+           ",
+⏺ Cleaning up a sloppy local-variable check in that guard.
+
+⏺ Update(current/property_resolver.py)
+  ⎿  Added 11 lines, removed 15 lines
+      490      # so shared time-scaffolding cannot carry an unrelated dat
+           e over the line.
+      491      if claim_type == "TEMPORAL" and scored:
+      492          pred_core = _core_terms(pred)
+      493 -        surviving = []                                        
+      494 -        for c in scored:                                      
+      495 -            lab_core = _core_terms(c[2])                      
+      496 -            ce = model.encode([pred_core, lab_core], convert_t
+          -o_tensor=True,                                                
+      497 -                              show_progress_bar=False)        
+      498 -            core_sim = float(sbert_util.cos_sim(ce[0], ce[1])[
+          -0][0])                                                        
+      499 -            if core_sim >= CORE_SIM_THRESHOLD:                
+      500 -                surviving.append(c)                           
+      501 -            elif c is scored[0]:                              
+      502 -                top_core_fail = (c[0], c[2], core_sim)        
+      493 +        cores = [_core_terms(c[2]) for c in scored]           
+      494 +        ce = model.encode([pred_core] + cores, convert_to_tens
+          +or=True,                                                      
+      495 +                          show_progress_bar=False)            
+      496 +        core_sims = [float(x) for x in sbert_util.cos_sim(ce[0
+          +], ce[1:])[0]]                                                
+      497 +        surviving = [c for c, cs in zip(scored, core_sims)    
+      498 +                     if cs >= CORE_SIM_THRESHOLD]             
+      499          if not surviving:
+      504 -            p, lab, cs = top_core_fail if "top_core_fail" in d
+          -ir() else (                                                   
+      505 -                scored[0][0], scored[0][2], 0.0)              
+      500 +            p, lab, cs = scored[0][0], scored[0][2], core_sims
+          +[0]                                                           
+      501              return {"pid": None, "score": scored[0][1], "route
+           ": "gap",
+      507 -                    "detail": (f"core-term guard: '{pred_core}
+          -' vs '{_core_terms(lab)}' "                                   
+      508 -                               f"={cs:.3f} < {CORE_SIM_THRESHO
+          -LD} — {p} ({lab}) is a "                                      
+      509 -                               f"different kind of date, not t
+          -his claim's"),                                                
+      502 +                    "detail": (f"core-term guard: '{pred_core}
+          +' vs "                                                        
+      503 +                               f"'{_core_terms(lab)}' ={cs:.3f
+          +} < "                                                         
+      504 +                               f"{CORE_SIM_THRESHOLD} — {p} ({
+          +lab}) is a different "                                        
+      505 +                               f"kind of date, not this claim'
+          +s"),                                                          
+      506                      "candidates": scored[:5]}
+      507          scored = surviving
+      508  
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ The core-term guard removed the Champollion error while keeping discovery_year
+  → P575 at 0.898 — exactly the selective effect intended. Final: 6/34 matched,
+  5 clearly correct, 1 borderline (ISRO).
+
+  Panama Canal still gaps at 0.569, just under the 0.60 floor. Checking whether
+  the structural guards have cleared the danger band enough to justify lowering
+  it.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Decisive finding: Panama Canal is now blocked by the core-term guard, not the
+  threshold — 'inception' vs 'official opening' = 0.28. Lowering the floor
+  wouldn't recover it. And lowering to 0.55 would admit Rosetta Stone 
+  publication_year → P575 (time of discovery), which is wrong. So 0.60 stays —
+  the calibration is confirmed by data rather than guessed.
+
+  Running the self-test to record the honest current state.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Both results confirmed and reproducible. Updating the work log with the
+  calibration evidence, then wrapping up.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Final sanity check: confirming the notebook and existing result CSVs are
+  genuinely untouched.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Sanity check passed: notebook mtime is still Aug 21 22:59 with 76 cells, both
+  existing result CSVs untouched, module imports clean, diagnostic reproducible.
+
+  What I did
+
+  Rung 0 — done. Verified verifier_cache_temporal.json is a true orphan
+  (referenced by three docs, zero code) and moved it to archive/caches/.
+
+  Rung 1 — built and measured, deliberately not integrated. New standalone
+  current/property_resolver.py replaces the static PROPERTY_TO_WIKIDATA lookup
+  with retrieval over the entity's actual Wikidata statements. wbgetentities was
+  already in both cells for resolution metadata, so this reuses proven, cached
+  HTTP machinery.
+
+  The headline is not the coverage number — it's a regression I caught before
+  shipping:
+
+  ┌──────────────────────────┬───────────────┬─────────────┐
+  │          Stage           │   Coverage    │  Precision  │
+  ├──────────────────────────┼───────────────┼─────────────┤
+  │ Baseline (static map)    │ 0/34          │ —           │
+  ├──────────────────────────┼───────────────┼─────────────┤
+  │ Naive statement matching │ 16/34 (47.1%) │ ~5/16 (31%) │
+  ├──────────────────────────┼───────────────┼─────────────┤
+  │ + structural guards      │ 6/34 (17.6%)  │ 5/6 (83%)   │
+  └──────────────────────────┴───────────────┴─────────────┘
+
+  Naive matching nearly hit 50% coverage while precision collapsed. Since all 16
+  gold verdicts are TRUE, those ~11 bad matches would have become new 
+  confident-wrong verdicts — exactly the class the QID fix just drove to zero.
+  human liver consists_of → P361 (part of) = "human" is inverted;
+  tallest_peak_in → P3109 returned a Peakbagger database ID ("10640") against a
+  claimed "Asia"; decipherment_year → P569 date of birth gave 1790 against a
+  claimed 1822.
+
+  Critically, threshold tuning cannot fix this — correct matches spanned
+  0.686–0.925 and wrong ones 0.649–0.746, overlapping. That forced structural
+  guards rather than a tuned number: a directional veto (SBERT scores topical
+  relatedness, not direction — "part of" and "consists of" are near-identical in
+  embedding space and opposite in meaning), a superlative-containment veto, and
+  a core-term guard that strips year/date/time scaffolding so unrelated dates
+  stop looking alike.
+
+  I also found three bugs in my own first implementation, all documented in the
+  work log — the most instructive being that I imported resolve_entity's
+  0.5*tier + 0.5*sim blend, which caps the score at 0.50 when the lexical tier
+  is 0 (normal here, since predicates and Wikidata labels use different
+  vocabularies). That made the 0.60 threshold mathematically unreachable: P1619
+  and P186 both ranked #1 and were still rejected.
+
+  Honest read
+
+  17.6% coverage is modest. But the mechanism is sound — it finds P186 → 
+  granodiorite and P575 → 1799 from the entity's own statements with no PID
+  guessed in advance — and the remaining gaps are now attributable. Panama Canal
+  still fails, and I left it failing: it's blocked by the core-term guard
+  ('inception' vs 'official opening' = 0.194), the same guard that correctly
+  kills Champollion. That guard can't distinguish "wrong kind of date" from
+  "same date under another name." That's a real precision/recall tradeoff, and
+  it's measurable — which is the auditability property that justifies the whole
+  approach, and a direct answer to your thoughts.txt Q1: semantic matching has
+  its own characteristic failure mode, but unlike LLM confabulation it's
+  enumerable.
+
+  Nothing existing was modified. Notebook cells 57/69/75 untouched, no CSV
+  overwritten, cache backed up to
+  archive/caches/verifier_cache_wikidata.pre-propertyfix-20260822.json. Full
+  audit trail and one-line rollback in WORKLOG_2026-08-22.md.
+
+  I stopped short of integrating into cells 69/75 on purpose — given this
+  regressed precision on its first pass, it deserves your eyes before it touches
+  the live verifiers. My recommendation for next: I'd rather push coverage
+  further with an inverse-lookup path (which would recover the four mountain
+  "tallest_X_in" claims properly, via the container's P610) than integrate 17.6%
+  now. Say which you prefer, or I can proceed to the Phase 2 gold rerun using
+  the current matcher as-is.
+
+  result: Property-matching resolver built and calibrated
+  (current/property_resolver.py) — Batch 3 TEMPORAL/EA property coverage 0% →
+  17.6% at 83% precision; caught and blocked a naive-matching variant that would
+  have hit 47% coverage but injected ~11 confident-wrong verdicts; notebook
+  unmodified, full rollback documented in WORKLOG_2026-08-22.md.
+
+✻ Sautéed for 19m 26s
+
+※ recap: Goal is fixing HalDetect's TEMPORAL/EA property coverage. I built and calibrated a new statement-matching resolver, taking Batch 3 coverage from 0% to 17.6% at 83% precision, without touching the notebook. Next: your call on integrating it or adding inverse-lookup first. (disable recaps in /config)
+
+❯ '/Users/sahibabc/Papers/hallucination papers' --> can you read all files      
+  here? if so, they should give you ideas on how to improve our current         
+  situation                                                                     
+
+⏺ Checking what's there before reading.
+
+  Listed 1 directory (ctrl+o to expand)
+
+⏺ 23 PDFs — yes, I can read them. Let me first identify the seven arXiv-numbered
+  ones (all added today, so likely the most targeted) before deciding how to
+  allocate reading effort.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ No extraction tools — installing pypdf so I can pull text cheaply and search
+  it rather than loading 23 full PDFs into context.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ The venv was copied from ThesisCode/, so pip's shebang points at a stale path.
+  Using python -m pip instead.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ All 23 extracted (~2M chars). Rather than dumping everything into context,
+  I'll grep surgically for the exact problems we're stuck on, then deep-read
+  only the sections that hit.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Striking result from the sweep: "entity linking" appears in zero of the 23 
+  papers, and "Wikidata" appears in only 4 — all surveys/benchmarks, none as a
+  method. Meanwhile entailment/decomposition terms hit nearly everywhere. That's
+  a strategic signal worth confirming: the field has largely moved to
+  document-grounded NLI, which is where our RELATIONAL verifier already sits,
+  while our Wikidata-based TEMPORAL/EA verifiers are fighting the current.
+
+  Spawning three focused readers so the paper text stays out of my context, each
+  briefed on our exact bottlenecks.
+
+⏺ 3 background agents launched (↓ to manage)
+   ├ Read entailment/NLI cluster
+   ├ Read atomic-claim/numeric cluster
+   └ Read eval/benchmark cluster
+⏺ Three readers are working. While they run, let me take the one paper that
+  bears most directly on our core contribution — the taxonomy itself — since our
+  whole architecture rests on routing by claim type.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Approaching your 5-hour usage limit — Claude will wrap up the current 
+  step.
+
+⏺ Checkpointing here.
+
+  Where things stand
+
+  Done this session: archived the orphan cache; built and calibrated
+  current/property_resolver.py (Batch 3 property coverage 0% → 17.6% at ~83%
+  precision, with a naive 47%-coverage/31%-precision variant caught and blocked
+  before it could inject ~11 confident-wrong verdicts). Notebook untouched,
+  rollback documented in WORKLOG_2026-08-22.md.
+
+  Papers: all 23 PDFs extracted to text (pypdf installed into the venv; note its
+  pip shebang is stale from the ThesisCode/ copy — use .venv/bin/python -m 
+  pip). Two findings already in hand from my own sweep:
+
+  - "Entity linking" appears in zero of the 23 papers, and "Wikidata" in only 
+    four — all surveys/benchmarks, none as a method. Entailment/decomposition
+    terms hit nearly everywhere. The field has moved to document-grounded NLI,
+    which is where RELATIONAL already sits; the Wikidata-based TEMPORAL/EA
+    verifiers are the part fighting the current. This is the strongest argument
+    yet for re-routing those two types through text+NLI rather than continuing
+    to patch SPARQL.
+  - A Unified Definition of Hallucination gives a framing we can use directly:
+    every hallucination setting implicitly assumes (1) a reference world model, 
+    (2) a view function, (3) a conflict policy, and definitions differ only in
+    those choices. That's ready-made vocabulary for justifying why our verifiers
+    differ per claim type, and it obliges us to state our reference world
+    explicitly — which is exactly the auditability argument the thesis rests on.
+
+  Three paper-reading agents are still running (entailment/NLI cluster,
+  atomic-claim/numeric cluster, evaluation/benchmark cluster). I don't have
+  their results yet and won't guess at them — they'll arrive as notifications.
+
+  Most impactful remaining work
+
+  - Decide the TEMPORAL/EA architecture question once the entailment-cluster
+    agent reports: keep patching Wikidata (17.6% coverage ceiling, guards
+    fighting each other — the same guard that correctly kills Champollion also
+    kills Panama Canal) versus re-routing both types through the proven
+    Wikipedia+NLI path. My prior is now strongly toward re-routing.
+  - Build the QUANTITATIVE verifier — unblocks ~24% of every batch, and the
+    numeric-cluster agent is reading FinGround specifically for its
+    numeric-grounding pipeline (unit normalization, tolerance, reference-number
+    retrieval).
+  - Stand up the LLM-with-search baseline — still the single highest-value
+    experiment for the defense, and the eval agent is checking how that baseline
+    is standardly configured plus whether the literature has an accepted metric
+    that rewards abstention (selective prediction / risk-coverage) so our
+    "confident-wrong count" gets a proper name.
+
+  result: Property-resolver work committed to disk and documented; all 23 papers
+  extracted and swept, yielding two actionable findings — the corpus contains
+  zero entity-linking and almost no Wikidata-as-method work (arguing for
+  re-routing TEMPORAL/EA to text+NLI), and the unified world-model definition
+  gives the thesis a principled framing; three paper-reading agents still
+  running.
+
+✻ Brewed for 3m 9s
+
+⏺ Agent "Read entailment/NLI cluster" finished · 1m 23s
+
+⏺ The entailment/NLI reader came back, and it lands directly on the questions
+  from your thoughts.txt. Two agents still running.
+
+  The headline
+
+  MiniCheck answers your Q1 empirically. A 770M-parameter purpose-built checker
+  (MiniCheck-FT5) scores 74.7 balanced accuracy vs GPT-4's 75.3 on the
+  10-dataset LLM-AggreFact benchmark — statistically level with a frontier LLM
+  judge — at $0.24 versus $107 for the same 13K-example run. The paper's own
+  words: "more than 400 times cheaper."
+
+  That is the strongest evidence yet that a specialized verifier is not made
+  useless by an LLM-with-search. It doesn't settle the web-search variant
+  specifically, but it kills the assumption that a big model automatically wins
+  on accuracy.
+
+  It also reframes your Q2. Our RELATIONAL number (80.77%) is on our own gold
+  set and so isn't directly comparable — but the fact that ~75 balanced accuracy
+  is GPT-4-tier in the published literature means our figures are not
+  embarrassing. The thing to fix is coverage, not accuracy.
+
+  The strategic finding
+
+  Confirming what my grep sweep suggested, and more strongly than I expected:
+  neither CLATTER nor Decomposed Entailment mentions knowledge graphs, Wikidata,
+  or SPARQL even once. Both treat dates, attributes, and relations as the same 
+  problem — decompose, retrieve, entail — with no claim-type-specific routing.
+  And the Decomposed Entailment paper explicitly excludes FEVER as out of scope
+  because it "targets extrinsic fact-checking against knowledge bases."
+
+  So the entire body of work here is source-grounded verification. Our Wikidata
+  route for TEMPORAL/EA isn't just underperforming — it's outside the paradigm
+  the field is building on. That's a real argument for re-routing both types
+  through the Wikipedia+NLI machinery that already works, rather than pushing
+  the property matcher past 17.6%.
+
+  Honest caveat the agent was careful about: these papers don't validate that
+  plan either. They never test date/attribute claims as a distinct category, so
+  there's no head-to-head number — but there's also no evidence against it.
+
+  Your abstention design is a genuine departure
+
+  None of the three papers separate coverage from accuracy, and none implement 
+  abstention at all. MiniCheck is strictly binary and explicitly collapses
+  contradiction and neutral into "unsupported." CLATTER and Decomposed
+  Entailment use a 3-way NLI internally but still force a binary verdict,
+  counting "no evidence found" as unsupported rather than unjudged.
+
+  That means our "honest UNVERIFIABLE beats confident-wrong" principle is not
+  something the standard protocols reward or even measure. It's a methodological
+  choice to defend explicitly in the thesis, not a box to tick — and we can't
+  benchmark it against their published numbers directly. The eval agent is
+  checking whether the wider literature has an accepted name for it (selective
+  prediction / risk-coverage).
+
+  Four concrete, adoptable things
+
+  1. Replace BART-MNLI with MiniCheck-DBTA (DeBERTa-v3-Large, 355M) — same size
+     class as what we run now, +4–10 points over AlignScore, open-released. The
+     agent flagged appropriately that the exact HF checkpoint string isn't
+     stated in the PDF, only the GitHub release and the google/flan-t5-large
+     backbone, so we'd verify the repo before wiring it in.
+  2. Multi-scale chunking with independent best-entail / best-contradict 
+     selection — score each claim at 5 document granularities and log which
+     chunk won for each. This directly fixes our "can't tell if retrieval missed
+     or NLI erred" blind spot, and it's the observability point from your video
+     transcripts made concrete.
+  3. CLATTER's attribution step — requiring a cited supporting span before
+     classifying is worth +2.29 points average in their ablation. Cheap, and it
+     strengthens the auditability argument.
+  4. A counterweight worth heeding: MiniCheck finds "no clear indication that 
+     decomposing claims into atomic facts can consistently improve models' 
+     performance" at 2–4× the inference cost. Don't add decomposition to
+     RELATIONAL without validating it on a slice first.
+
+  Still pending: the numeric/atomic-claim reader (FinGround, for the
+  QUANTITATIVE architecture) and the evaluation/benchmark reader (baselines,
+  abstention metrics, whether 122–126 claims is a defensible gold-set size).
+  I'll report those when they land.
+
+  Most impactful remaining work:
+  - Decide TEMPORAL/EA: re-route to text+NLI (now well-supported) vs. continue
+    patching Wikidata at a 17.6% ceiling.
+  - Build QUANTITATIVE — unblocks ~24% of every batch; waiting on the FinGround
+    findings.
+  - Verify and swap in the MiniCheck checkpoint for RELATIONAL, plus chunk-level
+    logging.
+
+  result: Entailment-cluster paper findings delivered — MiniCheck (770M) matches
+  GPT-4 at 400× lower cost, directly rebutting the "why not just ask an LLM"
+  objection; the literature uses no KG methods at all and treats
+  temporal/attribute claims as ordinary entailment, supporting re-routing
+  TEMPORAL/EA to text+NLI; our abstention-over-confident-wrong framing is a
+  genuine departure from standard protocols. Two paper agents still running.
+
+✻ Brewed for 37s
+
+⏺ Agent "Read eval/benchmark cluster" finished · 1m 24s
+
+⏺ Agent "Read atomic-claim/numeric cluster" finished · 1m 44s
+  ⎿  You've hit your session limit · resets 5:30pm (Asia/Dhaka) · progress saved
+     Press ⏎ to continue after reset
+     /upgrade to increase your usage limit.
+
+✻ Sautéed for 4m 11s

@@ -1,0 +1,378 @@
+HalDetect
+Taxonomy-Based Claim Classification Rules
+Finalized Rule Document — Version 1.0
+1. Overview
+This document defines the complete rule set for extracting and classifying atomic factual claims from LLM-generated text as part of the HalDetect hallucination detection system. Claims are first extracted using the atomization rules in Section 2, then classified into one of five types using the taxonomy in Section 3. Each type is routed to a dedicated verifier that returns TRUE, FALSE, or UNVERIFIABLE.
+
+2. Claim Extraction Rules
+Apply all rules in order during extraction. Where multiple rules apply to a single sentence, apply all relevant rules and resolve coreference last.
+
+Rule 1 — Atomicity Principle
+Each claim must contain exactly one factual assertion that can be verified independently.
+Example
+Sentence: Einstein developed the theory of relativity and won the Nobel Prize in 1921.
+Albert Einstein developed the theory of relativity.
+Albert Einstein won the Nobel Prize in 1921.
+
+Rule 2 — Split Coordinated Predicates
+Sentences containing multiple predicates connected by conjunctions (and, but, or) are split when each predicate expresses a distinct fact.
+Example
+Marie Curie discovered radium and won two Nobel Prizes.
+Marie Curie discovered radium.
+Marie Curie won two Nobel Prizes.
+
+Rule 3 — Split Enumerations
+When a fact applies to multiple entities in a list, generate separate claims for each entity. Exception: retain as one claim when the list forms a conceptual unit (e.g., a list of symptoms, a list of causes treated as a group).
+Example — Split
+The Amazon River flows through Brazil, Peru, and Colombia.
+The Amazon River flows through Brazil.
+The Amazon River flows through Peru.
+The Amazon River flows through Colombia.
+Example — Retain as unit
+World War I was caused by militarism, alliances, imperialism, and nationalism.
+World War I was caused by a combination of militarism, alliances, imperialism, and nationalism. [kept — four factors treated as one causal claim]
+
+Rule 4 — Extract Subordinate Facts
+Subordinate clauses introducing factual information (who, which, where, when) are extracted as independent claims.
+Example
+Einstein, who was born in Germany, developed relativity.
+Albert Einstein was born in Germany.
+Albert Einstein developed the theory of relativity.
+
+Rule 5 — Extract Appositive Attributes
+Appositive phrases encoding entity attributes are converted into separate claims.
+Example
+Marie Curie, a Polish physicist, discovered radium.
+Marie Curie was a physicist.
+Marie Curie was Polish.
+Marie Curie discovered radium.
+
+Rule 6 — Resolve Coreference
+Pronouns and abbreviated references are replaced with the full entity name so each claim is independently interpretable.
+Example
+Einstein was born in Germany. He moved to the United States in 1933.
+Albert Einstein was born in Germany.
+Albert Einstein moved to the United States in 1933.
+
+Rule 7 — Preserve Negation
+Negative factual statements are preserved without modification.
+Example
+Einstein did not invent the lightbulb.
+Albert Einstein did not invent the lightbulb.
+
+Rule 8 — Citation Dual-Emit Rule
+If a qualifying citation introduces a factual claim, two claims are extracted: one for the existence of the source, one for the embedded fact. A qualifying citation is one where the source is specifically named and independently lookable (see Section 3.1 CITATION Specificity Threshold).
+Example
+According to the WHO, air pollution causes 7 million premature deaths annually.
+The World Health Organization exists. [CITATION]
+Air pollution causes approximately 7 million premature deaths annually. [RELATIONAL]
+Shared ID Rule
+Both claims from a dual-emit pair are tagged with a shared ID (e.g., citation_pair_01) so they can be linked in the aggregation report. This enables detection of citation hallucinations where the source is fabricated but the embedded fact is true.
+
+Rule 9 — Ignore Non-Factual Statements
+Statements expressing opinions, speculation, rhetorical framing, or hypothetical conditions are not converted into claims. Subjective qualifiers (most important, most powerful) within otherwise factual claims are stripped — retain the factual core only.
+Discard
+Einstein might be the greatest scientist ever.
+If it rains tomorrow, the event will be canceled.
+Strip qualifier — retain core
+Nikola Tesla's most important achievement was designing the AC electrical system.
+Nikola Tesla helped design the modern alternating-current electrical system. [retained]
+
+Rule 10 — Avoid Over-Decomposition
+Split only when phrases encode explicitly distinct verifiable facts. Descriptive modifiers that do not introduce independently verifiable claims are retained within the original claim.
+Example — Do not split
+The quick brown fox leaped over the lazy dog.
+The fox leaped over the dog.
+
+Default Rule
+If a sentence cannot be confidently decomposed into multiple independent factual propositions, retain it as a single atomic claim.
+
+3. Taxonomy Classification Rules
+
+3.1 Priority Order
+Apply types top-down. Stop at the first YES. A claim receives exactly one primary type.
+
+Priority
+Type
+Key Question
+Dominant Signal
+1
+CITATION
+Does it name a specific lookable source?
+"according to", "report states", named org/document
+2
+TEMPORAL
+Is a date/year/period the primary verifiable element?
+year, "in X", "since", "until", "by"
+3
+QUANTITATIVE
+Is a number/measurement the primary verifiable element?
+%, $, million, degrees, mm, km
+4
+ENTITY_ATTRIBUTE
+Does it describe what something IS or HAS?
+"is", "was", "has", "known as", descriptor
+5
+RELATIONAL
+Does it describe what something DOES, CAUSES, or LEADS TO?
+"caused", "led to", "enables", "works by", "resulted in"
+
+3.2 Type Definitions and Examples
+
+CITATION
+A claim that references a specifically named and independently lookable source — a named report, organization, person as author, or academic publication. Vague attributions (scientists, researchers, studies) do not qualify.
+
+Qualifies as CITATION
+Does NOT qualify
+"The WHO states that..."
+"Scientists conclude..."
+"The IPCC AR6 report finds..."
+"Research suggests..."
+"According to NASA data..."
+"Studies show..."
+"Smith et al. (2020) found..."
+"Evidence indicates..."
+
+Verifier: Semantic Scholar API / CrossRef API — checks source existence.
+Dual-emit: always apply Rule 8 to extract the source-existence claim separately.
+
+TEMPORAL
+A claim whose primary verifiable element is a specific date, year, duration, or time-ordered event. When a claim contains both a date and another element (attribute, number), the date wins only if it is the most contestable fact.
+
+Example
+Why TEMPORAL
+Albert Einstein was born on 14 March 1879.
+Date is the primary verifiable element
+The Western Roman Empire fell in 476 CE.
+Year of event is the core verifiable fact
+Nikola Tesla invented the Tesla coil in 1891.
+Year dominates over the invention itself
+The IPCC AR6 was released in March 2023.
+Release date is the core claim
+
+Verifier: Wikidata SPARQL — date property lookup.
+
+QUANTITATIVE
+A claim whose primary verifiable element is a specific number, measurement, percentage, or statistic. When a claim contains both a number and a date, QUANTITATIVE wins when the number is the more contested or specific element.
+
+Example
+Why QUANTITATIVE
+Air pollution caused 4.2 million deaths in 2019.
+4.2 million is the primary verifiable figure
+Global temperatures rose by 1.1 degrees C.
+1.1 C measurement is the core claim
+Emissions must fall by 43% by 2030.
+43% is the primary verifiable element
+Nikola Tesla obtained more than 100 patents.
+Numerical count is the core claim
+
+Verifier: Source search + numerical plausibility check with tolerance delta.
+
+ENTITY_ATTRIBUTE
+A claim that assigns a property, role, nationality, descriptor, or structural characteristic to a named entity. The dominant verb is IS, WAS, HAS, or a state verb. Distinguished from RELATIONAL by the absence of a process, mechanism, or causal chain.
+
+Example
+Why ENTITY_ATTRIBUTE
+Nikola Tesla was a Serbian-American inventor.
+Assigns nationality and role to person
+DNA has a double-helix structure.
+Assigns structural property to molecule
+The CDC schedule includes DTaP, Hib, PCV vaccines.
+Describes contents — property of schedule
+The Eastern Roman Empire is known as the Byzantine Empire.
+Identity descriptor assigned to entity
+
+Verifier: DBpedia SPARQL — property lookup for named entities.
+
+RELATIONAL
+A claim asserting a causal, functional, mechanistic, or logical relationship between two entities or events. The dominant verb describes what something DOES, CAUSES, LEADS TO, ENABLES, or WORKS BY. This is the most common type in LLM responses.
+
+Example
+Why RELATIONAL
+The Treaty of Versailles contributed to the rise of fascism.
+Causal link between two events
+Vaccination works by exploiting immunological memory.
+Functional mechanism
+B cells create antibodies that bind to antigens.
+Functional action and consequence
+Einstein's work on special relativity introduced E=mc2.
+Functional relationship: work led to concept
+
+Verifier: Sentence-BERT similarity + Wikipedia passage retrieval.
+
+4. Tie-Breaking Rules
+Apply these rules when two types compete for the same claim.
+
+Conflict
+Rule
+Example
+TEMPORAL vs ENTITY_ATTRIBUTE
+TEMPORAL wins when date is most contestable
+"Tesla born in 1856 in Smiljan" → TEMPORAL (year), birthplace is context
+QUANTITATIVE vs TEMPORAL
+QUANTITATIVE wins when number is more specific than date
+"Emissions must fall 43% by 2030" → QUANTITATIVE (43%), year is context
+ENTITY_ATTRIBUTE vs RELATIONAL
+RELATIONAL wins when dominant verb describes action, process, or mechanism
+"DNA replicates by separating strands" → RELATIONAL (mechanism), not ENTITY_ATTRIBUTE
+CITATION vs any type
+CITATION always wins — apply dual-emit to separate source-existence from embedded fact
+"NASA data shows 91mm rise" → CITATION (NASA) + QUANTITATIVE (91mm) via dual-emit
+QUANTITATIVE vs RELATIONAL
+QUANTITATIVE wins when a specific number is the primary contestable element
+"Air pollution caused 4.2M deaths" → QUANTITATIVE (4.2M dominates over causal framing)
+
+5. CITATION Specificity Threshold
+Only attribute CITATION type when the source meets all three criteria:
+
+The source is specifically named (not vague like scientists or researchers).
+The source is independently lookable (can be queried in Semantic Scholar, CrossRef, or a known institutional database).
+The attribution is explicit in the claim text (not inferred).
+
+Surface Form
+Qualifies?
+Reason
+"According to Smith et al. (2020)..."
+YES
+Named author + year — queryable
+"The WHO reports that..."
+YES
+Named organization — queryable
+"The IPCC AR6 Synthesis Report states..."
+YES
+Named report — queryable
+"NASA data shows..."
+YES
+Named agency — queryable
+"Scientists conclude..."
+NO
+Vague — no specific source to look up
+"Research suggests..."
+NO
+Vague — unattributable
+"Studies show..."
+NO
+Vague — unattributable
+"According to experts..."
+NO
+Vague — no named source
+
+6. Extraction Workflow
+
+Sentence segmentation
+Apply Rules 1-7 (atomization)
+Apply Rule 8 (dual-emit for qualifying citations)
+Resolve coreference (Rule 6)
+Apply Rule 9 (strip non-factual / subjective language)
+Apply Rule 10 check (avoid over-decomposition)
+Normalize to declarative sentence form
+Taxonomy classification using priority order (Section 3.1)
+
+7. Hard Cases and Annotator Guidance
+The following patterns emerged from manual annotation and require explicit guidance.
+
+7.1 ENTITY_ATTRIBUTE vs RELATIONAL Boundary
+This is the most common source of disagreement. Apply this test:
+If the claim answers 'What is X?' or 'What does X have?' → ENTITY_ATTRIBUTE
+If the claim answers 'What does X do?' or 'How does X work?' or 'What did X cause?' → RELATIONAL
+
+Claim
+Type
+Test
+DNA has a double-helix structure.
+ENTITY_ATTRIBUTE
+What does DNA have? → attribute
+DNA replicates by separating its strands.
+RELATIONAL
+How does DNA work? → mechanism
+Adenine pairs with thymine.
+RELATIONAL
+What does adenine do? → process
+The innate immune system is the first line of defense.
+ENTITY_ATTRIBUTE
+What is the innate system? → descriptor
+The innate immune system responds using physical barriers.
+RELATIONAL
+How does it work? → mechanism
+
+7.2 Claims with Embedded Date AND Number
+Apply priority order strictly: QUANTITATIVE wins over TEMPORAL when the number is the primary contested element.
+Claim
+Type
+Reason
+Einstein was born on 14 March 1879.
+TEMPORAL
+Date is the primary verifiable element — no significant number
+Air pollution caused 4.2 million deaths in 2019.
+QUANTITATIVE
+4.2 million dominates — year is context
+Emissions must fall 43% by 2030.
+QUANTITATIVE
+43% dominates — year is context
+The Silk Road stretched roughly 4,000 miles.
+QUANTITATIVE
+Distance measurement dominates
+
+7.3 Post-Cutoff Claims
+Claims about events after the LLM's training cutoff may be labeled UNVERIFIABLE not because they are false but because evidence has not yet been indexed in public knowledge bases. Flag these explicitly in annotation notes. Do not include post-cutoff claims in the pilot dataset gold set.
+
+7.4 Conditional and Predictive Claims
+Claims framed as projections or conditionals (could, will likely, is expected to) are retained as claims if their core assertion is factual and verifiable. The modal qualifier does not make them non-factual.
+"The 14 risk factors could prevent 45% of dementia cases." → QUANTITATIVE — 45% is verifiable
+"Global temperatures are likely to reach 1.5C by 2040." → QUANTITATIVE — 1.5C measurement is core
+
+7.5 CITATION Claim with Vague Source
+If a claim uses attribution language but the source does not meet the specificity threshold, downgrade to the type of the embedded fact.
+"Scientists conclude that warming will intensify risks." → source fails threshold → classify as RELATIONAL
+"The WHO reports that 99% breathe unsafe air." → WHO qualifies → CITATION
+
+8. Verification Outcome Definitions
+
+Outcome
+Definition
+TRUE
+Claim is supported by evidence from the designated verifier with confidence above threshold
+FALSE
+Claim is contradicted by evidence from the designated verifier with confidence above threshold
+UNVERIFIABLE
+No relevant evidence found in supported sources — includes post-cutoff claims, obscure entities, and vague claims
+
+Note: UNVERIFIABLE is a legitimate measurable outcome, not a system failure. Coverage = (TRUE + FALSE) / Total claims is a key metric precisely because not all claims can be verified.
+
+9. Aggregation Report Format
+After all claims in a response are verified, the aggregation report is structured as follows:
+
+Claim 1 [TEMPORAL]: TRUE (confidence: 0.95, source: Wikidata)
+Claim 2 [QUANTITATIVE]: FALSE (confidence: 0.87, source: CrossRef)
+Claim 3 [CITATION]: UNVERIFIABLE
+Claim 4a [CITATION — citation_pair_01]: FALSE (source: Semantic Scholar)
+Claim 4b [RELATIONAL — citation_pair_01]: TRUE (source: Wikipedia)
+
+Total claims: 5 | Verifiable: 4 | Hallucination rate: 25% | Coverage: 80%
+
+Citation pair interpretation: if the source-existence claim is FALSE but the embedded fact is TRUE, flag as citation hallucination — the LLM stated a true fact but fabricated the source.
+
+10. Claim Type Distribution Reference
+Based on manual annotation of 140 claims from 18 LLM responses across 18 diverse questions:
+
+Type
+Approx. %
+Notes
+RELATIONAL
+~48%
+Dominant — LLMs explain mechanisms and causes more than they cite numbers
+ENTITY_ATTRIBUTE
+~17%
+Common in biographical and descriptive responses
+TEMPORAL
+~16%
+Common in historical responses
+QUANTITATIVE
+~11%
+Increases significantly when questions target specific reports or statistics
+CITATION
+~7%
+Low in general responses; increases with source-directed questions (WHO, IPCC, NASA)
+
+CITATION underrepresentation in general LLM responses is a real-world characteristic, not a dataset flaw. LLMs rarely use explicit source attribution in conversational responses. Source-directed questions are needed to generate CITATION-rich samples.
+

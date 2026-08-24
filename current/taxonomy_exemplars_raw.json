@@ -1,0 +1,968 @@
+[
+ {
+  "id": "1",
+  "topic": "Q1",
+  "claim": "Albert Einstein was born on 14 March 1879 in Ulm.",
+  "type": "TEMPORAL",
+  "justification": "Date is primary verifiable element"
+ },
+ {
+  "id": "2",
+  "topic": "Q1",
+  "claim": "Albert Einstein worked as a patent clerk in Bern while developing major ideas in physics.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Describes role/occupation \u2014 what Einstein was"
+ },
+ {
+  "id": "3",
+  "topic": "Q1",
+  "claim": "In 1905 Albert Einstein published four influential papers.",
+  "type": "TEMPORAL",
+  "justification": "1905 is primary verifiable element; \"four\" is incidental"
+ },
+ {
+  "id": "4",
+  "topic": "Q1",
+  "claim": "The four papers explained the photoelectric effect, Brownian motion, and the theory of special relativity.",
+  "type": "RELATIONAL",
+  "justification": "\"explained\" = functional relationship between papers and concepts"
+ },
+ {
+  "id": "5",
+  "topic": "Q1",
+  "claim": "Albert Einstein's work on special relativity introduced the mass-energy relation E=mc\u00b2.",
+  "type": "RELATIONAL",
+  "justification": "\"introduced\" = causal/functional verb"
+ },
+ {
+  "id": "6",
+  "topic": "Q1",
+  "claim": "Albert Einstein developed the theory of general relativity in 1915.",
+  "type": "TEMPORAL",
+  "justification": "Year is primary verifiable element"
+ },
+ {
+  "id": "7",
+  "topic": "Q1",
+  "claim": "Albert Einstein received the Nobel Prize in Physics in 1921 for explaining the photoelectric effect and helping establish quantum theory.",
+  "type": "TEMPORAL",
+  "justification": "1921 is primary; reason is secondary context"
+ },
+ {
+  "id": "8",
+  "topic": "Q1",
+  "claim": "Albert Einstein moved to the United States in 1933.",
+  "type": "TEMPORAL",
+  "justification": "Year is primary verifiable element"
+ },
+ {
+  "id": "9",
+  "topic": "Q1",
+  "claim": "Albert Einstein worked at the Institute for Advanced Study until his death in Princeton on 18 April 1955.",
+  "type": "TEMPORAL",
+  "justification": "Death date is primary verifiable element"
+ },
+ {
+  "id": "1",
+  "topic": "Q2",
+  "claim": "The 2008 global financial crisis was mainly caused by the collapse of the U.S. housing bubble.",
+  "type": "RELATIONAL",
+  "justification": "Causal link: crisis caused by bubble collapse"
+ },
+ {
+  "id": "2",
+  "topic": "Q2",
+  "claim": "Banks issued large numbers of risky subprime mortgages to borrowers with poor credit.",
+  "type": "RELATIONAL",
+  "justification": "Action/process describing bank behavior"
+ },
+ {
+  "id": "3",
+  "topic": "Q2",
+  "claim": "Housing prices stopped rising.",
+  "type": "RELATIONAL",
+  "justification": "Describes a process/state change"
+ },
+ {
+  "id": "4",
+  "topic": "Q2",
+  "claim": "Borrowers began defaulting on loans.",
+  "type": "RELATIONAL",
+  "justification": "\"defaulting\" is a process/action not a property"
+ },
+ {
+  "id": "5",
+  "topic": "Q2",
+  "claim": "Mortgage-backed securities and related financial derivatives rapidly lost value across the financial system.",
+  "type": "RELATIONAL",
+  "justification": "Describes a process \u2014 verifiable via financial records"
+ },
+ {
+  "id": "6",
+  "topic": "Q2",
+  "claim": "Major financial institutions that held these assets faced severe losses.",
+  "type": "RELATIONAL",
+  "justification": "Describes consequence/action \u2014 verifiable in principle"
+ },
+ {
+  "id": "7",
+  "topic": "Q2",
+  "claim": "Lehman Brothers filed for bankruptcy in September 2008.",
+  "type": "TEMPORAL",
+  "justification": "Month/year is primary verifiable element"
+ },
+ {
+  "id": "8",
+  "topic": "Q2",
+  "claim": "The bankruptcy of Lehman Brothers triggered global panic in financial markets and a tightening of bank lending.",
+  "type": "RELATIONAL",
+  "justification": "Causal: bankruptcy \u2192 panic \u2014 verifiable via historical records"
+ },
+ {
+  "id": "9",
+  "topic": "Q2",
+  "claim": "The 2008 global financial crisis caused the Great Recession.",
+  "type": "RELATIONAL",
+  "justification": "Direct causal link between two events"
+ },
+ {
+  "id": "10",
+  "topic": "Q2",
+  "claim": "The Great Recession led to widespread declines in economic output, falling stock markets, and a sharp rise in unemployment worldwide.",
+  "type": "RELATIONAL",
+  "justification": "Causal chain: recession \u2192 multiple outcomes"
+ },
+ {
+  "id": "11",
+  "topic": "Q2",
+  "claim": "Governments and central banks responded with large bank bailouts, stimulus programs, and extremely low interest rates to stabilize the financial system.",
+  "type": "RELATIONAL",
+  "justification": "Functional response: action taken to achieve outcome"
+ },
+ {
+  "id": "12",
+  "topic": "Q2",
+  "claim": "The 2008 global financial crisis led to major regulatory reforms including the Dodd-Frank Act in the United States.",
+  "type": "RELATIONAL",
+  "justification": "Causal: crisis \u2192 regulatory outcome"
+ },
+ {
+  "id": "1",
+  "topic": "Q3",
+  "claim": "DNA is the molecule that carries genetic information used for the growth, development, and functioning of living organisms.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Defines what DNA is \u2014 structural/functional descriptor"
+ },
+ {
+  "id": "2",
+  "topic": "Q3",
+  "claim": "DNA has a double-helix structure composed of two strands that twist around each other.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Structural property assigned to DNA"
+ },
+ {
+  "id": "3",
+  "topic": "Q3",
+  "claim": "Each strand of DNA is made of repeating nucleotides.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Compositional property of strands"
+ },
+ {
+  "id": "4",
+  "topic": "Q3",
+  "claim": "Each nucleotide contains a deoxyribose sugar.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Compositional property of nucleotide"
+ },
+ {
+  "id": "5",
+  "topic": "Q3",
+  "claim": "Each nucleotide contains a phosphate group.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Compositional property of nucleotide"
+ },
+ {
+  "id": "6",
+  "topic": "Q3",
+  "claim": "Each nucleotide contains one of four nitrogen bases: adenine, thymine, cytosine, or guanine.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Compositional property \u2014 four bases form a logical unit"
+ },
+ {
+  "id": "7",
+  "topic": "Q3",
+  "claim": "The nitrogen bases pair specifically through hydrogen bonds.",
+  "type": "RELATIONAL",
+  "justification": "\"pair through\" = mechanism \u2014 describes how bases interact"
+ },
+ {
+  "id": "8",
+  "topic": "Q3",
+  "claim": "Adenine pairs with thymine.",
+  "type": "RELATIONAL",
+  "justification": "Describes relationship between two entities"
+ },
+ {
+  "id": "9",
+  "topic": "Q3",
+  "claim": "Cytosine pairs with guanine.",
+  "type": "RELATIONAL",
+  "justification": "Describes relationship between two entities"
+ },
+ {
+  "id": "10",
+  "topic": "Q3",
+  "claim": "The pairing of nitrogen bases holds the two strands together.",
+  "type": "RELATIONAL",
+  "justification": "\"holds together\" = functional relationship"
+ },
+ {
+  "id": "11",
+  "topic": "Q3",
+  "claim": "The sequence of these bases stores genetic information that determines how proteins are produced in cells.",
+  "type": "RELATIONAL",
+  "justification": "\"determines how proteins are produced\" = causal chain"
+ },
+ {
+  "id": "12",
+  "topic": "Q3",
+  "claim": "DNA can replicate by separating its strands and using each strand as a template to form a new complementary strand.",
+  "type": "RELATIONAL",
+  "justification": "\"replicates by separating\" = functional mechanism"
+ },
+ {
+  "id": "1",
+  "topic": "Q4",
+  "claim": "Nikola Tesla was a Serbian-American inventor and engineer.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Assigns nationality and role to person"
+ },
+ {
+  "id": "2",
+  "topic": "Q4",
+  "claim": "Nikola Tesla was known for pioneering work in electricity and electromagnetism.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Reputation descriptor assigned to person"
+ },
+ {
+  "id": "3",
+  "topic": "Q4",
+  "claim": "Nikola Tesla was born in 1856 in Smiljan in the Austrian Empire (now Croatia).",
+  "type": "TEMPORAL",
+  "justification": "Year is primary; birthplace is secondary context"
+ },
+ {
+  "id": "4",
+  "topic": "Q4",
+  "claim": "Nikola Tesla moved to the United States in 1884 to work as an engineer.",
+  "type": "TEMPORAL",
+  "justification": "Year is primary verifiable element"
+ },
+ {
+  "id": "5",
+  "topic": "Q4",
+  "claim": "Nikola Tesla helped design the modern alternating-current electrical system.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Achievement as attribute of person"
+ },
+ {
+  "id": "6",
+  "topic": "Q4",
+  "claim": "The modern alternating-current electrical system allows electricity to be transmitted efficiently over long distances.",
+  "type": "RELATIONAL",
+  "justification": "\"allows transmission\" = functional relationship"
+ },
+ {
+  "id": "7",
+  "topic": "Q4",
+  "claim": "Nikola Tesla invented the AC induction motor.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Invention as attribute of person"
+ },
+ {
+  "id": "8",
+  "topic": "Q4",
+  "claim": "Nikola Tesla discovered the rotating magnetic field that powers many electric machines.",
+  "type": "RELATIONAL",
+  "justification": "\"powers many electric machines\" = functional relationship"
+ },
+ {
+  "id": "9",
+  "topic": "Q4",
+  "claim": "Nikola Tesla invented the Tesla coil in 1891.",
+  "type": "TEMPORAL",
+  "justification": "Year is primary verifiable element"
+ },
+ {
+  "id": "10",
+  "topic": "Q4",
+  "claim": "Nikola Tesla demonstrated an early remote-controlled boat in 1898.",
+  "type": "TEMPORAL",
+  "justification": "Year is primary verifiable element"
+ },
+ {
+  "id": "11",
+  "topic": "Q4",
+  "claim": "Nikola Tesla conducted research into wireless power transmission and radio communication.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Research area as attribute of person"
+ },
+ {
+  "id": "12",
+  "topic": "Q4",
+  "claim": "Nikola Tesla obtained more than 100 patents.",
+  "type": "QUANTITATIVE",
+  "justification": "Numerical count is primary verifiable element"
+ },
+ {
+  "id": "1",
+  "topic": "Q5",
+  "claim": "The latest IPCC Sixth Assessment Report (AR6) exists.",
+  "type": "CITATION",
+  "justification": "Pure source-existence claim \u2014 dual-emit anchor"
+ },
+ {
+  "id": "2",
+  "topic": "Q5",
+  "claim": "Human activities have unequivocally caused global warming.",
+  "type": "RELATIONAL",
+  "justification": "Causal link: human activities \u2192 warming \u2014 verifiable via scientific consensus"
+ },
+ {
+  "id": "3",
+  "topic": "Q5",
+  "claim": "Human activities have raised global surface temperatures by about 1.1\u00b0C above pre-industrial levels.",
+  "type": "QUANTITATIVE",
+  "justification": "1.1\u00b0C measurement is primary verifiable element"
+ },
+ {
+  "id": "4",
+  "topic": "Q5",
+  "claim": "Climate change is already affecting every region of the world through more frequent heatwaves, heavy rainfall, droughts, rising sea levels, and other extreme events.",
+  "type": "RELATIONAL",
+  "justification": "Causal/functional: climate change \u2192 regional impacts \u2014 verifiable in principle"
+ },
+ {
+  "id": "5",
+  "topic": "Q5",
+  "claim": "Global temperatures are likely to reach or exceed 1.5\u00b0C of warming between about 2021 and 2040 under many emission scenarios.",
+  "type": "QUANTITATIVE",
+  "justification": "1.5\u00b0C measurement is primary; date range is context"
+ },
+ {
+  "id": "6",
+  "topic": "Q5",
+  "claim": "Each additional increment of warming will intensify climate risks to ecosystems, food systems, water resources, and human health.",
+  "type": "RELATIONAL",
+  "justification": "Causal: warming \u2192 intensified risks \u2014 verifiable in principle"
+ },
+ {
+  "id": "7",
+  "topic": "Q5",
+  "claim": "Rapid and sustained reductions in greenhouse-gas emissions could slow warming within decades and reduce the severity of future impacts.",
+  "type": "RELATIONAL",
+  "justification": "Functional: reductions \u2192 slowed warming"
+ },
+ {
+  "id": "8",
+  "topic": "Q5",
+  "claim": "Limiting warming to about 1.5\u00b0C requires global emissions to fall sharply this decade including reductions of roughly 43% by 2030 compared with 2019 levels.",
+  "type": "QUANTITATIVE",
+  "justification": "43% is primary verifiable element; 2030 is context"
+ },
+ {
+  "id": "1",
+  "topic": "Q6",
+  "claim": "The human immune system protects the body from harmful organisms such as bacteria, viruses, fungi, and toxins through a network of cells, tissues, and chemical signals.",
+  "type": "RELATIONAL",
+  "justification": "\"protects through\" = functional relationship"
+ },
+ {
+  "id": "2",
+  "topic": "Q6",
+  "claim": "The human immune system works through two main components: the innate immune system and the adaptive immune system.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Structural composition \u2014 describes what the system has"
+ },
+ {
+  "id": "3",
+  "topic": "Q6",
+  "claim": "The innate immune system acts as the first line of defense and responds quickly using physical barriers like skin and mucus as well as immune cells that attack invading pathogens.",
+  "type": "RELATIONAL",
+  "justification": "\"acts as, responds using\" = functional description"
+ },
+ {
+  "id": "4",
+  "topic": "Q6",
+  "claim": "Neutrophils and macrophages can recognize common features of microbes, engulf them, and trigger inflammation to recruit more immune cells to the infection site.",
+  "type": "RELATIONAL",
+  "justification": "\"recognize, engulf, trigger\" = functional actions"
+ },
+ {
+  "id": "5",
+  "topic": "Q6",
+  "claim": "If pathogens survive the initial response, the adaptive immune system produces a more targeted attack using specialized white blood cells called B cells and T cells.",
+  "type": "RELATIONAL",
+  "justification": "Conditional functional mechanism"
+ },
+ {
+  "id": "6",
+  "topic": "Q6",
+  "claim": "B cells create antibodies that bind to specific antigens on pathogens.",
+  "type": "RELATIONAL",
+  "justification": "\"create antibodies that bind\" = functional mechanism"
+ },
+ {
+  "id": "7",
+  "topic": "Q6",
+  "claim": "T cells destroy infected cells or coordinate other immune responses.",
+  "type": "RELATIONAL",
+  "justification": "\"destroy/coordinate\" = functional actions"
+ },
+ {
+  "id": "8",
+  "topic": "Q6",
+  "claim": "The adaptive immune system forms immunological memory.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "\"forms\" here describes a property/capability of the system"
+ },
+ {
+  "id": "9",
+  "topic": "Q6",
+  "claim": "After an infection the body remembers the pathogen and can respond much faster during future exposures.",
+  "type": "RELATIONAL",
+  "justification": "\"remembers and responds faster\" = functional mechanism"
+ },
+ {
+  "id": "10",
+  "topic": "Q6",
+  "claim": "Immunological memory is the biological basis for how vaccines provide long-term protection against many diseases.",
+  "type": "RELATIONAL",
+  "justification": "\"is the basis for how vaccines work\" = causal"
+ },
+ {
+  "id": "1",
+  "topic": "Q7",
+  "claim": "The Silk Road was a vast network of trade routes that connected East Asia with the Middle East and Europe.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Describes what the Silk Road was \u2014 structural descriptor"
+ },
+ {
+  "id": "2",
+  "topic": "Q7",
+  "claim": "The Silk Road connected East Asia with the Middle East and Europe from about the 2nd century BCE to the mid-15th century.",
+  "type": "TEMPORAL",
+  "justification": "Time span is primary verifiable element"
+ },
+ {
+  "id": "3",
+  "topic": "Q7",
+  "claim": "The Silk Road began during the Han Dynasty in China.",
+  "type": "TEMPORAL",
+  "justification": "Time-ordered event \u2014 \"began during\" is temporal"
+ },
+ {
+  "id": "4",
+  "topic": "Q7",
+  "claim": "The Silk Road stretched roughly 4,000 miles across Central Asia.",
+  "type": "QUANTITATIVE",
+  "justification": "Distance measurement is primary verifiable element"
+ },
+ {
+  "id": "5",
+  "topic": "Q7",
+  "claim": "The Silk Road linked cities such as Chang'an (modern Xi'an) with regions around the Mediterranean.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Geographic description \u2014 linking is an attribute of the route"
+ },
+ {
+  "id": "6",
+  "topic": "Q7",
+  "claim": "Merchants transported goods such as Chinese silk, spices, tea, precious stones, and metals via the Silk Road.",
+  "type": "RELATIONAL",
+  "justification": "\"transported goods\" = action/function"
+ },
+ {
+  "id": "7",
+  "topic": "Q7",
+  "claim": "Europe and other regions sent items like wool, gold, and silver via the Silk Road.",
+  "type": "RELATIONAL",
+  "justification": "\"sent items\" = action"
+ },
+ {
+  "id": "8",
+  "topic": "Q7",
+  "claim": "The Silk Road enabled major cultural exchanges spreading religions such as Buddhism and Christianity as well as technologies, scientific knowledge, and artistic traditions.",
+  "type": "RELATIONAL",
+  "justification": "\"enabled exchanges\" = functional consequence"
+ },
+ {
+  "id": "9",
+  "topic": "Q7",
+  "claim": "The Silk Road connected different civilizations economically and politically helping cities along the routes grow into major centers of commerce and culture.",
+  "type": "RELATIONAL",
+  "justification": "Causal: connection \u2192 city growth"
+ },
+ {
+  "id": "10",
+  "topic": "Q7",
+  "claim": "The Silk Road linked the Eastern and Western worlds shaping global trade, cultural interaction, and the development of societies across Eurasia.",
+  "type": "RELATIONAL",
+  "justification": "\"shaping global trade\" = causal consequence"
+ },
+ {
+  "id": "1",
+  "topic": "Q8",
+  "claim": "The Roman Empire began as the Roman Republic.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Describes origin/identity of entity"
+ },
+ {
+  "id": "2",
+  "topic": "Q8",
+  "claim": "The Roman Empire transitioned into an empire in 27 BCE.",
+  "type": "TEMPORAL",
+  "justification": "Year is primary verifiable element"
+ },
+ {
+  "id": "3",
+  "topic": "Q8",
+  "claim": "Augustus became the first emperor of the Roman Empire.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Role/title assigned to named person"
+ },
+ {
+  "id": "4",
+  "topic": "Q8",
+  "claim": "At its height during the 2nd century CE the Roman Empire controlled territories from Britain to the Middle East.",
+  "type": "TEMPORAL",
+  "justification": "\"2nd century CE\" is primary verifiable element"
+ },
+ {
+  "id": "5",
+  "topic": "Q8",
+  "claim": "The Roman Empire unified much of the Mediterranean world under Roman law, trade, and infrastructure.",
+  "type": "RELATIONAL",
+  "justification": "\"unified under\" = functional achievement/action"
+ },
+ {
+  "id": "6",
+  "topic": "Q8",
+  "claim": "Rome rose through strong military organization, effective administration, and extensive trade networks that allowed it to expand across Europe, North Africa, and parts of Asia.",
+  "type": "RELATIONAL",
+  "justification": "Causal: military/admin/trade \u2192 expansion"
+ },
+ {
+  "id": "7",
+  "topic": "Q8",
+  "claim": "Rome's cities, roads, and legal systems helped create one of the most powerful and influential civilizations in ancient history.",
+  "type": "RELATIONAL",
+  "justification": "\"helped create\" = causal; subjective qualifier stripped"
+ },
+ {
+  "id": "8",
+  "topic": "Q8",
+  "claim": "The Roman Empire began to weaken in the 3rd century CE due to political instability, economic problems such as inflation and heavy taxation, and reliance on slave labor that limited innovation.",
+  "type": "TEMPORAL",
+  "justification": "\"3rd century CE\" is primary verifiable element"
+ },
+ {
+  "id": "9",
+  "topic": "Q8",
+  "claim": "Frequent changes of emperors and corruption within government institutions further weakened central authority.",
+  "type": "RELATIONAL",
+  "justification": "Causal: instability \u2192 weakened authority"
+ },
+ {
+  "id": "10",
+  "topic": "Q8",
+  "claim": "Rome faced increasing external pressure from Germanic tribes and other groups.",
+  "type": "RELATIONAL",
+  "justification": "\"faced pressure\" = action/process \u2014 not a static property"
+ },
+ {
+  "id": "11",
+  "topic": "Q8",
+  "claim": "The empire's vast size made it difficult to defend and govern effectively.",
+  "type": "RELATIONAL",
+  "justification": "Causal: size \u2192 governance difficulty"
+ },
+ {
+  "id": "12",
+  "topic": "Q8",
+  "claim": "Military overextension and costly defense of long borders drained resources and reduced the empire's stability.",
+  "type": "RELATIONAL",
+  "justification": "Causal: overextension \u2192 resource drain"
+ },
+ {
+  "id": "13",
+  "topic": "Q8",
+  "claim": "The Western Roman Empire officially fell in 476 CE when the Germanic leader Odoacer deposed the last emperor Romulus Augustulus.",
+  "type": "TEMPORAL",
+  "justification": "Year is primary verifiable element"
+ },
+ {
+  "id": "14",
+  "topic": "Q8",
+  "claim": "The Eastern Roman Empire, known as the Byzantine Empire, continued until 1453.",
+  "type": "TEMPORAL",
+  "justification": "End date is primary verifiable element"
+ },
+ {
+  "id": "1",
+  "topic": "Q9",
+  "claim": "Quantum computing is a type of computation that uses quantum bits.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Defines what quantum computing is"
+ },
+ {
+  "id": "2",
+  "topic": "Q9",
+  "claim": "Quantum bits are also known as qubits.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Identity/alias descriptor"
+ },
+ {
+  "id": "3",
+  "topic": "Q9",
+  "claim": "Qubits can exist in multiple states simultaneously due to superposition.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Property of qubits \u2014 what they can do as a characteristic"
+ },
+ {
+  "id": "4",
+  "topic": "Q9",
+  "claim": "Unlike classical bits which are either 0 or 1, qubits can represent 0 and 1 at the same time allowing quantum computers to process complex calculations more efficiently.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Comparative property of qubits \u2014 describes what they are"
+ },
+ {
+  "id": "5",
+  "topic": "Q9",
+  "claim": "Quantum computers leverage entanglement where qubits become correlated such that the state of one instantly affects the state of another.",
+  "type": "RELATIONAL",
+  "justification": "\"correlated such that state affects state\" = functional relationship"
+ },
+ {
+  "id": "6",
+  "topic": "Q9",
+  "claim": "Classical computers rely on deterministic logic gates and sequential operations.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Describes what classical computers use \u2014 property"
+ },
+ {
+  "id": "7",
+  "topic": "Q9",
+  "claim": "Quantum computers use quantum gates that manipulate qubits probabilistically.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Describes what quantum computers use \u2014 property"
+ },
+ {
+  "id": "8",
+  "topic": "Q9",
+  "claim": "Quantum algorithms such as Shor's algorithm for factoring integers and Grover's algorithm for database search can outperform classical algorithms in certain tasks.",
+  "type": "RELATIONAL",
+  "justification": "\"can outperform\" = comparative functional claim"
+ },
+ {
+  "id": "9",
+  "topic": "Q9",
+  "claim": "The hardware for quantum computing such as superconducting circuits or trapped ions requires extreme conditions like near absolute zero temperatures.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Requirement as property of hardware"
+ },
+ {
+  "id": "10",
+  "topic": "Q9",
+  "claim": "Quantum computing is currently limited by error rates and qubit scalability.",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Current limitation as property/state of the system"
+ },
+ {
+  "id": "1",
+  "topic": "Q10",
+  "claim": "World War I was caused by a combination of militarism, alliances, imperialism, and nationalism.",
+  "type": "RELATIONAL",
+  "justification": "Causal: four factors \u2192 war"
+ },
+ {
+  "id": "2",
+  "topic": "Q10",
+  "claim": "World War I was caused by the assassination of Archduke Franz Ferdinand of Austria-Hungary in 1914.",
+  "type": "TEMPORAL",
+  "justification": "1914 is primary; causal framing is secondary \u2014 split recommended: assassination date \u2192 TEMPORAL, assassination caused WWI \u2192 RELATIONAL"
+ },
+ {
+  "id": "3",
+  "topic": "Q10",
+  "claim": "European powers had formed complex alliances such as the Triple Entente and Triple Alliance which escalated a regional conflict into a global war.",
+  "type": "RELATIONAL",
+  "justification": "\"escalated into global war\" = causal consequence"
+ },
+ {
+  "id": "4",
+  "topic": "Q10",
+  "claim": "Competition for colonies and economic dominance increased tensions.",
+  "type": "RELATIONAL",
+  "justification": "Causal: competition \u2192 increased tensions"
+ },
+ {
+  "id": "5",
+  "topic": "Q10",
+  "claim": "Nationalist movements in the Balkans fueled instability.",
+  "type": "RELATIONAL",
+  "justification": "Causal: movements \u2192 instability"
+ },
+ {
+  "id": "6",
+  "topic": "Q10",
+  "claim": "World War I resulted in unprecedented casualties with over 16 million deaths and 20 million wounded.",
+  "type": "QUANTITATIVE",
+  "justification": "Numerical figures are primary verifiable elements"
+ },
+ {
+  "id": "7",
+  "topic": "Q10",
+  "claim": "World War I led to the collapse of the Austro-Hungarian, Ottoman, Russian, and German empires.",
+  "type": "RELATIONAL",
+  "justification": "Causal: war \u2192 collapse of empires"
+ },
+ {
+  "id": "8",
+  "topic": "Q10",
+  "claim": "The Treaty of Versailles imposed harsh reparations on Germany.",
+  "type": "RELATIONAL",
+  "justification": "\"imposed reparations\" = action with consequence"
+ },
+ {
+  "id": "9",
+  "topic": "Q10",
+  "claim": "The Treaty of Versailles created economic hardship and political instability that contributed to World War II.",
+  "type": "RELATIONAL",
+  "justification": "Causal chain: treaty \u2192 hardship \u2192 WWII"
+ },
+ {
+  "id": "10",
+  "topic": "Q10",
+  "claim": "World War I prompted the formation of the League of Nations to prevent future conflicts.",
+  "type": "RELATIONAL",
+  "justification": "Causal: war \u2192 formation of institution"
+ },
+ {
+  "id": "G1",
+  "topic": "Gemini",
+  "claim": "WHO reports 99% of population breathes air exceeding safety limits",
+  "type": "CITATION",
+  "justification": "Explicitly attributes to named source (WHO); source-wrapped claim"
+ },
+ {
+  "id": "G2",
+  "topic": "Gemini",
+  "claim": "Air pollution leads to millions of deaths from stroke and heart disease annually",
+  "type": "RELATIONAL",
+  "justification": "Causal link: pollution \u2192 deaths"
+ },
+ {
+  "id": "G3",
+  "topic": "Gemini",
+  "claim": "The 2023 IPCC Sixth Assessment Report exists",
+  "type": "CITATION",
+  "justification": "Pure source-existence claim"
+ },
+ {
+  "id": "G4",
+  "topic": "Gemini",
+  "claim": "Greenhouse gas emissions must be reduced by 43% by 2030 to limit warming to 1.5\u00b0C",
+  "type": "QUANTITATIVE",
+  "justification": "43% is primary verifiable number"
+ },
+ {
+  "id": "G5",
+  "topic": "Gemini",
+  "claim": "The Lancet Commission on dementia prevention exists",
+  "type": "CITATION",
+  "justification": "Pure source-existence claim"
+ },
+ {
+  "id": "G6",
+  "topic": "Gemini",
+  "claim": "The Lancet Commission identifies 14 modifiable risk factors for dementia",
+  "type": "RELATIONAL",
+  "justification": "Describes what Commission does \u2014 functional action"
+ },
+ {
+  "id": "G7",
+  "topic": "Gemini",
+  "claim": "The 14 risk factors could prevent or delay 45% of dementia cases",
+  "type": "QUANTITATIVE",
+  "justification": "45% is primary verifiable element"
+ },
+ {
+  "id": "G8",
+  "topic": "Gemini",
+  "claim": "NASA data shows sea levels risen approximately 91mm since 1993",
+  "type": "QUANTITATIVE",
+  "justification": "91mm is primary verifiable measurement; NASA is context not wrapped citation"
+ },
+ {
+  "id": "G9",
+  "topic": "Gemini",
+  "claim": "Global sea level rise is caused by ice melt and ocean warming",
+  "type": "RELATIONAL",
+  "justification": "Causal relationship"
+ },
+ {
+  "id": "G10",
+  "topic": "Gemini",
+  "claim": "CDC maintains childhood vaccine schedule to protect against 11 primary diseases",
+  "type": "RELATIONAL",
+  "justification": "Functional purpose claim"
+ },
+ {
+  "id": "G11",
+  "topic": "Gemini",
+  "claim": "CDC adds seasonal recommendations for RSV immunizations in infants",
+  "type": "RELATIONAL",
+  "justification": "Functional action by named entity \u2014 flag for verification"
+ },
+ {
+  "id": "G12",
+  "topic": "Gemini",
+  "claim": "World Bank found extreme poverty affected roughly 682 million people in 2022",
+  "type": "QUANTITATIVE",
+  "justification": "682 million is primary verifiable element"
+ },
+ {
+  "id": "G13",
+  "topic": "Gemini",
+  "claim": "Highest concentration of extreme poverty resides in Sub-Saharan Africa",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Locational property assigned to phenomenon"
+ },
+ {
+  "id": "G14",
+  "topic": "Gemini",
+  "claim": "The UN Human Development Report exists",
+  "type": "CITATION",
+  "justification": "Pure source-existence claim"
+ },
+ {
+  "id": "G15",
+  "topic": "Gemini",
+  "claim": "UN HDR warns Great Divergence forming in access to technologies and education",
+  "type": "RELATIONAL",
+  "justification": "Source existence already in G14; embedded fact is causal/functional"
+ },
+ {
+  "id": "Gr1",
+  "topic": "Grok",
+  "claim": "The World Health Organization exists",
+  "type": "CITATION",
+  "justification": "Pure source-existence claim"
+ },
+ {
+  "id": "Gr2",
+  "topic": "Grok",
+  "claim": "Ambient air pollution caused 4.2 million premature deaths worldwide in 2019",
+  "type": "QUANTITATIVE",
+  "justification": "4.2 million is primary verifiable element"
+ },
+ {
+  "id": "Gr3",
+  "topic": "Grok",
+  "claim": "The 4.2 million deaths were primarily from heart disease, stroke, COPD, lung cancer, respiratory infections",
+  "type": "RELATIONAL",
+  "justification": "Causal breakdown of deaths by cause"
+ },
+ {
+  "id": "Gr4",
+  "topic": "Grok",
+  "claim": "The IPCC Sixth Assessment Report Synthesis (2023) exists",
+  "type": "CITATION",
+  "justification": "Pure source-existence claim"
+ },
+ {
+  "id": "Gr5",
+  "topic": "Grok",
+  "claim": "Human activities have caused 1.1\u00b0C of global warming above pre-industrial levels",
+  "type": "QUANTITATIVE",
+  "justification": "1.1\u00b0C is primary verifiable measurement"
+ },
+ {
+  "id": "Gr6",
+  "topic": "Grok",
+  "claim": "Climate impacts are more widespread and severe than previously assessed",
+  "type": "RELATIONAL",
+  "justification": "Comparative relational claim"
+ },
+ {
+  "id": "Gr7",
+  "topic": "Grok",
+  "claim": "The 2024 Lancet Commission on dementia prevention exists",
+  "type": "CITATION",
+  "justification": "Pure source-existence claim"
+ },
+ {
+  "id": "Gr8",
+  "topic": "Grok",
+  "claim": "The 2024 Lancet Commission identifies 14 risk factors including vision loss and LDL cholesterol",
+  "type": "RELATIONAL",
+  "justification": "Source existence in Gr7; embedded fact is functional action"
+ },
+ {
+  "id": "Gr9",
+  "topic": "Grok",
+  "claim": "The 14 risk factors could prevent or delay about 45% of dementia cases",
+  "type": "QUANTITATIVE",
+  "justification": "45% is primary verifiable element"
+ },
+ {
+  "id": "Gr10",
+  "topic": "Grok",
+  "claim": "Sea level rise rate increased from 2.1mm/year in 1993 to 4.5mm/year by 2024",
+  "type": "QUANTITATIVE",
+  "justification": "Rate numbers are primary; flag as post-cutoff UNVERIFIABLE candidate"
+ },
+ {
+  "id": "Gr11",
+  "topic": "Grok",
+  "claim": "CDC recommends Child and Adolescent Immunization Schedule for ages 0-18",
+  "type": "RELATIONAL",
+  "justification": "Functional recommendation action"
+ },
+ {
+  "id": "Gr12",
+  "topic": "Grok",
+  "claim": "CDC schedule includes DTaP, Hib, PCV, IPV, MMR, varicella, Tdap at specified ages",
+  "type": "ENTITY_ATTRIBUTE",
+  "justification": "Describes contents/properties of the schedule"
+ },
+ {
+  "id": "Gr13",
+  "topic": "Grok",
+  "claim": "Nearly 700 million people (8.5%) lived in extreme poverty on less than $2.15/day around 2022",
+  "type": "QUANTITATIVE",
+  "justification": "Multiple numbers are primary verifiable elements"
+ },
+ {
+  "id": "Gr14",
+  "topic": "Grok",
+  "claim": "Nature journal published advances in CRISPR including AI-designed systems reducing off-target effects",
+  "type": "RELATIONAL",
+  "justification": "Functional content claim; flag as UNVERIFIABLE \u2014 too vague"
+ },
+ {
+  "id": "Gr15",
+  "topic": "Grok",
+  "claim": "The UN Human Development Reports exist",
+  "type": "CITATION",
+  "justification": "Pure source-existence claim"
+ },
+ {
+  "id": "Gr16",
+  "topic": "Grok",
+  "claim": "Inequality causes significant losses in development across health, education, income worldwide",
+  "type": "RELATIONAL",
+  "justification": "Causal relationship"
+ }
+]

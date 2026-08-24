@@ -1,0 +1,97 @@
+# HalDetect — Session Handoff (today: 2026-08-22)
+
+> Chat name: Sorting the 140 claims
+
+_Read this first. Everything below assumes no prior context._
+
+---
+
+## What This Project Is
+
+HalDetect: a taxonomy-routed hallucination-detection pipeline for LLM-generated text. Five claim types (CITATION, TEMPORAL, QUANTITATIVE, ENTITY_ATTRIBUTE, RELATIONAL), each routed to a type-specific verifier. This session did not touch verifier code or gold labels — it produced a reference document from an existing 140-claim dataset export.
+
+**Scope of this session:** purely a formatting/reference task. No new verification, no new gold labels, no code changes.
+
+---
+
+## A. What Happened This Session, In Order
+
+1. Received a raw dataset export (140 claims across 10 topic sets — Einstein, FinCrisis, DNA, Tesla, IPCC, Immune, SilkRoad, Rome, QC, WWI — plus 15 Gemini-sourced and 16 Grok-sourced claims) in a flat, UI-scraped text format.
+2. Converted the full set into a Markdown reference document, grouped by topic, with per-claim taxonomy type and a one-line justification for each classification.
+3. Regenerated the same content in a second pass, this time grouped by taxonomy type first (RELATIONAL → ENTITY_ATTRIBUTE → TEMPORAL → QUANTITATIVE → CITATION) rather than by topic, per author request.
+4. Flagged two claims inline during classification as likely-UNVERIFIABLE candidates rather than silently assigning them a confident type: Gr10 (2024 sea-level rate, post-cutoff) and Gr14 (Nature/CRISPR claim, too vague to verify).
+5. Did not write either version to a file — both were delivered inline in chat per explicit instruction ("dont generate file").
+
+---
+
+## B. Current File State
+
+No files were created or modified this session. Two markdown artifacts exist only in chat history:
+
+| Artifact                          | Grouping         | Status         | Notes                                                                                          |
+| ---------------------------------- | ----------------- | -------------- | ------------------------------------------------------------------------------------------------ |
+| Topic-grouped taxonomy doc          | By topic (Q1–Q10, Gemini, Grok) | Delivered in chat, not saved | Includes per-claim justification, distribution table, methodology notes.                        |
+| Type-grouped taxonomy doc            | By taxonomy type (RELATIONAL first) | Delivered in chat, not saved | Same 140 claims, same justifications, reordered per author's follow-up request. **Most recent / preferred version.** |
+
+**Note:** if either version needs to persist beyond this chat, it should be exported to an actual `.md` file next session — right now it only exists as conversation text and will need to be regenerated or copy-pasted out.
+
+---
+
+## C. Key Findings — Ranked by Evidence Strength
+
+1. **The 140-claim set cleanly decomposes into the five-type taxonomy with only one ambiguous case.** Q10-2 ("WWI was caused by the assassination... in 1914") was flagged as a candidate for splitting into two claims (a TEMPORAL date claim and a RELATIONAL causal claim) but was left as single TEMPORAL claim per the existing claim ID structure, since splitting would break alignment with whatever gold-labeling already exists against these IDs.
+
+2. **Two claims are plausible UNVERIFIABLE candidates, not confirmed.** Gr10 (sea-level rate through 2024) is a post-training-cutoff empirical claim; Gr14 (CRISPR/Nature claim) lacks enough specificity (no paper name, date, or journal issue) to route to a verifier confidently. These were flagged inline, not adjudicated — that adjudication should happen against actual gold labels, not against this formatting pass.
+
+3. **Distribution is consistent with prior batches.** RELATIONAL remains the plurality class (67/140, ~48%), matching the pattern already documented in Phase 2 gold labels (RELATIONAL 64/109 in the authoritative Phase 2 set per the prior handoff). This is corroborating, not new, evidence — worth noting only because it means this new 140-claim set doesn't look structurally different from the existing gold-labeled corpus.
+
+4. **This session's classifications are NOT gold labels.** They were produced by Claude during a formatting task, not verified against Wikidata/CrossRef/Semantic Scholar, and not reviewed claim-by-claim by the author. They should be treated as a first-pass taxonomy assignment requiring the same human gold-labeling discipline as every other batch in this project — not as ground truth.
+
+---
+
+## D. Open Decisions — NOT YET MADE
+
+- **Whether this 140-claim set is a new batch or overlaps with existing Phase 1/Phase 2/Phase 3 claims.** The topic names (Einstein, FinCrisis, DNA, Tesla, IPCC, Immune, SilkRoad, Rome, QC, WWI) don't obviously map onto the B3/Phase 2 file naming conventions in the prior handoff — needs reconciliation before this set is used in any evaluation.
+- **Whether Q10-2 should be split into two claims** (date vs. causal attribution) or kept as-is. Left unresolved this session.
+- **Disposition of Gr10 and Gr14** — UNVERIFIABLE vs. attempt verification anyway. Flagged, not decided.
+- **Whether the type-grouped or topic-grouped version is the one to keep as the working reference document.** Author's last request implies type-grouped is preferred, but this hasn't been confirmed as the permanent format.
+
+---
+
+## E. Standing Methodological Commitments
+
+- Claim taxonomy assignment is not the same as gold-label verification — this session did the former only. Do not treat the type/justification pairs produced here as verified facts about the claims' truth value.
+- Per existing project convention: gold labels are never nudged toward what's convenient for a verifier — the same should apply to taxonomy assignment (don't reclassify a claim's type just because it would make routing cleaner).
+- Claim IDs (Q1-1, G4, Gr10, etc.) should be preserved across any reformatting so this document stays cross-referenceable with whatever CSVs or execution logs eventually get built from this batch.
+
+---
+
+## F. What to Actually Do Next
+
+1. **Reconcile this 140-claim set against existing Phase 1/2/3 files** — determine if this is a new batch (Phase 4?) or a re-export of existing claims under new topic labels.
+2. **Resolve Gr10 and Gr14** — decide UNVERIFIABLE vs. attempt-verify before this set enters any pipeline run.
+3. **Save the type-grouped markdown to an actual file** (`.md`, not just chat) if it's going to be used as a working reference going forward — nothing from this session currently exists outside the chat transcript.
+4. **Gold-label this batch** using the same human-verification discipline as Phase 2, rather than treating this session's taxonomy assignments as final.
+5. **If this set is confirmed new**, route it into whichever verifier-testing priority is current per the 2026-08-20 handoff (entity-resolution bug fix still tops that list — this session doesn't change that priority).
+
+Priority: 1 > 2 > 4 > 3 > 5.
+
+---
+
+## Key Files to Have for Context
+
+- `haldetect_session_handoff_2026-08-20.md` — prior handoff; entity-resolution QID bug (Panama Canal, Rosetta Stone) is still the highest-priority open item in the project overall and is unaffected by this session.
+- This chat's two markdown outputs (topic-grouped, then type-grouped) — currently unsaved, exist only as chat text.
+
+---
+
+## Files NOT to Trust Without Re-Checking
+
+- Neither markdown output from this session has been gold-labeled or verified — treat all 140 type/justification assignments as a first-pass draft, not authoritative.
+- Do not assume this 140-claim set is disjoint from existing Phase 1–3 claims until reconciled (see Open Decision above).
+
+---
+
+## Tone Note
+
+This was a scoped, low-risk formatting session — no verifier logic, gold labels, or pipeline code were touched. The taxonomy assignments are a reasonable first pass but carry no evidentiary weight until reconciled against the project's existing gold-labeling discipline. Nothing here changes the priority order set in the 2026-08-20 handoff (entity-resolution bug fix is still first).

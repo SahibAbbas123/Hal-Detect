@@ -1,0 +1,48 @@
+import torch
+import numpy as np
+import random
+import os
+from sentence_transformers import SentenceTransformer, util
+
+# ==========================================
+# PART 1: DETERMINISM SETUP (The "Tuning")
+# ==========================================
+seed_value = 42
+random.seed(seed_value)
+np.random.seed(seed_value)
+torch.manual_seed(seed_value)
+if torch.backends.mps.is_available():
+    torch.mps.manual_seed(seed_value)
+
+# ==========================================
+# PART 2: YOUR ACTUAL THESIS LOGIC (The "Song")
+# ==========================================
+
+# Example: Loading a model
+print("Loading model...")
+model = SentenceTransformer('all-MiniLM-L6-v2') 
+
+# Example: Your data
+# These are the two things you want to compare
+sentences = ["This is a sentence", "The weather is cold in Antarctica"]
+
+# Generating embeddings
+# 'embeddings' will be a numpy array of shape (2, 384)
+embeddings = model.encode(sentences)
+
+print("Embeddings generated successfully!")
+print(embeddings)
+
+# -------------------------------------------------------------------------
+# FIX START: Extract individual embeddings from the matrix
+# -------------------------------------------------------------------------
+# embeddings[0] is the vector for the first sentence
+# embeddings[1] is the vector for the second sentence
+
+np.save('embeddings_1.npy', embeddings[0]) 
+np.save('embeddings_2.npy', embeddings[1])
+
+print("Saved embeddings_1.npy and embeddings_2.npy successfully!")
+# -------------------------------------------------------------------------
+# FIX END
+# -------------------------------------------------------------------------

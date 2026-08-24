@@ -1,0 +1,657 @@
+{
+    "Q1": {
+        "question": "Tell me about Albert Einstein's life, work, and major contributions to physics.",
+        "paragraph": "Albert Einstein was a German-born physicist who revolutionized science in the early 20th century. In 1905, he published four groundbreaking papers, including the theory of special relativity and the mass-energy equivalence formula E=mc\u00b2. He explained the photoelectric effect, which earned him the Nobel Prize in Physics in 1921. His general theory of relativity described gravity as the curvature of spacetime caused by mass. Einstein also contributed to quantum mechanics by proposing the concept of stimulated emission. He spent his later years at Princeton University attempting to develop a unified field theory. He is widely regarded as one of the most influential scientists in history.",
+        "claims": [
+            {
+                "claim": "Albert Einstein was a German-born physicist.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.681
+            },
+            {
+                "claim": "Albert Einstein revolutionized science in the early 20th century.",
+                "type": "TEMPORAL",
+                "drift": 0.717
+            },
+            {
+                "claim": "Albert Einstein published four groundbreaking papers in 1905.",
+                "type": "TEMPORAL",
+                "drift": 0.653
+            },
+            {
+                "claim": "Albert Einstein's 1905 papers included the theory of special relativity.",
+                "type": "TEMPORAL",
+                "drift": 0.676
+            },
+            {
+                "claim": "Albert Einstein's 1905 papers included the mass-energy equivalence formula E=mc\u00b2.",
+                "type": "TEMPORAL",
+                "drift": 0.568
+            },
+            {
+                "claim": "Albert Einstein explained the photoelectric effect.",
+                "type": "RELATIONAL",
+                "drift": 0.644
+            },
+            {
+                "claim": "Albert Einstein earned the Nobel Prize in Physics in 1921 for explaining the photoelectric effect.",
+                "type": "TEMPORAL",
+                "drift": 0.796
+            },
+            {
+                "claim": "Albert Einstein's general theory of relativity described gravity as the curvature of spacetime caused by mass.",
+                "type": "RELATIONAL",
+                "drift": 0.541
+            },
+            {
+                "claim": "Albert Einstein contributed to quantum mechanics by proposing the concept of stimulated emission.",
+                "type": "RELATIONAL",
+                "drift": 0.697
+            },
+            {
+                "claim": "Albert Einstein spent his later years at Princeton University.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.63
+            },
+            {
+                "claim": "Albert Einstein attempted to develop a unified field theory during his later years at Princeton University.",
+                "type": "RELATIONAL",
+                "drift": 0.654
+            },
+            {
+                "claim": "Albert Einstein is widely regarded as one of the most influential scientists in history.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.725
+            }
+        ]
+    },
+    "Q2": {
+        "question": "What were the main causes and outcomes of the 2008 global financial crisis?",
+        "paragraph": "The 2008 financial crisis was primarily caused by a collapse in the United States housing market following a period of low interest rates and predatory lending. Financial institutions bundled these high-risk subprime mortgages into complex derivatives called mortgage-backed securities, which were sold to investors worldwide. When homeowners began defaulting on their loans, these securities lost their value, leading to a liquidity crisis for major banks. The crisis peaked with the bankruptcy of Lehman Brothers in September 2008, triggering a global credit freeze. In response, governments implemented massive taxpayer-funded bailouts to prevent the total collapse of the global banking system. The outcome was a severe global recession characterized by millions of home foreclosures and a sharp increase in unemployment. To prevent future failures, the U.S. passed the Dodd-Frank Act to increase oversight and regulation of financial institutions.",
+        "claims": [
+            {
+                "claim": "The 2008 financial crisis was primarily caused by a collapse in the United States housing market.",
+                "type": "RELATIONAL",
+                "drift": 0.695
+            },
+            {
+                "claim": "The collapse in the United States housing market followed a period of low interest rates and predatory lending.",
+                "type": "RELATIONAL",
+                "drift": 0.641
+            },
+            {
+                "claim": "Financial institutions bundled high-risk subprime mortgages into complex derivatives called mortgage-backed securities.",
+                "type": "RELATIONAL",
+                "drift": 0.591
+            },
+            {
+                "claim": "Mortgage-backed securities were sold to investors worldwide.",
+                "type": "RELATIONAL",
+                "drift": 0.576
+            },
+            {
+                "claim": "Mortgage-backed securities lost their value when homeowners began defaulting on their loans.",
+                "type": "RELATIONAL",
+                "drift": 0.612
+            },
+            {
+                "claim": "The loss of value in mortgage-backed securities led to a liquidity crisis for major banks.",
+                "type": "RELATIONAL",
+                "drift": 0.71
+            },
+            {
+                "claim": "The 2008 financial crisis peaked with the bankruptcy of Lehman Brothers in September 2008.",
+                "type": "TEMPORAL",
+                "drift": 0.658
+            },
+            {
+                "claim": "The bankruptcy of Lehman Brothers triggered a global credit freeze.",
+                "type": "RELATIONAL",
+                "drift": 0.625
+            },
+            {
+                "claim": "Governments implemented massive taxpayer-funded bailouts to prevent the total collapse of the global banking system.",
+                "type": "RELATIONAL",
+                "drift": 0.615
+            },
+            {
+                "claim": "The outcome of the crisis was a severe global recession.",
+                "type": "RELATIONAL",
+                "drift": 0.552
+            },
+            {
+                "claim": "The global recession was characterized by millions of home foreclosures.",
+                "type": "QUANTITATIVE",
+                "drift": 0.577
+            },
+            {
+                "claim": "The global recession was characterized by a sharp increase in unemployment.",
+                "type": "RELATIONAL",
+                "drift": 0.366
+            },
+            {
+                "claim": "The U.S. passed the Dodd-Frank Act to increase oversight and regulation of financial institutions.",
+                "type": "RELATIONAL",
+                "drift": 0.515
+            }
+        ]
+    },
+    "Q3": {
+        "question": "Describe the structure and function of DNA.",
+        "paragraph": "DNA is a double-stranded helix composed of two polynucleotide chains. Each strand consists of a sugar-phosphate backbone and a sequence of four nitrogenous bases: adenine, thymine, cytosine, and guanine. These bases pair specifically via hydrogen bonds, with adenine pairing with thymine and cytosine pairing with guanine. The primary function of DNA is to store the genetic instructions necessary for the development and operation of living organisms. These instructions are encoded in the specific sequence of bases, which serve as blueprints for synthesizing proteins. Through the process of replication, DNA ensures that genetic information is accurately passed from parent to offspring.",
+        "claims": [
+            {
+                "claim": "DNA is a double-stranded helix composed of two polynucleotide chains.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.759
+            },
+            {
+                "claim": "Each DNA strand consists of a sugar-phosphate backbone.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.708
+            },
+            {
+                "claim": "Each DNA strand consists of a sequence of four nitrogenous bases.",
+                "type": "QUANTITATIVE",
+                "drift": 0.663
+            },
+            {
+                "claim": "The four nitrogenous bases of DNA are adenine, thymine, cytosine, and guanine.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.702
+            },
+            {
+                "claim": "DNA bases pair specifically via hydrogen bonds.",
+                "type": "RELATIONAL",
+                "drift": 0.659
+            },
+            {
+                "claim": "Adenine pairs with thymine.",
+                "type": "RELATIONAL",
+                "drift": 0.448
+            },
+            {
+                "claim": "Cytosine pairs with guanine.",
+                "type": "RELATIONAL",
+                "drift": 0.51
+            },
+            {
+                "claim": "The primary function of DNA is to store the genetic instructions necessary for the development and operation of living organisms.",
+                "type": "RELATIONAL",
+                "drift": 0.767
+            },
+            {
+                "claim": "Genetic instructions are encoded in the specific sequence of DNA bases.",
+                "type": "RELATIONAL",
+                "drift": 0.661
+            },
+            {
+                "claim": "The sequence of DNA bases serves as blueprints for synthesizing proteins.",
+                "type": "RELATIONAL",
+                "drift": 0.654
+            },
+            {
+                "claim": "DNA ensures that genetic information is accurately passed from parent to offspring through the process of replication.",
+                "type": "RELATIONAL",
+                "drift": 0.713
+            }
+        ]
+    },
+    "Q4": {
+        "question": "Who was Nikola Tesla and what did he invent?",
+        "paragraph": "Nikola Tesla was a Serbian-American inventor and electrical engineer born in 1856. He is most famous for developing the alternating current (AC) electrical system, which allows electricity to be transmitted over long distances. Tesla invented the Tesla coil, a high-frequency transformer used in early radio technology. He also contributed to the creation of the induction motor and early wireless communication systems. His work laid the foundation for modern radar, X-rays, and remote control. He spent much of his career collaborating with and later competing against Thomas Edison. Tesla's innovations fundamentally changed how the world generates and distributes power.",
+        "claims": [
+            {
+                "claim": "Nikola Tesla was a Serbian-American inventor and electrical engineer.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.779
+            },
+            {
+                "claim": "Nikola Tesla was born in 1856.",
+                "type": "TEMPORAL",
+                "drift": 0.711
+            },
+            {
+                "claim": "Nikola Tesla developed the alternating current (AC) electrical system.",
+                "type": "RELATIONAL",
+                "drift": 0.803
+            },
+            {
+                "claim": "The alternating current (AC) electrical system allows electricity to be transmitted over long distances.",
+                "type": "RELATIONAL",
+                "drift": 0.451
+            },
+            {
+                "claim": "Nikola Tesla invented the Tesla coil.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.834
+            },
+            {
+                "claim": "The Tesla coil is a high-frequency transformer used in early radio technology.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.677
+            },
+            {
+                "claim": "Nikola Tesla contributed to the creation of the induction motor.",
+                "type": "RELATIONAL",
+                "drift": 0.748
+            },
+            {
+                "claim": "Nikola Tesla contributed to the creation of early wireless communication systems.",
+                "type": "RELATIONAL",
+                "drift": 0.745
+            },
+            {
+                "claim": "The work of Nikola Tesla laid the foundation for modern radar.",
+                "type": "RELATIONAL",
+                "drift": 0.59
+            },
+            {
+                "claim": "The work of Nikola Tesla laid the foundation for X-rays.",
+                "type": "RELATIONAL",
+                "drift": 0.554
+            },
+            {
+                "claim": "The work of Nikola Tesla laid the foundation for remote control.",
+                "type": "RELATIONAL",
+                "drift": 0.613
+            },
+            {
+                "claim": "Nikola Tesla spent much of his career collaborating with Thomas Edison.",
+                "type": "RELATIONAL",
+                "drift": 0.7
+            },
+            {
+                "claim": "Nikola Tesla spent much of his career competing against Thomas Edison.",
+                "type": "RELATIONAL",
+                "drift": 0.662
+            },
+            {
+                "claim": "Nikola Tesla's innovations fundamentally changed how the world generates power.",
+                "type": "RELATIONAL",
+                "drift": 0.618
+            },
+            {
+                "claim": "Nikola Tesla's innovations fundamentally changed how the world distributes power.",
+                "type": "RELATIONAL",
+                "drift": 0.63
+            }
+        ]
+    },
+    "Q5": {
+        "question": "What are the key findings of the latest IPCC report on climate change?",
+        "paragraph": "The IPCC Sixth Assessment Report states that human activities have unequivocally caused approximately 1.1 degrees Celsius of global warming since 1850. Global surface temperatures will likely exceed 1.5 degrees Celsius in the near term unless there are immediate, deep, and rapid emissions reductions. Sea level rise is accelerating, and extreme weather events like heatwaves and heavy precipitation are becoming more frequent and intense. Widespread and irreversible changes are already occurring in the biosphere, including the loss of coral reefs and glaciers. To limit warming to 1.5 degrees Celsius, global greenhouse gas emissions must peak before 2025 and be reduced by 43 percent by 2030. Net-zero carbon dioxide emissions must be achieved by the early 2050s to stabilize the climate. Current policies are insufficient to meet these goals, creating a critical gap between pledges and action.",
+        "claims": [
+            {
+                "claim": "The IPCC Sixth Assessment Report states that human activities have unequivocally caused approximately 1.1 degrees Celsius of global warming since 1850.",
+                "type": "CITATION",
+                "drift": 0.68
+            },
+            {
+                "claim": "Global surface temperatures will likely exceed 1.5 degrees Celsius in the near term unless there are immediate, deep, and rapid emissions reductions.",
+                "type": "QUANTITATIVE",
+                "drift": 0.709
+            },
+            {
+                "claim": "Sea level rise is accelerating.",
+                "type": "RELATIONAL",
+                "drift": 0.337
+            },
+            {
+                "claim": "Extreme weather events like heatwaves and heavy precipitation are becoming more frequent and intense.",
+                "type": "RELATIONAL",
+                "drift": 0.256
+            },
+            {
+                "claim": "Widespread and irreversible changes are already occurring in the biosphere.",
+                "type": "RELATIONAL",
+                "drift": 0.384
+            },
+            {
+                "claim": "The loss of coral reefs and glaciers are examples of irreversible changes occurring in the biosphere.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.34
+            },
+            {
+                "claim": "Global greenhouse gas emissions must peak before 2025 to limit warming to 1.5 degrees Celsius.",
+                "type": "TEMPORAL",
+                "drift": 0.781
+            },
+            {
+                "claim": "Global greenhouse gas emissions must be reduced by 43 percent by 2030 to limit warming to 1.5 degrees Celsius.",
+                "type": "QUANTITATIVE",
+                "drift": 0.75
+            },
+            {
+                "claim": "Net-zero carbon dioxide emissions must be achieved by the early 2050s to stabilize the climate.",
+                "type": "TEMPORAL",
+                "drift": 0.71
+            },
+            {
+                "claim": "Current policies are insufficient to meet the goals of limiting warming to 1.5 degrees Celsius and achieving net-zero carbon dioxide emissions.",
+                "type": "QUANTITATIVE",
+                "drift": 0.769
+            },
+            {
+                "claim": "A critical gap exists between pledges and action regarding climate goals.",
+                "type": "RELATIONAL",
+                "drift": 0.567
+            }
+        ]
+    },
+    "Q6": {
+        "question": "Explain how the human immune system works.",
+        "paragraph": "The human immune system protects the body by identifying and neutralizing harmful pathogens like bacteria and viruses. Physical barriers such as the skin and mucous membranes provide the first line of defense to block entry. The innate immune system offers a rapid, non-specific response using phagocytes to engulf and destroy invaders. The adaptive immune system provides a targeted response by using B cells to produce specific antibodies. T cells further support this process by destroying infected host cells and coordinating the overall immune response. Memory cells are created after an infection to recognize and fight the same pathogen more efficiently in the future. This complex network of cells and proteins ensures the body can distinguish between its own healthy cells and foreign threats.",
+        "claims": [
+            {
+                "claim": "The human immune system protects the body by identifying and neutralizing harmful pathogens like bacteria and viruses.",
+                "type": "RELATIONAL",
+                "drift": 0.743
+            },
+            {
+                "claim": "Physical barriers such as the skin and mucous membranes provide the first line of defense to block entry.",
+                "type": "RELATIONAL",
+                "drift": 0.547
+            },
+            {
+                "claim": "The innate immune system offers a rapid, non-specific response using phagocytes to engulf and destroy invaders.",
+                "type": "RELATIONAL",
+                "drift": 0.73
+            },
+            {
+                "claim": "The adaptive immune system provides a targeted response by using B cells to produce specific antibodies.",
+                "type": "RELATIONAL",
+                "drift": 0.738
+            },
+            {
+                "claim": "T cells destroy infected host cells.",
+                "type": "RELATIONAL",
+                "drift": 0.584
+            },
+            {
+                "claim": "T cells coordinate the overall immune response.",
+                "type": "RELATIONAL",
+                "drift": 0.566
+            },
+            {
+                "claim": "Memory cells are created after an infection to recognize and fight the same pathogen more efficiently in the future.",
+                "type": "RELATIONAL",
+                "drift": 0.653
+            },
+            {
+                "claim": "The network of cells and proteins ensures the body can distinguish between its own healthy cells and foreign threats.",
+                "type": "RELATIONAL",
+                "drift": 0.601
+            }
+        ]
+    },
+    "Q7": {
+        "question": "What is the history and significance of the Silk Road?",
+        "paragraph": "The Silk Road was a network of Eurasian trade routes that connected China to the Mediterranean world from roughly 130 BCE to 1453 CE. It began during the Han Dynasty when China opened trade with the West to exchange silk for Central Asian horses. Beyond luxury goods like silk, spices, and glassware, the routes facilitated the spread of Buddhism, Islam, and Christianity across Asia. The network also enabled the transmission of critical technologies, including papermaking and gunpowder, from East to West. However, the routes also served as conduits for diseases, most notably the bubonic plague during the 14th century. The significance of the Silk Road lay in its role as the first global bridge for cultural and economic exchange between diverse civilizations. The system eventually declined as maritime trade routes became safer and more efficient.",
+        "claims": [
+            {
+                "claim": "The Silk Road was a network of Eurasian trade routes.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.765
+            },
+            {
+                "claim": "The Silk Road connected China to the Mediterranean world from roughly 130 BCE to 1453 CE.",
+                "type": "TEMPORAL",
+                "drift": 0.813
+            },
+            {
+                "claim": "The Silk Road began during the Han Dynasty.",
+                "type": "TEMPORAL",
+                "drift": 0.726
+            },
+            {
+                "claim": "China opened trade with the West during the Han Dynasty to exchange silk for Central Asian horses.",
+                "type": "TEMPORAL",
+                "drift": 0.661
+            },
+            {
+                "claim": "The Silk Road routes facilitated the spread of Buddhism across Asia.",
+                "type": "RELATIONAL",
+                "drift": 0.714
+            },
+            {
+                "claim": "The Silk Road routes facilitated the spread of Islam across Asia.",
+                "type": "RELATIONAL",
+                "drift": 0.729
+            },
+            {
+                "claim": "The Silk Road routes facilitated the spread of Christianity across Asia.",
+                "type": "RELATIONAL",
+                "drift": 0.717
+            },
+            {
+                "claim": "The Silk Road routes were used to transport luxury goods including silk, spices, and glassware.",
+                "type": "RELATIONAL",
+                "drift": 0.698
+            },
+            {
+                "claim": "The Silk Road network enabled the transmission of papermaking from East to West.",
+                "type": "RELATIONAL",
+                "drift": 0.668
+            },
+            {
+                "claim": "The Silk Road network enabled the transmission of gunpowder from East to West.",
+                "type": "RELATIONAL",
+                "drift": 0.62
+            },
+            {
+                "claim": "The Silk Road routes served as conduits for diseases.",
+                "type": "RELATIONAL",
+                "drift": 0.765
+            },
+            {
+                "claim": "The bubonic plague spread via the Silk Road routes during the 14th century.",
+                "type": "TEMPORAL",
+                "drift": 0.745
+            },
+            {
+                "claim": "The Silk Road served as the first global bridge for cultural and economic exchange between diverse civilizations.",
+                "type": "RELATIONAL",
+                "drift": 0.692
+            },
+            {
+                "claim": "The Silk Road system declined as maritime trade routes became safer and more efficient.",
+                "type": "RELATIONAL",
+                "drift": 0.631
+            }
+        ]
+    },
+    "Q8": {
+        "question": "Describe the rise and fall of the Roman Empire.",
+        "paragraph": "Rome transitioned from a republic to an empire in 27 BCE under Augustus. The empire reached its greatest territorial extent during the reign of Trajan in 117 CE. Stability and economic growth characterized the Pax Romana for approximately two centuries. Internal instability began with the Crisis of the Third Century, marked by civil wars and economic collapse. Emperor Diocletian later split the empire into Eastern and Western halves to improve administration. The Western Roman Empire officially fell in 476 CE when Odoacer deposed Romulus Augustulus. The Eastern Roman Empire, known as Byzantium, survived until the fall of Constantinople in 1453.",
+        "claims": [
+            {
+                "claim": "Rome transitioned from a republic to an empire in 27 BCE under Augustus.",
+                "type": "TEMPORAL",
+                "drift": 0.679
+            },
+            {
+                "claim": "The Roman Empire reached its greatest territorial extent during the reign of Trajan in 117 CE.",
+                "type": "TEMPORAL",
+                "drift": 0.598
+            },
+            {
+                "claim": "Stability and economic growth characterized the Pax Romana for approximately two centuries.",
+                "type": "TEMPORAL",
+                "drift": 0.654
+            },
+            {
+                "claim": "Internal instability began with the Crisis of the Third Century.",
+                "type": "TEMPORAL",
+                "drift": 0.416
+            },
+            {
+                "claim": "The Crisis of the Third Century was marked by civil wars and economic collapse.",
+                "type": "RELATIONAL",
+                "drift": 0.321
+            },
+            {
+                "claim": "Emperor Diocletian split the Roman Empire into Eastern and Western halves to improve administration.",
+                "type": "RELATIONAL",
+                "drift": 0.664
+            },
+            {
+                "claim": "The Western Roman Empire officially fell in 476 CE.",
+                "type": "TEMPORAL",
+                "drift": 0.709
+            },
+            {
+                "claim": "Odoacer deposed Romulus Augustulus in 476 CE.",
+                "type": "TEMPORAL",
+                "drift": 0.506
+            },
+            {
+                "claim": "The Eastern Roman Empire was known as Byzantium.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.649
+            },
+            {
+                "claim": "The Eastern Roman Empire survived until the fall of Constantinople in 1453.",
+                "type": "TEMPORAL",
+                "drift": 0.69
+            }
+        ]
+    },
+    "Q9": {
+        "question": "What is quantum computing and and how does it differ from classical computing?",
+        "paragraph": "Quantum computing is a field of computing that uses quantum mechanical phenomena to process information. While classical computers use bits that exist as either a 0 or a 1, quantum computers use qubits. Qubits can exist in a state of superposition, allowing them to represent multiple states simultaneously. They also utilize entanglement, where the state of one qubit is instantaneously connected to another regardless of distance. This allows quantum computers to perform certain complex calculations, such as integer factorization, exponentially faster than classical systems. Consequently, quantum computing excels at specific tasks like molecular simulation and cryptography while classical computing remains superior for general daily tasks.",
+        "claims": [
+            {
+                "claim": "Quantum computing is a field of computing that uses quantum mechanical phenomena to process information.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.821
+            },
+            {
+                "claim": "Classical computers use bits that exist as either a 0 or a 1.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.465
+            },
+            {
+                "claim": "Quantum computers use qubits.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.761
+            },
+            {
+                "claim": "Qubits can exist in a state of superposition.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.567
+            },
+            {
+                "claim": "Superposition allows qubits to represent multiple states simultaneously.",
+                "type": "RELATIONAL",
+                "drift": 0.648
+            },
+            {
+                "claim": "Quantum computers utilize entanglement.",
+                "type": "RELATIONAL",
+                "drift": 0.744
+            },
+            {
+                "claim": "Entanglement is a state where the state of one qubit is instantaneously connected to another regardless of distance.",
+                "type": "RELATIONAL",
+                "drift": 0.561
+            },
+            {
+                "claim": "Quantum computers can perform certain complex calculations, such as integer factorization, exponentially faster than classical systems.",
+                "type": "RELATIONAL",
+                "drift": 0.761
+            },
+            {
+                "claim": "Quantum computing excels at specific tasks like molecular simulation and cryptography.",
+                "type": "RELATIONAL",
+                "drift": 0.803
+            },
+            {
+                "claim": "Classical computing remains superior for general daily tasks.",
+                "type": "ENTITY_ATTRIBUTE",
+                "drift": 0.529
+            }
+        ]
+    },
+    "Q10": {
+        "question": "What were the causes and global consequences of World War I?",
+        "paragraph": "World War I was caused by a complex web of militarism, alliance systems, imperialism, and intense nationalism in Europe. The immediate trigger was the assassination of Archduke Franz Ferdinand of Austria-Hungary in Sarajevo in 1914. This event activated mutual defense treaties, drawing the Central Powers and the Triple Entente into a global conflict. The war resulted in the collapse of the German, Austro-Hungarian, Ottoman, and Russian empires. The Treaty of Versailles imposed heavy reparations and territorial losses on Germany, fueling future instability. Globally, the conflict shifted economic power toward the United States and redrew the borders of the Middle East and Eastern Europe. These geopolitical changes and unresolved tensions contributed directly to the outbreak of World War II.",
+        "claims": [
+            {
+                "claim": "World War I was caused by a complex web of militarism, alliance systems, imperialism, and intense nationalism in Europe.",
+                "type": "RELATIONAL",
+                "drift": 0.793
+            },
+            {
+                "claim": "The assassination of Archduke Franz Ferdinand of Austria-Hungary in Sarajevo in 1914 was the immediate trigger for World War I.",
+                "type": "TEMPORAL",
+                "drift": 0.802
+            },
+            {
+                "claim": "The assassination of Archduke Franz Ferdinand activated mutual defense treaties.",
+                "type": "RELATIONAL",
+                "drift": 0.682
+            },
+            {
+                "claim": "The activation of mutual defense treaties drew the Central Powers and the Triple Entente into a global conflict.",
+                "type": "RELATIONAL",
+                "drift": 0.574
+            },
+            {
+                "claim": "World War I resulted in the collapse of the German empire.",
+                "type": "RELATIONAL",
+                "drift": 0.631
+            },
+            {
+                "claim": "World War I resulted in the collapse of the Austro-Hungarian empire.",
+                "type": "RELATIONAL",
+                "drift": 0.672
+            },
+            {
+                "claim": "World War I resulted in the collapse of the Ottoman empire.",
+                "type": "RELATIONAL",
+                "drift": 0.613
+            },
+            {
+                "claim": "World War I resulted in the collapse of the Russian empire.",
+                "type": "RELATIONAL",
+                "drift": 0.583
+            },
+            {
+                "claim": "The Treaty of Versailles imposed heavy reparations on Germany.",
+                "type": "RELATIONAL",
+                "drift": 0.447
+            },
+            {
+                "claim": "The Treaty of Versailles imposed territorial losses on Germany.",
+                "type": "RELATIONAL",
+                "drift": 0.453
+            },
+            {
+                "claim": "The reparations and territorial losses imposed by the Treaty of Versailles fueled future instability.",
+                "type": "CITATION",
+                "drift": 0.565
+            },
+            {
+                "claim": "World War I shifted economic power toward the United States.",
+                "type": "RELATIONAL",
+                "drift": 0.58
+            },
+            {
+                "claim": "World War I redrew the borders of the Middle East.",
+                "type": "RELATIONAL",
+                "drift": 0.508
+            },
+            {
+                "claim": "World War I redrew the borders of Eastern Europe.",
+                "type": "RELATIONAL",
+                "drift": 0.595
+            },
+            {
+                "claim": "The geopolitical changes and unresolved tensions following World War I contributed directly to the outbreak of World War II.",
+                "type": "RELATIONAL",
+                "drift": 0.77
+            }
+        ]
+    }
+}

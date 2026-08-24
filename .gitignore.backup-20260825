@@ -1,0 +1,35 @@
+# --- secrets: never commit ---
+geminiAPI.txt
+*.key
+.env
+.env.*
+!.env.example
+
+# --- virtualenv ---
+# .venv*/ also covers .venv-pdf/ (pdf-skill tooling, kept out of the pinned
+# thesis venv so torch/transformers pins stay reproducible).
+.venv*/
+venv/
+__pycache__/
+*.py[cod]
+
+# --- API / model caches -------------------------------------------------
+# These are large and machine-local, BUT read the caching rule before you
+# decide to delete any of them: thesis numbers come from a single cached run,
+# and Gemini query generation is non-deterministic without its cache. Ignoring
+# them in git is fine; deleting them mid-experiment is not.
+*_cache.json
+verifier_cache*.json
+relational_cache.json
+relational_retrieval_cache.json
+relational_nli_cache.json
+llm_baseline_cache.json
+
+# --- OS noise ---
+.DS_Store
+Thumbs.db
+
+# --- scratch ---
+/tmp/
+*.tmp
+*.log

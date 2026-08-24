@@ -1,0 +1,185 @@
+import requests
+import json
+import os
+from transformers import pipeline
+
+print("=" * 60)
+print("HALDETECT VERIFIER SETUP")
+print("=" * 60)
+import requests
+
+print("\n[1] Testing Wikidata SPARQL...")
+sparql_endpoint = "https://query.wikidata.org/sparql"
+
+# Note: Using the correct prefix 'wd:' in the query requires 
+# the query to be compatible with the SPARQL engine. 
+# In the endpoint, we usually use the full URL or the prefix.
+sparql_query = """
+SELECT ?date WHERE {
+  wd:Q937 wdt:P569 ?date .
+}
+"""
+
+# IMPORTANT: Define a User-Agent
+headers = {
+    "User-Agent": "MyWikidataTestBot/1.0 (contact: your-email@example.com)" 
+}
+
+try:
+    response = requests.get(
+        sparql_endpoint,
+        params={
+            "query": sparql_query,
+            "format": "json"
+        },
+        headers=headers,  # <--- Add this line
+        timeout=10
+    )
+    if response.status_code == 200:
+        result = response.json()
+        birth_date = result["results"]["bindings"][0]["date"]["value"]
+        print(f"  ✓ Wikidata SPARQL working")
+        print(f"    Einstein birth date from Wikidata: {birth_date[:10]}")
+    else:
+        print(f"  ✗ Wikidata SPARQL failed: {response.status_code}")
+        # Print the response text to see exactly why it failed (e.g., if the query is wrong)
+        print(f"    Response: {response.text}")
+except Exception as e:
+    print(f"  ✗ Wikidata SPARQL error: {e}")
+#     [1] Testing Wikidata SPARQL...
+#   ✓ Wikidata SPARQL working
+#     Einstein birth date from Wikidata: 1879-03-14
+import requests
+
+print("\n[2] Testing Wikidata entity resolution (opensearch)...")
+entity_search_url = "https://www.wikidata.org/w/api.php"
+
+# Reuse the same headers here!
+headers = {
+    "User-Agent": "MyWikidataTestBot/1.0 (contact: your-email@example.com)" 
+}
+
+try:
+    response = requests.get(
+        entity_search_url,
+        params={
+            "action": "query",
+            "list": "search",
+            "srsearch": "Albert Einstein",
+            "format": "json"
+        },
+        headers=headers,  # <--- Add this line
+        timeout=10
+    )
+    if response.status_code == 200:
+        results = response.json()["query"]["search"]
+        if results:
+            print(f"  ✓ Wikidata entity search working")
+            print(f"    Top result: {results[0]['title']}")
+    else:
+        print(f"  ✗ Entity search failed: {response.status_code}")
+except Exception as e:
+    print(f"  ✗ Entity search error: {e}")
+# [2] Testing Wikidata entity resolution (opensearch)...
+#   ✓ Wikidata entity search working
+#     Top result: Q937
+
+print("\n[3] Testing CrossRef API...")
+crossref_url = "https://api.crossref.org/v1/works"
+
+try:
+    response = requests.get(
+        crossref_url,
+        params={
+            "query": "IPCC Sixth Assessment Report",
+            "rows": 1,
+            "mailto": "chyabbas34@gmail.com"  # Replace with actual email
+        },
+        timeout=10
+    )
+    if response.status_code == 200:
+        results = response.json()
+        if results["message"]["items"]:
+            print(f"  ✓ CrossRef API working")
+            print(f"    Found: {results['message']['items'][0]['title']}")
+        else:
+            print(f"  ✓ CrossRef API working (no results for query)")
+    else:
+        print(f"  ✗ CrossRef API failed: {response.status_code}")
+except Exception as e:
+    print(f"  ✗ CrossRef API error: {e}")
+
+# [3] Testing CrossRef API...
+#   ✓ CrossRef API working
+#     Found: ['Equity Assessment of Global Mitigation Pathways in the IPCC Sixth Assessment Report']
+
+print("\n[4] Testing facebook/bart-large-mnli...")
+print("  (This downloads ~1.6GB on first run, may take 1–2 minutes)")
+
+try:
+    classifier = pipeline(
+        "zero-shot-classification",
+        model="facebook/bart-large-mnli",
+        device=0  # GPU if available, else CPU
+    )
+    
+    premise = "Lehman Brothers filed for bankruptcy in 2008"
+    evidence = "The bankruptcy of Lehman Brothers occurred in September 2008"
+    
+    result = classifier(
+        premise,
+        [evidence],
+        hypothesis_template="This text: {}",
+        multi_class=False
+    )
+    
+    print(f"  ✓ BART-large-mnli loaded and working")
+    print(f"    Entailment score: {result['scores'][0]:.3f}")
+    
+except Exception as e:
+    print(f"  ✗ BART-large-mnli error: {e}")
+    
+    
+# [4] Testing facebook/bart-large-mnli...
+#   (This downloads ~1.6GB on first run, may take 1–2 minutes)
+# Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+# Loading weights: 100%|██████████| 515/515 [00:00<00:00, 6488.13it/s]
+#   ✓ BART-large-mnli loaded and working
+#     Entailment score: 0.977
+
+print("\n[5] Testing caching system...")
+
+CACHE_FILE = "verifier_cache.json"
+
+def load_cache():
+    if os.path.exists(CACHE_FILE):
+        with open(CACHE_FILE) as f:
+            return json.load(f)
+    return {}
+
+def save_cache(cache):
+    with open(CACHE_FILE, "w") as f:
+        json.dump(cache, f, indent=2)
+
+cache = load_cache()
+test_key = "Albert_Einstein_birth_year_1879"
+cache[test_key] = {"verdict": "TRUE", "timestamp": "2026-06-06"}
+save_cache(cache)
+
+cache_verify = load_cache()
+if test_key in cache_verify:
+    print(f"  ✓ Caching system working")
+    print(f"    Cache file: {CACHE_FILE}")
+else:
+    print(f"  ✗ Caching system failed")
+
+print("\n" + "=" * 60)
+print("SETUP COMPLETE")
+print("=" * 60)
+
+#   ✓ Caching system working
+#     Cache file: verifier_cache.json
+
+# ============================================================
+# SETUP COMPLETE
+# ============================================================

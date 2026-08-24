@@ -1,0 +1,1168 @@
+# relational verifier results on b3 csv
+
+---
+code:
+```
+"""
+HalDetect — RELATIONAL Verifier (Phase 3e: Multi-Candidate Retrieval + Calibrated NLI)
+CSE 700 · University of Chittagong · 2026
+
+Changes from Phase 3d, and why:
+
+1. MULTI-CANDIDATE PAGE RESOLUTION (fixes Marie-Curie/Sorbonne, Ribosome/mRNA cases)
+   Phase 3d took the #1 Wikipedia search hit and committed to it. That's why "Marie
+   Curie studied physics at the Sorbonne" resolved to the "Sorbonne University" page
+   instead of the "Marie Curie" biography, and "Ribosomes read mRNA to synthesize the
+   spike protein" resolved to the generic "Ribosome" page instead of anything about
+   translation/vaccines. Fix: fetch the top-N search results, pull passages from all
+   of them, and let passage-level SBERT similarity — not page-title search rank —
+   decide which passages actually get used.
+
+2. DUAL-SEED RETRIEVAL (subject page + Gemini-query page)
+   Phase 3d only ever fetched ONE page per claim (whatever the Gemini-generated query
+   resolved to). If that query drifted off-topic, there was no fallback. Fix: also
+   fetch the page for the raw `subject` field and pool its passages in. Cheap
+   insurance, no extra LLM calls.
+
+3. MARGIN-BASED NLI DECISION (fixes verdict flips between runs)
+   Phase 3d verdicts flip between TRUE/FALSE/UNVERIFIABLE across identical reruns
+   because it takes independent max-entail and max-contradict across passages, and
+   whichever crosses ITS OWN threshold first wins — even when both are mediocre and
+   close together (e.g. entail=0.41 contradict=0.30 on "depression/anxiety most
+   common" swung from UNVERIFIABLE to FALSE to (implicitly) TRUE-range across runs
+   depending on which stray passage got retrieved). Fix: require entailment to beat
+   contradiction by a minimum MARGIN, not just clear its own bar independently, and
+   require the same page-passage to survive across the top-K candidates that agree
+   in direction (a form of self-consistency) before calling FALSE.
+
+4. RETRY / BACKOFF ON WIKIPEDIA 429s
+   Phase 3d silently fell through to UNVERIFIABLE on rate-limit errors (see the
+   "acute food insecurity" / "Executive Committee" rows in the no-cache run — those
+   weren't unverifiable, Wikipedia just rate-limited the request). Fix: exponential
+   backoff retry before giving up.
+
+5. SEPARATED CACHES for retrieval vs. NLI
+   So you can freeze which page/passages a claim resolved to (once you've eyeballed
+   it and it looks right) and iterate on NLI thresholds alone without re-rolling
+   retrieval every run — the two were entangled in one cache file before, making it
+   hard to tell whether a flipped verdict came from retrieval or from classification.
+
+TRIED AND REVERTED: a page-relevance gate (drop a candidate page from the pool if
+its title/intro shared no non-trivial keyword with the claim) was added to stop
+tangential pages — e.g. a country-specific page — from being pooled into a global
+claim. Tested against the full 64-claim set twice: it didn't fix its target case
+(generic domain words like "mental"/"health" passed the gate regardless) and it
+introduced a new regression (dropped legitimately relevant pages for the debt-crisis
+claim, flipping a correct TRUE to UNVERIFIABLE). Net effect was flat-to-negative on
+both accuracy and coverage, so it was removed. If revisited, prototype against a
+handful of cached claims before spending a full run on it.
+"""
+
+import json
+import time
+import requests
+from sentence_transformers import SentenceTransformer, util
+from google.colab import userdata
+
+# Gemini API — for disambiguated search query generation
+GEMINI_API_KEY  = userdata.get('GEMINI_API_KEY')
+GEMINI_MODEL    = "gemini-3.1-flash-lite-preview"
+GEMINI_ENDPOINT = (
+    "https://generativelanguage.googleapis.com/v1beta/models/"
+    f"{GEMINI_MODEL}:generateContent?key={GEMINI_API_KEY}"
+)
+
+# =============================================================================
+# CONFIGURATION
+# =============================================================================
+
+WIKIPEDIA_API         = "https://en.wikipedia.org/w/api.php"
+RETRIEVAL_CACHE_FILE  = "relational_retrieval_cache.json"   # pages/passages — freeze once happy
+NLI_CACHE_FILE        = "relational_nli_cache.json"         # classification — iterate freely
+SBERT_MODEL           = "all-MiniLM-L6-v2"
+
+SEARCH_CANDIDATES     = 3     # pages considered per query (was 1)
+TOP_K_PASSAGES        = 5     # passages kept after pooling+ranking (was 3)
+MIN_PASSAGE_SCORE     = 0.45  # slightly loosened since we now pool more candidates
+
+ENTAIL_THRESHOLD      = 0.55  # raised from 0.50 — fewer marginal TRUEs
+CONTRADICT_THRESHOLD  = 0.45  # raised from 0.40 — fewer marginal FALSEs
+MIN_MARGIN            = 0.15  # NEW — entail must beat contradict by this much
+
+MAX_RETRIES           = 4
+BASE_BACKOFF_SECONDS  = 2.0
+
+HEADERS = {
+    "User-Agent": "HalDetectVerifier/2.0 (haldetect-thesis; contact: your-email@example.com)"
+}
+
+# =============================================================================
+# LAZY MODEL LOADERS
+# =============================================================================
+
+_sbert_model    = None
+_nli_classifier = None
+
+def get_sbert() -> SentenceTransformer:
+    global _sbert_model
+    if _sbert_model is None:
+        _sbert_model = SentenceTransformer(SBERT_MODEL)
+    return _sbert_model
+
+def get_nli():
+    global _nli_classifier
+    if _nli_classifier is None:
+        from transformers import pipeline
+        print("Loading BART NLI model...")
+        _nli_classifier = pipeline(
+            "zero-shot-classification",
+            model="facebook/bart-large-mnli",
+            device=-1
+        )
+        print("BART loaded.")
+    return _nli_classifier
+
+# =============================================================================
+# CACHE SYSTEM (split retrieval vs. NLI so you can freeze one and iterate other)
+# =============================================================================
+
+def load_json_cache(path: str) -> dict:
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+def save_json_cache(path: str, cache: dict):
+    with open(path, "w") as f:
+        json.dump(cache, f, indent=2)
+
+# =============================================================================
+# RETRIEVAL — multi-candidate, with retry/backoff
+# =============================================================================
+
+def _get_with_retry(params: dict) -> dict | None:
+    for attempt in range(MAX_RETRIES):
+        try:
+            r = requests.get(WIKIPEDIA_API, params=params, headers=HEADERS, timeout=10)
+            if r.status_code == 429:
+                wait = BASE_BACKOFF_SECONDS * (2 ** attempt)
+                print(f"    [429] backing off {wait:.1f}s (attempt {attempt+1}/{MAX_RETRIES})")
+                time.sleep(wait)
+                continue
+            r.raise_for_status()
+            return r.json()
+        except requests.RequestException as e:
+            wait = BASE_BACKOFF_SECONDS * (2 ** attempt)
+            print(f"    [request error] {e} — retrying in {wait:.1f}s")
+            time.sleep(wait)
+    return None
+
+def resolve_wikipedia_titles(query: str, cache: dict, n: int = SEARCH_CANDIDATES) -> list[str]:
+    """Returns up to n candidate page titles instead of committing to the #1 hit."""
+    cache_key = f"titles__{query.lower().replace(' ', '_')}__{n}"
+    if cache_key in cache:
+        return cache[cache_key]
+
+    data = _get_with_retry({
+        "action": "query", "list": "search", "srsearch": query,
+        "srlimit": n, "format": "json"
+    })
+    titles = []
+    if data:
+        results = data.get("query", {}).get("search", [])
+        titles = [r["title"] for r in results]
+
+    cache[cache_key] = titles
+    save_json_cache(RETRIEVAL_CACHE_FILE, cache)
+    time.sleep(0.5)
+    return titles
+
+def fetch_page_text(title: str, cache: dict) -> str:
+    cache_key = f"text__{title.lower().replace(' ', '_')}"
+    if cache_key in cache:
+        return cache[cache_key]
+
+    data = _get_with_retry({
+        "action": "query", "prop": "extracts", "explaintext": 1,
+        "titles": title, "format": "json"
+    })
+    text = ""
+    if data:
+        pages = data.get("query", {}).get("pages", {})
+        for page in pages.values():
+            text = page.get("extract", "")
+            break
+
+    cache[cache_key] = text
+    save_json_cache(RETRIEVAL_CACHE_FILE, cache)
+    time.sleep(0.5)
+    return text
+
+def chunk_passages(text: str, min_len: int = 50) -> list[str]:
+    if not text:
+        return []
+    return [
+        p.strip() for p in text.split("\n")
+        if p.strip() and not p.strip().startswith("==") and len(p.strip()) >= min_len
+    ]
+
+def rank_passages(claim: str, passages: list[str], top_k: int) -> list[tuple[str, float]]:
+    if not passages:
+        return []
+    model        = get_sbert()
+    claim_emb    = model.encode(claim, convert_to_tensor=True)
+    passage_embs = model.encode(passages, convert_to_tensor=True)
+    scores       = util.cos_sim(claim_emb, passage_embs)[0]
+    ranked       = sorted(zip(passages, scores.tolist()), key=lambda x: x[1], reverse=True)
+    # de-dupe identical passages that can appear if two pages overlap in content
+    seen, deduped = set(), []
+    for p, s in ranked:
+        if p not in seen:
+            deduped.append((p, s))
+            seen.add(p)
+    return deduped[:top_k]
+
+def gather_passages_for_claim(claim: str, search_query: str, subject: str, cache: dict) -> list[tuple[str, float]]:
+    """
+    Pools passages from:
+      - top SEARCH_CANDIDATES pages for the Gemini-generated query
+      - the page for the raw subject field (cheap fallback seed)
+    then ranks the pool together, instead of committing to a single page.
+
+    NOTE: an earlier revision added a page-relevance gate here (drop a
+    candidate page if its title/intro shared no claim keywords). It was
+    tested against the full 64-claim set and removed — it didn't fix its
+    target case (still missed the New Zealand/Australia tangent for the
+    "systemic neglect" claim, since generic domain words like "mental"
+    and "health" passed the gate anyway) and it introduced a regression
+    (dropped legitimately relevant pages for "debt crises reduce
+    purchasing power", flipping it from a correct TRUE to UNVERIFIABLE).
+    Net effect across two full runs: accuracy and coverage both ticked
+    down. If page-relevance filtering is revisited, prototype and test
+    it on a handful of cached claims before running it against the full
+    set again — see the standalone-test suggestion from that review.
+    """
+    all_passages: list[str] = []
+    pages_used: list[str] = []
+
+    for title in resolve_wikipedia_titles(search_query, cache, SEARCH_CANDIDATES):
+        text = fetch_page_text(title, cache)
+        all_passages.extend(chunk_passages(text))
+        pages_used.append(title)
+
+    if subject and subject.lower() != search_query.lower():
+        for title in resolve_wikipedia_titles(subject, cache, 1):
+            if title not in pages_used:
+                text = fetch_page_text(title, cache)
+                all_passages.extend(chunk_passages(text))
+                pages_used.append(title)
+
+    print(f"    Pages pooled: {pages_used}")
+    print(f"    Passages pooled (pre-rank): {len(all_passages)}")
+
+    ranked = rank_passages(claim, all_passages, TOP_K_PASSAGES)
+    surviving = [(p, s) for p, s in ranked if s >= MIN_PASSAGE_SCORE]
+    print(f"    After threshold ({MIN_PASSAGE_SCORE}): {len(surviving)}/{len(ranked)} passages survive")
+    return surviving
+
+# =============================================================================
+# NLI VERDICT — margin-based, separately cached
+# =============================================================================
+
+def run_nli_on_passages(claim: str, passages: list[tuple[str, float]], nli_cache: dict) -> tuple[str, float, str]:
+    if not passages:
+        return "UNVERIFIABLE", 0.30, "No passages survived similarity threshold"
+
+    nli = get_nli()
+
+    best_entail, best_contradict = 0.0, 0.0
+    best_entail_passage, best_contradict_passage = "", ""
+
+    for passage, sim_score in passages:
+        cache_key = f"nli__{claim[:60].replace(' ', '_')}__{passage[:40].replace(' ', '_')}"
+        if cache_key in nli_cache:
+            cached     = nli_cache[cache_key]
+            entail     = cached["entail"]
+            contradict = cached["contradict"]
+        else:
+            try:
+                result = nli(
+                    passage,
+                    candidate_labels=["entailment", "contradiction", "neutral"],
+                    hypothesis_template="This passage {}s that " + claim
+                )
+                scores     = dict(zip(result["labels"], result["scores"]))
+                entail     = scores["entailment"]
+                contradict = scores["contradiction"]
+                nli_cache[cache_key] = {"entail": entail, "contradict": contradict}
+                save_json_cache(NLI_CACHE_FILE, nli_cache)
+            except Exception as e:
+                print(f"    [NLI error] {e}")
+                continue
+
+        print(f"      NLI: entail={entail:.3f}, contradict={contradict:.3f} | sim={sim_score:.3f} | {passage[:80]}...")
+
+        if entail > best_entail:
+            best_entail, best_entail_passage = entail, passage[:120]
+        if contradict > best_contradict:
+            best_contradict, best_contradict_passage = contradict, passage[:120]
+
+    margin = best_entail - best_contradict
+
+    # Decision now requires BOTH clearing its own bar AND a minimum margin over
+    # the other signal — this is what stops close-call passages (e.g. entail=0.41,
+    # contradict=0.30, margin=0.11) from flipping verdict run-to-run.
+    if best_entail >= ENTAIL_THRESHOLD and margin >= MIN_MARGIN:
+        verdict    = "TRUE"
+        confidence = round(0.5 + best_entail * 0.4, 3)
+        evidence   = f"NLI entailment {best_entail:.2f} (margin {margin:.2f}) | '{best_entail_passage}...'"
+    elif best_contradict >= CONTRADICT_THRESHOLD and margin <= -MIN_MARGIN:
+        verdict    = "FALSE"
+        confidence = round(0.5 + best_contradict * 0.3, 3)
+        evidence   = f"NLI contradiction {best_contradict:.2f} (margin {margin:.2f}) | '{best_contradict_passage}...'"
+    else:
+        verdict    = "UNVERIFIABLE"
+        confidence = 0.50
+        evidence   = f"NLI inconclusive (entail={best_entail:.2f}, contradict={best_contradict:.2f}, margin={margin:.2f})"
+
+    return verdict, confidence, evidence
+
+# =============================================================================
+# GEMINI QUERY GENERATION (unchanged logic, cached separately from NLI)
+# =============================================================================
+
+def generate_search_query(claim_row: dict, cache: dict) -> str:
+    claim   = claim_row.get("claim", "")
+    subject = claim_row.get("subject", "")
+    prop    = claim_row.get("property", "")
+    value   = claim_row.get("value", "")
+    q_id    = claim_row.get("q_id", "")
+
+    cache_key = f"llmquery__{claim[:80].replace(' ', '_')}"
+    if cache_key in cache:
+        return cache[cache_key]
+
+    prompt = (
+        "You are helping a fact-checking system find the right Wikipedia page "
+        "for a factual claim. Given the claim and its structured fields below, "
+        "produce the single best Wikipedia search query — specific enough to "
+        "avoid disambiguation errors (e.g. prefer 'Emperor Wu Han dynasty' over "
+        "'Emperor Wu', 'Cas9 CRISPR protein' over 'Cas9 protein'). Prefer a query "
+        "that would resolve to a BIOGRAPHY or PRIMARY-TOPIC page over a generic "
+        "institution/definition page when the claim is about a specific person's "
+        "life events (e.g. prefer 'Marie Curie education' over 'Sorbonne'). "
+        "Return ONLY the search query string, nothing else.\n\n"
+        f"Claim: {claim}\n"
+        f"Subject: {subject}\n"
+        f"Property: {prop}\n"
+        f"Value: {value}\n"
+        f"Topic ID: {q_id}\n"
+        "Search query:"
+    )
+
+    try:
+        response = requests.post(
+            GEMINI_ENDPOINT,
+            json={"contents": [{"parts": [{"text": prompt}]}]},
+            headers={"Content-Type": "application/json"},
+            timeout=15
+        )
+        response.raise_for_status()
+        query = (
+            response.json()
+            ["candidates"][0]["content"]["parts"][0]["text"]
+            .strip()
+            .strip('"')
+        )
+        print(f"    LLM query: '{query}' (was: '{subject}')")
+        cache[cache_key] = query
+        save_json_cache(RETRIEVAL_CACHE_FILE, cache)
+        time.sleep(0.3)
+        return query
+
+    except Exception as e:
+        print(f"    [Gemini error] {e} — falling back to subject")
+        return subject
+
+# =============================================================================
+# MAIN VERIFIER
+# =============================================================================
+
+def verify_relational(claim_row: dict, retrieval_cache: dict, nli_cache: dict) -> dict:
+    claim   = claim_row.get("claim", "")
+    subject = claim_row.get("subject", "")
+
+    print(f"\n  Verifying: {claim[:90]}")
+    print(f"    Subject (query seed): {subject}")
+
+    result = {
+        "verdict":    "UNVERIFIABLE",
+        "confidence": 0.0,
+        "evidence":   "",
+        "method":     "wikipedia_sbert_nli_v2",
+    }
+
+    if not claim or not subject:
+        result["evidence"] = "Missing claim or subject"
+        print(f"    -> UNVERIFIABLE (missing fields)")
+        return result
+
+    search_query = generate_search_query(claim_row, retrieval_cache)
+    surviving = gather_passages_for_claim(claim, search_query, subject, retrieval_cache)
+
+    if not surviving:
+        result["evidence"] = f"No passages above similarity threshold {MIN_PASSAGE_SCORE}"
+        print(f"    -> UNVERIFIABLE (all passages below threshold)")
+        return result
+
+    verdict, confidence, evidence = run_nli_on_passages(claim, surviving, nli_cache)
+
+    result["verdict"]    = verdict
+    result["confidence"] = confidence
+    result["evidence"]   = evidence
+
+    print(f"    -> {verdict} (conf={confidence}) | {evidence[:90]}")
+    return result
+
+# =============================================================================
+# BATCH VERIFICATION
+# =============================================================================
+
+def run_relational_verifier(claim_rows: list[dict]) -> list[dict]:
+    retrieval_cache = load_json_cache(RETRIEVAL_CACHE_FILE)
+    nli_cache       = load_json_cache(NLI_CACHE_FILE)
+
+    results          = []
+    relational_count = sum(1 for r in claim_rows if r.get("gold_type") == "RELATIONAL")
+    print(f"\nRunning RELATIONAL verifier on {relational_count} claims...")
+
+    for row in claim_rows:
+        if row.get("gold_type") != "RELATIONAL":
+            results.append(row)
+            continue
+        verification              = verify_relational(row, retrieval_cache, nli_cache)
+        row["verified_verdict"]   = verification["verdict"]
+        row["verified_evidence"]  = verification["evidence"]
+        row["verified_conf"]      = verification["confidence"]
+        results.append(row)
+
+    return results
+
+# =============================================================================
+# EVALUATION
+# =============================================================================
+
+def evaluate_relational(verified_rows: list[dict]) -> dict:
+    rows = [
+        r for r in verified_rows
+        if r.get("gold_type") == "RELATIONAL" and r.get("gold_verdict", "").strip()
+    ]
+    if not rows:
+        print("No RELATIONAL rows with gold labels found.")
+        return {}
+
+    total        = len(rows)
+    correct      = 0
+    unverifiable = 0
+    breakdown    = {"TRUE": 0, "FALSE": 0, "UNVERIFIABLE": 0}
+
+    for row in rows:
+        gold    = row.get("gold_verdict", "").strip().upper()
+        verdict = row.get("verified_verdict", "").strip().upper()
+        breakdown[verdict] = breakdown.get(verdict, 0) + 1
+        if verdict == "UNVERIFIABLE":
+            unverifiable += 1
+        elif verdict == gold:
+            correct += 1
+
+    verifiable = total - unverifiable
+    accuracy   = correct / verifiable if verifiable else 0.0
+    coverage   = verifiable / total   if total      else 0.0
+
+    print("\n" + "=" * 50)
+    print("RELATIONAL VERIFIER EVALUATION")
+    print("=" * 50)
+    print(f"  Total RELATIONAL claims : {total}")
+    print(f"  Verifiable (non-UV)     : {verifiable}")
+    print(f"  Correct verdicts        : {correct}")
+    print(f"  Verdict breakdown       : {breakdown}")
+    print(f"  Accuracy (excl. UV)     : {accuracy:.2%}")
+    print(f"  Coverage                : {coverage:.2%}")
+
+    return {
+        "total": total, "verifiable": verifiable, "correct": correct,
+        "accuracy": accuracy, "coverage": coverage, "breakdown": breakdown
+    }
+
+# =============================================================================
+# MAIN
+# =============================================================================
+
+if __name__ == "__main__":
+    import csv
+    import sys
+    import os
+
+    INPUT_CSV  = "haldetect_claims_b3_gold.csv"
+    OUTPUT_CSV = "relational_b3_verified_results.csv"
+
+    if not os.path.exists(INPUT_CSV):
+        print(f"ERROR: input file not found: {INPUT_CSV}")
+        sys.exit(1)
+
+    with open(INPUT_CSV, newline="", encoding="utf-8") as f:
+        reader     = csv.DictReader(f)
+        all_rows   = list(reader)
+        fieldnames = reader.fieldnames or []
+
+    relational_count = sum(1 for r in all_rows if r.get("gold_type") == "RELATIONAL")
+    print("=" * 70)
+    print("RELATIONAL VERIFIER — PHASE 3E")
+    print("=" * 70)
+    print(f"  Total rows in CSV      : {len(all_rows)}")
+    print(f"  RELATIONAL claims      : {relational_count}")
+    print(f"  Output will be written : {OUTPUT_CSV}")
+
+    verified_rows = run_relational_verifier(all_rows)
+
+    new_cols       = ["verified_verdict", "verified_evidence", "verified_conf"]
+    out_fieldnames = list(fieldnames)
+    for col in new_cols:
+        if col not in out_fieldnames:
+            out_fieldnames.append(col)
+
+    with open(OUTPUT_CSV, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=out_fieldnames, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(verified_rows)
+
+    print(f"\nResults written to: {OUTPUT_CSV}")
+    evaluate_relational(verified_rows)
+```
+---
+  ======================================================================
+RELATIONAL VERIFIER — PHASE 3E
+======================================================================
+  Total rows in CSV      : 122
+  RELATIONAL claims      : 47
+  Output will be written : relational_b3_verified_results.csv
+
+Running RELATIONAL verifier on 47 claims...
+
+  Verifying: Ferdinand de Lesseps led the French construction of the Panama Canal.
+    Subject (query seed): Ferdinand de Lesseps
+    LLM query: 'Ferdinand de Lesseps Panama Canal project' (was: 'Ferdinand de Lesseps')
+    Pages pooled: ['Ferdinand de Lesseps', 'History of the Panama Canal', 'Panama Canal']
+    Passages pooled (pre-rank): 354
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+modules.json: 100% 349/349 [00:00<00:00, 31.8kB/s]config_sentence_transformers.json: 100% 116/116 [00:00<00:00, 9.27kB/s]README.md: 100% 10.5k/10.5k [00:00<00:00, 1.01MB/s]sentence_bert_config.json: 100% 53.0/53.0 [00:00<00:00, 2.54kB/s]config.json: 100% 612/612 [00:00<00:00, 29.2kB/s]model.safetensors: reconstructing file: 100% 90.9MB / 90.9MB, 8.91MB/s  model.safetensors: downloading bytes:  85.0MB, 8.23MB/s  Loading weights: 100% 103/103 [00:00<00:00, 2935.65it/s]tokenizer_config.json: 100% 350/350 [00:00<00:00, 27.2kB/s]vocab.txt: 100% 232k/232k [00:00<00:00, 5.28MB/s]tokenizer.json: 100% 466k/466k [00:00<00:00, 14.4MB/s]special_tokens_map.json: 100% 112/112 [00:00<00:00, 6.85kB/s]config.json: 100% 190/190 [00:00<00:00, 16.3kB/s]    After threshold (0.45): 5/5 passages survive
+Loading BART NLI model...
+config.json: 100% 1.15k/1.15k [00:00<00:00, 97.8kB/s]model.safetensors: reconstructing file: 100% 1.63GB / 1.63GB, 48.5MB/s  model.safetensors: downloading bytes:  1.09GB, 66.0MB/s  Loading weights: 100% 515/515 [00:00<00:00, 998.69it/s]tokenizer_config.json: 100% 26.0/26.0 [00:00<00:00, 2.12kB/s]vocab.json: 100% 899k/899k [00:00<00:00, 15.1MB/s]merges.txt: 100% 456k/456k [00:00<00:00, 20.9MB/s]tokenizer.json: 100% 1.36M/1.36M [00:00<00:00, 39.7MB/s]BART loaded.
+      NLI: entail=0.502, contradict=0.206 | sim=0.773 | By the late nineteenth century, technological advances and commercial pressure a...
+      NLI: entail=0.484, contradict=0.216 | sim=0.758 | In May 1879, de Lesseps convened an international congress in Paris at the Socié...
+      NLI: entail=0.267, contradict=0.441 | sim=0.747 | The French entrepreneur Ferdinand de Lesseps had been the driving force behind t...
+      NLI: entail=0.348, contradict=0.266 | sim=0.728 | The French diplomat and entrepreneur Ferdinand de Lesseps and engineer Philippe ...
+      NLI: entail=0.313, contradict=0.336 | sim=0.722 | Ferdinand Marie de Lesseps (French: [lesɛps]; 19 November 1805 – 7 December 1894...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.50, contradict=0.44, margin=0.06)
+
+  Verifying: The United States supported Panamanian independence from Colombia.
+    Subject (query seed): United States
+    LLM query: 'United States support for Panamanian independence' (was: 'United States')
+    Pages pooled: ['United States', 'Secession of Panama from Colombia', 'Panama']
+    Passages pooled (pre-rank): 329
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.413, contradict=0.265 | sim=0.810 | After the United States, many other nations quickly recognized the independent r...
+      NLI: entail=0.183, contradict=0.535 | sim=0.761 | After achieving independence from Spain on November 28, 1821, Panama became a pa...
+      NLI: entail=0.460, contradict=0.309 | sim=0.760 | The secession of Panama from Colombia was formalized on 3 November 1903, with th...
+      NLI: entail=0.628, contradict=0.125 | sim=0.749 | The US intent to influence the area, especially the Panama Canal's construction ...
+      NLI: entail=0.288, contradict=0.464 | sim=0.734 | There was concern in both Argentina and Brazil about the precedent set by Panama...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.63, contradict=0.54, margin=0.09)
+
+  Verifying: Engineers replaced the sea-level plan for the Panama Canal with a lock system.
+    Subject (query seed): Panama Canal
+    LLM query: 'Panama Canal locks construction' (was: 'Panama Canal')
+    Pages pooled: ['Panama Canal locks', 'Panama Canal', 'Panama Canal expansion project']
+    Passages pooled (pre-rank): 259
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.199, contradict=0.338 | sim=0.715 | The Panama Canal locks (Spanish: Esclusas del Canal de Panamá) are a lock system...
+      NLI: entail=0.302, contradict=0.421 | sim=0.655 | According to the plan, a 3.2 km (2.0 mi)-long access channel was excavated to co...
+      NLI: entail=0.196, contradict=0.473 | sim=0.654 | The Panama Canal expansion project (Spanish: ampliación del Canal de Panamá), al...
+      NLI: entail=0.338, contradict=0.276 | sim=0.650 | All of the canal-widening studies since the 1930s determined that the best way t...
+      NLI: entail=0.226, contradict=0.461 | sim=0.644 | The Panama Canal (Spanish: Canal de Panamá) is an artificial 82-kilometer (51-mi...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.34, contradict=0.47, margin=-0.13)
+
+  Verifying: Engineers created Gatun Lake to manage the terrain of the Panama Canal.
+    Subject (query seed): Gatun Lake
+    LLM query: 'Gatun Lake construction' (was: 'Gatun Lake')
+    Pages pooled: ['Gatun Lake', 'Gatun Dam', 'Gatún']
+    Passages pooled (pre-rank): 48
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.496, contradict=0.333 | sim=0.810 | Created in 1913 by damming the Chagres River, Gatun Lake is a key part of the Pa...
+      NLI: entail=0.479, contradict=0.319 | sim=0.769 | Gatun Lake (Spanish: Lago Gatún) is a mostly freshwater (slightly saline near th...
+      NLI: entail=0.447, contradict=0.235 | sim=0.765 | The Gatun Dam serves two important purposes: it controls the ever varying Chagre...
+      NLI: entail=0.323, contradict=0.542 | sim=0.758 | Gatun (Spanish: Gatún) is a small town on the Atlantic Side of the Panama Canal,...
+      NLI: entail=0.426, contradict=0.170 | sim=0.750 | The Gatun Dam is an earthen dam across the Chagres River in Panama, near the tow...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.50, contradict=0.54, margin=-0.05)
+
+  Verifying: The Panama Canal enables the transit of large vessels between the Atlantic and Pacific Oce
+    Subject (query seed): Panama Canal
+    LLM query: 'Panama Canal' (was: 'Panama Canal')
+    Pages pooled: ['Panama Canal', 'Panama Canal Zone', 'History of the Panama Canal']
+    Passages pooled (pre-rank): 376
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.514, contradict=0.160 | sim=0.827 | The Panama Canal has been a vital conduit for global trade since its completion ...
+      NLI: entail=0.224, contradict=0.386 | sim=0.772 | The expansion of the Panama Canal, completed in 2016, allowed for the transit of...
+      NLI: entail=0.524, contradict=0.351 | sim=0.755 | The Panama Canal (Spanish: Canal de Panamá) is an artificial 82-kilometer (51-mi...
+      NLI: entail=0.420, contradict=0.360 | sim=0.735 | The Panama Canal shortcut greatly reduces the time for ships to travel between t...
+      NLI: entail=0.292, contradict=0.367 | sim=0.721 | The Panama Canal plays a central role in global commerce. Over 5% of world trade...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.52, contradict=0.39, margin=0.14)
+
+  Verifying: Lower module prices resulted in the growth of global renewable capacity additions.
+    Subject (query seed): lower module prices
+    LLM query: 'solar photovoltaic module price trends renewable energy growth' (was: 'lower module prices')
+    Pages pooled: ['Solar panel', 'Photovoltaics', 'Growth of photovoltaics']
+    Passages pooled (pre-rank): 260
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.471, contradict=0.222 | sim=0.593 | By 2024, massive increases of production of solar panels in China had caused mod...
+      NLI: entail=0.389, contradict=0.273 | sim=0.586 | In 2024, the total global photovoltaic capacity increased by 601 GW, with a 29% ...
+      NLI: entail=0.657, contradict=0.103 | sim=0.578 | Photovoltaic systems have long been used in specialized applications as stand-al...
+      NLI: entail=0.668, contradict=0.173 | sim=0.555 | Some environmentalists have promoted the idea that government incentives should ...
+      NLI: entail=0.487, contradict=0.248 | sim=0.546 | As the polysilicon industry had started to build additional large production cap...
+    -> TRUE (conf=0.767) | NLI entailment 0.67 (margin 0.40) | 'Some environmentalists have promoted the idea that go
+
+  Verifying: Increased government support resulted in the growth of global renewable capacity additions
+    Subject (query seed): government support
+    LLM query: 'renewable energy growth government policy' (was: 'government support')
+    Pages pooled: ['Ministry of New and Renewable Energy', 'Renewable energy commercialization', 'Renewable energy in Thailand', 'Minority government']
+    Passages pooled (pre-rank): 256
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.377, contradict=0.413 | sim=0.581 | Renewable energy is also the most economic solution for new grid-connected capac...
+      NLI: entail=0.696, contradict=0.122 | sim=0.558 | Total energy generating capacity for renewables has doubled since 2012, a trend ...
+      NLI: entail=0.377, contradict=0.364 | sim=0.547 | In 2015,  new installed wind accounted for 64GW and new photovoltaic capacity co...
+      NLI: entail=0.856, contradict=0.056 | sim=0.532 | During the five-years from the end of 2004 through 2009, worldwide renewable ene...
+      NLI: entail=0.495, contradict=0.284 | sim=0.523 | In 2008 for the first time, more renewable energy than conventional power capaci...
+    -> TRUE (conf=0.842) | NLI entailment 0.86 (margin 0.44) | 'During the five-years from the end of 2004 through 20
+
+  Verifying: Coral bleaching occurs when corals expel symbiotic algae called zooxanthellae from their t
+    Subject (query seed): Coral bleaching
+    LLM query: 'Coral bleaching' (was: 'Coral bleaching')
+    Pages pooled: ['Coral bleaching', '2023–2025 global coral bleaching event', 'Fire coral']
+    Passages pooled (pre-rank): 107
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.752, contradict=0.049 | sim=0.836 | Coral bleaching occurs when environmental stressors, particularly elevated ocean...
+      NLI: entail=0.723, contradict=0.051 | sim=0.826 | Coral bleaching is a major threat to all types of coral. Coral bleaching is when...
+      NLI: entail=0.716, contradict=0.056 | sim=0.799 | The corals that form the great reef ecosystems of tropical seas depend upon a sy...
+      NLI: entail=0.598, contradict=0.255 | sim=0.759 | Certain mild bleaching events can cause coral to produce high concentrations of ...
+      NLI: entail=0.345, contradict=0.268 | sim=0.755 | Ajasa, Amudalat (15 April 2024). "Corals are bleaching in every corner of the oc...
+    -> TRUE (conf=0.801) | NLI entailment 0.75 (margin 0.48) | 'Coral bleaching occurs when environmental stressors, 
+
+  Verifying: Increased ocean temperatures trigger a stress response that disrupts the relationship betw
+    Subject (query seed): Increased ocean temperatures
+    LLM query: 'coral bleaching' (was: 'Increased ocean temperatures')
+    Pages pooled: ['Coral bleaching', '2023–2025 global coral bleaching event', 'Fire coral', 'Ocean temperature']
+    Passages pooled (pre-rank): 136
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.378, contradict=0.368 | sim=0.712 | In 2010, researchers at Penn State discovered corals that were thriving while us...
+      NLI: entail=0.652, contradict=0.093 | sim=0.711 | Increased sea surface temperature leads to the thinning of the epidermis and apo...
+      NLI: entail=0.742, contradict=0.089 | sim=0.696 | Coral bleaching occurs when environmental stressors, particularly elevated ocean...
+      NLI: entail=0.508, contradict=0.140 | sim=0.676 | The corals that form the great reef ecosystems of tropical seas depend upon a sy...
+      NLI: entail=0.454, contradict=0.235 | sim=0.671 | Factors that influence the outcome of a bleaching event include stress-resistanc...
+    -> TRUE (conf=0.797) | NLI entailment 0.74 (margin 0.37) | 'Coral bleaching occurs when environmental stressors, 
+
+  Verifying: The loss of zooxanthellae pigments reveals the white calcium carbonate skeleton beneath.
+    Subject (query seed): loss of zooxanthellae pigments
+    LLM query: 'Coral bleaching' (was: 'loss of zooxanthellae pigments')
+    Pages pooled: ['Coral bleaching', '2023–2025 global coral bleaching event', 'Fire coral']
+    Passages pooled (pre-rank): 107
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.527, contradict=0.139 | sim=0.541 | Coral bleaching occurs when environmental stressors, particularly elevated ocean...
+      NLI: entail=0.524, contradict=0.207 | sim=0.532 | The corals that form the great reef ecosystems of tropical seas depend upon a sy...
+      NLI: entail=0.408, contradict=0.281 | sim=0.509 | After the zooxanthellae leaves the coral, the coral structures are often taken o...
+      NLI: entail=0.448, contradict=0.188 | sim=0.481 | Coral bleaching is a major threat to all types of coral. Coral bleaching is when...
+      NLI: entail=0.536, contradict=0.359 | sim=0.471 | Certain mild bleaching events can cause coral to produce high concentrations of ...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.54, contradict=0.36, margin=0.18)
+
+  Verifying: Ocean acidification is a trigger for coral bleaching.
+    Subject (query seed): Ocean acidification
+    LLM query: 'Ocean acidification and coral bleaching' (was: 'Ocean acidification')
+    Pages pooled: ['Coral bleaching', 'Environmental issues with coral reefs', 'Coral', 'Ocean acidification']
+    Passages pooled (pre-rank): 382
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.904, contradict=0.036 | sim=0.808 | Coral bleaching is the process where corals become white due to loss of symbioti...
+      NLI: entail=0.422, contradict=0.251 | sim=0.779 | Ajasa, Amudalat (15 April 2024). "Corals are bleaching in every corner of the oc...
+      NLI: entail=0.781, contradict=0.041 | sim=0.779 | The carbon cycle consists of fluxes between carbon sinks and the oceans of the E...
+      NLI: entail=0.250, contradict=0.564 | sim=0.769 | Coral bleaching in the Red Sea is more common in the northern section of the ree...
+      NLI: entail=0.820, contradict=0.050 | sim=0.760 | Rising sea levels due to climate change requires coral to grow so the coral can ...
+    -> TRUE (conf=0.861) | NLI entailment 0.90 (margin 0.34) | 'Coral bleaching is the process where corals become wh
+
+  Verifying: Extreme low tides are a trigger for coral bleaching.
+    Subject (query seed): Extreme low tides
+    LLM query: 'low tide coral bleaching' (was: 'Extreme low tides')
+    Pages pooled: ['Coral bleaching', 'Coral', 'Coral reef', 'Shell Beach, La Jolla']
+    Passages pooled (pre-rank): 358
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.328, contradict=0.452 | sim=0.741 | Ajasa, Amudalat (15 April 2024). "Corals are bleaching in every corner of the oc...
+      NLI: entail=0.386, contradict=0.432 | sim=0.733 | Elevated sea water temperatures are the main cause of mass bleaching events. Six...
+      NLI: entail=0.299, contradict=0.499 | sim=0.728 | Coral bleaching in the Red Sea is more common in the northern section of the ree...
+      NLI: entail=0.358, contradict=0.439 | sim=0.727 | Coral bleaching may be caused by a number of factors. While localized triggers l...
+      NLI: entail=0.283, contradict=0.533 | sim=0.726 | Coral bleaching is the process where corals become white due to loss of symbioti...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.39, contradict=0.53, margin=-0.15)
+
+  Verifying: Corals can recover if water temperatures return to normal within a few weeks.
+    Subject (query seed): Corals
+    LLM query: 'Coral bleaching recovery' (was: 'Corals')
+    Pages pooled: ['Coral bleaching', '2023–2025 global coral bleaching event', 'Coral bleaching in Oahu', 'Coral']
+    Passages pooled (pre-rank): 197
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.264, contradict=0.439 | sim=0.644 | Water temperature changes of more than 1–2 °C (1.8–3.6 °F) or salinity changes c...
+      NLI: entail=0.335, contradict=0.314 | sim=0.638 | A primary subject of research regarding coral recovery pertains to the idea of s...
+      NLI: entail=0.500, contradict=0.266 | sim=0.628 | In 2010, researchers from Stanford University also found corals around the Samoa...
+      NLI: entail=0.334, contradict=0.433 | sim=0.617 | In April 2024, the National Oceanic and Atmospheric Administration (NOAA) confir...
+      NLI: entail=0.435, contradict=0.281 | sim=0.615 | In April 2025, the International Coral Reef Initiative announced that 84% of oce...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.50, contradict=0.44, margin=0.06)
+
+  Verifying: The World Heritage Committee assesses the integrity of the site.
+    Subject (query seed): World Heritage Committee
+    LLM query: 'World Heritage Committee' (was: 'World Heritage Committee')
+    Pages pooled: ['World Heritage Committee', 'World Heritage Site', 'List of World Heritage Sites by year of inscription']
+    Passages pooled (pre-rank): 105
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.328, contradict=0.265 | sim=0.750 | World Heritage Sites are landmarks and areas with legal protection under an inte...
+      NLI: entail=0.618, contradict=0.181 | sim=0.743 | To be selected, a World Heritage Site is nominated by its host country and deter...
+      NLI: entail=0.324, contradict=0.326 | sim=0.715 | The World Heritage Committee is a committee of the United Nations Educational, S...
+      NLI: entail=0.643, contradict=0.148 | sim=0.712 | The sites are intended for practical conservation for posterity, which otherwise...
+      NLI: entail=0.328, contradict=0.349 | sim=0.660 | A World Heritage Site may signify a remarkable accomplishment of humankind and s...
+    -> TRUE (conf=0.757) | NLI entailment 0.64 (margin 0.29) | 'The sites are intended for practical conservation for
+
+  Verifying: The World Heritage Committee reviews the site's comparative analysis against similar prope
+    Subject (query seed): World Heritage Committee
+    LLM query: 'World Heritage Committee nomination process' (was: 'World Heritage Committee')
+    Pages pooled: ['World Heritage Site', 'List of World Heritage Sites in India', 'List of World Heritage Sites in the United States', 'World Heritage Committee']
+    Passages pooled (pre-rank): 80
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.539, contradict=0.248 | sim=0.635 | UNESCO Information System on the State of Conservation of World Heritage propert...
+      NLI: entail=0.421, contradict=0.372 | sim=0.612 | To be selected, a World Heritage Site is nominated by its host country and deter...
+      NLI: entail=0.367, contradict=0.306 | sim=0.612 | World Heritage Sites are landmarks and areas with legal protection under an inte...
+      NLI: entail=0.425, contradict=0.498 | sim=0.609 | The committee has also been criticized with alleged racism, colorism, and geogra...
+      NLI: entail=0.307, contradict=0.478 | sim=0.599 | An external audit requested by the World Heritage Committee for its Global Strat...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.54, contradict=0.50, margin=0.04)
+
+  Verifying: The World Heritage Committee votes on designations during its annual session.
+    Subject (query seed): World Heritage Committee
+    LLM query: 'World Heritage Committee sessions' (was: 'World Heritage Committee')
+    Pages pooled: ['World Heritage Committee', 'List of World Heritage Sites by year of inscription', 'World Heritage Convention']
+    Passages pooled (pre-rank): 61
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.364, contradict=0.312 | sim=0.713 | Each state member of the World Heritage Committee has one vote. Decisions requir...
+      NLI: entail=0.441, contradict=0.305 | sim=0.676 | The World Heritage Committee is a committee of the United Nations Educational, S...
+      NLI: entail=0.355, contradict=0.364 | sim=0.659 | The World Heritage Committee meets once a year for an ordinary session to discus...
+      NLI: entail=0.417, contradict=0.269 | sim=0.610 | The 44th session was originally scheduled for 2020 but postponed to 2021 due to ...
+      NLI: entail=0.305, contradict=0.518 | sim=0.606 | At the end of each ordinary session, the committee elects a chairperson, five vi...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.44, contradict=0.52, margin=-0.08)
+
+  Verifying: French soldiers discovered the Rosetta Stone.
+    Subject (query seed): French soldiers
+    LLM query: 'Rosetta Stone discovery' (was: 'French soldiers')
+    Pages pooled: ['Rosetta Stone', 'Siege of Alexandria (1801)', 'Rosetta (spacecraft)', 'Grande Armée']
+    Passages pooled (pre-rank): 311
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.229, contradict=0.363 | sim=0.600 | The discovery was reported in September in Courrier de l'Égypte, the official ne...
+      NLI: entail=0.632, contradict=0.118 | sim=0.590 | Led by Napoleon, the French Army of the Orient invaded Egypt in 1798. The French...
+      NLI: entail=0.398, contradict=0.337 | sim=0.586 | "How the Rosetta Stone works". Howstuffworks.com. 11 December 2007....
+      NLI: entail=0.158, contradict=0.583 | sim=0.580 | After the surrender, a dispute arose over the fate of French archaeological and ...
+      NLI: entail=0.263, contradict=0.359 | sim=0.559 | The probe was named after the Rosetta Stone, a stele of Egyptian origin featurin...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.63, contradict=0.58, margin=0.05)
+
+  Verifying: French soldiers discovered the Rosetta Stone during the Napoleonic campaign in Egypt.
+    Subject (query seed): Rosetta Stone
+    LLM query: 'Rosetta Stone discovery' (was: 'Rosetta Stone')
+    Pages pooled: ['Rosetta Stone', 'Siege of Alexandria (1801)', 'Rosetta (spacecraft)']
+    Passages pooled (pre-rank): 137
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.196, contradict=0.531 | sim=0.682 | After the surrender, a dispute arose over the fate of French archaeological and ...
+      NLI: entail=0.630, contradict=0.120 | sim=0.644 | Led by Napoleon, the French Army of the Orient invaded Egypt in 1798. The French...
+      NLI: entail=0.362, contradict=0.327 | sim=0.626 | The stone was carved during the Hellenistic period and is believed to have origi...
+      NLI: entail=0.477, contradict=0.213 | sim=0.594 | The Rosetta Stone is a stele of granodiorite inscribed with three versions of a ...
+      NLI: entail=0.277, contradict=0.370 | sim=0.589 | The discovery was reported in September in Courrier de l'Égypte, the official ne...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.63, contradict=0.53, margin=0.10)
+
+  Verifying: King Ptolemy V issued the decree on the Rosetta Stone.
+    Subject (query seed): King Ptolemy V
+    LLM query: 'Ptolemy V Epiphanes' (was: 'King Ptolemy V')
+    Pages pooled: ['Ptolemy V Epiphanes', 'Rosetta Stone', 'Ptolemaic Kingdom']
+    Passages pooled (pre-rank): 192
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.346, contradict=0.184 | sim=0.763 | Three other fragmentary copies of the same decree were discovered later, and sev...
+      NLI: entail=0.631, contradict=0.060 | sim=0.731 | The Rosetta Stone is a stele of granodiorite inscribed with three versions of a ...
+      NLI: entail=0.531, contradict=0.252 | sim=0.683 | The day after Ptolemy V's coronation, a synod of priests from all over Egypt who...
+      NLI: entail=0.311, contradict=0.157 | sim=0.604 | Greek section of Rosetta Stone and Second Philae Decree in English translation...
+      NLI: entail=0.373, contradict=0.285 | sim=0.574 | The Greek text on the Rosetta Stone provided the starting point. Ancient Greek w...
+    -> TRUE (conf=0.753) | NLI entailment 0.63 (margin 0.35) | 'The Rosetta Stone is a stele of granodiorite inscribe
+
+  Verifying: Jean-François Champollion identified that the hieroglyphs represented sounds.
+    Subject (query seed): Jean-François Champollion
+    LLM query: 'Jean-François Champollion decipherment of Egyptian hieroglyphs' (was: 'Jean-François Champollion')
+    Pages pooled: ['Egyptian hieroglyphs', 'Jean-François Champollion', 'Decipherment of ancient Egyptian scripts']
+    Passages pooled (pre-rank): 270
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.687, contradict=0.107 | sim=0.700 | Champollion announced these discoveries to the Académie des Inscriptions in Apri...
+      NLI: entail=0.319, contradict=0.483 | sim=0.654 | Around this time Champollion made a second breakthrough. Although he counted abo...
+      NLI: entail=0.604, contradict=0.237 | sim=0.649 | Champollion broke down the hieroglyphs in Ptolemy's name differently from Young ...
+      NLI: entail=0.471, contradict=0.184 | sim=0.629 | Champollion was initially dismissive of Young's work, having seen only excerpts ...
+      NLI: entail=0.499, contradict=0.215 | sim=0.620 | Jean-François Champollion (French: [ʒɑ̃ fʁɑ̃swa ʃɑ̃pɔljɔ̃]), also known as Champ...
+    -> TRUE (conf=0.775) | NLI entailment 0.69 (margin 0.20) | 'Champollion announced these discoveries to the Académ
+
+  Verifying: Jean-François Champollion identified that the hieroglyphs represented concepts.
+    Subject (query seed): Jean-François Champollion
+    LLM query: 'Jean-François Champollion decipherment of Egyptian hieroglyphs' (was: 'Jean-François Champollion')
+    Pages pooled: ['Egyptian hieroglyphs', 'Jean-François Champollion', 'Decipherment of ancient Egyptian scripts']
+    Passages pooled (pre-rank): 270
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.687, contradict=0.107 | sim=0.748 | Champollion announced these discoveries to the Académie des Inscriptions in Apri...
+      NLI: entail=0.319, contradict=0.483 | sim=0.707 | Around this time Champollion made a second breakthrough. Although he counted abo...
+      NLI: entail=0.499, contradict=0.215 | sim=0.701 | Jean-François Champollion (French: [ʒɑ̃ fʁɑ̃swa ʃɑ̃pɔljɔ̃]), also known as Champ...
+      NLI: entail=0.542, contradict=0.154 | sim=0.672 | Building on his progress, Champollion now began to study other texts in addition...
+      NLI: entail=0.286, contradict=0.419 | sim=0.668 | The scholar who corrected the most fundamental faults in Champollion's work was ...
+    -> TRUE (conf=0.775) | NLI entailment 0.69 (margin 0.20) | 'Champollion announced these discoveries to the Académ
+
+  Verifying: The Soviet Union diverted the Amu Darya and Syr Darya rivers to irrigate cotton fields in 
+    Subject (query seed): Soviet Union
+    LLM query: 'Aral Sea desiccation' (was: 'Soviet Union')
+    Pages pooled: ['International Fund for Saving the Aral Sea', 'Aral Sea', 'South Aral Sea', 'Soviet Union']
+    Passages pooled (pre-rank): 269
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.586, contradict=0.233 | sim=0.749 | In the early 1960s, as part of the Soviet government plan for cotton, or "white ...
+      NLI: entail=0.066, contradict=0.422 | sim=0.590 | The South Aral Sea, half of which lies in Uzbekistan, was abandoned to its fate....
+      NLI: entail=0.341, contradict=0.248 | sim=0.585 | The Aral Sea began shrinking in the 1960s, when the Soviet Union decided that th...
+      NLI: entail=0.365, contradict=0.467 | sim=0.572 | In 1987, the lake split into two separate bodies of water: the North Aral Sea (t...
+      NLI: entail=0.317, contradict=0.442 | sim=0.541 | Attempts to mitigate the effects of desertification include planting vegetation ...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.59, contradict=0.47, margin=0.12)
+
+  Verifying: The diversion of the Amu Darya and Syr Darya rivers reduced the freshwater inflow into the
+    Subject (query seed): diversion of the Amu Darya and Syr Darya rivers
+    LLM query: 'Aral Sea environmental disaster' (was: 'diversion of the Amu Darya and Syr Darya rivers')
+    Pages pooled: ['Aral Sea', 'Moynaq', 'International Fund for Saving the Aral Sea', 'Amu Darya']
+    Passages pooled (pre-rank): 187
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.146, contradict=0.594 | sim=0.749 | The Amu Darya river flowed into the Caspian Sea via the Uzboy Channel until the ...
+      NLI: entail=0.669, contradict=0.112 | sim=0.717 | Muslim geographers, such as Hafiz-i Abru, wrote about the disappearance of the A...
+      NLI: entail=0.680, contradict=0.160 | sim=0.713 | Climate shifts have driven multiple phases of sea-level rise and fall. Inflow ra...
+      NLI: entail=0.184, contradict=0.378 | sim=0.682 | The South Aral Sea, half of which lies in Uzbekistan, was abandoned to its fate....
+      NLI: entail=0.215, contradict=0.508 | sim=0.668 | According to the Quaternary International, it is possible that the Amu Darya's c...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.68, contradict=0.59, margin=0.09)
+
+  Verifying: The collapse of the Aral Sea increased the salinity of the water.
+    Subject (query seed): collapse of the Aral Sea
+    LLM query: 'Aral Sea environmental disaster' (was: 'collapse of the Aral Sea')
+    Pages pooled: ['Aral Sea', 'Moynaq', 'International Fund for Saving the Aral Sea']
+    Passages pooled (pre-rank): 143
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.255, contradict=0.516 | sim=0.672 | Economically significant stocks of fish have returned, and observers who had wri...
+      NLI: entail=0.454, contradict=0.397 | sim=0.672 | By 1960, between 20 and 60 km3 (4.8 and 14.4 cu mi) of water each year was going...
+      NLI: entail=0.343, contradict=0.431 | sim=0.662 | improve the management of the international waters of the Aral Sea Basin...
+      NLI: entail=0.187, contradict=0.498 | sim=0.655 | In 2003, the South Aral further divided into eastern and western basins. The wat...
+      NLI: entail=0.225, contradict=0.573 | sim=0.652 | Levintanus, A. (1992). Saving the Aral sea. International Journal of Water Resou...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.45, contradict=0.57, margin=-0.12)
+
+  Verifying: The collapse of the Aral Sea killed most endemic fish species.
+    Subject (query seed): collapse of the Aral Sea
+    LLM query: 'Aral Sea environmental disaster' (was: 'collapse of the Aral Sea')
+    Pages pooled: ['Aral Sea', 'Moynaq', 'International Fund for Saving the Aral Sea']
+    Passages pooled (pre-rank): 143
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.155, contradict=0.717 | sim=0.727 | Despite its former vast size, the Aral Sea had relatively low indigenous biodive...
+      NLI: entail=0.445, contradict=0.269 | sim=0.698 | The South Aral Sea remains too saline to host any species other than halotoleran...
+      NLI: entail=0.383, contradict=0.291 | sim=0.683 | The Aral Sea fishing industry, which at its peak employed some 40,000 and report...
+      NLI: entail=0.320, contradict=0.580 | sim=0.660 | The impoverished are also particularly vulnerable to the environmental and healt...
+      NLI: entail=0.534, contradict=0.197 | sim=0.643 | The salinity increase and drying of the lake led to the local extinction of the ...
+    -> FALSE (conf=0.715) | NLI contradiction 0.72 (margin -0.18) | 'Despite its former vast size, the Aral Sea had re
+
+  Verifying: Receding waters of the Aral Sea left a salt-crusted desert known as the Aralkum.
+    Subject (query seed): Aral Sea
+    LLM query: 'Aralkum Desert' (was: 'Aral Sea')
+    Pages pooled: ['Aralkum Desert', 'Karakum Desert', 'Maghreb', 'Aral Sea']
+    Passages pooled (pre-rank): 186
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.429, contradict=0.243 | sim=0.782 | The Aralkum Desert (Uzbek: Orolqum choʻli, Оролқум чўли, Kazakh: Аралқұм шөлі, R...
+      NLI: entail=0.556, contradict=0.203 | sim=0.742 | Formerly the third-largest lake in the world with an area of 68,000 km2 (26,300 ...
+      NLI: entail=0.411, contradict=0.292 | sim=0.710 | The Aral Sea was an endorheic salt lake lying between Kazakhstan to its north an...
+      NLI: entail=0.392, contradict=0.423 | sim=0.689 | The desert covers roughly seventy percent of Turkmenistan, a long east–west swat...
+      NLI: entail=0.483, contradict=0.330 | sim=0.652 | Siegmar-W. Breckle: Combating desertification and rehabilitation of the salt des...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.56, contradict=0.42, margin=0.13)
+
+  Verifying: Winds carry toxic dust and pesticides from the Aralkum seabed into nearby populations.
+    Subject (query seed): Aralkum seabed
+    LLM query: 'Aralkum Desert' (was: 'Aralkum seabed')
+    Pages pooled: ['Aralkum Desert', 'Karakum Desert', 'Maghreb']
+    Passages pooled (pre-rank): 84
+    After threshold (0.45): 1/5 passages survive
+      NLI: entail=0.362, contradict=0.191 | sim=0.712 | The sands of the Aralkum and the dust that originates from it contain pollutants...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.36, contradict=0.19, margin=0.17)
+
+  Verifying: Pollutants from the Aralkum seabed caused increased rates of throat cancer in the Karakalp
+    Subject (query seed): Pollutants from the Aralkum seabed
+    LLM query: 'Aralkum Desert health effects' (was: 'Pollutants from the Aralkum seabed')
+    Pages pooled: ['Gobi Desert', 'List of North American deserts', 'Aral Sea', 'Aralkum Desert']
+    Passages pooled (pre-rank): 193
+    After threshold (0.45): 1/5 passages survive
+      NLI: entail=0.319, contradict=0.336 | sim=0.479 | The sands of the Aralkum and the dust that originates from it contain pollutants...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.32, contradict=0.34, margin=-0.02)
+
+  Verifying: Pollutants from the Aralkum seabed caused increased rates of respiratory diseases in the K
+    Subject (query seed): Pollutants from the Aralkum seabed
+    LLM query: 'Aralkum Desert health impact' (was: 'Pollutants from the Aralkum seabed')
+    Pages pooled: ['Aral Sea', 'Moynaq', 'Ladakh', 'Aralkum Desert']
+    Passages pooled (pre-rank): 232
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.319, contradict=0.336 | sim=0.585 | The sands of the Aralkum and the dust that originates from it contain pollutants...
+      NLI: entail=0.392, contradict=0.322 | sim=0.489 | Exposures to toxic chemicals from the dry seabed and polluted water have caused ...
+      NLI: entail=0.632, contradict=0.137 | sim=0.487 | Owing to the insufficiency of water left in the Aral Sea, concentrations of thes...
+      NLI: entail=0.539, contradict=0.203 | sim=0.483 | Local inhabitants are the most vulnerable population in this environmental healt...
+      NLI: entail=0.293, contradict=0.443 | sim=0.462 | The Aralkum Desert (Uzbek: Orolqum choʻli, Оролқум чўли, Kazakh: Аралқұм шөлі, R...
+    -> TRUE (conf=0.753) | NLI entailment 0.63 (margin 0.19) | 'Owing to the insufficiency of water left in the Aral 
+
+  Verifying: Income inequality between 1985 and 2015 was driven by a rise in the share of income held b
+    Subject (query seed): Income inequality
+    LLM query: 'Income inequality in the United States' (was: 'Income inequality')
+    Pages pooled: ['Income inequality in the United States', 'Causes of income inequality in the United States', 'List of U.S. states and territories by income inequality', 'List of countries by income inequality']
+    Passages pooled (pre-rank): 392
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.296, contradict=0.296 | sim=0.737 | According to a 2004 analysis of income quintile data by The Heritage Foundation,...
+      NLI: entail=0.569, contradict=0.215 | sim=0.676 | The top 1% earned 12% of market income in 1979, 20% in 2007, and 19% in 2016. Fo...
+      NLI: entail=0.621, contradict=0.170 | sim=0.664 | In May 2017, they reported that income shares for those in the bottom half stagn...
+      NLI: entail=0.291, contradict=0.452 | sim=0.656 | The U.S. has the highest level of income inequality among its (post-industrializ...
+      NLI: entail=0.422, contradict=0.198 | sim=0.648 | The household income Gini index for the United States was 45.6 in 2009 and 45.4 ...
+    -> TRUE (conf=0.749) | NLI entailment 0.62 (margin 0.17) | 'In May 2017, they reported that income shares for tho
+
+  Verifying: Market income inequality grew due to the decline of manufacturing jobs.
+    Subject (query seed): market income inequality
+    LLM query: 'decline of manufacturing and income inequality' (was: 'market income inequality')
+    Pages pooled: ['Wealth inequality in the United States', 'American decline', 'Income inequality in the United States']
+    Passages pooled (pre-rank): 377
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.374, contradict=0.375 | sim=0.662 | Income inequality is claimed to lower aggregate demand, leading to large segment...
+      NLI: entail=0.312, contradict=0.520 | sim=0.655 | decline of labor unions – Unions weakened in part due to globalization and autom...
+      NLI: entail=0.372, contradict=0.442 | sim=0.644 | Income inequality may contribute to slower economic growth, reduced income mobil...
+      NLI: entail=0.266, contradict=0.548 | sim=0.639 | The S&P report concluded that diverging income inequality had slowed the recover...
+      NLI: entail=0.363, contradict=0.475 | sim=0.637 | Greater income inequality can lead to monopolization, resulting in fewer employe...
+    -> FALSE (conf=0.665) | NLI contradiction 0.55 (margin -0.17) | 'The S&P report concluded that diverging income in
+
+  Verifying: Market income inequality grew due to the rise of automation.
+    Subject (query seed): automation
+    LLM query: 'automation effects on income inequality' (was: 'automation')
+    Pages pooled: ['Income inequality in the United States', 'Economic inequality', 'Income distribution', 'Automation']
+    Passages pooled (pre-rank): 625
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.662, contradict=0.275 | sim=0.779 | Economists have linked automation to increases in economic inequality, as it rai...
+      NLI: entail=0.549, contradict=0.178 | sim=0.645 | automation - The Bureau of Labor Statistics (BLS) found that increased automatio...
+      NLI: entail=0.238, contradict=0.535 | sim=0.639 | Kenworthy, Lane (2017). "Why the Surge in Income Inequality?". Contemporary Soci...
+      NLI: entail=0.462, contradict=0.338 | sim=0.624 | According to a 2020 study in the Journal of Political Economy, automation has ro...
+      NLI: entail=0.274, contradict=0.518 | sim=0.623 | Income inequality may contribute to slower economic growth, reduced income mobil...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.66, contradict=0.53, margin=0.13)
+
+  Verifying: Government taxes and transfers reduced market income inequality.
+    Subject (query seed): Government taxes and transfers
+    LLM query: 'Effect of taxes and transfers on income inequality' (was: 'Government taxes and transfers')
+    Pages pooled: ['Wealth inequality in the United States', 'Income inequality in the United States', 'Income distribution', 'Inheritance tax in the United Kingdom']
+    Passages pooled (pre-rank): 492
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.760, contradict=0.124 | sim=0.690 | Measuring inequality after accounting for taxes and transfers reduces observed i...
+      NLI: entail=0.744, contradict=0.143 | sim=0.641 | Income taxes provide one mechanism for addressing after-tax inequality. Increasi...
+      NLI: entail=0.719, contradict=0.095 | sim=0.631 | U.S. tax and transfer policies are progressive and therefore reduce effective in...
+      NLI: entail=0.859, contradict=0.074 | sim=0.621 | Progressive Taxation: Taxing higher incomes at higher rates to redistribute inco...
+      NLI: entail=0.329, contradict=0.413 | sim=0.619 | Income inequality may contribute to slower economic growth, reduced income mobil...
+    -> TRUE (conf=0.844) | NLI entailment 0.86 (margin 0.45) | 'Progressive Taxation: Taxing higher incomes at higher
+
+  Verifying: Hepatocytes produce bile.
+    Subject (query seed): Hepatocytes
+    LLM query: 'Hepatocyte' (was: 'Hepatocytes')
+    Pages pooled: ['Hepatocyte', 'Hepatocyte growth factor', 'Feathery degeneration']
+    Passages pooled (pre-rank): 52
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.682, contradict=0.172 | sim=0.724 | The liver is the sole site of bile salts formation....
+      NLI: entail=0.184, contradict=0.654 | sim=0.696 | A hepatocyte is a cell of the main parenchymal tissue of the liver. Hepatocytes ...
+      NLI: entail=0.228, contradict=0.585 | sim=0.675 | Hepatocytes contain abundant endoplasmic reticulum....
+      NLI: entail=0.422, contradict=0.295 | sim=0.670 | Hepatic Histology: Hepatocytes (Colorado State University Archived 2023-05-29 at...
+      NLI: entail=0.429, contradict=0.391 | sim=0.670 | Hepatocytes manufacture their own structural proteins and intracellular enzymes....
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.68, contradict=0.65, margin=0.03)
+
+  Verifying: Bile travels through the hepatic ducts to the gallbladder for storage.
+    Subject (query seed): Bile
+    LLM query: 'Bile duct system' (was: 'Bile')
+    Pages pooled: ['Bile duct', 'Common bile duct', 'Bile duct hamartoma', 'Bile']
+    Passages pooled (pre-rank): 59
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.318, contradict=0.422 | sim=0.785 | Bile is required for the digestion of food and is secreted by the liver into pas...
+      NLI: entail=0.364, contradict=0.411 | sim=0.732 | A bile duct is any of a number of long tube-like structures that carry bile, and...
+      NLI: entail=0.146, contradict=0.379 | sim=0.726 | Bile (from Latin bilis), also known as gall, is a yellow-green fluid produced by...
+      NLI: entail=0.476, contradict=0.074 | sim=0.709 | Anatomy figure: 38:06-08 at Human Anatomy Online, SUNY Downstate Medical Center—...
+      NLI: entail=0.319, contradict=0.498 | sim=0.677 | The common bile duct (also bile duct) is a part of the biliary tract. It is form...
+    -> UNVERIFIABLE (conf=0.5) | NLI inconclusive (entail=0.48, contradict=0.50, margin=-0.02)
+
+  Verifying: The human liver filters blood from the digestive tract via the portal vein.
+    Subject (query seed): human liver
+    LLM query: 'Liver' (was: 'human liver')
+    Pages pooled: ['Liver', 'Liver King', 'Cirrhosis']
+    Passages pooled (pre-rank): 255
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.680, contradict=0.050 | sim=0.742 | The liver is connected to two large blood vessels: the hepatic artery and the po...
+      NLI: entail=0.734, contradict=0.045 | sim=0.709 | The liver gets its blood supply from the hepatic portal vein and hepatic arterie...
+      NLI: entail=0.386, contradict=0.172 | sim=0.640 | Liver cirrhosis makes it hard for blood to flow in the portal venous system. Thi...
+      NLI: entail=0.462, contradict=0.246 | sim=0.612 | Blood flows through the liver sinusoids and empties into the central vein of eac...
+      NLI: entail=0.363, contradict=0.172 | sim=0.605 | In the growing fetus, a major source of blood to the liver is the umbilical vein...
+    -> TRUE (conf=0.794) | NLI entailment 0.73 (margin 0.49) | 'The liver gets its blood supply from the hepatic port
+
+  Verifying: The human liver removes toxins from the blood.
+    Subject (query seed): human liver
+    LLM query: 'Liver function' (was: 'human liver')
+    Pages pooled: ['Liver function tests', 'Liver', 'Liver disease']
+    Passages pooled (pre-rank): 175
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.783, contradict=0.056 | sim=0.614 | The liver helps in the purification of blood. The Kupffer cells of liver are pha...
+      NLI: entail=0.458, contradict=0.353 | sim=0.613 | The liver is responsible for the breakdown and excretion of many waste products....
+      NLI: entail=0.638, contradict=0.162 | sim=0.596 | The liver is a major metabolic organ exclusively found in vertebrates, which per...
+      NLI: entail=0.547, contradict=0.136 | sim=0.592 | The liver is responsible for immunological effects – the mononuclear phagocyte s...
+      NLI: entail=0.395, contradict=0.379 | sim=0.581 | The various functions of the liver are carried out by the liver cells or hepatoc...
+    -> TRUE (conf=0.813) | NLI entailment 0.78 (margin 0.40) | 'The liver helps in the purification of blood. The Kup
+
+  Verifying: The human liver metabolizes nutrients.
+    Subject (query seed): human liver
+    LLM query: 'Liver (human)' (was: 'human liver')
+    Pages pooled: ['Liver', 'Liver as food', 'Liver (color)']
+    Passages pooled (pre-rank): 130
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.770, contradict=0.055 | sim=0.748 | The liver performs several roles in carbohydrate metabolism....
+      NLI: entail=0.891, contradict=0.025 | sim=0.729 | The liver plays a major role in carbohydrate, protein, amino acid, and lipid met...
+      NLI: entail=0.678, contradict=0.070 | sim=0.698 | The liver is also an accessory digestive organ that produces bile, an alkaline f...
+      NLI: entail=0.483, contradict=0.283 | sim=0.687 | Animal livers are rich in iron, copper, B vitamins and preformed vitamin A.  Dai...
+      NLI: entail=0.783, contradict=0.049 | sim=0.679 | The liver is a major metabolic organ exclusively found in vertebrates, which per...
+    -> TRUE (conf=0.856) | NLI entailment 0.89 (margin 0.61) | 'The liver plays a major role in carbohydrate, protein
+
+  Verifying: The human liver synthesizes albumin.
+    Subject (query seed): human liver
+    LLM query: 'Albumin biosynthesis in liver' (was: 'human liver')
+    Pages pooled: ['Copper peptide GHK-Cu', 'Pyridoxal phosphate', 'Testosterone', 'Liver']
+    Passages pooled (pre-rank): 261
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.835, contradict=0.035 | sim=0.738 | The liver produces albumin, the most abundant protein in blood serum. Albumin is...
+      NLI: entail=0.495, contradict=0.189 | sim=0.559 | Loren Pickart (1938–2023) isolated the copper peptide GHK-Cu from human plasma a...
+      NLI: entail=0.356, contradict=0.196 | sim=0.538 | Fluid accumulating in the abdomen, and swelling of the ankles and feet occurs be...
+      NLI: entail=0.453, contradict=0.430 | sim=0.527 | The liver plays a major role in carbohydrate, protein, amino acid, and lipid met...
+      NLI: entail=0.320, contradict=0.462 | sim=0.521 | The liver performs several roles in carbohydrate metabolism....
+    -> TRUE (conf=0.834) | NLI entailment 0.83 (margin 0.37) | 'The liver produces albumin, the most abundant protein
+
+  Verifying: The human liver synthesizes clotting factors.
+    Subject (query seed): human liver
+    LLM query: 'liver production of clotting factors' (was: 'human liver')
+    Pages pooled: ['Liver', 'Coagulation', 'Cirrhosis']
+    Passages pooled (pre-rank): 323
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.756, contradict=0.047 | sim=0.740 | Cirrhosis can increase the risk of bleeding. The liver produces various proteins...
+      NLI: entail=0.834, contradict=0.038 | sim=0.716 | The liver is responsible for the mainstay of protein metabolism, synthesis as we...
+      NLI: entail=0.917, contradict=0.036 | sim=0.675 | Prothrombin time increases, since the liver synthesizes clotting factors....
+      NLI: entail=0.739, contradict=0.072 | sim=0.647 | Bruising and easy bleeding are other features of liver disease. The liver makes ...
+      NLI: entail=0.593, contradict=0.088 | sim=0.643 | In acute or chronic liver failure, there is insufficient production of coagulati...
+    -> TRUE (conf=0.867) | NLI entailment 0.92 (margin 0.83) | 'Prothrombin time increases, since the liver synthesiz
+
+  Verifying: Albumin and clotting factors maintain osmotic pressure and blood coagulation.
+    Subject (query seed): Albumin and clotting factors
+    LLM query: 'Plasma protein' (was: 'Albumin and clotting factors')
+    Pages pooled: ['Plasma protein', 'Plasma protein binding', 'Clearance (pharmacology)', 'Serum (blood)']
+    Passages pooled (pre-rank): 65
+    After threshold (0.45): 3/5 passages survive
+      NLI: entail=0.686, contradict=0.060 | sim=0.620 | Serum albumin accounts for 55% of blood proteins, is a major contributor to main...
+      NLI: entail=0.454, contradict=0.244 | sim=0.501 | Since albumin is alkalotic, acidic and neutral drugs will primarily bind to albu...
+      NLI: entail=0.161, contradict=0.377 | sim=0.455 | Serum () is the fluid and solvent component of blood which does not play a role ...
+    -> TRUE (conf=0.774) | NLI entailment 0.69 (margin 0.31) | 'Serum albumin accounts for 55% of blood proteins, is 
+
+  Verifying: The human liver converts excess glucose into glycogen for energy storage during periods of
+    Subject (query seed): human liver
+    LLM query: 'Glycogen glycogenesis' (was: 'human liver')
+    Pages pooled: ['Glycogenesis', 'Glycogen synthase', 'Glycogenolysis', 'Liver']
+    Passages pooled (pre-rank): 153
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.477, contradict=0.182 | sim=0.770 | The liver synthesizes and stores around 100g of glycogen via glycogenesis, the f...
+      NLI: entail=0.414, contradict=0.332 | sim=0.730 | The liver enzyme expression is restricted to the liver, whereas the muscle enzym...
+      NLI: entail=0.448, contradict=0.185 | sim=0.729 | When needed, the liver releases glucose into the blood by performing glycogenoly...
+      NLI: entail=0.759, contradict=0.050 | sim=0.666 | Glycogenesis is the process of glycogen synthesis or the process of converting g...
+      NLI: entail=0.485, contradict=0.296 | sim=0.660 | The liver is also responsible for gluconeogenesis, which is the synthesis of glu...
+    -> TRUE (conf=0.804) | NLI entailment 0.76 (margin 0.43) | 'Glycogenesis is the process of glycogen synthesis or 
+
+  Verifying: China is expanding the Beidou navigation system.
+    Subject (query seed): China
+    LLM query: 'BeiDou navigation satellite system' (was: 'China')
+    Pages pooled: ['BeiDou', 'Satellite navigation', 'Satellite navigation device', 'China']
+    Passages pooled (pre-rank): 272
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.666, contradict=0.111 | sim=0.852 | By 2012: regional BeiDou navigation system covering China and neighboring region...
+      NLI: entail=0.394, contradict=0.303 | sim=0.797 | The first two generations of China's BeiDou navigation system were designed to p...
+      NLI: entail=0.252, contradict=0.259 | sim=0.734 | In December 2011, Xinhua stated that "[t]he basic structure of the BeiDou system...
+      NLI: entail=0.553, contradict=0.271 | sim=0.674 | As of early 2022, China had 49 operational positioning, navigation, and timing s...
+      NLI: entail=0.244, contradict=0.428 | sim=0.643 | Predecessors included BeiDou-1 (first-generation BeiDou), consisting of three sa...
+    -> TRUE (conf=0.766) | NLI entailment 0.67 (margin 0.24) | 'By 2012: regional BeiDou navigation system covering C
+
+  Verifying: India increases its launch count through the Indian Space Research Organisation's commerci
+    Subject (query seed): India
+    LLM query: 'Indian Space Research Organisation commercial launches' (was: 'India')
+    Pages pooled: ['ISRO', 'Chairperson of ISRO', 'LVM3', 'India']
+    Passages pooled (pre-rank): 245
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.214, contradict=0.506 | sim=0.723 | India's economic progress has made its space programme more visible and active a...
+      NLI: entail=0.316, contradict=0.456 | sim=0.558 | At the same time, another solid-fuelled rocket, the Augmented Satellite Launch V...
+      NLI: entail=0.389, contradict=0.382 | sim=0.543 | India has established a Centre for Space Science and Technology Education in Asi...
+      NLI: entail=0.126, contradict=0.668 | sim=0.532 | With 14 satellites, including GSAT-7A for exclusive military use and the rest as...
+      NLI: entail=0.297, contradict=0.445 | sim=0.525 | Institutions like the Indira Gandhi National Open University and the Indian Inst...
+    -> FALSE (conf=0.7) | NLI contradiction 0.67 (margin -0.28) | 'With 14 satellites, including GSAT-7A for exclusi
+
+  Verifying: Overfishing causes the biomass of fish stocks to fall below a level that can produce the m
+    Subject (query seed): Overfishing
+    LLM query: 'Overfishing' (was: 'Overfishing')
+    Pages pooled: ['Overfishing', 'West Africa', 'The End of the Line (book)']
+    Passages pooled (pre-rank): 237
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.702, contradict=0.113 | sim=0.815 | Biological overfishing occurs when fishing mortality has reached a level where t...
+      NLI: entail=0.688, contradict=0.228 | sim=0.765 | Overfishing is the removal of aquatic animals—primarily fish—from a body of wate...
+      NLI: entail=0.694, contradict=0.161 | sim=0.717 | Recruitment overfishing happens when the mature adult population (spawning bioma...
+      NLI: entail=0.534, contradict=0.325 | sim=0.711 | The notion of overfishing hinges on what is meant by an "acceptable level" of fi...
+      NLI: entail=0.422, contradict=0.366 | sim=0.711 | The situation with the fish in the oceans is dire. The problem of overfishing ar...
+    -> TRUE (conf=0.781) | NLI entailment 0.70 (margin 0.34) | 'Biological overfishing occurs when fishing mortality 
+
+  Verifying: Illegal, unreported, and unregulated fishing bypasses national quotas.
+    Subject (query seed): Illegal, unreported, and unregulated fishing
+    LLM query: 'Illegal, unreported and unregulated fishing' (was: 'Illegal, unreported, and unregulated fishing')
+    Pages pooled: ['Illegal, unreported and unregulated fishing', 'Illegal, unreported and unregulated fishing in the Arctic', 'Illegal, unreported and unregulated fishing in the Persian Gulf']
+    Passages pooled (pre-rank): 147
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.614, contradict=0.201 | sim=0.738 | Sumaila, U.R, Alder, J., and Keith, H. (2006). Global scope and economics of ill...
+      NLI: entail=0.450, contradict=0.186 | sim=0.718 | FAO: Stopping Illegal, Unreported and Unregulated (IUU) Fishing...
+      NLI: entail=0.430, contradict=0.224 | sim=0.701 | Swan, Judith (2004) International action and responses by regional fishery bodie...
+      NLI: entail=0.518, contradict=0.205 | sim=0.688 | Agnew DJ, Pearce J, Pramod G, Peatman T, Watson R, Beddington JR and Pitcher TJ ...
+      NLI: entail=0.417, contradict=0.345 | sim=0.683 | Illegal and unreported fishing (two of the three components of IUU fishing) esse...
+    -> TRUE (conf=0.746) | NLI entailment 0.61 (margin 0.27) | 'Sumaila, U.R, Alder, J., and Keith, H. (2006). Global
+
+  Verifying: Illegal, unreported, and unregulated fishing contributes to the depletion of fish stocks.
+    Subject (query seed): Illegal, unreported, and unregulated fishing
+    LLM query: 'Illegal, unreported and unregulated fishing' (was: 'Illegal, unreported, and unregulated fishing')
+    Pages pooled: ['Illegal, unreported and unregulated fishing', 'Illegal, unreported and unregulated fishing in the Arctic', 'Illegal, unreported and unregulated fishing in the Persian Gulf']
+    Passages pooled (pre-rank): 147
+    After threshold (0.45): 5/5 passages survive
+      NLI: entail=0.709, contradict=0.133 | sim=0.769 | Because many illegal catches go unreported, it's difficult to get accurate data ...
+      NLI: entail=0.605, contradict=0.330 | sim=0.758 | The impact on fish stock is an effect of overfishing and overharvesting, which c...
+      NLI: entail=0.835, contradict=0.116 | sim=0.738 | Food insecurity is another effect of IUU fishing. Illegal fishing undermines the...
+      NLI: entail=0.616, contradict=0.295 | sim=0.711 | Unfair competition and subsequent job losses happen when legal and illegal catch...
+      NLI: entail=0.510, contradict=0.207 | sim=0.710 | Agnew DJ, Pearce J, Pramod G, Peatman T, Watson R, Beddington JR and Pitcher TJ ...
+    -> TRUE (conf=0.834) | NLI entailment 0.84 (margin 0.51) | 'Food insecurity is another effect of IUU fishing. Ill
+
+Results written to: relational_b3_verified_results.csv
+
+==================================================
+RELATIONAL VERIFIER EVALUATION
+==================================================
+  Total RELATIONAL claims : 47
+  Verifiable (non-UV)     : 26
+  Correct verdicts        : 21
+  Verdict breakdown       : {'TRUE': 23, 'FALSE': 3, 'UNVERIFIABLE': 21}
+  Accuracy (excl. UV)     : 80.77%
+  Coverage                : 55.32%
