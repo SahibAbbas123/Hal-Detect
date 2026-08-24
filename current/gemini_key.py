@@ -204,6 +204,7 @@ def check(model: str = DEFAULT_MODEL, timeout: int = 30) -> tuple[bool, str]:
             pass
         hint = {
             400: "malformed request or invalid key",
+            401: "not a valid API key (this is what a revoked or mistyped key returns)",
             403: "key rejected / API not enabled for this project",
             404: f"model {model!r} not found for this key",
             429: "rate limited (key works)",

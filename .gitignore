@@ -8,13 +8,22 @@ geminiAPI.txt
 .geminiAPI
 .geminiAPI*
 *gemini*key*
-# ...but current/gemini_key.py is CODE, not a credential: it only resolves
-# $GEMINI_API_KEY -> $GEMINI_KEY_FILE -> geminiAPI.txt -> Colab userdata, and was
-# verified 2026-08-25 to embed no literal key. The *gemini*key* pattern above was
-# silently ignoring it, so it stayed untracked and a fresh checkout LOST it --
-# proven by it being absent from a new worktree, which made nonrouted_baseline.py
-# (RQ2) unimportable. Keep the broad pattern; negate this one file.
-!current/gemini_key.py
+# ...but a .py file under current/ is CODE, not a credential. `*gemini*key*` was
+# silently ignoring current/gemini_key.py, so it stayed untracked and a fresh
+# checkout LOST it -- proven by its absence from a new worktree, which made
+# nonrouted_baseline.py (RQ2) unimportable.
+#
+# That was first patched as `!current/gemini_key.py`, one filename. On 2026-08-25
+# the SAME bug immediately recurred on current/rotate_gemini_key.py, because a
+# per-filename negation does not generalise. So negate by RULE instead: every
+# .py in current/ is the author's own source and belongs in git. Credentials in
+# this repo are .txt / dotfiles / .env / .key / .pem -- never .py.
+#
+# This does NOT weaken the secret guard, because a filename pattern could never
+# catch a key *embedded* in a file anyway. That is the pre-commit CONTENT scan's
+# job, and it is the check that actually matters:
+#   git diff --cached -U0 | grep -c "$(cat geminiAPI.txt)"     # must print 0
+!current/*.py
 .zshrc
 .bashrc
 .profile
