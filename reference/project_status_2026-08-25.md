@@ -102,9 +102,22 @@ to them.
 - Per type it moves a lot: **9 of QUANTITATIVE's 24 negatives are collided**, so
   the "baseline catches 9/24, is confidently wrong on 13/24" figure is not usable
   as stated.
-- **RQ2's headline (77.2% cov / 69.8% acc) and the whole threshold sweep stand.**
-  8 of 356 rows cannot move them meaningfully, and both are recomputed from the
-  same cached scores, so the sweep inherits exactly this 2.2%.
+- **RQ2's headline (77.2% cov / 69.8% acc) and the whole threshold sweep stand
+  — verified by recomputation, not asserted.** Dropping all 8 collided rows and
+  recomputing on the remaining 348:
+
+  | | coverage | sel. acc | F1(FALSE) | MCC |
+  |---|---|---|---|---|
+  | 3d, all 356 (as reported) | 77.2% | 69.8% | 0.170 | **+0.180** |
+  | 3d, collision-free (348) | 77.9% | 70.1% | 0.172 | **+0.180** |
+  | 3e, all 356 | 53.7% | 81.2% | 0.174 | +0.144 |
+  | 3e, collision-free | 53.7% | 81.8% | 0.178 | +0.147 |
+
+  **Largest movement in any headline figure: 0.67pp**; 3d's MCC does not move at
+  all. The threshold sweep recomputes from these same cached scores, so it
+  inherits exactly this. (The recomputation also reproduced the recorded
+  77.2/69.8/0.170/+0.180 exactly, which independently re-validates the stored
+  verdict columns.)
 
 ### Fix
 
