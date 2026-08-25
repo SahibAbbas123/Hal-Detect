@@ -9,7 +9,7 @@ Thesis project (CSE 700, University of Chittagong): a taxonomy-routed post-hoc h
 | **RELATIONAL** | Wikipedia passage retrieval + NLI entailment (BART-MNLI) | Best performer. 80.77% acc / 55.32% cov on held-out Batch 3. Live logic = `current/HalDetect_latest.ipynb` cell 57 (`## Phase 3e (i)`) — no standalone `.py` is current. |
 | **TEMPORAL** | Wikidata SPARQL lookup | **Moved off zero 2026-08-23.** Live logic = notebook cell 75 (`## Phase 2`); cell 73 is the superseded Phase 1. Measured via `current/temporal_ea_verifier.py` with the fixed resolver: Batch 3 TEMPORAL **1/12 = 8.3% coverage** (was 0). Combined TEMPORAL+EA: **17.6% coverage at 5/6 accuracy**, plus **2/2 correct on synthetic negatives**. The bottleneck is now property matching (24/34), not resolution (4/34, was the blocker). **One confident-wrong verdict reintroduced — see below.** |
 | **ENTITY_ATTRIBUTE** | Wikidata SPARQL lookup | **Moved off zero 2026-08-23.** Live logic = notebook cell 69 (`## Phase 4`); cell 67 is the superseded Phase 3. Batch 3 EA **5/22 = 22.7% coverage** (was 0), all 5 correct — the Rosetta Stone claims that used to resolve to a *British punk band* now return `P186=granodiorite`, `P407=Ancient Greek`, `P282=Egyptian Demotic`. |
-| **CITATION** | Two-level: does the source exist, does it actually say this | **Level 1 rebuilt and off zero 2026-08-23.** `current/citation_l1_verifier.py`: **75.9% coverage (22/29), 90.9% accuracy (20/22), AURAC 0.934** — was 0/12. Replaced both hardcoded dicts (`ORG_URL_MAP`, `TRIVIALLY_KNOWN_ORGS`) with Wikidata resolution via the fixed resolver. **Level 1 can never return FALSE** — a source that fails to resolve is UNVERIFIABLE, not fabricated — so F1(FALSE)=0.00 by construction and all 3 gold-FALSE CITATION claims are missed. Level 2 (attribution) is unbuilt: it needs NLI, which SIGBUSes locally, and NLI contradiction precision caps at 0.20 anyway. Old `current/citation_verifier.py` retains the tautology; do not use it. |
+| **CITATION** | Two-level: does the source exist, does it actually say this | **Level 1 rebuilt and off zero 2026-08-23.** `current/citation_l1_verifier.py`: **75.9% coverage (22/29), 90.9% accuracy (20/22), AURAC 0.934** — was 0/12. Replaced both hardcoded dicts (`ORG_URL_MAP`, `TRIVIALLY_KNOWN_ORGS`) with Wikidata resolution via the fixed resolver. **Level 1 can never return FALSE** — a source that fails to resolve is UNVERIFIABLE, not fabricated — so F1(FALSE)=0.00 by construction and all 3 gold-FALSE CITATION claims are missed. Level 2 (attribution) is unbuilt: it needs NLI, which SIGBUSes locally, and NLI contradiction precision caps at 0.20 anyway. Old `current/citation_verifier.py` retains the tautology; do not use it. **The FALSE-class gap is worse than "L1 can never return FALSE", and also more reachable than assumed — measured 2026-08-25, see below.** |
 | **QUANTITATIVE** | Structured extract-and-compare vs. Wikidata `quantity` statements (**not** NLI) | **WORKING, and as of 2026-08-25 the one type where routing BEATS the baseline on a prior-independent metric.** `current/quantitative_verifier.py`; selftest **24/24**. Measured on gold negatives at last: **14/14 correct across 14 covered claims with BOTH classes present, 0 confident errors, MCC +0.378 vs the baseline's best +0.202.** On 4 claims both systems answer confidently and disagree — routed 4/4, baseline 0/4. Batch 3 alone: 8/29 = 27.6% cov, 8/8. Negatives alone: 6/24 = 25.0% cov, 6/6. Full analysis `reference/rq2_quantitative_negatives_2026-08-25.md`; reproduce with `current/rq2_quantitative_table.py` (offline). NUMERICAL works; COMPARATIVE + COMPUTATIONAL abstain by design. |
 
 ## The standing rule
@@ -54,6 +54,53 @@ Requesting `languages=en` returned an **empty label** for Denali, so the lexical
 **Cache prefixes were bumped (`cmeta3__`, `cand2__`).** Reusing `cmeta__`/`cmeta2__`/`search__` would have preserved each bug while making the fix appear to work — the same discipline that caught the earlier cache-poisoning bug.
 
 **`mul` and full-text are NOT yet fixed project-wide.** `property_resolver.py` and notebook cells 69/75 still request `languages=en` and still resolve via prefix search, on the same proper nouns. **This means TEMPORAL/EA's recorded "0% coverage, entirely a `PROPERTY_TO_WIKIDATA` gap" diagnosis may be partly wrong** — some of those claims may have failed at resolution, with the entity silently unnamed, before property matching was ever reached. Re-measure rather than assume.
+
+### A THIRD resolution failure mode — editions of a serial publication (found 2026-08-25, NOT fixed)
+
+The 08-21 fix removed property-gated selection; the 08-23 fixes added prominence,
+full-text search and `mul` labels. **Neither addresses this, and it is live.** Found
+by `current/citation_negatives_analysis.py --reachability`; full account in
+`reference/citation_negatives_headroom_2026-08-25.md`.
+
+Asked for `Lancet Commission on dementia prevention`, the resolver **accepted**:
+
+    Q92676744  @0.605  'The Lancet Commission on Dementia Prevention, ... a call
+                        for action'          (2019 article, 0 sitelinks)  <- CHOSEN
+    Q139937996 @0.597  '... 2024 report of the Lancet standing Commission'
+    Q98186330  @0.595  '... 2020 report of the Lancet Commission'  <- THE RIGHT WORK
+
+Three scores spanning **0.010**, covering the 2019 / 2024 / 2020 works, and the
+correct one is **rejected by one hundredth of a point**. The accepted item's
+`P577 = 2019-06-01` would falsify the gold-TRUE claim *"The 2020 Lancet Commission
+identified 12 modifiable risk factors…"* — **a confident-wrong FALSE, the exact
+class the QID fix drove to zero.** `Poverty and Shared Prosperity` shows it twice
+over: the accepted item is the **2020** edition, `P577` is **absent**, and two
+byte-identical duplicate items tie at exactly **0.654**.
+
+**Why the existing fixes cannot touch it.** Every candidate has **0 sitelinks**, so
+the prominence tie-break is inert by construction — it breaks ties on fame, and no
+edition of a serial is famous *as an edition*. Editions share nearly all of their
+label, and the token that discriminates them is **the year, which is the value under
+test**. Resolving the edition therefore uses the claimed value to pick the entity
+that will judge the claimed value.
+
+**The non-circular design:** resolve the **series**, enumerate edition years from
+`P577` across its members, and test the claimed year for **membership in the
+series** — the year then tests and never selects. On the Lancet rows this detects 3
+of 5 with no confident-wrong risk, versus 5 of 5 with it. **Take the 3.** Any
+CITATION or TEMPORAL work-date check must do this before it ships.
+
+### The independent resolution check has first evidence, and it fired immediately
+
+The audit below downgraded the resolver's 72/72 to *"0% refusal, correctness
+unverified by an independent signal"* and named the fix as future work: check the
+resolved entity's **other** properties against the claim's context. That check ran
+incidentally during the 08-25 probe and **caught a wrong resolution scoring *above*
+threshold**: Q92676744's `P1433` (published in) is **Q15751849 = *Irish Journal of
+Psychological Medicine***, not *The Lancet*. The label-based check passes this entity
+— its label really does read "The Lancet Commission on Dementia Prevention…" — and
+the property-consistency check rejects it. **The caveat was not theoretical, the
+proposed fix works, and it is nearly free** (the claims fetch is already being made).
 
 ### QUANTITATIVE now has real, validated coverage (2026-08-23)
 
@@ -277,6 +324,50 @@ recorded 75.0% on 28 clean rows was correct (→ 73.1% strict, not material). Bo
 previously-hardcoded id lists are gone: importers now call
 `negatives_cache_audit.Audit`, and `--selftest` asserts the computed sets still
 reproduce the legacy ones.
+
+### CITATION is the reachable gap, but not where the docs said (2026-08-25)
+
+Follows directly from CITATION's **J = +0.128** above. `current/citation_negatives_analysis.py`
+(`--composition` offline, `--reachability` ~15 calls, `--selftest` 12 checks);
+full account `reference/citation_negatives_headroom_2026-08-25.md`.
+
+**Not one of the 25 CITATION negatives perturbs source existence** — the only
+question Level 1 asks. 12 shift the **year** on a correctly-named work, 11 swap the
+organisation **for another real one** (WHO in 10 of 11), 2 swap the content. So the
+recorded framing understates the gap: **even a Level 1 that *could* return FALSE
+would still detect 0/25.** Changing L1's FALSE policy — the tempting fix — buys
+nothing here, and `source_swap` is worse than a miss, since an existence check
+resolves WHO successfully and thereby *vouches for* the fabricated citation. It also
+carries the QUANTITATIVE `cross_substitute` control property: the injected org is
+real, so no surface-form or plausibility signal exists.
+
+**But 17 of 25 (68%) need no NLI at all** — 12 via publication date (`P577`), 5 via
+a publisher (`P123`) conflict on a fabricated *composite* title ("WHO Sixth
+Assessment Report"). The 12 year-shifts are neither existence nor attribution; they
+need a **third** check, structurally `quantitative_verifier.py` with the datatype
+filter changed from `quantity` to `time`. The CITATION FALSE class is not blocked on
+Level 2 to the degree assumed.
+
+**Reachable today: 8 of 25 — and all 8 through one Wikidata item** (Q103843442, IPCC
+AR6: `P577 = {2021-08-09, 2023-03-20}`, `P123 = Q171183` = IPCC, verified not
+assumed). Same concentration warning as *"6 of 6 QUANTITATIVE detections are P2044
+mountain elevations"* — **one work working, not CITATION working**, and it must be
+stated wherever the 8 is quoted. The Lancet rows (5) are blocked by the serial-edition
+failure mode above; the World Bank rows (2) resolve to the wrong edition with `P577`
+absent; `World Mental Health Report` misses at 0.530; FAO's `P123` evidence exists but
+resolution is rejected at 0.585.
+
+**Use a span rule, not set-membership, for publication dates.** AR6 is multi-part
+across 2021–2023 and Wikidata lists only two `P577` values, so membership would mark
+*"published in 2022"* FALSE though WG2/WG3 genuinely appeared in 2022 — a manufactured
+confident-wrong verdict. FALSE only outside `[min, max]`, abstain inside. It costs
+nothing here: all five claimed years (2024–2123) are after 2023, so span detects 5/5
+too, and the matched pair is 6/6 either way.
+
+**Author decision before any build** — this is a new verifier component, not a fix.
+Weigh 8/25 with a single-entity dependency against the baseline's J = +0.128, and
+require the three preconditions in §6 of that doc (series resolution, the
+property-consistency check, span-not-membership).
 
 ### Threshold sweep, 2026-08-23 — the shipped operating point is a strawman, and contradiction NLI has no good threshold
 
