@@ -160,12 +160,34 @@ Applied.
 Both are applied because whether a correction is convenient has no bearing on
 whether it is right.
 
-**Open correction, not yet propagated:** the same check finds `SYN_TEMP_059` and
-`060` sharing the 056/057/058 key group, so the earlier "12 corrupt rows" figure
-is an undercount — **15 of 85 negatives are involved in collisions**. The TEMPORAL
-detection rate (recorded as 75.0% on 28 clean rows) needs re-deriving. All five
-TEMPORAL rows scored FALSE on gold-FALSE claims, so they are "correct by
-accident"; the rate, not the verdicts, is what moves.
+**Resolved, and my own count above was wrong.** The full audit is
+`reference/negatives_cache_audit_2026-08-25.md`
+(`current/negatives_cache_audit.py`, which **computes** these sets instead of
+hardcoding them). Three corrections to the paragraph this replaces:
+
+- **"12 corrupt rows is an undercount" was wrong — 12 is correct.** The 15 was
+  the count of rows *sitting in shared-key groups*, which is not the same
+  quantity as rows *needing correction*.
+- The true affected count is **16 of 85 (18.8%)**, reached by finding a **third**
+  class — *partial* inheritance, where entail is bit-identical to the base but
+  contradict is not, because the key covers claim **and** passage. It affects
+  `SYN_TEMP_059`, `SYN_TEMP_060`, `SYN_CITA_001`.
+- **TEMPORAL's recorded 75.0% on 28 clean rows was right.** The independence and
+  partial-inheritance corrections move it to 20/27 = 74.1% and then 19/26 =
+  73.1% — not material. All five `SYN_TEMP_056–060` perturb one base, which is
+  how a single claim contaminates five rows.
+
+**Every QUANTITATIVE figure in this document is unaffected**: class (c) contains
+no QUANTITATIVE row, and after the refactor `rq2_quantitative_table.py` produces
+byte-identical output, asserted by `negatives_cache_audit.py --selftest`.
+
+**One finding in this document is now qualified, though — see Part 2 of that
+audit.** The baseline's low precision (0.099, "~9:1 false alarms") is
+**reproduced by the 3.7% base rate alone** (predicted 0.0870 vs observed 0.0988),
+so it is not evidence that retrieval+NLI cannot separate the classes: Youden's
+J = +0.323. What survives from this document untouched is everything that is not
+a precision figure — the 0-vs-19 confident-error count, MCC +0.378 vs +0.202, and
+the same-number control.
 
 ---
 

@@ -98,7 +98,18 @@ TUNED = (0.35, 0.30)
 # detection count built from both overstates its effective n by one. Which of the
 # pair populated the cache is not recoverable from the artifact, so one is dropped
 # arbitrarily and the figure is reported both ways.
-DUP_READ = {"SYN_QUAN_031"}          # mutual duplicate of SYN_QUAN_030
+#
+# COMPUTED as of Step 34, not hardcoded. This was `{"SYN_QUAN_031"}` written by
+# hand, which happened to be right only because the class-(a) rows are already
+# excluded upstream -- 7 QUANTITATIVE rows are duplicate reads, but 6 of them are
+# also fabricated and gone by the time this set is applied. Relying on that
+# coincidence is how the count drifted across three audits.
+# `negatives_cache_audit.py --selftest` asserts this still resolves to {031}.
+from negatives_cache_audit import Audit  # noqa: E402
+
+_AUDIT = Audit()
+DUP_READ = {r["claim_id"] for r in _AUDIT.tier("clean")
+            if r["type"] == "QUANTITATIVE" and r["claim_id"] in _AUDIT.duplicate}
 
 VERDICTS = ("TRUE", "FALSE", "UNVERIFIABLE")
 

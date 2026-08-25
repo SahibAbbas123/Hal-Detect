@@ -228,7 +228,9 @@ prior inventory recorded it as 20. Verify against the file, always.
 **Four findings that change how results must be reported:**
 
 1. **The baseline scores 18pp BELOW Always-True on accuracy.** Accuracy is the wrong headline for this project — with 314/13/29 it rewards never saying FALSE. **Lead with F1(FALSE) and MCC**; quote accuracy only next to Always-True. Any table leading with accuracy is trivially attacked.
-2. **Of 81 FALSE predictions, 8 are correct — precision 0.099.** 67 are gold-TRUE false alarms. Uniform retrieval+NLI manufactures hallucination alarms at ~9:1. Same failure class as the `1 - entail` proxy: proper 3-way NLI reduced it but `CONTRADICT_THRESHOLD = 0.40` still reads "unsupported" as "contradicted". **This is the strongest empirical motivation for the taxonomy the project has, and a real contribution** — systems that fold NEI into False cannot see it. The margin gate does not fix it (halves recall for +2pp precision; MCC gets *worse*).
+2. **Of 81 FALSE predictions, 8 are correct — precision 0.099.** 67 are gold-TRUE false alarms. Uniform retrieval+NLI manufactures hallucination alarms at ~9:1. Same failure class as the `1 - entail` proxy: proper 3-way NLI reduced it but `CONTRADICT_THRESHOLD = 0.40` still reads "unsupported" as "contradicted". The margin gate does not fix it (halves recall for +2pp precision; MCC gets *worse*).
+
+   **⚠ CORRECTED 2026-08-25 — this was recorded as "the strongest empirical motivation for the taxonomy the project has." It is not, because it is a PRIOR ARTIFACT.** `negatives_cache_audit.py` measures the baseline's TPR on the 85 gold-FALSE negatives (53.6%) against its FPR on the natural set's gold-TRUE claims (21.3%). Substituting those into `P = πT/(πT+(1−π)F)` at π = 13/356 = 0.0365 **predicts precision 0.0870 against the observed 0.0988 — a gap of 0.012.** The base rate alone reproduces the figure. At this π a detector needs a TPR/FPR ratio of **26.4:1** for 50% precision and 6.6:1 for 20%; the measured ratio is 2.5:1, so ~9:1 alarms is what the arithmetic *requires*. **Youden's J = +0.323, which is not zero** — at a balanced prior the same detector shows precision 0.715. Always pair the precision figure with the base rate and J. Full analysis: `reference/negatives_cache_audit_2026-08-25.md`.
 3. **RELATIONAL's Batch-3 number reproduces on the pooled set.** Recorded 80.77% acc @ 55.32% cov on ~26 covered claims; pooled 174 gives **79.1% @ 52.3% on 91 covered**. CI tightens from ±14.7pp to ≈±8pp. The biggest open statistical risk in the project — that "80.77%" was an artifact of 26 claims — **is closed.** (3d on the same 174: 66.4% @ 77.0%.)
 4. **Phase 2's AI-filled labels are NOT driving the result.** All-labeled 69.8% vs human-only b1+b3 71.6%; coverage 77.2% vs 76.9%. The robustness check built to catch this passed.
 
@@ -239,6 +241,42 @@ prior inventory recorded it as 20. Verify against the file, always.
 Per-type 3d/3e (cov, acc): RELATIONAL 77.0/66.4 → 52.3/79.1 · TEMPORAL 90.8/67.8 → 61.5/82.5 · QUANTITATIVE 82.2/73.0 → 55.6/84.0 · **EA 74.4/81.2 → 60.5/80.8 (the one type where 3d dominates)** · CITATION 44.8/76.9 → 31.0/88.9. The 3d→3e trade is a stable −22pp coverage for +12pp accuracy.
 
 Read the rest of this section for the spec and what this must not be confused with.
+
+### The baseline's per-type discrimination, measured on gold negatives (2026-08-25)
+
+`current/negatives_cache_audit.py` — offline, ~1 s. TPR on the 85 synthetic
+gold-FALSE negatives (strict tier, cache collisions removed) against FPR on the
+natural set's gold-TRUE claims. Same code path, same operating point, so the
+difference is discrimination. Rows use the **`type`** column, i.e. what the
+verifier receives.
+
+| type | TPR on negatives | FPR on gold-TRUE | **J = TPR−FPR** |
+|---|---|---|---|
+| **CITATION** | 5/24 20.8% | 2/25 8.0% | **+0.128** ← weakest, and prior-independent |
+| ENTITY_ATTRIBUTE | 5/5 100% | 5/42 11.9% | +0.881 (n=5, do not quote) |
+| QUANTITATIVE | 8/14 57.1% | 9/41 22.0% | +0.352 |
+| TEMPORAL | 19/26 73.1% | 19/62 30.6% | +0.424 |
+| **ALL** | **37/69 53.6%** | **67/314 21.3%** | **+0.323** |
+
+**Detection rate on the negatives is never quotable alone** — every row there is
+gold FALSE, so an unconditional "FALSE" scores TPR 1.00 and the baseline's 53.6%
+is *worse* than the degenerate strategy. That is the exact mirror of Always-True
+scoring 88.2% on the natural 356. **Pair it with FPR, or report J**, which is 0
+for Always-True and Always-False alike.
+
+**Bounding caveat:** the negatives are synthetic perturbations (a swapped number
+or date), plausibly easier to refute than a naturally-hallucinated causal claim.
+Every TPR here is an **upper** estimate and every J an upper bound.
+
+**Also settled here:** the `nli__{claim[:60]}__{passage[:40]}` cache key affects
+**16 of 85 negatives (18.8%)** in three classes — 12 fabricated (exclude), 10
+duplicate reads (discount), 3 *partial* inheritance where entail is inherited but
+contradict is fresh. QUANTITATIVE is untouched by the third class, so
+`reference/rq2_quantitative_negatives_2026-08-25.md` stands unchanged. TEMPORAL's
+recorded 75.0% on 28 clean rows was correct (→ 73.1% strict, not material). Both
+previously-hardcoded id lists are gone: importers now call
+`negatives_cache_audit.Audit`, and `--selftest` asserts the computed sets still
+reproduce the legacy ones.
 
 ### Threshold sweep, 2026-08-23 — the shipped operating point is a strawman, and contradiction NLI has no good threshold
 
@@ -252,7 +290,9 @@ Read the rest of this section for the spec and what this must not be confused wi
 1. **The shipped point is strictly dominated — every metric improves at once** (+13pp coverage, +14.9pp accuracy, +0.12 F1(FALSE), +0.108 MCC), and it replicates on human-only labels (90.7% / 86.6% / 0.308 / +0.283). **So RQ2 must be reported against the baseline at (0.35/0.30) — ON THE NATURAL 356 ONLY. See the scope qualifier below; do not carry this threshold to a set with a different class prior.** Using phase3d's untuned defaults would credit routing with a ~15pp gap that is really one badly set constant — a strawman, which the committed spec explicitly forbids. No re-run needed; it is recomputable from the CSV.
 
    **SCOPE QUALIFIER, added 2026-08-25 — the "optimum" is a class-prior fit.** On the 24 gold-FALSE QUANTITATIVE negatives, (0.35/0.30) is *far worse* than shipped: F1(FALSE) 0.488 → 0.200, MCC +0.202 → +0.083, and on the clean 15 it detects 2/15 while confidently asserting **13** hallucinations are true. Mechanism: the entail threshold is a knob on how often the system says TRUE, and rows with `entail ∈ [0.35, 0.50)` become TRUE under tuning — **92 such rows on the natural 356 split 81 helpful / 3 harmful (27:1), versus 0 helpful / 9 harmful on the negatives.** The sweep found a better fit to a 24:1 class imbalance, not a better discriminator. This is the project's own class-imbalance trap operating on hyperparameter *selection* rather than metric *reporting*. Verified not an artifact: the 9 flipping rows are disjoint from the 9 cache-corrupt rows (overlap 0). **Rule: quote the baseline at whichever operating point is stronger on the population being reported, and name both the point and the population's class prior. Carrying the tuned point onto a negatives-enriched set is a *reverse* strawman, equally inadmissible.** The routed verifier has no threshold at all, so there is no operating point in it to fit to a prior — an architectural difference that is now measured rather than asserted. Detail: `reference/rq2_quantitative_negatives_2026-08-25.md` §6.
-2. **The bigger finding: contradiction precision never leaves 0.08–0.12 across the whole sweep and caps at 0.20 over all 225 grid points.** Raising the threshold destroys recall while precision stays flat — by ct=0.65 it catches **0 of 13** negatives while accuracy climbs to 92.5% purely by abstaining. So the earlier diagnosis was too kind: **BART-MNLI's contradiction score over retrieved passages cannot separate "refutes this" from "does not mention this" at any operating point.** This is the `1 - entail` defect surviving the 3-way fix — an architectural limit, not a hyperparameter. **It is the strongest available motivation for structured verification**, because Wikidata either holds a conflicting value or it does not; no inference step to corrupt. It also explains why folding NEI into False (Factcheck-Bench, OpenFactCheck) hides this, and why we don't frame against them.
+2. **The bigger finding: contradiction precision never leaves 0.08–0.12 across the whole sweep and caps at 0.20 over all 225 grid points.** Raising the threshold destroys recall while precision stays flat — by ct=0.65 it catches **0 of 13** negatives while accuracy climbs to 92.5% purely by abstaining. This is the `1 - entail` defect surviving the 3-way fix — an architectural limit, not a hyperparameter. It also explains why folding NEI into False (Factcheck-Bench, OpenFactCheck) hides this, and why we don't frame against them.
+
+   **⚠ RESTATED 2026-08-25 — the conclusion drawn here was too strong.** It read: *"BART-MNLI's contradiction score over retrieved passages **cannot separate** 'refutes this' from 'does not mention this' at any operating point"*, and called that *"the strongest available motivation for structured verification."* **Every number in the sweep is a precision figure, and precision at π = 0.037 is arithmetically forced low even for a competent discriminator** — see the correction on the baseline's 0.099 above. Measured on gold negatives the same code path has **TPR 53.6% vs FPR 21.3%, J = +0.323**. The defensible version: **the ROC never reaches a high-precision regime at this base rate — the best TPR/FPR ratio available anywhere on it is ~6.6:1, where ~26:1 is needed for even coin-flip precision.** That is a real finding about the ROC's *shape*; it is not "cannot separate," and must not be written that way. The prior-independent motivations that survive are the **confident-error count** (routed QUANTITATIVE 0 vs baseline 19), **MCC** (+0.378 vs +0.202), the **same-number control**, and **CITATION's J = +0.128** — the baseline's genuinely weakest type, which is a better motivation for structured citation checking than the aggregate precision figure ever was.
 3. **Coverage 90.2% is at the ceiling** — NLI scored 322/356 (90.4%); the other 34 abstained pre-NLI. Lifting that is **retrieval**, not thresholds.
 4. **Per-type optima differ, but the values are overfit — do not quote them.** Tuned on the evaluation rows with only 13 negatives total; RELATIONAL/TEMPORAL optima move between label sets. Three findings *are* stable: **QUANTITATIVE wants strict contradiction (0.50), CITATION permissive (0.30)**; **CITATION has NEGATIVE MCC at the shipped threshold** (−0.115 pooled, −0.150 human-only — worse than chance at detecting false citations, alongside 44.8% coverage and "FAO" → *Aquaculture* retrieval failures); and **EA's MCC is 0.000 everywhere because it has essentially no gold negatives**, so its 97.4% accuracy is uninformative by construction.
 5. **13 gold negatives across 356 claims is now the binding constraint on every detection claim in the thesis.** Controlled perturbation is not optional polish.

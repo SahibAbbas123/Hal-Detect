@@ -47,13 +47,16 @@ ROOT = os.path.dirname(HERE)
 
 SRC = os.path.join(HERE, "synthetic_negatives.csv")
 
-# Proven cache-corrupt on 2026-08-25: collided key AND bit-identical entail/
-# contradict against the base claim. See WORKLOG Step 33.
-CACHE_CORRUPT = {
-    "SYN_QUAN_027", "SYN_QUAN_028", "SYN_QUAN_032", "SYN_QUAN_033",
-    "SYN_QUAN_034", "SYN_QUAN_035", "SYN_QUAN_036", "SYN_QUAN_037",
-    "SYN_QUAN_038", "SYN_TEMP_056", "SYN_TEMP_057", "SYN_TEMP_058",
-}
+# Cache-corrupt = collided key AND bit-identical entail/contradict against the
+# base claim. COMPUTED, not hardcoded: this list was written by hand on
+# 2026-08-25 and the hand-written version is exactly what went wrong -- three
+# successive audits reported 12, then 15, then 16 affected rows because each
+# copied the previous count instead of recomputing it. See WORKLOG Step 34 and
+# `negatives_cache_audit.py`, whose --selftest asserts that the computed set
+# still reproduces this file's original 12 ids.
+from negatives_cache_audit import Audit  # noqa: E402  (after ROOT is defined)
+
+CACHE_CORRUPT = set(Audit().fabricated)
 
 # Columns the routed verifiers read, in the order the gold CSVs use them.
 OUT_COLS = [
