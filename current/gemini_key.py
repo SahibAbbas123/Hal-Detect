@@ -163,6 +163,57 @@ def endpoint(model: str = DEFAULT_MODEL, key: str | None = None) -> str:
     return f"{API_BASE}/{model}:generateContent?key={k}"
 
 
+def verify_file() -> tuple[bool, dict[str, object]]:
+    """Structural health of the key file, reported as booleans only.
+
+    USE THIS INSTEAD OF `od`, `xxd`, `cat` OR `head` ON THE KEY FILE.
+
+    On 2026-08-25 the key file was checked with `od -c geminiAPI.txt | sed
+    's/[A-Za-z0-9_.-]\\{8,\\}/<REDACTED>/g'`, and the sed matched nothing --
+    `od -c` prints each byte in its own whitespace-separated column, so a run of
+    8 key characters never appears as one token. 21 of the key's 53 characters
+    went to stdout. The lesson generalises past `od`: any redaction that pattern-
+    matches *rendered* output is guessing at the renderer. Only emit facts you
+    computed, never a filtered copy of the secret.
+
+    The checks are exactly the ones that mattered when the file was corrupted
+    into `old: <key>\\nnew: <key>` and silently broke every Gemini call:
+    whitespace and a colon are the fingerprints of hand-editing.
+    """
+    path = key_file_path()
+    if not path:
+        return False, {"error": "no key file found"}
+    try:
+        raw = open(path, "rb").read()
+    except OSError as exc:
+        return False, {"error": f"unreadable ({exc.__class__.__name__})"}
+
+    try:
+        mode = oct(os.stat(path).st_mode & 0o777)
+    except OSError:
+        mode = "?"
+
+    facts: dict[str, object] = {
+        "path": os.path.relpath(path, ROOT),
+        "bytes": len(raw),
+        "mode": mode,
+        "private_0600": mode == "0o600",
+        "trailing_newline": raw.endswith((b"\n", b"\r")),
+        # Whitespace or a colon inside the file means it holds more than a key --
+        # a label, a second key, or a `KEY=value` line. That is the exact
+        # corruption that produced the 2026-08-25 outage and key leak.
+        "internal_whitespace": any(c in b" \t\n\r" for c in raw.strip()),
+        "has_colon": b":" in raw,
+        "plausible_shape": len(raw.strip()) >= 30 and b":" not in raw,
+    }
+    ok = bool(
+        facts["plausible_shape"]
+        and not facts["internal_whitespace"]
+        and not facts["trailing_newline"]
+    )
+    return ok, facts
+
+
 def _scrub(msg: str, key: str | None) -> str:
     """Replace any occurrence of `key` in `msg` with its masked fingerprint.
 
@@ -251,14 +302,15 @@ def check(model: str = DEFAULT_MODEL, timeout: int = 30) -> tuple[bool, str]:
         # printed the request URL -- key included. Never let a request-derived
         # message reach a caller unscrubbed, whatever its type.
         return False, _scrub(f"{type(exc).__name__}: {exc}", key)
-    except Exception as exc:  # noqa: BLE001
-        return False, f"{exc.__class__.__name__}: {exc}"
 
 
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser(description="Gemini key resolution + live check")
     ap.add_argument("--check", action="store_true", help="make one live API call")
+    ap.add_argument("--verify-file", action="store_true",
+                    help="structural health of the key file, booleans only "
+                         "(use this instead of od/xxd/cat -- see verify_file)")
     ap.add_argument("--model", default=DEFAULT_MODEL)
     args = ap.parse_args()
 
@@ -268,6 +320,16 @@ def main() -> int:
     print(f"model  : {args.model}")
     kf = key_file_path()
     print(f"keyfile: {kf or '<none found>'}")
+
+    if args.verify_file:
+        ok, facts = verify_file()
+        print("\nkey file structure")
+        for k, v in facts.items():
+            print(f"  {k:<20} {v}")
+        print(f"\n  {'OK' if ok else 'SUSPECT'} -- "
+              f"{'bare key, no hand-editing artefacts' if ok else 'looks hand-edited; rotate rather than repair'}")
+        if not ok:
+            return 1
 
     if not args.check:
         print("\n(pass --check to make one live API call)")
