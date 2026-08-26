@@ -146,46 +146,6 @@ wrong and the corrected reading is recorded here rather than carried forward.
 job over 34 TEMPORAL+EA claims and is exactly the kind of run to ask about first. Superseded
 cells (60/62/65/67/73) were deliberately left untouched — they are not executed, and editing
 them would be churn against cells this file marks superseded.
-`current/verifier_cache_wikidata.json` (3673 keys) contains **zero `meta2__` keys** —
-`meta2__` is the metadata prefix those cells write, and 20 pre-fix `meta__` keys are still
-there. So:
-
-**TEMPORAL 0/12 and EA 0/22 predate the `mul`/full-text/prominence port.** Those CSVs came
-from the post-QID-fix cells, before #9. The re-measure this paragraph originally called for
-is therefore still genuinely open — and **the direction of the correction favours coverage**,
-since Bug C's whole point was that proper nouns living under `mul` were scored as though
-unnamed. Do not quote 0%/0% as the *current* capability of the live path; quote it as the
-last measured value and say the code has moved since.
-
-### #12 DONE 2026-08-26 — prefixes bumped in cells 69/75, and the reason changed on measurement
-
-4-line change, raw JSON only, verified minimal: only cells 69 and 75 changed source, cell
-types and outputs byte-identical on all 76 cells, and the re-dump round-trips
-byte-identical to the original serialisation (`indent=1`, no trailing newline) — checked as
-a **precondition**, because a reformat would have buried a 4-line edit in a 76-cell diff.
-
-    entity_candidates__  ->  entity_candidates2__     (cells 69 and 75)
-    attr__               ->  attr2__                  (cell 69)
-    sparql__             ->  sparql2__                (cell 75)
-    meta2__                  LEFT ALONE — already bumped from meta__, and 0 keys exist,
-                             so there is nothing stale for it to shadow
-
-**The recorded reason for this task was the weaker one.** Measured against the cache:
-
-| prefix | keys | what the cache actually shows |
-|---|---|---|
-| `entity_candidates__` | **5** | **spot-checks as POST-fix, not stale** — `rosetta_stone__5` contains Q48584 and `panama_canal__5` contains Q7350, i.e. the *correct* entities that prefix-only search would have missed. So this bump is **cheap insurance (5 re-searches), not a bug fix** — say so rather than claim a save. |
-| `attr__` + `sparql__` | **5** | **100% EMPTY.** This is the bump that has a measurable consequence: a cached empty short-circuits to "no values" without retrying, so **reusing them would guarantee the re-run reproduces 0% coverage.** |
-
-One entry reads `entity_candidates__french_effort_to_build_the_panama_canal__` with `n=0`.
-That is **not** a pre-fix artifact — an empty full-text result is the honest answer for a
-descriptive phrase that names no entity. My first probe labelled it "pre-fix"; the label was
-wrong and the corrected reading is recorded here rather than carried forward.
-
-**NOT DONE, and it needs the author: the cells have not been re-run.** That is an API-calling
-job over 34 TEMPORAL+EA claims and is exactly the kind of run to ask about first. Superseded
-cells (60/62/65/67/73) were deliberately left untouched — they are not executed, and editing
-them would be churn against cells this file marks superseded.
 
 ### A THIRD resolution failure mode — editions of a serial publication (found 2026-08-25, FIXED 2026-08-26)
 
