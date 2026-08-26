@@ -9,7 +9,7 @@ Thesis project (CSE 700, University of Chittagong): a taxonomy-routed post-hoc h
 | **RELATIONAL** | Wikipedia passage retrieval + NLI entailment (BART-MNLI) | Best performer. 80.77% acc / 55.32% cov on held-out Batch 3. Live logic = `current/HalDetect_latest.ipynb` cell 57 (`## Phase 3e (i)`) — no standalone `.py` is current. |
 | **TEMPORAL** | Wikidata SPARQL lookup | **STILL ZERO in the live path — the "moved off zero" row was MISLABELED. Corrected 2026-08-26; see the correction note below this table.** Live logic = notebook cell 75 (`## Phase 2`); cell 73 is the superseded Phase 1. Verified from the output file itself: `current/temporal_b3_verified_results_phase2.csv` → TEMPORAL **0/12 covered, 12/12 UNVERIFIABLE, zero confident-wrong.** The `1/12 = 8.3%` figure is the **pre-fix** file (`temporal_b3_verified_results.csv`, 11 UNVERIFIABLE + 1 FALSE) and that single covered claim **is** the confident-wrong Panama Canal FALSE — so 8.3% was never a *correct* 8.3%. The `1/12` + `5/22` + `17.6% @ 5/6` triple describes the **unintegrated** `current/temporal_ea_verifier.py` + `property_resolver.py` path (1+5 = 6/34 = 17.6%, matching the 6/34 @ 5/6 recorded for `property_resolver.py` below) — **no results file for that run exists on disk, so it is unquotable until re-run.** |
 | **ENTITY_ATTRIBUTE** | Wikidata SPARQL lookup | **STILL ZERO in the live path — same mislabeling as TEMPORAL. Corrected 2026-08-26.** Live logic = notebook cell 69 (`## Phase 4`); cell 67 is the superseded Phase 3. Verified from the file: `current/entity_attribute_b3_verified_results_phase4.csv` → EA **0/22 covered, 22/22 UNVERIFIABLE.** Pre-fix `entity_attribute_b3_verified_results.csv` is 1/22 = 4.5%, and that one covered claim **is** the confident-wrong Rosetta-Stone-as-*British-punk-band* FALSE. **`5/22 = 22.7%, all 5 correct` is reproduced by no file on disk** — it belongs to the unintegrated `property_resolver.py` path. The `P186=granodiorite` / `P407=Ancient Greek` / `P282=Egyptian Demotic` lookups are real (that is what the QID fix returns for Q48584), but "5 covered, all correct" is **not a measured result.** |
-| **CITATION** | Two-level: does the source exist, does it actually say this | **Level 1 rebuilt and off zero 2026-08-23.** `current/citation_l1_verifier.py`: **75.9% coverage (22/29), 90.9% accuracy (20/22), AURAC 0.934** — was 0/12. Replaced both hardcoded dicts (`ORG_URL_MAP`, `TRIVIALLY_KNOWN_ORGS`) with Wikidata resolution via the fixed resolver. **Level 1 can never return FALSE** — a source that fails to resolve is UNVERIFIABLE, not fabricated — so F1(FALSE)=0.00 by construction and all 3 gold-FALSE CITATION claims are missed. Level 2 (attribution) is unbuilt: it needs NLI, which SIGBUSes locally, and NLI contradiction precision caps at 0.20 anyway. Old `current/citation_verifier.py` retains the tautology; do not use it. **The FALSE-class gap is worse than "L1 can never return FALSE", and also more reachable than assumed — measured 2026-08-25, see below.** |
+| **CITATION** | **Three** levels: does the source exist (L1), do the work's own properties contradict the claim (**L1b**), does it actually say this (L2, unbuilt) | **Level 1 rebuilt and off zero 2026-08-23.** `current/citation_l1_verifier.py`: **75.9% coverage (22/29), 90.9% accuracy (20/22), AURAC 0.934** — was 0/12. Replaced both hardcoded dicts (`ORG_URL_MAP`, `TRIVIALLY_KNOWN_ORGS`) with Wikidata resolution via the fixed resolver. **Level 1 can never return FALSE** — a source that fails to resolve is UNVERIFIABLE, not fabricated — so F1(FALSE)=0.00 by construction and all 3 gold-FALSE CITATION claims are missed. **Level 1b BUILT 2026-08-26** and it is the first thing in the project to return CITATION FALSE: `current/citation_l1b_verifier.py`, `--selftest` ALL PASS, **TPR 9/25 = 36.0% on the negatives against FPR 0/25 on the gold-TRUE natural claims → J = +0.360 vs the baseline's +0.128** on the same type. Caveat that must travel: **8 of the 9 detections come from one Wikidata item (Q103843442, IPCC AR6) — one work working, not CITATION working**, and the TPR CIs overlap the baseline's. Level 2 (attribution) is still unbuilt: it needs NLI, which SIGBUSes locally, and NLI contradiction precision caps at 0.20 anyway. Old `current/citation_verifier.py` retains the tautology; do not use it. Full analysis `reference/citation_l1b_result_2026-08-26.md`. |
 | **QUANTITATIVE** | Structured extract-and-compare vs. Wikidata `quantity` statements (**not** NLI) | **WORKING, and as of 2026-08-25 the one type where routing BEATS the baseline on a prior-independent metric.** `current/quantitative_verifier.py`; selftest **24/24**. Measured on gold negatives at last: **14/14 correct across 14 covered claims with BOTH classes present, 0 confident errors, MCC +0.378 vs the baseline's best +0.202.** On 4 claims both systems answer confidently and disagree — routed 4/4, baseline 0/4. Batch 3 alone: 8/29 = 27.6% cov, 8/8. Negatives alone: 6/24 = 25.0% cov, 6/6. Full analysis `reference/rq2_quantitative_negatives_2026-08-25.md`; reproduce with `current/rq2_quantitative_table.py` (offline). NUMERICAL works; COMPARATIVE + COMPUTATIONAL abstain by design. |
 
 ### Correction 2026-08-26 — the TEMPORAL/EA "moved off zero" rows were mislabeled, and the stale numbers ESCAPED THIS FILE
@@ -238,6 +238,82 @@ edition either; it **stops needing to**, by spanning all of them so the year tes
 ever selecting. The two modules are complementary and both preconditions for #18:
 `source_consistency.py` vetoes a wrong *publisher*, `series_resolver.py` removes the wrong
 *edition*'s ability to decide a date.
+
+### #18 SHIPPED 2026-08-26 — CITATION Level 1b returns FALSE, and beats the baseline on its own weakest type
+
+`current/citation_l1b_verifier.py`, `--selftest` ALL PASS, `--diagnose` → 54 rows in
+`current/citation_l1b_results.csv`. Full analysis
+`reference/citation_l1b_result_2026-08-26.md`. Consumes both preconditions above.
+
+| | TPR on the 25 negatives | FPR on the 25 gold-TRUE natural | **J** |
+|---|---|---|---|
+| **Level 1b** | **9/25 = 36.0%** [20.2, 55.5] | **0/25** [0.0, 13.3] | **+0.360** |
+| baseline, CITATION | 5/24 = 20.8% [9.2, 40.5] | 2/25 = 8.0% [2.2, 25.0] | +0.128 |
+
+By route: `year_shift` **5/12** via `P577`, `source_swap` **4/11** via a `P123` conflict.
+J nearly triples on the type CLAUDE.md already named *"the reachable gap"* — and **with
+no NLI at all**, which was the whole bet of the headroom analysis.
+
+**Three caveats, all mandatory wherever the 9 is quoted:**
+
+1. **8 of 9 detections come from ONE Wikidata item** (Q103843442, IPCC AR6; the ninth is
+   Q29876135, SOFI). **One work working, not CITATION working** — the same caveat
+   QUANTITATIVE's *6/6-from-P2044* carries.
+2. **The TPR CIs overlap heavily** ([20.2, 55.5] vs [9.2, 40.5]); n = 25 cannot separate
+   36% from 21%. The clean, prior-independent part is **FPR 0/25 vs 2/25** and the
+   confident-error count **0**, not the TPR gap.
+3. **Ceiling ≠ end-to-end.** `series_resolver`'s 8/12 was measured from hand-curated
+   subject strings; extracting from claim text gives **5/12**. Report both. The gap is
+   entirely Lancet and is **candidate generation, not ranking** — `'Lancet Commission'`
+   returns 4 candidates and none is a dementia work, so no threshold or tie-band change
+   recovers them.
+
+**The natural set could only ever have lost here: max TP on it is 0 by construction.**
+All 3 gold-FALSE natural CITATION claims are *content* falsities (`Q12_C11` wrong
+largest-reduction factor; `B3_05_C02` the ten criteria — and its **1972 is the correct
+year**; `B3_12_C07` wrong percentage), which no property check reaches. So all value is
+on the negatives and all risk was false alarms. **0/25.**
+
+**Unlike `source_consistency`, 1b EMITS FALSE**, so it can manufacture the confident-wrong
+class — hence precision-gated at the front, and **no TRUE verdict exists in the module**
+(a year inside the span returns UNVERIFIABLE; Level 1 owns TRUE, and `--selftest` asserts
+no `TRUE` assignment in production code *plus* that the assertion has not gone vacuous).
+
+**Two general lessons, both bought by finding real bugs:**
+
+- **`SUBJECT_OVERLAP_MIN` is a symmetric Jaccard, and that is the defect.** It gets *more*
+  permissive as the requested title gets shorter: `jaccard({lancet,commission},
+  {lancet,commission,value,death}) = 0.50`, clearing the 0.25 bar. End-to-end extraction
+  therefore produced a **FALSE on gold-TRUE `Q12_C01`** off a span of 2014–2018 built
+  from three unrelated Lancet Commissions — **misplaced, not merely narrow**, which
+  guards 2 and 3 cannot see because the members are dated, distinct and plural. Fixed by
+  **guard 4 (topical anchoring)**: keep a member only if the content its label adds beyond
+  the subject is empty or intersects the claim's anchor terms. Asymmetric, independent of
+  the selection signal, can only ever DROP members (so a drop abstains, never decides),
+  and `anchors=None` leaves the committed 8/12 untouched — re-verified ALL PASS.
+- **A detection off a wrong span is luck, not evidence, and only base-pairing exposes it.**
+  `SYN_CITA_071` (2030) had been "detected" off that bogus span — while its gold-TRUE twin
+  `Q12_C01` (2020) was read FALSE off the *same* span. Guard 4 removes both. A
+  negatives-only run would have scored it a win. **Pair every detection with its
+  unperturbed base claim.**
+- **Non-circularity must be closed in every channel, not just the signature.** The
+  year-free signature proves no year can be *passed* in; `ctx` feeds full-text search and
+  SBERT, so an unstripped claim *leaks* one. Measured: the Lancet leader score moved
+  **0.566 → 0.553** once ctx was year-stripped. And **the invariance test that proves this
+  was itself vacuous at first** — run on the Lancet claim it compared `NO_TOPICAL_MATCH`
+  to `NO_TOPICAL_MATCH`, passing while testing nothing. It now runs on AR6 and asserts
+  three things: span identical across 2021/2022/2033/2133, span **non-empty**, and the
+  **verdict still varies** (2022 → UNVERIFIABLE, 2133 → FALSE). Evidence invariant, answer
+  not — invariance alone is also satisfied by a verifier that never decides anything.
+
+**The corpus `subject` column is CONTAMINATED — never resolve from it.** The perturbation
+harness rewrote the claim and left `subject` holding the **original, un-perturbed** year:
+`SYN_CITA_071`'s claim says 2030, its `subject` says `'2020 Lancet Commission'`. Resolving
+from it hands the verifier the exact value the negative exists to hide, so every
+"detection" would measure the harness. The negatives file also carries `original_value` /
+`corrupted_value` outright. Extraction reads **claim text only, uniformly across both
+populations** — using different inputs for natural and synthetic rows would invalidate the
+comparison even if neither leaked.
 
 ### QUANTITATIVE now has real, validated coverage (2026-08-23)
 
@@ -516,6 +592,24 @@ property-consistency check, span-not-membership).
 > "blocked": their span degenerates to a single year, and a narrow span is *more* dangerous
 > than none. The single-entity dependency is therefore now a **two**-work dependency; the
 > concentration caveat stands unchanged.
+>
+> **#18 IS NOW BUILT AND MEASURED (2026-08-26) — and the 8/12 above is a CEILING, not the
+> shipped number.** `current/citation_l1b_verifier.py` scores **9/25 negatives at 0/25 false
+> alarms, J = +0.360** (see the #18 section above). Two corrections to the paragraph
+> immediately above:
+>
+> - The **8/12** was measured from **hand-curated subject strings** taken from this very
+>   doc during design. End-to-end extraction from claim text gives **5/12** — the Lancet 3
+>   are lost because `'Lancet Commission'` retrieves 4 candidates and **none is a dementia
+>   work**. That is candidate *generation*, not ranking, so no threshold move recovers them.
+>   **Quote 8/12 only as a ceiling, always beside the 5/12.**
+> - So the "**two**-work dependency" reverts to **one** on the shipped path: 8 of the 9
+>   detections come from Q103843442 alone. The concentration caveat is therefore *stronger*
+>   than recorded here, not weaker.
+>
+> The 4 extra detections that lift 5 → 9 are `source_swap` rows caught by the **publisher**
+> route, which this doc had estimated at 5. **Do not try to close the Lancet gap with the
+> corpus `subject` column** — it holds the un-perturbed original year (see #18).
 
 ### Threshold sweep, 2026-08-23 — the shipped operating point is a strawman, and contradiction NLI has no good threshold
 

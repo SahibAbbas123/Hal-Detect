@@ -214,12 +214,18 @@ def label_years(label: str) -> list[int]:
 # YEAR-FREE HALF. Note the absence of a `claimed_year` parameter -- that absence
 # is the load-bearing part of this module.
 
-def resolve_edition_span(subject: str, cache: dict, ctx: str = "") -> dict:
+def resolve_edition_span(subject: str, cache: dict, ctx: str = "",
+                         anchors: frozenset | None = None) -> dict:
     """Publication-date span for `subject`, built without any claimed value.
 
     Returns {mode, span, members, detail, evidence} where mode is
-    SINGLE_WORK / SERIAL / NO_RESOLUTION / NO_DATES and span is
-    (min_year, max_year) or None.
+    SINGLE_WORK / SERIAL / NO_RESOLUTION / NO_DATES / INCOMPLETE_SPAN /
+    NO_TOPICAL_MATCH and span is (min_year, max_year) or None.
+
+    `anchors` enables guard 4 (see below). Pass a set of the claim's content terms
+    with YEARS ALREADY REMOVED; None disables the guard, which is the behaviour every
+    caller had before it existed. The parameter is a term SET rather than the claim
+    string precisely so a claimed year cannot enter through it.
     """
     from property_resolver import fetch_entity_claims
     from quantitative_verifier import resolve_entity
@@ -253,6 +259,64 @@ def resolve_edition_span(subject: str, cache: dict, ctx: str = "") -> dict:
         else:
             return {"mode": "NO_RESOLUTION", "span": None, "members": [],
                     "detail": res.get("detail", ""), "evidence": {}}
+
+    if anchors is not None:
+        # ---------------------------------------------------------------------
+        # Guard 4 -- TOPICAL ANCHORING. Found 2026-08-26 by running Level 1b end to
+        # end, and it is a false-alarm bug, not a coverage one.
+        #
+        # SUBJECT_OVERLAP_MIN above is a SYMMETRIC Jaccard, and that is the defect:
+        # it gets MORE permissive as the requested title gets shorter, because a
+        # short title is a subset of many longer ones. End-to-end extraction yields
+        # 'Lancet Commission' where the headroom doc hand-supplied 'Lancet Commission
+        # on dementia prevention', and
+        #     jaccard({lancet,commission}, {lancet,commission,value,death}) = 0.50
+        # so `Lancet Commission on the Value of Death` sails through. All three
+        # accepted members were unrelated Lancet Commissions (Editor's note, Value of
+        # Death, UK nursing perception) spanning 2014-2018 -- a span that is not
+        # merely narrow but MISPLACED, so the gold-TRUE 2020 read FALSE. Guards 2 and
+        # 3 cannot see this: the members are dated, distinct and plural.
+        #
+        # The discriminating direction is the ASYMMETRIC one -- how much of the
+        # LABEL the subject fails to explain. A member is kept when the content its
+        # label introduces beyond the subject is either absent (an essentially exact
+        # title match) or attested in the claim. So the claim body vetoes members
+        # whose topic it never mentions, and the title words that DROVE selection are
+        # excluded from the test by construction: the guard reads only label content
+        # the subject did not supply, which is why this is an independent signal
+        # rather than the selection signal a second time.
+        #
+        # It stays correct where the claim is nothing but the title. 'The IPCC Sixth
+        # Assessment Report was published in 2024' leaves almost no anchor terms, and
+        # AR6's label introduces nothing beyond the subject, so it is kept by the
+        # first branch. 'The Lancet Commission was published in 2024' likewise offers
+        # no anchors -- and there every intruder DOES introduce unexplained content,
+        # so all are dropped and the mode abstains. Absence of anchors makes the
+        # guard strict, not inert.
+        #
+        # Error direction: it can only ever DROP members. A wrong drop costs coverage
+        # or narrows a span, and a narrowed span is then re-tested by guards 2 and 3
+        # below, which is why this runs BEFORE the dates are fetched -- both for that
+        # ordering and because it saves the API calls.
+        subj_tok = _tokens(subject)
+        kept, dropped = [], []
+        for m in members:
+            extra = {t for t in (_tokens(m["label"]) - subj_tok)
+                     if not _YEAR_RE.fullmatch(t)}
+            m["unexplained"] = sorted(extra)
+            m["anchored"] = (not extra) or bool(extra & anchors)
+            (kept if m["anchored"] else dropped).append(m)
+        if dropped and not kept:
+            return {"mode": "NO_TOPICAL_MATCH", "span": None, "members": members,
+                    "evidence": {},
+                    "detail": (f"all {len(dropped)} candidate edition(s) introduce "
+                               f"label content the claim never mentions "
+                               f"(e.g. {dropped[0]['label'][:44]!r} adds "
+                               f"{dropped[0]['unexplained'][:4]}) -- the subject "
+                               f"{subject!r} is too generic to have selected the "
+                               f"cited work")}
+        if dropped:
+            members = kept
 
     # Sibling detection is purely descriptive -- it labels the mode for the report
     # and never changes which members contribute to the span.
