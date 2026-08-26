@@ -33,20 +33,66 @@ Design notes
 * Every decision emits a route + score so the next bottleneck stays
   diagnosable rather than silent.
 
+ENTITY RESOLUTION IS NOT THIS MODULE'S JOB  (enforced 2026-08-27, task #20)
+--------------------------------------------------------------------------
+This module measures the PROPERTY layer. It takes a QID and finds the statement
+that matches a predicate; it does not decide which entity a subject string
+names. That was always the documented contract, but until 2026-08-27 the
+``--diagnose`` loop quietly violated it with an inline
+
+    action=wbsearchentities, limit=1     # first prefix hit wins, unscored
+
+fallback. Three facts make that worse than the "Bug B is live" it was recorded
+as, and all three were verified rather than assumed:
+
+1. ``haldetect_claims_b3_gold.csv`` has **no ``resolved_qid`` column at all**
+   (its ``q_id`` is the *question* id, ``B3_01``, not a Wikidata QID). So the
+   "fallback" ran on **34/34 rows — it was the SOLE resolver**, not a rarely
+   hit branch.
+2. It was **unscored**: no RESOLUTION_THRESHOLD, no RESOLUTION_TIE_BAND, no
+   sitelinks prominence, no ``en|mul`` labels, no full-text union. It therefore
+   lacked not just fix #2 (Bug B) but fix #1 — *score candidates, commit, THEN
+   query the property* — the 2026-08-21 change that drove Batch 3's
+   confident-wrong verdicts to zero.
+3. ``_selftest`` used hardcoded QIDs, so it **never exercised search**. That is
+   why this rotted undetected while notebook cells 69/75 were fixed.
+
+The fix is to delete the path, not to port a fourth copy of the resolver into
+it. ``quantitative_verifier`` imports FROM this module (see its import block),
+so this module cannot import ``resolve_entity`` back — that is a circular
+import, and it is why "just call the good resolver" is unavailable in the
+obvious direction. Resolution is therefore **injected**: ``diagnose()`` takes a
+``resolver`` callable with ``resolve_entity``'s signature and, given none,
+records ``no_resolver`` and abstains rather than guessing. The dependency now
+points the right way — the lower layer declares the hook, the upper layer
+supplies the implementation.
+
+**No cache-prefix bump is required for this change, and that was checked, not
+assumed.** R14 mandates a bump when a fix would otherwise be masked by stale
+cached values. The removed call went through ``_get_with_retry``, which takes no
+cache argument and writes nothing, and the call site passed no cache — so the
+deleted path never produced a cache entry that could preserve the old
+behaviour. (CLAUDE.md §7's "with another prefix bump" is over-broad on this
+point; ``pmeta2__``/``ilabel2__`` remain correct as they are.)
+
 This module is standalone and importable; it does not modify or depend on the
 notebook. Run it directly for the Batch 3 coverage diagnostic:
 
-    .venv/bin/python current/property_resolver.py --diagnose
+    .venv/bin/python current/property_resolver.py --selftest
+    .venv/bin/python current/property_resolver.py --diagnose                 # property layer only
+    .venv/bin/python current/property_resolver.py --diagnose --resolver validated
 """
 
 from __future__ import annotations
 
 import argparse
+import ast
 import csv
 import json
 import os
 import re
 import sys
+import tempfile
 import time
 import unicodedata
 from collections import Counter
@@ -583,14 +629,53 @@ def resolve_property_values(qid: str, prop: str, claim_type: str, cache: dict,
 # =============================================================================
 # DIAGNOSTIC — measures the actual thing: how many B3 claims find a property
 # =============================================================================
-def diagnose(csv_path: str, limit: int | None = None) -> None:
+def diagnose(csv_path: str, limit: int | None = None, resolver=None,
+             out_path: str | None = None) -> None:
+    """Measure how many TEMPORAL+EA claims find a matching property.
+
+    ``resolver`` is an optional callable with ``resolve_entity``'s signature --
+    ``(subject, cache, ctx) -> {"qid": str|None, "score": float, ...}``. Given
+    None this function does NOT resolve: rows without a QID are recorded as
+    ``no_resolver`` and abstain. See the module docstring -- guessing an entity
+    from the first prefix hit is what task #20 removed, and re-adding any
+    resolution here rather than injecting it would recreate a fourth divergent
+    copy of a calibrated component.
+
+    ``out_path`` is where the per-claim CSV goes; None means the recorded
+    ``current/property_match_diagnostic.csv``. It exists because the first draft
+    of ``_selftest_structural`` called this function with a 1-row temp CSV and
+    the hardcoded default path OVERWROTE that file -- the 34-row artifact behind
+    the 6/34 = 17.6% figure CLAUDE.md quotes as an R8 precedent. Caught by
+    ``git status`` (2 insertions, 35 deletions), restored from git, verified back
+    to 34 rows / 6 matched. R19: a test must never write where a quoted result
+    lives, and the fix belongs in the writer's signature, not in the caller's
+    good intentions.
+    """
     with open(csv_path, newline="", encoding="utf-8") as fh:
-        rows = [r for r in csv.DictReader(fh)
+        reader = csv.DictReader(fh)
+        fieldnames = reader.fieldnames or []
+        rows = [r for r in reader
                 if r.get("type") in ("TEMPORAL", "ENTITY_ATTRIBUTE")]
     if limit:
         rows = rows[:limit]
 
-    print(f"Loaded {len(rows)} TEMPORAL+EA claims from {os.path.basename(csv_path)}\n")
+    # R12 guard. The perturbation harness rewrote `claim` and left `subject`
+    # holding the ORIGINAL un-perturbed value, so resolving from `subject` on a
+    # negatives file hands the verifier the exact value the negative exists to
+    # hide. This population (natural Batch 3) is clean, but the loop below reads
+    # `subject`, so refuse rather than leak if it is ever pointed at negatives.
+    leaked = [c for c in ("original_value", "corrupted_value", "base_claim_id",
+                          "injection_type", "perturbation") if c in fieldnames]
+    if leaked:
+        raise SystemExit(
+            f"REFUSING to run: {os.path.basename(csv_path)} carries "
+            f"perturbation-harness columns {leaked}. This diagnostic resolves "
+            f"from the `subject` column, which the harness leaves holding the "
+            f"un-perturbed value (CLAUDE.md R12). Extract from claim text "
+            f"instead, uniformly across both populations.")
+
+    print(f"Loaded {len(rows)} TEMPORAL+EA claims from {os.path.basename(csv_path)}")
+    print(f"Resolution: {'INJECTED ' + getattr(resolver, '__name__', repr(resolver)) if resolver else 'NONE (property layer only)'}\n")
     print(f"{'#':>3} {'type':<17} {'subject':<28} {'property':<24} "
           f"{'route':<8} {'pid':<7} value")
     print("-" * 130)
@@ -604,22 +689,22 @@ def diagnose(csv_path: str, limit: int | None = None) -> None:
         prop = (r.get("property") or "").strip()
         ctype = r.get("type", "")
         qid = (r.get("resolved_qid") or "").strip()
+        res_detail = "qid supplied by input CSV" if qid else ""
+
+        if not qid and resolver is not None:
+            # ctx is CLAIM TEXT, never the `subject` column, so the injected
+            # resolver scores against the same input the pipeline sees.
+            rout = resolver(subj, cache, r.get("claim", "") or "")
+            qid = (rout.get("qid") or "").strip()
+            res_detail = rout.get("detail", "")
 
         if not qid:
-            # Resolution is the notebook's job; here we only measure the
-            # property layer. Resolve by exact search hit for the diagnostic.
-            data = _get_with_retry({
-                "action": "wbsearchentities", "search": subj, "language": "en",
-                "format": "json", "limit": 1, "type": "item",
-            })
-            hits = (data or {}).get("search", [])
-            qid = hits[0]["id"] if hits else ""
-
-        if not qid:
-            routes["unresolved"] += 1
+            route = "unresolved" if resolver is not None else "no_resolver"
+            routes[route] += 1
             print(f"{i:>3} {ctype:<17} {subj[:27]:<28} {prop[:23]:<24} "
-                  f"{'unresolv':<8} {'-':<7} -")
-            results.append({**r, "property_route": "unresolved"})
+                  f"{route[:8]:<8} {'-':<7} {res_detail[:44]}")
+            results.append({**r, "property_route": route,
+                            "resolution_detail": res_detail})
             continue
 
         out = resolve_property_values(qid, prop, ctype, cache, r.get("claim", ""))
@@ -628,6 +713,7 @@ def diagnose(csv_path: str, limit: int | None = None) -> None:
         print(f"{i:>3} {ctype:<17} {subj[:27]:<28} {prop[:23]:<24} "
               f"{out['route']:<8} {str(out['pid'] or '-'):<7} {val}")
         results.append({**r, "resolved_qid": qid,
+                        "resolution_detail": res_detail,
                         "property_pid": out["pid"] or "",
                         "property_route": out["route"],
                         "property_score": round(out["score"], 3),
@@ -641,11 +727,17 @@ def diagnose(csv_path: str, limit: int | None = None) -> None:
     for k, v in routes.most_common():
         print(f"   {k:<12} {v:>3}  ({100*v/total:.1f}%)")
     print("=" * 60)
+    if routes.get("no_resolver"):
+        print(f"\n{routes['no_resolver']} rows carried no QID and no resolver was")
+        print("injected, so they are UNMEASURED, not negative. This figure is a")
+        print("floor on the property layer -- pass --resolver validated to")
+        print("resolve them through the calibrated resolver (task #20).")
     print("\nBaseline for comparison: 25/34 B3 claims previously died on")
     print("'unmapped property' before the entity was even resolved.")
 
-    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                            "property_match_diagnostic.csv")
+    if out_path is None:
+        out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                "property_match_diagnostic.csv")
     if results:
         keys = sorted({k for r in results for k in r})
         with open(out_path, "w", newline="", encoding="utf-8") as fh:
@@ -655,8 +747,179 @@ def diagnose(csv_path: str, limit: int | None = None) -> None:
         print(f"\nWrote {out_path}")
 
 
+def _selftest_structural() -> int:
+    """OFFLINE. The non-regression arm task #20 was missing.
+
+    The reason Bug B survived here while cells 69/75 were fixed is that the old
+    ``_selftest`` used hardcoded QIDs and so never touched the search path. A
+    test that cannot reach the defect is not evidence, so these checks are
+    structural: they assert the path is GONE and that resolution is injected.
+    """
+    print("ARM A -- structural, offline (task #20 non-regression)\n")
+    src = open(os.path.abspath(__file__), encoding="utf-8").read()
+    tree = ast.parse(src)
+
+    # Docstrings legitimately discuss `wbsearchentities` (the module docstring
+    # explains why it was removed) and so does this function, so a substring
+    # grep false-positives -- the first draft of this check flagged its own
+    # check-name string and its own AST predicate. Two AST checks instead:
+    #
+    #   (a) SEMANTIC: no `{"action": "wbsearchentities", ...}` dict literal.
+    #       That is the call pattern itself and cannot be confused with a
+    #       mention, in a docstring or anywhere else.
+    #   (b) INDIRECT: no bare live "wbsearchentities" constant outside this
+    #       function, which would catch a params dict assembled elsewhere.
+    #
+    # Comments never enter the AST, so they are excluded for free.
+    docstrings = set()
+    own_body = set()
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef,
+                             ast.ClassDef)):
+            body = getattr(node, "body", None)
+            if (body and isinstance(body[0], ast.Expr)
+                    and isinstance(body[0].value, ast.Constant)
+                    and isinstance(body[0].value.value, str)):
+                docstrings.add(id(body[0].value))
+        if (isinstance(node, ast.FunctionDef)
+                and node.name == "_selftest_structural"):
+            own_body = {id(n) for n in ast.walk(node)}
+
+    calls = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Dict):
+            for k, v in zip(node.keys, node.values):
+                if (isinstance(k, ast.Constant) and k.value == "action"
+                        and isinstance(v, ast.Constant)
+                        and isinstance(v.value, str)
+                        and "wbsearchentities" in v.value):
+                    calls.append(getattr(node, "lineno", "?"))
+    live = [n.value for n in ast.walk(tree)
+            if isinstance(n, ast.Constant) and isinstance(n.value, str)
+            and "wbsearchentities" in n.value
+            and id(n) not in docstrings and id(n) not in own_body]
+
+    checks: list[tuple[str, bool, str]] = []
+    checks.append(("no `action=wbsearchentities` request dict in this module",
+                   not calls,
+                   f"found at line(s) {calls}" if calls
+                   else "AST-verified: zero such dict literals"))
+    checks.append(("no indirect live reference to it outside this selftest",
+                   not live, f"found {live}" if live else "AST-verified"))
+    checks.append(("the token still appears in prose (test is not vacuous)",
+                   "wbsearchentities" in src,
+                   "docstring records why it was removed"))
+
+    import inspect
+    sig = inspect.signature(diagnose)
+    checks.append(("diagnose() takes an injectable `resolver`",
+                   "resolver" in sig.parameters, str(sig)))
+    checks.append(("...defaulting to None, i.e. it never guesses an entity",
+                   sig.parameters.get("resolver")
+                   and sig.parameters["resolver"].default is None,
+                   f"default={sig.parameters['resolver'].default!r}"))
+    checks.append(("diagnose() takes `out_path`, so a test can redirect its CSV",
+                   "out_path" in sig.parameters, str(sig)))
+
+    # R19, enforced rather than trusted. The first draft of this arm called
+    # diagnose() with the hardcoded default out_path and OVERWROTE
+    # property_match_diagnostic.csv -- the 34-row artifact behind the 6/34 =
+    # 17.6% figure CLAUDE.md quotes. Snapshot the recorded file's bytes and
+    # assert this arm leaves them alone; a check that the test is harmless is
+    # cheaper than remembering to be careful.
+    recorded = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            "property_match_diagnostic.csv")
+    before = open(recorded, "rb").read() if os.path.exists(recorded) else None
+
+    # Wiring, exercised with a stub so the arm stays offline. A stub returning
+    # qid=None must land on `unresolved` (a resolver ran and failed), never
+    # `no_resolver` (none was supplied) -- the distinction is what keeps an
+    # unmeasured row from being read as a negative one.
+    import io
+    import contextlib
+    seen: list[tuple] = []
+
+    def stub(subject, cache, ctx):
+        seen.append((subject, ctx))
+        return {"qid": None, "score": 0.0, "detail": "stub declined"}
+
+    tmp = os.path.join(tempfile.gettempdir(), "_pr_selftest_rows.csv")
+    tmp_out = os.path.join(tempfile.gettempdir(), "_pr_selftest_out.csv")
+    with open(tmp, "w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=["claim_id", "type", "subject",
+                                           "property", "claim", "value"])
+        w.writeheader()
+        w.writerow({"claim_id": "T1", "type": "TEMPORAL", "subject": "Denali",
+                    "property": "elevation_year", "claim": "Denali was renamed in 2015.",
+                    "value": "2015"})
+    try:
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            diagnose(tmp, resolver=stub, out_path=tmp_out)
+        out = buf.getvalue()
+        checks.append(("injected resolver is actually called",
+                       len(seen) == 1, f"calls={len(seen)}"))
+        checks.append(("...and receives CLAIM TEXT as ctx, not the subject column (R12)",
+                       bool(seen) and seen[0][1] == "Denali was renamed in 2015."
+                       and seen[0][0] == "Denali", repr(seen[:1])))
+        checks.append(("resolver present + qid None -> 'unresolved'",
+                       "unresolved" in out and "no_resolver" not in out,
+                       "route recorded"))
+
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            diagnose(tmp, resolver=None, out_path=tmp_out)
+        out2 = buf.getvalue()
+        checks.append(("no resolver -> 'no_resolver', not a silent zero",
+                       "no_resolver" in out2, "route recorded"))
+        checks.append(("...and says the rows are UNMEASURED, not negative",
+                       "UNMEASURED" in out2, "caveat printed"))
+
+        # R12 guard: a perturbation-harness column must abort, because this loop
+        # reads `subject` and the harness leaves it un-perturbed.
+        tmp2 = os.path.join(tempfile.gettempdir(), "_pr_selftest_neg.csv")
+        with open(tmp2, "w", newline="", encoding="utf-8") as fh:
+            w = csv.DictWriter(fh, fieldnames=["claim_id", "type", "subject",
+                                               "property", "claim", "value",
+                                               "original_value"])
+            w.writeheader()
+            w.writerow({"claim_id": "SYN_1", "type": "TEMPORAL",
+                        "subject": "2020 Lancet Commission", "property": "p",
+                        "claim": "The 2030 Lancet Commission ...",
+                        "value": "2030", "original_value": "2020"})
+        refused = False
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                diagnose(tmp2, resolver=stub, out_path=tmp_out)
+        except SystemExit:
+            refused = True
+        checks.append(("R12: refuses a CSV carrying harness columns",
+                       refused, "SystemExit raised"))
+        os.path.exists(tmp2) and os.remove(tmp2)
+
+        after = open(recorded, "rb").read() if os.path.exists(recorded) else None
+        checks.append(("R19: this arm left property_match_diagnostic.csv byte-identical",
+                       after == before,
+                       f"{len(before) if before else 0} bytes before, "
+                       f"{len(after) if after else 0} after"))
+        checks.append(("...and wrote its own CSV to a tempfile instead",
+                       os.path.exists(tmp_out), tmp_out))
+    finally:
+        os.path.exists(tmp) and os.remove(tmp)
+        os.path.exists(tmp_out) and os.remove(tmp_out)
+
+    ok = 0
+    for name, passed, detail in checks:
+        ok += bool(passed)
+        print(f"  {'PASS' if passed else 'FAIL'}  {name}")
+        print(f"        {detail}")
+    print(f"\n  ARM A: {ok}/{len(checks)} passed\n")
+    return len(checks) - ok
+
+
 def _selftest() -> None:
     """The two known B3 bugs, checked directly against live Wikidata."""
+    failures = _selftest_structural()
     cache = load_cache()
     cases = [
         ("Q7350", "inception_date", "TEMPORAL", "P1619",
@@ -664,7 +927,7 @@ def _selftest() -> None:
         ("Q48584", "consists_of", "ENTITY_ATTRIBUTE", "P186",
          "Rosetta Stone — map said P527, which Q48584 lacks"),
     ]
-    print("SELF-TEST: the two confirmed Batch 3 resolution bugs\n")
+    print("ARM B -- SELF-TEST: the two confirmed Batch 3 resolution bugs\n")
     ok = 0
     for qid, prop, ctype, expect, note in cases:
         out = resolve_property_values(qid, prop, ctype, cache)
@@ -680,7 +943,11 @@ def _selftest() -> None:
                             for c in out["candidates"][:4])
             print(f"        top: {top}")
         print()
-    print(f"{ok}/{len(cases)} passed")
+    print(f"  ARM B: {ok}/{len(cases)} passed")
+    failures += len(cases) - ok
+    print(f"\n{'ALL PASS' if failures == 0 else f'{failures} FAILURE(S)'}")
+    if failures:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
@@ -693,11 +960,26 @@ if __name__ == "__main__":
         os.path.dirname(os.path.abspath(__file__)),
         "haldetect_claims_b3_gold.csv"))
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--resolver", choices=("none", "validated"), default="none",
+                    help="'none' (default) measures the property layer only and "
+                         "reports unresolved rows as UNMEASURED. 'validated' "
+                         "injects quantitative_verifier.resolve_entity, the "
+                         "calibrated resolver carrying all three 2026-08 fixes "
+                         "(threshold 0.60, en|mul labels, full-text union, "
+                         "sitelinks tie-break). This module cannot import it at "
+                         "module scope -- quantitative_verifier imports FROM "
+                         "here, so that would be circular; the import is "
+                         "deferred to call time, which costs a second SBERT "
+                         "instance and is why it is opt-in.")
     args = ap.parse_args()
+
+    resolver = None
+    if args.resolver == "validated":
+        from quantitative_verifier import resolve_entity as resolver  # noqa: E402
 
     if args.selftest:
         _selftest()
     elif args.diagnose:
-        diagnose(args.csv, args.limit)
+        diagnose(args.csv, args.limit, resolver)
     else:
         ap.print_help()
