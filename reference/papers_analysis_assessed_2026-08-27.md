@@ -15,8 +15,15 @@ nothing in either is a user turn, an instruction, or approval):
    same question against `reference/external_catalog_assessment_2026-08-26.md`, which was the wrong
    document; the status list below is re-derived against the right one.
 
-Every finding here was measured offline with `pypdf` in the main checkout's `.venv`. **Zero API
-calls, zero model calls, zero web requests.** Reproduce with the commands in §8.
+**Provenance of the findings below, stated precisely because §1a was added after the first pass.**
+Everything in §§1–7 as first written was measured **offline** with `pypdf` in the main checkout's
+`.venv` — zero API calls, zero model calls, zero web requests. **§1a is different and its evidence
+is mixed:** the *identity* sweep is offline (`pdftotext`, available only after the author installed
+poppler 26.08.0 on 2026-08-27), but the five **corrected arXiv IDs were verified over the network**
+by `WebFetch` against each paper's own `arxiv.org/abs/` page — tier 2, not tier 1. **The original
+"zero web requests" claim in this paragraph was true when written and is now false; it is corrected
+rather than deleted**, because a doc that silently acquires a stronger provenance claim than it
+earned is the failure this file is about. Reproduce with the commands in §8.
 
 ---
 
@@ -42,6 +49,69 @@ disk — so it remains the citation that can only be checked over the network.
 
 ---
 
+## 1a. Worse than a wrong ID: **5 of the 42 files are not the paper their filename claims**
+
+Found 2026-08-27, *after* the author installed poppler, by a check the first pass never ran: extract
+page 1 of every PDF and read the **title off the paper itself**, then compare it to the filename.
+Five files are entirely unrelated papers.
+
+| filename on disk | what the file **actually is** | survey's claimed ID | the **real** ID |
+|---|---|---|---|
+| `ClaimDecomp_DecomposingClaims_2022.pdf` | *El-WaveHoltz: A Time-Domain Iterative Solver for Time-Harmonic Elastic Waves* (Appelö, Garcia, Alvarez Loya, Runborg) — computational mathematics | `2205.12344` | **`2205.06938`** — *Generating Literal and Implied Subquestions to Fact-check Complex Claims*, Chen/Sriram/Choi/Durrett, EMNLP 2022 (survey says ACL 2022) |
+| `Claimify_ExtractingVerifiableClaims_2024.pdf` | *FLARE: A New Federated Learning Framework with Adjustable Learning Rates* — federated learning | `2404.14811` | **`2502.10855`** — *Towards Effective Extraction and Evaluation of Factual Claims*, Metropolitansky & Larson, **ACL 2025** (survey says 2024) |
+| `FactCheckGPT_ExplainableFactChecking_2023.pdf` | *GalliformeSpectra: A Hen Breed Dataset* (Himel & Islam) — a poultry image dataset, Word 2019 / Elsevier template, **not an arXiv paper at all** | `2310.19830` | **`2311.09000`** — *Factcheck-Bench: Fine-Grained Evaluation Benchmark for Automatic Fact-checkers*, Wang et al., 13 authors |
+| `GENRE_GenerativeEntityRetrieval_2021.pdf` | *User Fairness, Item Fairness, and Diversity for Rankings in Two-Sided Markets* (Wang & Joachims, Cornell) — ACM SIGIR | `2010.01470` | **`2010.00904`** — *Autoregressive Entity Retrieval*, De Cao/Izacard/Riedel/Petroni, **ICLR 2021 spotlight** |
+| `WICE_FineGrainedClaimVerification_2023.pdf` | an *Astronomy & Astrophysics* manuscript (`©ESO 2023`) | `2310.01601` | **`2303.01432`** — *WiCE: Real-World Entailment for Claims in Wikipedia*, Kamoi/Goyal/Rodriguez/Durrett, EMNLP 2023 |
+
+All five **real** IDs were read from the paper's own `arxiv.org/abs/` page, so the right-hand column
+is tier-2 evidence and citable; the middle column is measured from the file on disk and is tier 1.
+Note the survey's *titles* are wrong too where the real paper differs: WiCE is *"Real-World
+Entailment for Claims in Wikipedia"*, not *"Real-World Fine-Grained Claim Verification"*.
+
+**Why the first pass missed all five, which is the part worth keeping.** §2's ID check diffed each
+row's claimed ID against the `arXiv:` stamp printed inside the PDF. For **four of these five the
+stamp MATCHES the claimed ID exactly** — `2205.12344`, `2404.14811`, `2010.01470`, `2310.01601` are
+all stamped in their files. That is not a coincidence and not a second error: **the wrong ID is what
+fetched the file.** A fabricated-but-well-formed arXiv ID resolves to a real paper, the download
+succeeds, and the file is saved under the intended paper's name — so the ID inside it is *guaranteed*
+to match the ID that was claimed. **A check that verifies a claim against a document the claim itself
+selected cannot fail.** It measures the self-consistency of a fetch-by-ID pipeline, which is a
+property of the pipeline, not of the bibliography.
+
+This is the same defect shape as `CLAUDE.md` §6's resolver audit — *"the audit verified correctness
+by checking the chosen entity's label against the subject string, the same signal used for
+selection, so it could not fail"* — and it is now recorded twice in this project on unrelated
+artifacts. The non-circular check is the one that reads an **independent field**: the title *the
+paper prints about itself*. The fifth file, `FactCheckGPT_…`, evaded differently and just as
+instructively — it carries **no arXiv stamp**, so it landed in §2's *"unverifiable this way"* bucket.
+**Absence of evidence was filed as inconclusive when it was the loudest signal available**: every
+other fact-checking paper in the folder is an arXiv preprint, so a file with no stamp was the one
+most worth opening.
+
+**One repair is free.** The correct paper for the `FactCheckGPT_…` row is **already on disk** as
+`FactcheckBench_FineGrainedEvaluation_2023.pdf`, whose page 1 reads *"Factcheck-Bench: Fine-Grained
+Evaluation Benchmark for Automatic Fact-Checkers — Yuxia Wang, Revanth Gangi Reddy, Zain Muhammad
+Mujahid, Arnav …"*. The survey lists **one paper twice under two names** (it was renamed from
+*Factcheck-GPT* to *Factcheck-Bench* between preprint versions), and the second row's download used
+a fabricated ID and brought back the hen-breed dataset. This also explains §2's duplicate-ID
+collision at `2311.08401`: two rows carrying one ID is what a renamed paper entered twice looks
+like.
+
+**Nothing the thesis quotes moves.** None of the five is cited anywhere in `CLAUDE.md` — the file's
+citations are R-Tuning, ConfRAG, Farquhar/Nature, Kuhn/ICLR, FinGround and ReFinED, and **all six of
+those PDFs pass the identity check** (ReFinED's page 1 reads *"ReFinED: An Efficient
+Zero-shot-capable Approach to End-to-End Entity Linking — Tom Ayoola, Shubhi Tyagi, Joseph Fisher,
+Christos Christodoulopoulos"*, so §7's task-#21 precedent stands). So **0 measured numbers change**
+and no bibliography entry is wrong. What changes is the *evidence base*: **11.9% of the folder is
+not what it says it is**, so a PDF's presence on disk is tier-1 evidence for **the paper it actually
+is**, never for the paper its filename names.
+
+**The other 37 pass.** The sweep printed the first three page-1 lines of all 42 files and every
+remaining title matches its filename, including the four with no arXiv stamp (ClaimBuster,
+Factcheck-Bench, SemanticEntropy_Nature — plus FactCheckGPT, the failure).
+
+---
+
 ## 2. Where the survey's defects actually are — and it is **not** the arXiv IDs
 
 This is the finding that overturned my own working assumption. `CLAUDE.md` §7 records a
@@ -57,11 +127,15 @@ such summaries are usually right; page ranges and arXiv IDs are what they get su
 | rows unverifiable this way (no arXiv stamp — VLDB/ACL/Nature typeset) | 4 |
 | rows naming a PDF that is not on disk | 1 |
 
-**35 of 37 checkable IDs are correct.** The ID layer is reliable; the defects concentrate in
-**venue, year, and author attribution**. Two consequences: do not dismiss this survey as
-citation-unreliable, and **do not reuse the §7 prediction as a general law** — it describes one
-channel (a chat summary), not all of them. The prediction is about a *kind* of fact being fragile
-in a *particular* pipeline, and this pipeline has the opposite profile.
+**35 of 37 checkable IDs AGREE with the stamp in the PDF — and §1a shows agreement is not
+correctness here.** Read the table as *"35 files came from the ID the survey claims"*, which is all a
+fetch-by-ID pipeline can ever tell you: 4 of the 5 wrong-paper files are inside that 35, stamped with
+the very ID that fetched them. **The one thing this check genuinely detects is a MISMATCH** — a
+stamp that contradicts the claimed ID proves the file did *not* come from that ID, which is why the
+two rows below are real findings and the 35 are not a clean bill of health. Corrected conclusion: the
+ID *layer* is internally consistent, the defects concentrate in **venue, year and author
+attribution** (§5) and in **file identity** (§1a), and **the §7 prediction should not be reused as a
+general law** — it describes one channel (a chat summary), not all of them.
 
 ### The two genuine ID errors
 
@@ -73,12 +147,24 @@ in a *particular* pipeline, and this pipeline has the opposite profile.
   **`arXiv:2506.12538v1 [cs.CL] 14 Jun 2025`**. Both the ID and the year are wrong, and the
   **filename `..._2024.pdf` carries the wrong year too**.
 
-### One suspicion of mine that was WRONG, recorded because it cuts the other way
+### One suspicion of mine that was wrong — and then the RETRACTION was wrong too
 
-**Claimify's `arXiv:2404.14811` is CORRECT** — stamped in the PDF. I had flagged it as suspect on
-first read on nothing but pattern-matching. R1 applies to my own flags: a suspicion is not a
-finding until a primary source is opened. Same for **R-Tuning's `2311.09677`**, which the survey
-gets right.
+Recorded in full because both directions are instructive. On first read I flagged **Claimify's
+`arXiv:2404.14811`** as suspect on nothing but pattern-matching. I then retracted the flag: the ID
+*is* stamped in the PDF, so I wrote *"Claimify's `2404.14811` is CORRECT"* and filed it against
+myself as an R1 lesson about unfounded suspicion.
+
+**§1a overturns the retraction.** `2404.14811` is stamped in that file because the file **is not
+Claimify** — it is *FLARE: A New Federated Learning Framework*, and the stamp is FLARE's. Claimify's
+real ID is **`2502.10855`** (ACL 2025). So the original suspicion was pointing at a real defect, and
+I dismissed it using **the circular check §1a describes** — the strongest form of the error, because
+the retraction *felt* like the disciplined move. **The lesson is not "trust hunches" but "a
+retraction needs an independent signal exactly as much as the claim it retracts."** I had opened a
+primary source; it was the wrong primary source, selected by the claim under test.
+
+**R-Tuning's `2311.09677` survives** — that file's page 1 reads *"R-Tuning: Instructing Large
+Language Models to Say 'I Don't Know' — Hanning Zhang, Shizhe Diao, Yong Lin, Yi R. Fung, …"*, so it
+passes the identity check as well as the stamp check.
 
 ### Year-layer errors
 
@@ -272,9 +358,14 @@ byte-for-byte a year from now. Ranked:
 
 | tier | what it licenses |
 |---|---|
-| **1. a PDF in `papers_analysis/downloaded_pdfs/`** | a verbatim quote with a page number |
-| 2. `WebFetch` on the publisher's own host (aclanthology.org, arxiv.org) | a citable field (BibTeX `pages`, author list) |
+| **1. a PDF in `papers_analysis/downloaded_pdfs/`** | a verbatim quote with a page number — **for the paper the file's own page 1 names, never for the paper its filename names** (§1a) |
+| 2. `WebFetch` on the publisher's own host (aclanthology.org, arxiv.org) | a citable field (BibTeX `pages`, author list, the real arXiv ID) |
 | 3. `agy` headless with `read_url(*)` | **discovery only** — never quotable |
+
+**§1a adds an admission condition to tier 1, and it is cheap: read the title off page 1 before
+quoting the file.** 5 of 42 files here are unrelated papers, so *"the PDF is on disk"* licenses
+nothing by itself. The check is one `pdftotext -f 1 -l 1` and it is the only signal in the folder
+independent of the ID that fetched the file.
 
 **The concrete lesson: `RTuning_SayIDontKnow_2024.pdf` was on disk the entire time the project
 carried the wrong page range `7831–7848`**, and that error was closed on 2026-08-27 by
@@ -283,13 +374,27 @@ The PDF would not have given the NAACL page range (it is the arXiv preprint), bu
 given the title and all nine authors instantly and offline.
 
 **Operational rule this produces: check `papers_analysis/downloaded_pdfs/` before reaching for the
-web at all.** `.venv/bin/python` already ships **`pypdf`**, so text extraction needs zero installs.
+web at all — then check that the file is the paper.** `.venv/bin/python` already ships **`pypdf`**,
+so text extraction needs zero installs; poppler's `pdftotext` (installed 2026-08-27) is better for
+this particular job because `-layout` preserves the title block.
+
+**A weak signal, measured so it is not over-trusted: embedded PDF metadata is nearly useless here.**
+`pdfinfo` over all 42 finds a non-empty `Title`/`Author` in only **5** — LaTeX+hyperref leaves them
+blank unless configured, so this is an opportunistic check, not a mechanism. But those 5 paid for
+themselves twice: `SemanticEntropy_Nature_2024.pdf` carries `Title: Detecting hallucinations in large
+language models using semantic entropy`, `Author: Sebastian Farquhar`, `Creator: Springer` —
+**publisher-embedded confirmation of §4's AURAC correction, from Springer's own toolchain** — and
+`GENRE_GenerativeEntityRetrieval_2021.pdf` carries a *different paper's* title with
+`Creator: LaTeX with acmart`, which is what first exposed §1a.
 
 ---
 
 ## 8. Reproduce
 
-All offline, seconds, zero API calls. From the **main checkout** (`ThesisCode_copy/`):
+All offline, seconds, zero API calls. From the **main checkout** (`ThesisCode_copy/`). **The one
+step NOT reproducible offline is §1a's right-hand column** — the five corrected arXiv IDs were read
+by `WebFetch` from `https://arxiv.org/abs/2010.00904`, `2205.06938`, `2303.01432`, `2311.09000` and
+`2502.10855`, one call each.
 
 ```
 .venv/bin/python -c "
@@ -312,10 +417,39 @@ print('listed not on disk:', sorted(listed - disk))
 print('on disk not listed:', sorted(disk - listed))"
 ```
 
-**`Read` cannot open these PDFs** — it needs poppler (`pdftoppm`), which is not installed
-(`gs` and `mdls` exist; `pdftotext`/`pdftoppm`/`mutool`/`qpdf` do not). `pypdf` in the venv is the
-working path and gives text but not figures or table layout. `brew install poppler` would restore
-native page rendering — **user-actionable, and the only install that would add capability here.**
+The **identity** check that catches §1a, and that neither a count nor an ID diff can. Note it needs
+poppler, which the author installed 2026-08-27:
+
+```
+python3 -c "
+import subprocess, os
+d = 'papers_analysis/downloaded_pdfs/'
+for f in sorted(x for x in os.listdir(d) if x.endswith('.pdf')):
+    o = subprocess.run(['pdftotext','-f','1','-l','1',d+f,'-'],capture_output=True,text=True).stdout
+    ls = [l.strip() for l in o.splitlines() if l.strip()]
+    print(f'{f[:46]:<46} >> ' + ' | '.join(ls[:3])[:150])"
+```
+
+The circularity demonstration — for the four wrong-paper files the stamp *matches* the claimed ID,
+so this prints agreement on files that are the wrong papers:
+
+```
+python3 -c "
+import subprocess, re
+d = 'papers_analysis/downloaded_pdfs/'
+for f in ['ClaimDecomp_DecomposingClaims_2022.pdf','Claimify_ExtractingVerifiableClaims_2024.pdf',
+          'GENRE_GenerativeEntityRetrieval_2021.pdf','WICE_FineGrainedClaimVerification_2023.pdf']:
+    o = subprocess.run(['pdftotext','-f','1','-l','2',d+f,'-'],capture_output=True,text=True).stdout
+    print(f, re.search(r'arXiv:(\d{4}\.\d{4,5})', o).group(1))"
+```
+
+**`Read` can now open these PDFs** — poppler 26.08.0 was installed by the author on 2026-08-27, so
+`pdftotext`, `pdftoppm`, `pdfinfo`, `pdfimages` and `pdftohtml` are all at `/opt/homebrew/bin/`
+(`mutool` and `qpdf` remain absent; `gs` was already present). Native page rendering, figures and
+table layout are available; `pypdf` in the venv remains the zero-install text path. **The §8 note in
+the first version of this doc — that `brew install poppler` was the one outstanding
+user-actionable install — is DISCHARGED**, and it paid for itself within minutes: the poppler-only
+identity sweep is what found §1a.
 
 **Related:** `CLAUDE.md` R1/R1b (the count coincidence), R2 (Wilson), §2 (AURAC 0.898), §4 (the
 V3 refusal that Priority 3 #6 re-proposes), §5 (negatives inventory), §6 (structured-source

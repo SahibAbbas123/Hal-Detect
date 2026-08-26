@@ -31,7 +31,12 @@ three-column table**. That one is worth the standing check it produced: a duplic
 renders as ordinary prose, so proofreading cannot see it, but **counting unescaped `|` per row
 against the separator width finds it in one pass** — mind `\|` inside cells, which makes a naive
 split report two false positives in §6. `mtime` is **uninformative in this worktree** — every file
-under `current/` shares the copy time.
+under `current/` shares the copy time. **Most literal instance yet, 2026-08-27: 5 of the 42 PDFs in
+`papers_analysis/downloaded_pdfs/` are entirely different papers from the one their filename names**
+(a hen-breed image dataset filed as `FactCheckGPT_…`), and **4 of the 5 pass an arXiv-ID check
+because the wrong ID is what downloaded them** — see §7. That produces R1's sharpest corollary:
+**a check that verifies a claim against a document the claim itself selected cannot fail**, so
+verify against a field the claim did not choose (here, the title the paper prints about itself).
 
 **R1a (2026-08-26, task #23). A number's denominator comes from whatever file its LOADER opens,
 not from the file whose name describes the population — read the loader before editing data.**
@@ -725,14 +730,42 @@ citable BibTeX field); tier 3 is `agy`, **discovery only, never quotable**. **Th
 concrete and it already cost this project a number:** `RTuning_SayIDontKnow_2024.pdf` sat on disk
 the whole time this file carried the wrong page range for that very paper, closed at last via
 tiers 3+2 while tier 1 went unopened. Extraction path is **`pypdf`, already in the `.venv`** — zero
-installs. **`Read` cannot open them** (needs poppler's `pdftoppm`; `gs` and `mdls` exist,
-`pdftotext`/`pdftoppm`/`mutool`/`qpdf` do not), and pypdf gives text but not figures or table
-layout, so **`brew install poppler` is the one install that would add capability here.** Verify by
+installs. **poppler 26.08.0 was installed by the author 2026-08-27, so `Read` CAN now open them** —
+`pdftotext`, `pdftoppm`, `pdfinfo`, `pdfimages`, `pdftohtml` all at `/opt/homebrew/bin/`; `gs` was
+already there; **`mutool` and `qpdf` are still absent.** Native page rendering, figures and table
+layout are available; pypdf stays the zero-install text path. Verify by
 **set difference, never by count** — the folder's 42 files and the survey's 42 rows are *different*
 sets of 42 (R1b). `reference/papers_analysis_assessed_2026-08-27.md`
 
+**And tier 1 has an admission condition, because 5 of those 42 files are NOT the paper their
+filename claims — found 2026-08-27, minutes after poppler arrived.** `ClaimDecomp_…` is an
+elastic-wave solver, `Claimify_…` is a federated-learning paper, `FactCheckGPT_…` is a **hen-breed
+image dataset**, `GENRE_…` is a Cornell ranking-fairness paper, `WICE_…` is an *Astronomy &
+Astrophysics* manuscript. **Read the title off page 1 before quoting any file** —
+`pdftotext -f 1 -l 1` — because *"the PDF is on disk"* licenses a quote for **the paper the file
+actually is**, never for the paper its name promises. **The mechanism is the reusable part, and it
+is R1's sharpest instance yet: for FOUR of the five, the `arXiv:` stamp inside the file MATCHES the
+survey's claimed ID exactly — because the wrong ID is what fetched the file.** A fabricated but
+well-formed arXiv ID resolves to a real paper, the download succeeds, and it is saved under the
+intended name, so the ID inside is *guaranteed* to agree. **A check that verifies a claim against a
+document the claim itself selected cannot fail** — it measures a fetch pipeline's self-consistency,
+not a bibliography. Same shape as §6's resolver audit (label checked against the signal used for
+selection), now recorded twice on unrelated artifacts. The fifth file evaded the opposite way — **no
+arXiv stamp at all, filed as "unverifiable" when it was the loudest signal in the folder.** So an
+ID diff can only ever detect a **mismatch**; agreement proves nothing. **Corrected IDs, read from
+each paper's own `arxiv.org/abs/` page:** ClaimDecomp **`2205.06938`** (EMNLP 2022, not ACL) ·
+Claimify **`2502.10855`** (**ACL 2025**, not 2024) · FactCheckGPT **`2311.09000`** · GENRE
+**`2010.00904`** (ICLR 2021 spotlight) · WiCE **`2303.01432`**. **One repair is free:** the
+FactCheckGPT row's real paper is *already on disk* as
+`FactcheckBench_FineGrainedEvaluation_2023.pdf` — the survey lists one renamed paper twice, which
+is also what its duplicate-`2311.08401` collision was. **0 measured thesis numbers move:** none of
+the five is cited here, and all six PDFs this file *does* cite (R-Tuning, Farquhar/Nature,
+Kuhn/ICLR, FinGround, ReFinED — ConfRAG is the one absent from disk) pass the identity check.
+
 **Environment:** `.venv` lives **only in the main checkout**
 (`ThesisCode_copy/.venv/bin/python`). macOS has no `timeout`. BART-MNLI SIGBUSes locally.
+**poppler 26.08.0 IS installed** as of 2026-08-27 (the tier-1 paragraph above lists which binaries;
+`mutool`/`qpdf` remain absent), so PDF page rendering and `pdftotext` are available.
 **`WebSearch` is unsupported on this model** (`400 tool type 'web_search_20250305' is not
 supported`), and **FAO `openknowledge` returns 403 to WebFetch — recorded twice, treat as a
 permanent property of that host and do not retry.** This worktree session **refuses compound
