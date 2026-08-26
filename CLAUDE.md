@@ -258,7 +258,7 @@ losing set (above). Turning the rest into a result requires non-zero routed cove
 | **Which baseline operating point?** | **(0.35/0.30) on the natural 356; the shipped (0.50/0.40) on any negatives-enriched population.** Name the point and the class prior every time. | On the natural 356 the shipped point is **strictly dominated** — every metric improves at once — so quoting it would credit routing with a ~15pp gap that is one badly-set constant, which the committed spec forbids as a strawman. But (0.35/0.30) is a **class-prior fit**: on the 24 QUANTITATIVE negatives it drops F1(FALSE) 0.488 → 0.200 and confidently asserts **13** hallucinations are true. **The routed verifiers have no threshold at all** — an architectural asymmetry that is now measured, and belongs in the table caption. |
 | **Adopt router V3** (*"RELATIONAL beats TEMPORAL when the dominant verb describes a process and the date is when it occurred"*)? | **NO — identified and declined.** | (1) V1 was the same shape of fix and bought **+6.3pp precision with near-total CI overlap, paid in recall, at zero change in overall accuracy** (111/125 both ways, 3 errors fixed and 3 created); on the held-out 65 it looked *excellent* off **4 gold TEMPORAL claims**, i.e. noise pointing the wrong way. (2) The cost is not the prompt, it is **re-typing the `type` column**, invalidating the baseline's 356 rows, the threshold sweep, the per-type J table and QUANTITATIVE's 14/14 — every measured win. (3) **The finding is worth more than the fix.** If ever adopted it must be as a taxonomy revision with a full downstream re-run, never a prompt tweak. |
 | **Classifier prompt vs Rule 8** (the prompt says *"'WHO exists' is NOT a CITATION claim"*; Rule 8 dual-emit says it is) | **The PROMPT stands; Rule 8 and §3.2 and the corpus labels get revised.** It is **eight** corpus claims, **not nine** — this file said nine for days; `reference/all-140-claims.txt` carries the justification `Pure source-existence claim` on lines **221, 553, 561, 597, 613, 625, 637, 669** (two further lines mention source existence only to say it is *not* the claim being made). R1 again. | A source-existence claim has no truth value worth testing, and the pipeline already proves it: L1 **can never return FALSE**, L1b **gates it out** (`MIN_WORK_CONTENT = 2`), `source_consistency` treats `NO_EVIDENCE` as never-reject. Such a claim can only come back TRUE-or-abstain and **cannot contribute a detection or an error** — Rule 8 manufactures unfalsifiable claims at one per citation-wrapped statement. **The change is free: 0 of the 400 corpus rows are affected** — the 140-claim corpus carries no ids, so nothing joins it to the four evaluation sets. **The prompt must not be touched** — it is the faithful-reproduction anchor and RQ1's 93.8%/95.4% rests on it. |
-| **Flip `Q22_C01` → FALSE?** | **FLAGGED, NOT FLIPPED.** Recorded in additive `FLAG`/`FLAG_EVIDENCE` columns; **0 `AUTHOR_*` cells written.** | It sits at `priority='2-HIGH'`, `why='AI filled a blank; never reviewed'` — so flipping it is *an AI overwriting an AI-filled label*, the exact thing this file exists to prevent. Relabelling Phase 2 once moved measured RELATIONAL accuracy **~15% → 61.11% with no change to the verifier.** **EVIDENCE: UNVERIFIED IN SESSION** — `WebSearch` is unsupported on this model and the FAO/WHO/UNICEF pages returned 403/404. **Author must confirm against SOFI 2023.** |
+| **Flip `Q22_C01` → FALSE?** | **EVIDENCE CONFIRMED 2026-08-26; STILL FLAGGED, NOT FLIPPED.** Recorded in additive `FLAG`/`FLAG_EVIDENCE` columns; **0 `AUTHOR_*` cells written.** **Awaiting one word from the author — nothing else about it is open.** | It sits at `priority='2-HIGH'`, `why='AI filled a blank; never reviewed'` — so flipping it is *an AI overwriting an AI-filled label*, the exact thing this file exists to prevent. Relabelling Phase 2 once moved measured RELATIONAL accuracy **~15% → 61.11% with no change to the verifier.** **The evidence condition is now met:** SOFI 2023 (`cc3017en`) **p. 10** states the prevalence *"remained unchanged for the second year in a row, affecting 29.6 percent … in 2022 (2.4 billion people) – still 391 million more than in 2019"* — the claim asserts `increased` **during 2022**; the +391M is vs **2019**. Author-supplied lookup, **5/5 internal arithmetic cross-checks reconcile**, but **not primary confirmation** (FAO returns 403 to WebFetch here). Falsity class = **misattribution to a named source**, so it is **Level 2** territory and the *"max TP on the natural set is 0 by construction"* argument **SURVIVES** at 4 content falsities instead of 3. **The flip costs the thesis and gains it nothing** — Always-True 88.2% → 87.9%, π 0.0365 → 0.0393, ratio 26.4:1 → 24.4:1, **L1 accuracy 20/22 → 19/22**, baseline **+1 confident error**, L1b FPR 0/25 → 0/24 with **0 confident errors preserved** (L1b abstained, so it earns no detection). That asymmetry is why it is credible. `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` |
 | **A3 — merge the two worktree branches?** | **No merge needed.** | Main's `CLAUDE.md` is the **pre-correction original** (440 lines vs 1008; 619 insertions, 11 deletions apart) and `worktree-websearch-tool` has **never touched the file**, so a reversible **single-file copy** propagates it. This is the root cause of both incidents where a stale row here became a wrong premise in an external roadmap. `reference/external_catalog_assessment_2026-08-26.md` §7 |
 
 ---
@@ -297,8 +297,25 @@ part of TEMPORAL's 0% coverage is **misrouting**, not a property-mapping gap.
 `SYN_CITA` 25 · `SYN_TEMP` 31 · `SYN_QUAN` 24 · `SYN_ENTI` 5. **There are no RELATIONAL
 synthetic negatives** — the B3N 27 above is a separate artifact inside the pooled 356. Strict
 tier = **69** (85 minus the 16 rows affected by the `nli__` cache-key collision): CITATION 24,
-TEMPORAL 26, QUANTITATIVE 14, EA 5. **EA at n = 5 is the genuinely thin set, and the reason is
-concrete:** `current/negatives_needing_manual_authoring.csv` holds 14 rows, **12 of them EA**.
+TEMPORAL 26, QUANTITATIVE 14, EA 5. **Re-derived 2026-08-26 by running
+`current/negatives_cache_audit.py` — reproduces exactly.** The tier is defined per row against
+**its own base claim**, not against all natural claims; a reconstruction using the wrong
+denominator gives CITATION 23 / QUANTITATIVE 15, which also sums to 69 and looks like a
+discrepancy. **Run the script, don't reconstruct it.** **EA at n = 5 is the genuinely thin set,
+and the reason is concrete:** `current/negatives_needing_manual_authoring.csv` holds 14 rows,
+**12 of them EA**.
+
+**`SYN_CITA_083` is an INVALID NEGATIVE — recommend dropping it (2026-08-26).** It is a
+`source_swap` FAO→WHO off `Q22_C01` with the assertion unchanged, gold FALSE. But **WHO is a
+co-publisher of SOFI 2023** (joint FAO/IFAD/UNICEF/WFP/WHO), so moving the attribution from one
+co-publisher to another **leaves it true** — the perturbation is void on its own terms,
+*independently of whether `Q22_C01` flips*. Dropping it: strict tier **69 → 68**, CITATION
+**24 → 23**. **No measured detection is invalidated** — the baseline said TRUE @0.733 (off
+irrelevant retrieval about the Brookings Institution and US figures) and L1b returned
+UNVERIFIABLE (gated on `'WHO'` being a bare organisation), so both missed it. Denominators only,
+and both TPRs move **<2pp in each system's own favour** — a caution, not a benefit: baseline
+CITATION 5/24 → 5/23, ALL 37/69 → 37/68, L1b 9/25 → 9/24. It **is** inside the strict tier (the
+one CITATION row dropped at strict is `SYN_CITA_001`).
 
 **`gold_type` is not a label in Phase 2 or Batch 3 — never score routing on them.** Both show
 100% agreement with the classifier's own `type` column (109/109, 122/122) because it was seeded
@@ -401,7 +418,8 @@ exists yet.
 |---|---|---|
 | **#19** | Re-run the TEMPORAL/EA logic over the 34 claims | **Now a LOCAL job** — cells 69/75 call only Wikidata (API + SPARQL), no BART, no Gemini, so the logic extracts to a standalone `.py` in `.venv` and the notebook stays untouched. **Needs author go-ahead** (API-calling). Outputs `_phase3`/`_phase5`; **never overwrite phase2/phase4** (R19). Coverage far above the recorded precedents — `property_resolver.py`'s 6/34 = 17.6% and QUANTITATIVE's ~24% predicted band — is a **warning**, not a win (R8). |
 | **#20** | `property_resolver.py` Bug B + no prominence | Must be fixed before any integration, with another prefix bump. |
-| **#21** | `P31` instance-of type-check | Closes the resolution circularity above. Build as a sibling of `source_consistency.py`, not an edit to a validated verifier. |
+| **#21** | `P31` instance-of type-check | Closes the resolution circularity above. Build as a sibling of `source_consistency.py`, not an edit to a validated verifier. **Now has a citable precedent: `P31`/`P279` fine-grained typing is exactly how ReFinED (Ayoola et al. 2022) scores its own candidates**, so this is the mechanism a SOTA entity linker relies on, not a local heuristic. `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` §3 |
+| **#23** | Drop `SYN_CITA_083` from the negatives | WHO co-published SOFI 2023, so the FAO→WHO `source_swap` creates no falsity (§5). Offline, no model calls; strict tier 69 → 68. **Independent of the `Q22_C01` flip.** |
 | **#22** | McNemar's test for RQ2 | Offline, zero model calls. On the existing 4–0 discordant table the exact test gives **p = 0.125** — *not* significant — so this will likely make a quoted claim weaker. Do it anyway. Use the **exact binomial**, report `(b, c)` beside `p`, run per population (R6). |
 | **#16** | `nli__` cache key `claim[:60]` truncation collides perturbed claims with their originals | Affects 16 of 85 negatives (18.8%) in three classes. Needs Colab. |
 | **#2** | LLM baseline (`current/llm_baseline.py`, gemma4:31b-cloud) on the 356 | **Secondary** baseline answering a different question. **Do not confuse it with the non-routed baseline** — the committed comparison is routed-vs-non-routed with identical evidence and identical NLI. |
@@ -412,9 +430,23 @@ backbone swap (invalidates the `nli__` cache, the baseline's 356 rows and the wh
 surface; BART SIGBUSes locally so it needs Colab), and KGQA property mapping (biggest coverage
 lever, highest regression risk, must be precision-gated from the start).
 
-**Author actions, not mine to perform:** confirm `Q22_C01` against SOFI 2023; edit Rule 8 and
-§3.2 of the taxonomy document and re-label the 8 corpus rows (documentation edits, 0 measured
-numbers affected); propagate this file to main (§4, A3).
+**Author actions, not mine to perform:** **say yes/no on the `Q22_C01` flip** — evidence is now
+confirmed (§4) and this is the only thing left open on it; verify **R-Tuning's page range
+`7831–7848`** and **ConfRAG's arXiv `2506.07309`** against the ACL Anthology / arXiv before
+either enters the bibliography (author lists and venues in such summaries are usually right;
+page ranges and arXiv IDs are what they get subtly wrong); edit Rule 8 and §3.2 of the taxonomy
+document and re-label the 8 corpus rows (documentation edits, 0 measured numbers affected);
+propagate this file to main (§4, A3).
+
+**Literature now grounded, no code implied.** `MIN_MARGIN = 0.15` and the UNVERIFIABLE class are
+an instance of **calibrated abstention**: R-Tuning (NAACL 2024, Outstanding Paper) and ConfQA /
+ConfRAG (arXiv 2506.07309). **State the limit precisely — both train the *generator* to abstain;
+HalDetect's UNVERIFIABLE is *post-hoc verifier* abstention at a different stage.** They ground
+the **principle**, not the mechanism. The real payoff is that **R-Tuning's central result — that
+risk-coverage curves are the right frame for abstaining systems and separate methods that
+single-point accuracy cannot — is an independent literature justification for the settled
+3d-vs-3e tradeoff-table decision (§4).** Cite it in the table caption. ConfQA's *"unsure as a
+gate that triggers retrieval"* also describes the TEMPORAL/EA hybrid fall-through (#3) exactly.
 
 **Blocker on any pooled RELATIONAL re-run:** cell 57 calls `gemini-3.1-flash-lite-preview` for
 disambiguated query generation. Uncached claims fall back to the bare subject, which measurably
@@ -425,8 +457,12 @@ degrades coverage — so a pooled re-run needs the key, or its numbers carry an 
 **Environment:** `.venv` lives **only in the main checkout**
 (`ThesisCode_copy/.venv/bin/python`). macOS has no `timeout`. BART-MNLI SIGBUSes locally.
 **`WebSearch` is unsupported on this model** (`400 tool type 'web_search_20250305' is not
-supported`). This worktree session **refuses compound Bash commands** — use `python3 -c "..."`,
-which passes and collapses the round-trips. Or run `./verify_env.sh`.
+supported`), and **FAO `openknowledge` returns 403 to WebFetch — recorded twice, treat as a
+permanent property of that host and do not retry.** This worktree session **refuses compound
+Bash commands** — use `python3 -c "..."`, which passes and collapses the round-trips. Or run
+`./verify_env.sh`. **When a `python3 -c` script writes a file and reads it back in the same
+process, close the handle first** — an unflushed `csv.DictWriter` buffer makes a correct write
+look like a truncated one.
 
 ---
 

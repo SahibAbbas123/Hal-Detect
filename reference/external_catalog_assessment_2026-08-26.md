@@ -76,20 +76,45 @@ minutes; the propagation had already happened.
 
 ## 2. The catalog's headline recommendation probably does not cover the live bug
 
+> **PARTIAL RETRACTION, 2026-08-26.** The premise below — *"standard entity linkers (ReFinED,
+> GENRE, BLINK) restrict their candidate sets to Wikipedia-derived inventories"* — is **right
+> about BLINK and GENRE and wrong about ReFinED**, which is the one the catalog named first.
+> ReFinED resolves natively to **Wikidata QIDs** over a ~33M-entity inventory and scores
+> candidates by fine-grained typing on `P31`/`P279`; it is not bounded by Wikipedia page
+> titles. **The conclusion still stands, by a different and sharper mechanism** — see the
+> replacement test below. Full detail and the corrected comparison matrix:
+> `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` §3.
+
 Catalog §2.3 ranks **"replace `resolve_entity` with a trained entity linker
 (ReFinED/GENRE)"** as a Tier-1 pick. Stated as a testable objection rather than a
 conclusion:
 
 **All three Lancet candidates in the live failure have 0 sitelinks — i.e. no Wikipedia
-page in any language.** Standard entity linkers (ReFinED, GENRE, BLINK) restrict their
-candidate sets to Wikipedia-derived inventories. If that holds, the serial-edition class
-is **defined by the absence of exactly the signal those models depend on**, and swapping
-the resolver would not reach it.
+page in any language.** ~~Standard entity linkers (ReFinED, GENRE, BLINK) restrict their
+candidate sets to Wikipedia-derived inventories.~~ **[retracted for ReFinED — see above.
+It holds for BLINK, which needs rich per-candidate descriptions, and for GENRE, whose
+prefix trie over Wikipedia page titles *is* its output space.]** If that holds, the
+serial-edition class is **defined by the absence of exactly the signal those models depend
+on**, and swapping the resolver would not reach it.
 
-Note the shape of this: the prominence tie-break is *already* inert on serials for the
-same reason (it breaks ties on fame, and no edition of a serial is famous *as an
-edition*). An entity linker is a stronger prominence prior, so it plausibly inherits the
-same blind spot rather than fixing it.
+**The replacement argument for ReFinED**, which is about inventory rather than output
+namespace — those are not the same thing:
+
+1. **~33M ≪ Wikidata's ~100M+.** Which third of Wikidata is covered is an empirical
+   question, and sitelink-less editions of serial publications are a plausible member of
+   the excluded two-thirds.
+2. **The alias table's provenance is still Wikipedia hyperlinks.** If surface forms are
+   harvested from anchor text, a 0-sitelink entity contributes **no aliases** and remains
+   unreachable by candidate generation even though the output namespace could name it. This
+   is the original objection relocated one layer down, and it is the version worth testing.
+3. **Dump recency, which is probably decisive.** `Q139937996` — the real 2024 Lancet report,
+   and precisely the item `series_resolver` guard 1 exists for — has a QID far above the
+   ~`Q100000000` mark reached around 2020–21, so it **almost certainly postdates ReFinED
+   (2022) entirely** and cannot be in any alias table it shipped with. Stated as an inference
+   from QID magnitude, not a verified fact.
+
+Note the shape of this: the prominence tie-break is *already* inert on serials for a related
+reason (it breaks ties on fame, and no edition of a serial is famous *as an edition*).
 
 **What ReFinED would genuinely help** is the Denali / Rosetta-Stone class: wrong-sense
 homonyms among *prominent* entities. **That class is already fixed** (2026-08-21 QID fix
@@ -100,7 +125,15 @@ prevention` to a candidate linker and check whether Q92676744 / Q98186330 / Q139
 appear in its candidate set at all. If they do not, §2.3 is orthogonal to the live bug.
 
 **Net effect on decision A1: it strengthens it.** A1 (series-level resolution + the
-property-consistency check) targets the failure mode; §2.3 probably does not.
+property-consistency check) targets the failure mode; §2.3 probably does not — and
+`series_resolver.py` has since shipped with `--selftest` ALL PASS and a measured 8/12
+ceiling on the `year_shift` negatives, so this is now a question about adding a dependency,
+not about whether the failure mode is handled.
+
+**One thing the correction gives back, and it is worth more than the retraction costs:**
+ReFinED scores candidates by fine-grained typing over **`P31`/`P279`** — the exact mechanism
+of task **#21**. That converts #21 from a sensible local heuristic into the candidate-scoring
+signal a SOTA entity linker relies on, i.e. a design decision with a citable precedent.
 
 ---
 
@@ -179,7 +212,7 @@ fails. A fine-tuned verifier would blur that.
 | **B1** 3d/3e tradeoff table, baseline at retuned (0.35/0.30) | Unchanged. |
 | **B2** classifier prompt vs Rule 8 | Unchanged. |
 | **B3** do **not** adopt router V3 | Unchanged. |
-| **B4** flip Q22_C01 → FALSE | Unchanged. (`SYN_CITA_083` still needs dropping or re-basing.) |
+| **B4** flip Q22_C01 → FALSE | **Evidence condition now MET (2026-08-26).** Confirmed against SOFI 2023 (`cc3017en`) p. 10: the 2022 trend was *unchanged*, the +391M is vs 2019. Still **not flipped** — that is the author's call. And `SYN_CITA_083` turns out to need dropping for a reason **independent** of the flip: WHO **co-published** SOFI 2023, so the FAO→WHO `source_swap` creates no falsity. `sofi_abstention_entity_linking_assessed_2026-08-26.md` §1 |
 | **B5** mark the EA 5/22 row unreproducible | **Escalated and DONE.** These documents are the proof the stale number caused downstream harm. Corrected in `CLAUDE.md` 2026-08-26 with per-file row counts. |
 | **new** MiniCheck/HHEM local NLI | **Added.** Needs one yes/no on a model download. Could remove the Colab blocker and would give the "architectural, not BART-specific" claim a second data point. |
 | **new** KGQA property mapping | **Added.** Biggest coverage lever, highest regression risk, must be precision-gated from the start. |
