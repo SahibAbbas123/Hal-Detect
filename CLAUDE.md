@@ -146,6 +146,27 @@ framed as intentional domain stratification.
 `temporal_b3_verified_results_phase2.csv` and `entity_attribute_b3_verified_results_phase4.csv`
 are the quoted baseline.
 
+**R20. Paired significance tests — three admissibility conditions, all three violated by the
+obvious way of running one.** From #22 (`current/mcnemar.py`, `reference/mcnemar_rq2_2026-08-26.md`).
+- **(a) Never quote a `p` without `min_p = 2/2ⁿ`, the smallest `p` that `n` discordant pairs could
+  have produced.** `min_discordant_for(0.05) == 6`: below 6 pairs, α = 0.05 is **unreachable no
+  matter how lopsided the result**. So the 4–0 QUANTITATIVE table gives `p = 0.1250` **which is
+  the floor** — that is "this corpus cannot tell", not "the systems are alike". Same shape as R2
+  and R4: a number is uninterpretable without the quantity that bounds it.
+- **(b) A paired test needs BOTH gold classes in the population.** On an all-FALSE set an
+  unconditional FALSE is correct everywhere, so it wins every pair the real system wins —
+  Always-False ties routed QUANTITATIVE at `b=4, c=0` on the negatives alone, under **every**
+  convention. **Negatives-only McNemar is inadmissible**, which is R5 in significance-test form.
+- **(c) A confident-error metric is gamed by abstention.** Always-UNVERIFIABLE scores the
+  *identical* `p = 3.81e-06` as routed QUANTITATIVE, because a system that never answers never
+  errs confidently. The 0-vs-19 **count** stands; **no `p` may be attached to it.** R3's
+  degenerate-baseline discipline, extended to significance — so run all three degenerate arms
+  against every real one and flag any that matches its `p`.
+- **Corollary, and it is the trap that nearly got quoted:** **statistical power is a function of
+  the opponent's operating point.** Degrading the comparator manufactures discordant pairs. Any
+  threshold picked after seeing a `p` is a `p` picked after seeing a threshold — §3's C1 @tuned
+  `p = 0.0312` is exactly this and **must not be quoted**.
+
 ---
 
 ## 2. Verifier status
@@ -309,6 +330,50 @@ confident errors** both unchanged (L1b returned UNVERIFIABLE on the dropped row,
 detection to lose), the 8-of-9 Q103843442 concentration intact, `year_shift` **5/12** intact, and
 the CIs still overlap heavily — so the caveat above stands verbatim at the new numbers. Recounted
 offline from `current/citation_l1b_results.csv`, zero Wikidata calls.
+
+### McNemar's exact test on both wins (#22, 2026-08-26) — the significance framing does NOT survive
+
+`current/mcnemar.py`, offline, ~2 s, `--selftest` 17 checks ALL PASS incl. a `scipy.binomtest`
+cross-check at 3.33e-16. Gated on first reproducing 14/14, 19-vs-0, n=53 and `b=4,c=0`. **Read R20
+before quoting any row.** Three conventions run always, because both systems abstain and picking
+one silently would choose the result: **C1** both-covered · **C2** exact-match (charges routing for
+coverage) · **C3** confident-error incidence. They disagree, and that is the finding.
+
+| QUANTITATIVE, combined 53 (28 T / 25 F, π_FALSE 47.2%) | b | c | n | `p` | `min_p` | |
+|---|---|---|---|---|---|---|
+| **C1 @shipped** — *the admissible headline* | 4 | 0 | 4 | **0.1250** | 0.1250 | **UNDERPOWERED — `p` is AT the floor** |
+| C1 @tuned | 6 | 0 | 6 | 0.0312 | 0.0312 | significant, ungamed — **DO NOT QUOTE, see below** |
+| **C2 @shipped / @tuned** | 6 | 17 / 18 | 23 / 24 | **0.0347 / 0.0227** | 2.4e-07 | **significant, favours the BASELINE** |
+| C3 @shipped | 19 | 0 | 19 | 3.81e-06 | 3.81e-06 | **GAMED** — Always-UNVERIFIABLE identical |
+
+**The 4–0 is underpowered *by construction*** (R20a) — routing swept every pair and still cannot
+reach α=0.05 at n=4. **C1 @tuned's `p = 0.0312` is manufactured and must not be quoted**: verified
+row-by-row, the 2 extra discordant pairs are **not** rows the baseline newly answered (those 2,
+`B3_04_C02`/`B3_04_C10`, are concordant and contribute nothing) but `SYN_QUAN_014`/`015`, which go
+from **concordant-correct to discordant** because the baseline flips `FALSE → TRUE` and **gets
+worse** (confident errors 19 → 24). Routing's predictions are byte-identical at both points — it
+has no threshold. **What is significant runs the other way:** C2 shows routing's coverage cost at
+`p = 0.0347`, favouring the baseline — exactly the "will likely make a quoted claim weaker"
+outcome #22 predicted. **Negatives-only is inadmissible under all three conventions** (R20b).
+**MCC +0.378 vs +0.202 is untouched** — not a paired statistic. The counts stand; only the
+significance framing goes.
+
+**CITATION L1b: the paired test is the WRONG INSTRUMENT, and that reframes the win.** C1 has
+**n = 1** on all 53 (`SYN_CITA_075`) and **n = 0** on the natural 29 — not by accident but because
+**the two systems answer on different claims.** Verified cross-tab: L1b covers 9, baseline 23,
+**union 28, intersection 4**. Every C2 row is **inadmissible** (L1b emits no TRUE by design, so it
+forfeits every gold-TRUE row); C3 is **gamed**. So no convention supports a head-to-head. **The
+composition table is the real result:** L1b answers **5 rows the baseline abstains on and is
+correct on 5/5** (`SYN_CITA_063/064/067/076/077`); the baseline uniquely answers 19, **11 right /
+8 wrong**; neither reaches 25. **L1b adds 5 correct detections at zero confident-error cost on
+claims the baseline cannot reach** — the first quantitative case for the hybrid fall-through (#3),
+which ConfQA's *"unsure as a gate that triggers retrieval"* grounds. Ask **"do they compose?"**,
+not **"which wins?"** — R11's 8-of-9 Q103843442 concentration still travels with the 5.
+
+**No whole-system McNemar exists over the natural 356** and one cannot be built yet: TEMPORAL/EA
+are at 0% coverage and RELATIONAL's live logic is notebook cell 57 with no committed per-claim CSV.
+**Per-type tests must never be pooled** — different priors, coverage and verifiers, so pooling
+reintroduces the prior-mixing R6 forbids. `reference/mcnemar_rq2_2026-08-26.md`
 
 ### The RQ2 verdict, which must not be softened
 
@@ -521,7 +586,7 @@ exists yet.
 | **#20** | `property_resolver.py` Bug B + no prominence | Must be fixed before any integration, with another prefix bump. |
 | **#21** | `P31` instance-of type-check | Closes the resolution circularity above. Build as a sibling of `source_consistency.py`, not an edit to a validated verifier. **Now has a citable precedent: `P31`/`P279` fine-grained typing is exactly how ReFinED (Ayoola et al. 2022) scores its own candidates**, so this is the mechanism a SOTA entity linker relies on, not a local heuristic. `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` §3 |
 | **#23** | ~~Drop `SYN_CITA_083`~~ | **DONE 2026-08-26 — record in §5, which is the authority.** Row physically removed from `synthetic_negatives.csv` (85 → 84), audit join filtered through it, five docstring-count sites corrected. All four selftests re-run ALL PASS and `rq2_quantitative_table.py` reproduces 14/14 / MCC +0.378 / 4–0 unchanged. |
-| **#22** | McNemar's test for RQ2 | Offline, zero model calls. On the existing 4–0 discordant table the exact test gives **p = 0.125** — *not* significant — so this will likely make a quoted claim weaker. Do it anyway. Use the **exact binomial**, report `(b, c)` beside `p`, run per population (R6). |
+| **#22** | ~~McNemar's test for RQ2~~ | **DONE 2026-08-26 — record in §3, rules in R20, authority `reference/mcnemar_rq2_2026-08-26.md`.** `current/mcnemar.py`, offline, `--selftest` 17 checks ALL PASS. **It made a quoted claim weaker exactly as predicted, and the prediction itself was confirmed to the digit** (`b=4, c=0 → p = 0.1250`). Three things it produced that were not asked for: the **power floor** `2/2ⁿ` (so 0.1250 at n=4 is *the floor*, i.e. unreachable significance, not a null result); **C2 is significant in the BASELINE's favour** (`p = 0.0347`), which is routing's coverage cost measured on a paired test; and CITATION's C1 `n = 1` turns out to be **coverage disjointness** (union 28 / intersection 4), reframing that win as **composition** rather than head-to-head. |
 | **#16** | `nli__` cache key `claim[:60]` truncation collides perturbed claims with their originals | Affects 16 of 84 negatives (19.0%) in three classes. Needs Colab. |
 | **#2** | LLM baseline (`current/llm_baseline.py`, gemma4:31b-cloud) on the 356 | **Secondary** baseline answering a different question. **Do not confuse it with the non-routed baseline** — the committed comparison is routed-vs-non-routed with identical evidence and identical NLI. |
 | **#3/#4** | TEMPORAL/EA hybrid fall-through; consolidate the 4 sets | In progress. |
@@ -589,6 +654,9 @@ look like a truncated one.
   re-running). **The bodies were deliberately not rewritten**: a dated doc is the record of what
   was measured on its date, so corrections go in the pointer and in this file, never by editing the
   snapshot. `syn_cita_083_drop_2026-08-26.md` is the authority on the #23 drop.
+  `mcnemar_rq2_2026-08-26.md` is the authority on **#22** — the paired-test admissibility rules
+  (R20), the power floor, and why both routing wins lose their *significance* framing while keeping
+  their counts.
 - `old-chats-handoffs/` — **five exported session handoffs; read before planning experiments.**
   The only record of pre-notebook decisions: the RQ numbering, the 3d-vs-3e reporting decision,
   the RELATIONAL A–E sub-typing, the page-relevance-gate negative result, the cache-prefix

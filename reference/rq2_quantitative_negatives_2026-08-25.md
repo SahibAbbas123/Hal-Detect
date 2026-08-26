@@ -8,6 +8,22 @@
 > 68** non-colliding rows, not 69, and the affected count is **16 of 84 (19.0%)**, not 16 of 85 —
 > denominators, both numerators unchanged. See `reference/syn_cita_083_drop_2026-08-26.md` §5.3 for
 > why the 68-vs-69 distinction matters.
+>
+> **QUALIFIED IN ONE PLACE, 2026-08-26 — §2's 4–0 table is UNDERPOWERED BY CONSTRUCTION.** Task
+> #22 ran the paired test these figures never had (`current/mcnemar.py`,
+> `reference/mcnemar_rq2_2026-08-26.md`). McNemar's exact test on the 4–0 gives **`p = 0.1250`, and
+> `0.1250` is the floor** — with n = 4 discordant pairs the smallest attainable two-sided `p` is
+> `2/2⁴`, so **α = 0.05 was unreachable however lopsided the sweep**. Routing won every pair and
+> still cannot demonstrate a difference. **Report §2 as an error-profile observation, never as a
+> demonstrated one**, and say "this corpus cannot resolve it" rather than "not significant".
+> **§1's `0 vs 19` confident errors likewise cannot carry a `p`** — Always-UNVERIFIABLE scores the
+> identical `3.81e-06`, because a system that never answers never errs confidently. **The counts in
+> both sections are unchanged and remain quotable; only a significance framing is barred.**
+> **MCC +0.378 vs +0.202 is completely untouched** — it is not a paired statistic. Two additions
+> that cut against this document: routing's **coverage cost IS significant, favouring the
+> baseline** (`p = 0.0347`), and §6's warning about the tuned point now has a second instance —
+> at (0.35/0.30) the paired test *does* reach `p = 0.0312`, but only because the baseline flips two
+> rows it previously got right, so that `p` **must not be quoted** either.
 
 **Date:** 2026-08-25
 **Reproduce:** `.venv/bin/python current/rq2_quantitative_table.py` (offline, zero

@@ -9,6 +9,21 @@
 > 5/12, the 8-of-9 Q103843442 concentration, the overlapping CIs, and **4** gold-FALSE natural
 > CITATION claims (was 3 — the flip added one, and L1b abstained on it, so true positives on the
 > natural set stayed 0). Authority: `reference/syn_cita_083_drop_2026-08-26.md` and `CLAUDE.md` §3.
+>
+> **REFRAMED, 2026-08-26 by task #22 — the head-to-head with the baseline is the wrong comparison,
+> and the reason is structural.** McNemar's exact test (`current/mcnemar.py`,
+> `reference/mcnemar_rq2_2026-08-26.md`) finds **one** discordant pair across all 53 CITATION rows
+> (`SYN_CITA_075`) and **zero** on the natural 29 — not small-sample bad luck but **coverage
+> disjointness**: L1b answers 9 rows, the baseline 23, **union 28, intersection 4**. L1b reads
+> Wikidata `P577`/`P123`; the baseline reads BART-MNLI over Wikipedia passages. Their reachability
+> sets barely meet, so *no* convention supports "which is better" — C2 is inadmissible (L1b emits no
+> TRUE by design, so exact-match forfeits every gold-TRUE row) and C3 is gamed (Always-UNVERIFIABLE
+> ties its `p = 0.0039`). **What replaces it is stronger, not weaker:** L1b answers **5 rows the
+> baseline abstains on and is correct on 5/5** (`SYN_CITA_063/064/067/076/077`), while the baseline
+> uniquely answers 19 at **11 right / 8 wrong**, and neither reaches 25. **That is the first
+> quantitative case for composition (#3), and the J comparison below should be read as the marginal
+> summary it is — a paired test cannot corroborate it on this corpus.** The 8-of-9 Q103843442
+> concentration (R11) travels with the 5 unchanged.
 
 `current/citation_l1b_verifier.py` (~600 lines, `--selftest` ALL PASS, `--diagnose`
 writes `current/citation_l1b_results.csv`, 54 rows). Built on the two preconditions
