@@ -711,7 +711,11 @@ which corrects the attribution of a metric this file already quotes.**
   types buys nothing*, a citable answer to *"why not 3?"* / *"why not 20?"*. **It does NOT prove
   5 is optimal and must never be written that way** — FinGround never tested 5, its 6 types include
   finance-specific `regulatory` and split HalDetect's QUANTITATIVE subtypes into three top-level
-  types, and it is single-domain. **(b) `±0.5%` independently corroborated:** FinGround
+  types, and it is single-domain. **The paper's own wording settles this in the REGIME direction:**
+  the passage is **prose in Appendix A, p9** (not a table, and not p3), and it closes *"supporting
+  the 6-type as the preferred accuracy-complexity trade-off"* — a claim about **its own** six types,
+  never a global optimum. All five figures re-verified verbatim 2026-08-27. **(b) `±0.5%`
+  independently corroborated:** FinGround
   re-computes derived quantities *"with ±0.5% tolerance for rounding conventions"* — the **same
   constant** `quantitative_verifier.py` uses, chosen locally and previously defensible only by §3's
   sensitivity result. **Corroboration, not derivation:** the constant predates the reading, and the
@@ -736,6 +740,38 @@ already there; **`mutool` and `qpdf` are still absent.** Native page rendering, 
 layout are available; pypdf stays the zero-install text path. Verify by
 **set difference, never by count** — the folder's 42 files and the survey's 42 rows are *different*
 sets of 42 (R1b). `reference/papers_analysis_assessed_2026-08-27.md`
+
+**READING PROTOCOL — `pdftotext`'s two modes fail in OPPOSITE directions, and mode choice matters
+more than tool choice.** On a two-column paper the **default ("flow")** mode reconstructs reading
+order and is **correct for prose**, while **`-layout`** preserves physical position and therefore
+**braids the left and right columns together line by line** — it is correct for **tables** and
+actively dangerous on prose, because the splice is *fluent*: the garbled read
+`"attribution without / tilled detector retains 91.4% F1 at 18× lower / structure-aw"` is three
+columns spliced into one line, i.e. the exact shape of a misquotation. **Flow for prose, `-layout`
+for tables, never the reverse.** And **slice by page — never dump a whole paper**: `-f N -l N`
+genuinely slices (verified by distinct per-page content), a whole 14-page paper is ~10–15k tokens
+against 1.4–7.6k *characters* per page, so **token cost is a property of how a PDF tool is CALLED,
+not of which tool it is.** Locate tables in one pass with `re.findall(r'Table \d+[:.]', …)` per page.
+
+**Four PDF tools were evaluated 2026-08-27 on author request and ALL FOUR DECLINED — the capability
+was already installed.** `pymupdf4llm` needs `pymupdf_layout` → **7 packages incl. onnxruntime
+1.29.0 + protobuf 7.36.0** into the torch-2.12/transformers-5.9 `.venv`; `marker` and `Docling`
+buy multi-GB weights for **OCR on 42 born-digital files** that all yield clean `pdftotext` output;
+`pdf-mcp` **fails the author's own "token-friendly" criterion** — an MCP server's schemas are
+resident in *every* session whether a PDF is opened or not, the one cost that cannot be sliced,
+for a capability already free via Bash. **The zero-dependency core WAS installed, measured, and
+removed**: on FinGround p6 — where `-layout` renders the results table with columns aligned and
+`34.7±1.8` intact — `find_tables()` returns **0 tables** (`lines` and `lines_strict`) or **garbage**
+(`text`: a 63×6 grid for a 9-row table, `34.7±1.8` split across two cells). **Cause generalises to
+this corpus:** ACL/`booktabs` tables are **borderless**, so line strategies find nothing — and the
+vendor's own remedy is the declined onnxruntime dependency. Springer's hardest case (Nature p4
+Table 1, 5 columns, wrapped cells) also renders readably under `-layout`, so the gap the install
+was meant to close does not exist **for reading and quoting** (a project needing machine-readable
+*cells* might still want a layout model). Venv verified back to baseline. **PyMuPDF is AGPL-3.0** —
+fine offline, do not import it from a verifier that ships with the thesis; and a literal *global*
+pip install is refused by **PEP 668** (homebrew python), so `.venv` is the only correct target.
+**Reusable, and R1-shaped: measure the gap against the tool already installed before buying one.**
+`reference/pdf_toolchain_evaluated_2026-08-27.md`
 
 **And tier 1 has an admission condition, because 5 of those 42 files are NOT the paper their
 filename claims — found 2026-08-27, minutes after poppler arrived.** `ClaimDecomp_…` is an
