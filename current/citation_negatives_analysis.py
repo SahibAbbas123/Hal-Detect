@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
-"""What the 25 CITATION synthetic negatives attack, and what Wikidata can reach.
+"""What the 24 CITATION synthetic negatives attack, and what Wikidata can reach.
 
 Written 2026-08-25. Full analysis:
 `reference/citation_negatives_headroom_2026-08-25.md`.
 
+It was 25 until 2026-08-26, when `SYN_CITA_083` was dropped (task #23): a
+`source_swap` moving FAO -> WHO off `Q22_C01`, but WHO CO-PUBLISHED SOFI 2023, so
+the swap injected no falsity. It was an `org`-class row, so the composition moved
+6 -> 5 org-only and 11 -> 10 source_swap; `year` (12), `title` (5) and `content`
+(2) are untouched, and so is the "needs no NLI" count of 17. See CLAUDE.md §5.
+
 This exists because the obvious next experiment -- "run routed CITATION Level 1
-on its 25 gold negatives, the way Step 33 did for QUANTITATIVE" -- turned out not
+on its gold negatives, the way Step 33 did for QUANTITATIVE" -- turned out not
 to be worth the network calls, and establishing WHY is the result:
 
-    Not one of the 25 negatives perturbs source EXISTENCE, which is the only
-    question Level 1 asks. So L1 detects 0/25 no matter what its FALSE policy is.
+    Not one of the 24 negatives perturbs source EXISTENCE, which is the only
+    question Level 1 asks. So L1 detects 0/24 no matter what its FALSE policy is.
 
 Modes
 -----
-  --composition   offline, zero network, ~1s. Classifies all 25 negatives by what
+  --composition   offline, zero network, ~1s. Classifies all 24 negatives by what
                   they perturb and prints the detectability breakdown.
   --reachability  ~15 Wikidata calls. Resolves the works behind the reachable
                   classes and reports whether the evidence (P577 / P123) exists.
@@ -48,7 +54,8 @@ NEGATIVES = os.path.join(HERE, "synthetic_negatives.csv")
 # is what decides whether a structured lookup can see the perturbation at all, and
 # it is not recoverable from injection_type alone.
 #
-# Title-corrupting rows, identified by reading all 11 source_swap claims: the
+# Title-corrupting rows, identified by reading every source_swap claim (11 at
+# authoring, 10 after task #23 dropped `SYN_CITA_083`, which was org-only): the
 # swapped organisation name is embedded INSIDE the name of a specific work.
 TITLE_CORRUPTING = {
     "SYN_CITA_075",  # 'The WHO Sixth Assessment Report was published in 2023.'
@@ -220,7 +227,7 @@ def reachability() -> None:
     save_cache(cache)
     print("\n" + "=" * 78)
     print("See reference/citation_negatives_headroom_2026-08-25.md for the reading.")
-    print("Headline: 8 of 25 reachable today, and ALL 8 through one item")
+    print("Headline: 8 of 24 reachable today, and ALL 8 through one item")
     print("(Q103843442, the IPCC AR6) -- one work working, not CITATION working.")
 
 
@@ -235,7 +242,7 @@ def _selftest() -> None:
 
     print("citation_negatives_analysis --selftest")
     rows = load_citation_negatives()
-    check("25 CITATION negatives present", len(rows) == 25, f"got {len(rows)}")
+    check("24 CITATION negatives present", len(rows) == 24, f"got {len(rows)}")
 
     groups = composition(verbose=False)
     check("every row classified (no 'unknown')", "unknown" not in groups,
@@ -246,17 +253,20 @@ def _selftest() -> None:
           f"got {len(groups.get('year', []))}")
     check("5 title-corrupting", len(groups.get("title", [])) == 5,
           f"got {len(groups.get('title', []))}")
-    check("6 org-only", len(groups.get("org", [])) == 6,
+    check("5 org-only", len(groups.get("org", [])) == 5,
           f"got {len(groups.get('org', []))}")
     check("2 content swap", len(groups.get("content", [])) == 2,
           f"got {len(groups.get('content', []))}")
-    check("17 of 25 need no NLI",
+    # 17 is unchanged by task #23 -- the dropped row was org-only, and neither
+    # `year` nor `title` lost a member. The denominator moved, the numerator did
+    # not, which is the whole shape of that drop.
+    check("17 of 24 need no NLI",
           len(groups.get("year", [])) + len(groups.get("title", [])) == 17)
 
     # The central claim of the whole analysis: every negative is gold FALSE, and
     # every one names a real source. The second half is not machine-checkable, but
     # the first half is, and if it broke the analysis would be void.
-    check("all 25 are gold FALSE",
+    check("all 24 are gold FALSE",
           all((r.get("gold_verdict") or "").strip().upper() == "FALSE" for r in rows))
     check("TITLE_CORRUPTING ids are all source_swap",
           all(r["injection_type"] == "source_swap"

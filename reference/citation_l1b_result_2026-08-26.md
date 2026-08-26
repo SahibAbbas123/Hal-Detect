@@ -1,5 +1,15 @@
 # CITATION Level 1b — measured, 2026-08-26
 
+> **SUPERSEDED IN PART, same day.** Written before task #23 dropped `SYN_CITA_083` from the
+> negatives (WHO co-published SOFI 2023, so the FAO→WHO `source_swap` injected no falsity), and
+> before the `Q22_C01` flip left the gold-TRUE pool. **Denominators only — every numerator below
+> stands.** Current: TPR **9/24 = 37.5%** [21.2, 57.3] (J **+0.375**), `source_swap` **4/10**,
+> baseline CITATION **5/23 = 21.7%** [9.7, 41.9] (J **+0.134**), FPR **0/24** on 24 gold-TRUE
+> natural claims. **Unchanged and load-bearing:** FPR 0, **0 confident errors**, `year_shift`
+> 5/12, the 8-of-9 Q103843442 concentration, the overlapping CIs, and **4** gold-FALSE natural
+> CITATION claims (was 3 — the flip added one, and L1b abstained on it, so true positives on the
+> natural set stayed 0). Authority: `reference/syn_cita_083_drop_2026-08-26.md` and `CLAUDE.md` §3.
+
 `current/citation_l1b_verifier.py` (~600 lines, `--selftest` ALL PASS, `--diagnose`
 writes `current/citation_l1b_results.csv`, 54 rows). Built on the two preconditions
 shipped first: `series_resolver.py` (#17b) and `source_consistency.py`.

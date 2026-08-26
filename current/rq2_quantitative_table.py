@@ -29,9 +29,11 @@ THREE POPULATIONS, WHICH ARE NOT INTERCHANGEABLE
                                perturbed claim and its original share a key
                                whenever the changed number sits past character 60.
                                Confirmed by bit-identical entail/contradict
-                               floats, with 0 of 69 non-colliding rows matching as
-                               a control. Those 9 rows are not evidence about the
-                               baseline.
+                               floats, with 0 of 68 non-colliding rows matching as
+                               a control (69 until 2026-08-26, when SYN_CITA_083
+                               was dropped -- task #23; it was a CITATION row, so
+                               nothing in this QUANTITATIVE table moves). Those 9
+                               rows are not evidence about the baseline.
   [3] 29 positives + 24     -- both classes present. This is the only population
       negatives                that can support an F1(FALSE) or an MCC.
 

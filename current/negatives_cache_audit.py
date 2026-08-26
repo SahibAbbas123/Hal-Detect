@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
-"""Cache-collision audit for the 85 synthetic negatives -- COMPUTED, not hardcoded.
+"""Cache-collision audit for the 84 synthetic negatives -- COMPUTED, not hardcoded.
 
     .venv/bin/python current/negatives_cache_audit.py            # full report
     .venv/bin/python current/negatives_cache_audit.py --selftest  # evidence checks
 
 Offline, zero model calls, ~1 s.
+
+It was 85 negatives until 2026-08-26, when `SYN_CITA_083` was dropped (task #23):
+it was a `source_swap` moving the attribution FAO -> WHO off `Q22_C01` with the
+assertion unchanged, but WHO is a CO-PUBLISHER of SOFI 2023 (joint
+FAO/IFAD/UNICEF/WFP/WHO), so the perturbation left the claim exactly as true or
+false as it already was -- it injected no falsity, which is the one thing a
+negative exists to do. Strict tier 69 -> 68, CITATION 24 -> 23. No measured
+detection was invalidated: the baseline said TRUE @0.733 (off irrelevant
+retrieval) and CITATION L1b returned UNVERIFIABLE, so both systems missed it.
+See CLAUDE.md section 5.
 
 WHY THIS FILE EXISTS
 --------------------
@@ -75,6 +85,24 @@ NEG_RESULTS = "current/nonrouted_negatives_results.csv"
 NAT_RESULTS = "current/nonrouted_baseline_results.csv"
 NEG_SOURCE = "current/synthetic_negatives.csv"
 
+# Rows physically removed from NEG_SOURCE. Recorded here so the removal is an
+# asserted decision rather than a silent filter -- an orphan in NEG_RESULTS that
+# is NOT listed here aborts the run, because that is a data bug and looks
+# identical to a deliberate drop once the counts have already been printed.
+DROPPED = {
+    "SYN_CITA_083":
+        "task #23, 2026-08-26: a source_swap moving FAO -> WHO off Q22_C01 with "
+        "the assertion unchanged. But WHO CO-PUBLISHED SOFI 2023 (joint "
+        "FAO/IFAD/UNICEF/WFP/WHO), so moving the attribution from one "
+        "co-publisher to another left the claim exactly as true or false as it "
+        "already was -- the perturbation injected no falsity, which is the one "
+        "thing a negative exists to do. Its scored row is deliberately still in "
+        "NEG_RESULTS: the baseline said TRUE @0.733 off irrelevant retrieval and "
+        "CITATION L1b returned UNVERIFIABLE, so no measured detection is lost. "
+        "Only denominators move, and each moves <2pp in its own system's favour "
+        "-- a caution, not a benefit. See CLAUDE.md section 5.",
+}
+
 # phase3d's thresholds, for reporting which half decided a verdict.
 SHIPPED = (0.50, 0.40)
 TUNED = (0.35, 0.30)
@@ -103,9 +131,27 @@ class Audit:
     """The three collision classes, computed from the artifacts."""
 
     def __init__(self) -> None:
-        self.neg = _load(NEG_RESULTS)
         self.nat = {r["claim_id"]: r for r in _load(NAT_RESULTS)}
         self.src = {r["claim_id"]: r for r in _load(NEG_SOURCE)}
+
+        # NEG_SOURCE is the single authority on population membership, so a row
+        # dropped there is dropped everywhere and every count below corrects
+        # itself. The join filters rather than the results file being edited,
+        # for two reasons: R19 (a quoted result CSV is never rewritten), and the
+        # dropped row's scored verdict is the evidence that dropping it costs no
+        # measured detection -- deleting it would destroy that audit trail.
+        scored = _load(NEG_RESULTS)
+        orphans = {r["claim_id"] for r in scored} - set(self.src)
+        if orphans != set(DROPPED):
+            raise SystemExit(
+                "NEG_RESULTS / NEG_SOURCE membership mismatch.\n"
+                f"  recorded drops: {sorted(DROPPED)}\n"
+                f"  actual orphans: {sorted(orphans)}\n"
+                "An orphan that is not a recorded drop is a data bug, and once "
+                "the counts are printed it looks identical to a deliberate one. "
+                "Fix the files, or record the drop in DROPPED with its reason -- "
+                "never widen this check to make the run pass.")
+        self.neg = [r for r in scored if r["claim_id"] in self.src]
 
         self.fabricated: dict[str, str] = {}   # claim_id -> base claim_id
         self.partial: dict[str, str] = {}      # claim_id -> base claim_id
@@ -299,7 +345,7 @@ def report(a: Audit) -> None:
 def _paired(a: Audit) -> None:
     """Detection rate is meaningless on an all-FALSE set unless paired with FPR.
 
-    Every one of the 85 negatives is gold FALSE, so an unconditional "FALSE"
+    Every one of the 84 negatives is gold FALSE, so an unconditional "FALSE"
     detects 100% of them. A 53.6% detection rate therefore says nothing on its
     own -- it is WORSE than the degenerate strategy, exactly as 87.9% accuracy
     on the natural 356 is worse than an unconditional "TRUE". Same trap, mirrored.
@@ -425,7 +471,17 @@ def selftest(a: Audit) -> int:
             fails += 1
 
     print("selftest")
-    check("negatives load", len(a.neg) == 85, f"n={len(a.neg)}")
+    check("negatives load", len(a.neg) == 84, f"n={len(a.neg)}")
+    # The drop mechanism, asserted in both directions: out of the counted
+    # population, still on disk as evidence. One without the other is a bug --
+    # filtered-but-deleted loses the audit trail, present-but-counted is the
+    # wrong denominator this task exists to fix.
+    _raw_ids = {r["claim_id"] for r in _load(NEG_RESULTS)}
+    check("dropped rows are out of the counted population",
+          not (set(DROPPED) & {r["claim_id"] for r in a.neg}),
+          f"dropped={sorted(DROPPED)}")
+    check("dropped rows survive in NEG_RESULTS as evidence",
+          set(DROPPED) <= _raw_ids, f"raw n={len(_raw_ids)}")
     check("all negatives are gold FALSE",
           all(r["gold_verdict"] == "FALSE" for r in a.neg))
     check("every negative has a locatable base row",

@@ -2,7 +2,7 @@
 
 Level 1 asks *"does the cited source exist?"*.  Level 2 (unbuilt, needs NLI) asks
 *"does it actually say this?"*.  The 2026-08-25 composition analysis exposed a
-**third** question that neither asks and that 17 of 25 CITATION negatives turn on:
+**third** question that neither asks and that 17 of 24 CITATION negatives turn on:
 
     are the cited work's OWN Wikidata properties consistent with how the claim
     describes it?
@@ -16,14 +16,23 @@ Two routes, neither of which needs NLI:
 ------------------------------------------------------------------------------
 WHY THIS MODULE IS ALL GATE AND ALMOST NO DETECTOR
 ------------------------------------------------------------------------------
-Measured, not assumed, on the 29 natural CITATION claims: **all 3 gold-FALSE ones
+Measured, not assumed, on the 29 natural CITATION claims: **all 4 gold-FALSE ones
 are CONTENT falsities** -- Q12_C11 (wrong largest-reduction factor), B3_05_C02 (the
 ten criteria did not come from the 1972 Convention, though 1972 is the right year),
-B3_12_C07 (wrong percentage).  Not one is a wrong date or a wrong publisher.
+Q22_C01 (SOFI 2023 reports the prevalence UNCHANGED for a second year; the claim
+says it increased during 2022) and B3_12_C07 (wrong percentage).  Not one is a
+wrong date or a wrong publisher.
+
+It was 3 until 2026-08-26, when `Q22_C01` was flipped TRUE -> FALSE on author
+authorisation (CLAUDE.md §4).  **The flip was a live test of this section's
+argument and the argument held**: the count went 3 -> 4, Level 1b returned
+UNVERIFIABLE on the new one (gated NONE -- a bare 'FAO' reference carries 0
+content words), and true positives on the natural set stayed **0**.  Q22_C01 and
+B3_12_C07 both gate NONE; Q12_C11 and B3_05_C02 both gate DATE.
 
 So on the natural set **Level 1b's maximum achievable true-positive count is zero.**
 Its entire measurable value sits on the synthetic negatives, and its entire risk --
-every single thing that can go wrong -- is a false alarm on one of the 25 gold-TRUE
+every single thing that can go wrong -- is a false alarm on one of the 24 gold-TRUE
 natural claims.  That asymmetry is the whole design brief:
 
   * unlike `source_consistency.check_source`, which only ever REMOVES a verdict and
@@ -715,7 +724,7 @@ def _diagnose() -> None:
     fa = [r for r in nat_r if r["verdict"] == "FALSE"
           and r["gold_verdict"] == "TRUE"]
     tp = [r for r in neg_r if r["verdict"] == "FALSE"]
-    print(f"  detections on the 25 negatives : {len(tp)}/{len(neg_r)}")
+    print(f"  detections on the negatives     : {len(tp)}/{len(neg_r)}")
     print(f"  FALSE ALARMS on gold-TRUE natural: {len(fa)}/"
           f"{sum(1 for r in nat_r if r['gold_verdict'] == 'TRUE')}")
     by_inj = collections.Counter(r["injection_type"] for r in tp)

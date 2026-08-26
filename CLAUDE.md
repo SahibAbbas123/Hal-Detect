@@ -33,6 +33,27 @@ against the separator width finds it in one pass** — mind `\|` inside cells, w
 split report two false positives in §6. `mtime` is **uninformative in this worktree** — every file
 under `current/` shares the copy time.
 
+**R1a (2026-08-26, task #23). A number's denominator comes from whatever file its LOADER opens,
+not from the file whose name describes the population — read the loader before editing data.**
+`SYN_CITA_083` was physically removed from `synthetic_negatives.csv`, the obvious authority, and
+**every published denominator stayed at 85**, because `negatives_cache_audit.py` builds its
+population from `nonrouted_negatives_results.csv` and opens the source only to look up
+`base_claim_id`. The row removal corrected nothing and instead created an **orphan**, which
+`if not base: continue` swallowed in silence — a data edit that looked applied, changed no output,
+and degraded a lookup. **Two consequences that are now rules:** a deletion must be verified by a
+number moving, not by the row being gone; and when a fix depends on a silent skip, **make the skip
+loud** (a named constant plus an abort on any unrecorded case), because once counts are printed a
+silent filter and a genuine bug look identical.
+
+**R1b. Two different sets can print the same count, and then the coincidence hides the error.**
+Two docstrings said "0 of 69 non-colliding rows". Non-colliding is 85 − 16 = **69** pre-drop, but
+the audit's `control_n` is a **different set** — rows with a locatable base that are not
+same-key-and-entail-matched — which also printed 69. Post-drop they separate: **68** vs **69**.
+Both numerators are 0, so the control holds either way and nothing measured was wrong; the hazard
+is that a reader reconciling the two would "fix" the one that was already right. **State which set
+a denominator counts, not just its size.** Related: §5's wrong-denominator reconstruction used to
+give CITATION **23** as a *symptom*, and 23 is now the *correct* post-drop value.
+
 **R2. Never write a bare 100%.** Always a Wilson CI. `5/5` is `[56.6%, 100%]`, barely better
 than a coin flip; `8/8` is `[67.6%, 100%]`. A bare 100% has never survived an audit here.
 
@@ -193,12 +214,19 @@ four are arithmetically untouched because the claim is CITATION-typed.
 
 **Of 81 FALSE predictions, 8 are correct — precision 0.099.** This is a **base-rate artifact,
 not a discrimination failure**: at π = 14/356 = 0.0393 the measured TPR/FPR reproduces precision
-**0.0930 against the observed 0.0988**. At this π a detector needs a TPR/FPR ratio of **24.4:1**
-for 50% precision; the measured ratio is 2.5:1. **J = +0.322, which is not zero** — at a balanced
-prior the same detector shows precision 0.715. Never quote the 0.099 without the base rate and J.
+**0.0942 against the observed 0.0988**. At this π a detector needs a TPR/FPR ratio of **24.4:1**
+for 50% precision; the measured ratio is 2.5:1. **J = +0.330, which is not zero** — at a balanced
+prior the same detector shows precision 0.718. Never quote the 0.099 without the base rate and J.
 **The flip made this argument stronger, not weaker:** predicted-vs-observed narrowed from a
 0.0118 gap to **0.0058**, because the extra gold negative is one the baseline missed — exactly
 what a base-rate account predicts. The observed 8/81 is unchanged.
+
+**Task #23 (dropping `SYN_CITA_083`, §5) narrowed the gap again, 0.0058 → 0.0045, and this one
+must NOT be quoted as corroboration.** The tightening is **mechanical**: the dropped row is one
+the baseline scored TRUE, so removing it lifts measured TPR (0.536 → 0.544) with no new correct
+prediction anywhere — the numerator never moved. Same arithmetic, one fewer miss in the
+denominator. The base-rate argument rests on the **flip's** independent confirmation and on
+J = +0.330; #23 is a denominator correction that happens to point the same way.
 
 **Coverage 90.2% is at the ceiling** — NLI scored 322/356 (90.4%); the other 34 abstained
 pre-NLI. Lifting it is **retrieval**, not thresholds.
@@ -217,11 +245,11 @@ difference is discrimination. Rows use the **`type`** column.
 
 | type | TPR on negatives | FPR on gold-TRUE | **J = TPR − FPR** |
 |---|---|---|---|
-| **CITATION** | 5/24 20.8% | 2/24 8.3% | **+0.125** ← weakest, and prior-independent |
+| **CITATION** | 5/23 21.7% | 2/24 8.3% | **+0.134** ← weakest, and prior-independent |
 | ENTITY_ATTRIBUTE | 5/5 100% | 5/42 11.9% | +0.881 (n=5, **do not quote**) |
 | QUANTITATIVE | 8/14 57.1% | 9/41 22.0% | +0.352 |
 | TEMPORAL | 19/26 73.1% | 19/62 30.6% | +0.424 |
-| **ALL** | **37/69 53.6%** | **67/313 21.4%** | **+0.322** |
+| **ALL** | **37/68 54.4%** | **67/313 21.4%** | **+0.330** |
 
 **Post-flip.** Only the CITATION and ALL rows moved, and only their **denominators** — the flipped
 claim left the gold-TRUE pool, so CITATION FPR went 2/25 → 2/24 (J +0.128 → +0.125) and ALL went
@@ -229,6 +257,13 @@ claim left the gold-TRUE pool, so CITATION FPR went 2/25 → 2/24 (J +0.128 → 
 synthetic negative. It is also **never predicted FALSE at any of the 255 threshold-grid points**
 (its contradict score is 0.1798, below the grid's minimum ct of 0.30), so **the whole
 threshold-sweep precision surface is unchanged** — verified, not assumed.
+
+**Post-#23** (dropping `SYN_CITA_083`, §5), also denominators only, and this time on the **TPR**
+side: CITATION 5/24 → **5/23** (J +0.125 → +0.134) and ALL 37/69 → **37/68** (+0.322 → **+0.330**).
+**No FPR changed** — the dropped row is a synthetic negative, not a natural gold-TRUE claim, the
+exact mirror of the flip. **Every numerator in the table is untouched**, so both moves are a
+**caution, not a win**: the baseline scored the dropped row TRUE, i.e. it lost a miss, not gained a
+detection. Both figures re-derived by running the script, not edited by hand.
 
 **Bounding caveat:** the negatives are synthetic perturbations (a swapped number or date),
 plausibly easier to refute than a naturally-hallucinated causal claim. **Every TPR here is an
@@ -249,14 +284,14 @@ Reproduce offline with `current/rq2_quantitative_table.py`.
 **CITATION Level 1b (2026-08-26).** Beats the baseline on the baseline's own weakest type, **with
 no NLI at all**.
 
-| | TPR on the 25 negatives | FPR on the 24 gold-TRUE natural | **J** |
+| | TPR on the 24 negatives | FPR on the 24 gold-TRUE natural | **J** |
 |---|---|---|---|
-| **Level 1b** | **9/25 = 36.0%** [20.2, 55.5] | **0/24** [0.0, 13.8] | **+0.360** |
-| baseline, CITATION | 5/24 = 20.8% [9.2, 40.5] | 2/24 = 8.3% [2.3, 25.8] | +0.125 |
+| **Level 1b** | **9/24 = 37.5%** [21.2, 57.3] | **0/24** [0.0, 13.8] | **+0.375** |
+| baseline, CITATION | 5/23 = 21.7% [9.7, 41.9] | 2/24 = 8.3% [2.3, 25.8] | +0.134 |
 
-By route: `year_shift` **5/12** via `P577`, `source_swap` **4/11** via a `P123` conflict. Three
+By route: `year_shift` **5/12** via `P577`, `source_swap` **4/10** via a `P123` conflict. Three
 mandatory caveats: **8 of 9 detections come from Q103843442 alone** (R11); **the TPR CIs overlap
-heavily** — n = 25 cannot separate 36% from 21%, so the clean prior-independent part is **FPR
+heavily** — n = 24 cannot separate 37.5% from 21.7%, so the clean prior-independent part is **FPR
 0/24 vs 2/24** and the **0 confident errors**, not the TPR gap; and **8/12 is a ceiling measured
 from hand-curated subject strings — end-to-end extraction gives 5/12**, always report both. The
 gap is entirely Lancet and is **candidate generation, not ranking** (`'Lancet Commission'`
@@ -266,6 +301,14 @@ falsities no property check reaches: `Q12_C11` and `B3_05_C02` (gated `DATE`), `
 `B3_12_C07` (gated `NONE` — both bare `'FAO'` references, 0 content words). **The `Q22_C01` flip
 was a live test of this argument and it held:** the count went 3 → 4, L1b returned UNVERIFIABLE
 on the new one, and true positives on the natural set stayed **0**. `reference/citation_l1b_result_2026-08-26.md`
+
+**Post-#23** (§5): denominators only, on both rows, and **both moved <2pp in their own system's
+favour** — L1b 9/25 → 9/24 (36.0% → 37.5%, J +0.360 → +0.375), baseline 5/24 → 5/23 (20.8% →
+21.7%, +0.125 → +0.134). **Nothing that carries the argument moved:** FPR **0/24** and **0
+confident errors** both unchanged (L1b returned UNVERIFIABLE on the dropped row, so it earned no
+detection to lose), the 8-of-9 Q103843442 concentration intact, `year_shift` **5/12** intact, and
+the CIs still overlap heavily — so the caveat above stands verbatim at the new numbers. Recounted
+offline from `current/citation_l1b_results.csv`, zero Wikidata calls.
 
 ### The RQ2 verdict, which must not be softened
 
@@ -324,37 +367,54 @@ Both sum to 356. **"The pooled 184" is wrong for any routed experiment — RELAT
 174.** The +12 is the router over-firing, reproducing the Batch-1 confusion matrix exactly, so
 part of TEMPORAL's 0% coverage is **misrouting**, not a property-mapping gap.
 
-**Synthetic negatives — `current/synthetic_negatives.csv`, 85 rows across FOUR types:**
-`SYN_CITA` 25 · `SYN_TEMP` 31 · `SYN_QUAN` 24 · `SYN_ENTI` 5. **There are no RELATIONAL
+**Synthetic negatives — `current/synthetic_negatives.csv`, 84 rows across FOUR types:**
+`SYN_CITA` 24 · `SYN_TEMP` 31 · `SYN_QUAN` 24 · `SYN_ENTI` 5. **There are no RELATIONAL
 synthetic negatives** — the B3N 27 above is a separate artifact inside the pooled 356. Strict
-tier = **69** (85 minus the 16 rows affected by the `nli__` cache-key collision): CITATION 24,
+tier = **68** (84 minus the 16 rows affected by the `nli__` cache-key collision): CITATION 23,
 TEMPORAL 26, QUANTITATIVE 14, EA 5. **Re-derived 2026-08-26 by running
-`current/negatives_cache_audit.py` — reproduces exactly.** The tier is defined per row against
-**its own base claim**, not against all natural claims; a reconstruction using the wrong
-denominator gives CITATION 23 / QUANTITATIVE 15, which also sums to 69 and looks like a
-discrepancy. **Run the script, don't reconstruct it.** **EA at n = 5 is the genuinely thin set,
-and the reason is concrete:** `current/negatives_needing_manual_authoring.csv` holds 14 rows,
-**12 of them EA**.
+`current/negatives_cache_audit.py` — reproduces exactly.** (It was 85 rows / `SYN_CITA` 25 /
+strict tier 69 / CITATION 24 until 2026-08-26, when `SYN_CITA_083` was dropped — task #23, below.)
+The tier is defined per row against **its own base claim**, not against all natural claims.
+**Run the script, don't reconstruct it** — and note the trap this drop created: the wrong-denominator
+reconstruction used to give **CITATION 23** / QUANTITATIVE 15, also summing to 69, and **CITATION 23
+is now the CORRECT post-drop value**. The number that was the *symptom* of the bug is now the
+*right answer*, so "23" no longer diagnoses anything in either direction. **EA at n = 5 is the
+genuinely thin set, and the reason is concrete:**
+`current/negatives_needing_manual_authoring.csv` holds 14 rows, **12 of them EA**.
 
-**`SYN_CITA_083` is an INVALID NEGATIVE — recommend dropping it (2026-08-26).** It is a
-`source_swap` FAO→WHO off `Q22_C01` with the assertion unchanged, gold FALSE. But **WHO is a
-co-publisher of SOFI 2023** (joint FAO/IFAD/UNICEF/WFP/WHO), so moving the attribution from one
-co-publisher to another **leaves the claim exactly as true or false as it already was** — the
-perturbation injects no falsity, which is what a negative is *for*.
+**`SYN_CITA_083` was an INVALID NEGATIVE and is DROPPED — applied 2026-08-26, task #23. CLOSED.**
+It was a `source_swap` FAO→WHO off `Q22_C01` with the assertion unchanged, gold FALSE. But **WHO is
+a co-publisher of SOFI 2023** (joint FAO/IFAD/UNICEF/WFP/WHO), so moving the attribution from one
+co-publisher to another **left the claim exactly as true or false as it already was** — the
+perturbation injected no falsity, which is what a negative is *for*.
 
 **The `Q22_C01` flip changed why it is invalid, and the distinction matters.** Before the flip the
-base was TRUE and the swap was void, so gold FALSE was simply **wrong**. Now the base is FALSE, so
-the row **is** FALSE — but by **inheritance from its base, not by injection**. So its gold label is
-now accidentally right while the row remains **useless for measuring `source_swap` detection**,
-which is the only thing it was created to measure. **Do not let "the label is correct now" become
-an argument for keeping it** (R10: a detection off an inherited falsity is not evidence the swap
-was caught). Dropping it: strict tier **69 → 68**, CITATION
-**24 → 23**. **No measured detection is invalidated** — the baseline said TRUE @0.733 (off
-irrelevant retrieval about the Brookings Institution and US figures) and L1b returned
-UNVERIFIABLE (gated on `'WHO'` being a bare organisation), so both missed it. Denominators only,
-and both TPRs move **<2pp in each system's own favour** — a caution, not a benefit: baseline
-CITATION 5/24 → 5/23, ALL 37/69 → 37/68, L1b 9/25 → 9/24. It **is** inside the strict tier (the
-one CITATION row dropped at strict is `SYN_CITA_001`).
+base was TRUE and the swap was void, so gold FALSE was simply **wrong**. After it the base is FALSE,
+so the row **is** FALSE — but by **inheritance from its base, not by injection**. So its gold label
+became accidentally right while the row remained **useless for measuring `source_swap` detection**,
+which is the only thing it was created to measure. **Never let "the label is correct now" become an
+argument for restoring it** (R10: a detection off an inherited falsity is not evidence the swap was
+caught). Measured after the drop, not predicted: strict tier **69 → 68**, CITATION **24 → 23**.
+**No measured detection was invalidated** — the baseline said TRUE @0.733 (off irrelevant retrieval
+about the Brookings Institution and US figures) and L1b returned UNVERIFIABLE (gated on `'WHO'`
+being a bare organisation), so both missed it. Denominators only, and every changed TPR moved
+**<2pp in its own system's favour** — a caution, not a benefit: baseline CITATION 5/24 → **5/23**,
+ALL 37/69 → **37/68**, L1b 9/25 → **9/24**; **no numerator anywhere moved.** It **was** inside the
+strict tier (the one CITATION row dropped at strict is `SYN_CITA_001`).
+
+**How the drop is implemented, because the obvious way does not work.** `synthetic_negatives.csv`
+is the **single authority on population membership**; the row is physically gone from it. But
+`negatives_cache_audit.py` derives every published denominator from
+**`nonrouted_negatives_results.csv`**, a *results* file, and joins the source only to look up
+`base_claim_id` — so **removing the row from the source alone corrected nothing** and merely
+orphaned a lookup that `if not base: continue` swallowed silently (R1, and one of the two catches
+in §1's roster). The audit now **filters its results join through the source**, which respects R19
+(a quoted result CSV is never rewritten) and **keeps the dropped row's scored verdict on disk as
+the evidence that dropping it costs no detection**. Because a silent filter is itself the bug being
+fixed, the filter is guarded by a named `DROPPED` constant carrying the reason, and an unrecorded
+orphan **aborts the run** rather than being quietly excluded. Two selftest checks assert the
+mechanism in both directions — out of the counted population, still present in the results file.
+**Never widen that check to make a run pass; record the drop in `DROPPED` instead.**
 
 **`gold_type` is not a label in Phase 2 or Batch 3 — never score routing on them.** Both show
 100% agreement with the classifier's own `type` column (109/109, 122/122) because it was seeded
@@ -418,7 +478,7 @@ unchanged** — its contradict score is 0.1798, below the grid's minimum ct of 0
 predicted FALSE at any grid point; only the negative *count* moved 13 → 14. **State this as a
 claim about the ROC's *shape* — the best available TPR/FPR ratio is ~6.6:1 where ~24:1 is needed
 for coin-flip precision — never as "BART-MNLI cannot separate refutes from does-not-mention,"
-which was retracted 2026-08-25 as too strong** (measured J = +0.322).
+which was retracted 2026-08-25 as too strong** (measured J = +0.330).
 
 **Router over-firing is a TAXONOMY GAP, not a prompt bug.** §4 of the taxonomy enumerates five
 type-pair conflicts; with 5 types there are 10 pairs, and "CITATION vs any" covers 4, so §4
@@ -460,9 +520,9 @@ exists yet.
 | **#19** | Re-run the TEMPORAL/EA logic over the 34 claims | **Now a LOCAL job** — cells 69/75 call only Wikidata (API + SPARQL), no BART, no Gemini, so the logic extracts to a standalone `.py` in `.venv` and the notebook stays untouched. **Needs author go-ahead** (API-calling). Outputs `_phase3`/`_phase5`; **never overwrite phase2/phase4** (R19). Coverage far above the recorded precedents — `property_resolver.py`'s 6/34 = 17.6% and QUANTITATIVE's ~24% predicted band — is a **warning**, not a win (R8). |
 | **#20** | `property_resolver.py` Bug B + no prominence | Must be fixed before any integration, with another prefix bump. |
 | **#21** | `P31` instance-of type-check | Closes the resolution circularity above. Build as a sibling of `source_consistency.py`, not an edit to a validated verifier. **Now has a citable precedent: `P31`/`P279` fine-grained typing is exactly how ReFinED (Ayoola et al. 2022) scores its own candidates**, so this is the mechanism a SOTA entity linker relies on, not a local heuristic. `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` §3 |
-| **#23** | Drop `SYN_CITA_083` from the negatives | WHO co-published SOFI 2023, so the FAO→WHO `source_swap` injects no falsity (§5). Offline, no model calls; strict tier 69 → 68. **Still the right call after the `Q22_C01` flip, but for a changed reason** — the row is now gold-FALSE *by inheritance from its base*, so the label is accidentally right while the row still cannot measure `source_swap` detection. Read §5 before acting; do not let "the label is correct now" argue for keeping it. |
+| **#23** | ~~Drop `SYN_CITA_083`~~ | **DONE 2026-08-26 — record in §5, which is the authority.** Row physically removed from `synthetic_negatives.csv` (85 → 84), audit join filtered through it, five docstring-count sites corrected. All four selftests re-run ALL PASS and `rq2_quantitative_table.py` reproduces 14/14 / MCC +0.378 / 4–0 unchanged. |
 | **#22** | McNemar's test for RQ2 | Offline, zero model calls. On the existing 4–0 discordant table the exact test gives **p = 0.125** — *not* significant — so this will likely make a quoted claim weaker. Do it anyway. Use the **exact binomial**, report `(b, c)` beside `p`, run per population (R6). |
-| **#16** | `nli__` cache key `claim[:60]` truncation collides perturbed claims with their originals | Affects 16 of 85 negatives (18.8%) in three classes. Needs Colab. |
+| **#16** | `nli__` cache key `claim[:60]` truncation collides perturbed claims with their originals | Affects 16 of 84 negatives (19.0%) in three classes. Needs Colab. |
 | **#2** | LLM baseline (`current/llm_baseline.py`, gemma4:31b-cloud) on the 356 | **Secondary** baseline answering a different question. **Do not confuse it with the non-routed baseline** — the committed comparison is routed-vs-non-routed with identical evidence and identical NLI. |
 | **#3/#4** | TEMPORAL/EA hybrid fall-through; consolidate the 4 sets | In progress. |
 
@@ -476,9 +536,10 @@ lever, highest regression risk, must be precision-gated from the start).
 either enters the bibliography (author lists and venues in such summaries are usually right;
 page ranges and arXiv IDs are what they get subtly wrong); edit Rule 8 and §3.2 of the taxonomy
 document and re-label the 8 corpus rows (documentation edits, 0 measured numbers affected);
-propagate this file to main (§4, A3); say yes/no on **#23** (drop `SYN_CITA_083`), the only
-negatives-file edit still waiting. **The `Q22_C01` flip is no longer on this list — it was
-authorised and applied 2026-08-26 (§4).**
+propagate this file to main (§4, A3). **Neither the `Q22_C01` flip nor #23 is on this list any
+more** — the flip was authorised and applied 2026-08-26 (§4), and #23 was applied the same day
+under the standing "proceed in the most recommended/logical way" authority (§5). **There is now no
+pending edit to any claim or negatives file.**
 
 **Literature now grounded, no code implied.** `MIN_MARGIN = 0.15` and the UNVERIFIABLE class are
 an instance of **calibrated abstention**: R-Tuning (NAACL 2024, Outstanding Paper) and ConfQA /
@@ -521,6 +582,13 @@ look like a truncated one.
   `external_catalog_assessment_2026-08-26.md` **read before acting on any external roadmap** —
   it shows two externally-supplied catalogs built on the pre-correction CLAUDE.md and ranking
   their recommendations against numbers that had already been corrected.
+  **Four dated docs now carry a top-of-file `SUPERSEDED IN PART` blockquote** naming what the
+  `Q22_C01` flip and task #23 moved in them (`negatives_cache_audit_2026-08-25.md`,
+  `citation_l1b_result_2026-08-26.md`, `citation_negatives_headroom_2026-08-25.md`,
+  `rq2_quantitative_negatives_2026-08-25.md` — the last one to say **nothing moved**, verified by
+  re-running). **The bodies were deliberately not rewritten**: a dated doc is the record of what
+  was measured on its date, so corrections go in the pointer and in this file, never by editing the
+  snapshot. `syn_cita_083_drop_2026-08-26.md` is the authority on the #23 drop.
 - `old-chats-handoffs/` — **five exported session handoffs; read before planning experiments.**
   The only record of pre-notebook decisions: the RQ numbering, the 3d-vs-3e reporting decision,
   the RELATIONAL A–E sub-typing, the page-relevance-gate negative result, the cache-prefix

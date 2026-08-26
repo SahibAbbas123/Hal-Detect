@@ -1,5 +1,15 @@
 # The negatives cache audit, and a correction to the project's RQ2 motivation
 
+> **SUPERSEDED IN PART, 2026-08-26.** Every **denominator** below that involves the CITATION
+> negatives or the ALL row is pre-drop. `SYN_CITA_083` was removed from the negatives set (task
+> #23 — WHO co-published SOFI 2023, so the FAO→WHO `source_swap` injected no falsity), and the
+> gold-TRUE pool lost `Q22_C01` to the authorised flip. **No numerator here changed and no
+> measured detection was invalidated**; this document is kept as the record of what was measured
+> on 2026-08-25. Current figures: strict CITATION **5/23 21.7%** (J **+0.134**), strict ALL
+> **37/68 54.4%** (J **+0.330**), collisions **16 of 84 = 19.0%**, base-rate gap **0.0045**,
+> balanced-prior precision **0.718**. Authority: `reference/syn_cita_083_drop_2026-08-26.md` and
+> `CLAUDE.md` §3/§5. Re-run the script rather than reading the tables below.
+
 **Date:** 2026-08-25
 **Reproduce:** `.venv/bin/python current/negatives_cache_audit.py` (offline, zero
 model calls, ~1 s) · `--selftest` enforces the evidence standard.

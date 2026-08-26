@@ -18,10 +18,19 @@ perturbation injected, and nothing else.
 
 THE TWO POPULATIONS, WHICH ARE NOT THE SAME
 -------------------------------------------
-12 of the 85 negatives were proven (2026-08-25) to have read their *base claim's*
+12 of the 84 negatives were proven (2026-08-25) to have read their *base claim's*
 cached NLI scores, via the `claim[:60]` cache-key collision in phase3d --
-bit-identical entail/contradict floats, with 0 of 69 non-colliding rows matching
+bit-identical entail/contradict floats, with 0 of 68 non-colliding rows matching
 as a control. Those rows are not evidence about the baseline.
+
+(84 and 68 were 85 and 69 until 2026-08-26, when `SYN_CITA_083` was dropped --
+task #23, CLAUDE.md §5. It was not one of the 12, so the numerator is untouched.
+Do not confuse the 68 non-colliding rows with `negatives_cache_audit`'s
+`control_n`, which is a DIFFERENT set that happens to print 69: it counts rows
+with a locatable base that are not same-key-and-entail-matched. Both are 0 in the
+numerator, which is why the control holds either way -- but they are not the same
+denominator, and the audit script is the authority on both. Run it; do not
+reconstruct these by hand.)
 
 But the corruption is in the *NLI cache*, and the routed QUANTITATIVE verifier
 never touches NLI -- it compares against Wikidata `quantity` statements. So:

@@ -1,5 +1,14 @@
 # CITATION headroom: what the 25 negatives actually attack, and what Wikidata can reach
 
+> **SUPERSEDED IN PART, 2026-08-26.** There are now **24** CITATION negatives, not 25: task #23
+> dropped `SYN_CITA_083` because WHO co-published SOFI 2023, so its FAO→WHO `source_swap` injected
+> no falsity. It was an **`org`-class** row, so `org` 6 → **5** and `source_swap` 11 → **10**,
+> while **`year` 12, `title` 5, `content` 2 and the "needs no NLI" count of 17 are all untouched**
+> — read every "of 25" below as "of 24", and "17 of 25 (68%)" as **17 of 24 (71%)**. The two
+> conclusions the document exists for are unaffected: **no negative perturbs source existence**, so
+> Level 1 detects 0 of 24; and reachability is **8 of 24**, all through Q103843442.
+> Authority: `reference/syn_cita_083_drop_2026-08-26.md` and `CLAUDE.md` §5.
+
 **Date:** 2026-08-25
 **Reproduce:** offline composition — `current/citation_negatives_analysis.py --composition`
 (zero network, ~1 s) · live reachability — `--reachability` (~15 Wikidata calls).

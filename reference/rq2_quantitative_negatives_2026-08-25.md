@@ -1,5 +1,14 @@
 # RQ2 for QUANTITATIVE — the first routed-vs-baseline result with both classes
 
+> **STILL CURRENT, 2026-08-26 — verified by re-running, not assumed.** Task #23 dropped
+> `SYN_CITA_083` from the negatives set, but it is a **CITATION** row and every population here is
+> type-scoped to QUANTITATIVE, so **nothing in this document moves**: coverage 26.4% [16.4, 39.6]
+> (14/53), selective accuracy 100.0% [78.5, 100.0] (14/14), MCC **+0.378**, direct disagreement
+> routed **4/4** vs baseline **0/4**. Two incidental corrections: the collision control is **0 of
+> 68** non-colliding rows, not 69, and the affected count is **16 of 84 (19.0%)**, not 16 of 85 —
+> denominators, both numerators unchanged. See `reference/syn_cita_083_drop_2026-08-26.md` §5.3 for
+> why the 68-vs-69 distinction matters.
+
 **Date:** 2026-08-25
 **Reproduce:** `.venv/bin/python current/rq2_quantitative_table.py` (offline, zero
 model calls, ~1 s). Sections: `--section standalone|paired|combined|pairs|samenumber|prior`.
