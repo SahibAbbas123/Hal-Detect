@@ -301,7 +301,7 @@ def _paired(a: Audit) -> None:
 
     Every one of the 85 negatives is gold FALSE, so an unconditional "FALSE"
     detects 100% of them. A 53.6% detection rate therefore says nothing on its
-    own -- it is WORSE than the degenerate strategy, exactly as 88.2% accuracy
+    own -- it is WORSE than the degenerate strategy, exactly as 87.9% accuracy
     on the natural 356 is worse than an unconditional "TRUE". Same trap, mirrored.
 
     The pairing that does mean something: detection rate on the negatives (TPR)

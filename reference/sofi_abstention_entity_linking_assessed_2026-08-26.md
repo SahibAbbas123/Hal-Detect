@@ -14,6 +14,12 @@ audited, not inherited — the standing lesson from `external_catalog_assessment
 could test a claim against project data or internal arithmetic, I did; where I could not, it
 is marked.
 
+> **STATUS UPDATE, same day.** After this document was written the author authorised the flip
+> ("ok flip it") and it was **applied and measured**. §1's numbers below were *predictions*;
+> **§5 records what actually happened**, scores those predictions against the measurements, and
+> corrects one count this document got wrong. Read §5 before quoting anything from §1's blast-
+> radius table. Sections 2–4 are unaffected except where §5 says otherwise.
+
 ---
 
 ## 1. `Q22_C01` — the flip is justified, and it costs the thesis rather than helping it
@@ -130,6 +136,13 @@ one CITATION row dropped at strict is `SYN_CITA_001`, not this one). So the corr
 worth stating rather than a benefit worth claiming.
 
 ### Blast radius — computed, not estimated
+
+> **This subsection's file count is WRONG and is corrected in §5.** It said 17 CSVs (12 archive,
+> 5 current); the verified figure is **18 mentioning `Q22_C01` — 9 `current/` + 9 `archive/`**,
+> of which **8 current files carry the label** and **only 2 archive files hold a stale `TRUE`**.
+> The predictions in table (a) all held; the *inventory* did not. Left in place unstruck because
+> the error is the point: "computed, not estimated" was a claim about the numbers below it, and
+> the count above them had not been computed at all.
 
 `Q22_C01` appears in **17 CSVs** (12 archive, 5 current). Only the authoritative Phase 2 file
 holds the gold label; the result CSVs each carry a **copy** of it, so a flip is a scripted
@@ -373,13 +386,220 @@ model called.** One script was executed — `current/negatives_cache_audit.py`, 
 ~1 s, and reads the existing cache; it confirmed CLAUDE.md §5's strict-tier decomposition
 rather than changing it.
 
+> **Superseded later the same day by §5** — the author then authorised the flip, so gold labels
+> in 8 `current/` files *were* changed and the result CSVs *were* rewritten. Still true of
+> everything else: no cache touched, no model called, no archive file edited.
+
 ### Open items this hands to the author
 
-1. **One word on the `Q22_C01` flip.** Everything else about it is measured and written down.
+1. ~~**One word on the `Q22_C01` flip.**~~ **DONE — authorised and applied 2026-08-26; see §5.**
 2. **Verify two bibliography entries** — R-Tuning's page range `7831–7848` and ConfRAG's arXiv
    `2506.07309`, against the ACL Anthology and arXiv listings. One lookup each.
-3. **`SYN_CITA_083`** — my recommendation is to drop it, and the reason no longer depends on the
-   flip. Its `gold_verdict = FALSE` is wrong because WHO is a SOFI co-publisher.
+3. **`SYN_CITA_083`** — my recommendation is still to drop it, but **the reason has changed now
+   that the flip is applied**: the row inherits gold FALSE from its flipped base, so its label is
+   *accidentally correct* while the `source_swap` perturbation still injects no falsity. It
+   therefore cannot measure `source_swap` detection, which is what a negative is for (**R10**).
+   Do not let "the label is correct now" argue for keeping it.
 4. Optional, cheap, decides a question I could only reason about: check whether ReFinED's
    candidate set contains **Q139937996** at all. If not, §3's conclusion holds by dump recency
    and the entity-linker swap is orthogonal to the live bug.
+
+---
+
+## 5. OUTCOME — the flip was authorised, applied and measured (2026-08-26, later the same day)
+
+The author read §1 and replied **"ok flip it."** This section records what the flip actually did,
+scores §1's predictions against it, and corrects the one thing §1 got wrong. Everything below is
+**measured, not projected** — zero model calls, zero API calls.
+
+### How it was applied
+
+The label is `FALSE` in **all 8 `current/` files that carry it**. Seven are result/gold CSVs that
+each changed by **exactly one field in exactly one row** — `gold_verdict` TRUE → FALSE on
+`Q22_C01`, with row counts preserved and every other field in every other row byte-identical:
+
+| file | rows | changed |
+|---|---|---|
+| `current/haldetect_phase2_goldlabeled (3).csv` | 126 | the authoritative label |
+| `current/nonrouted_baseline_results.csv` | 356 | copy |
+| `current/haldetect_claims_unified.csv` | 400 | copy |
+| `current/citation_l1_results.csv` | 29 | copy |
+| `current/citation_l1b_results.csv` | 54 | copy |
+| `current/llm_baseline_results_closed.csv` | 355 | copy |
+| `current/llm_baseline_results_closed_binary.csv` | 356 | copy |
+
+The eighth is `current/phase2_labels_for_review.csv`, where the decision itself is recorded in
+**additive** columns: `current_label=FALSE`, `AUTHOR_VERDICT=FALSE`, `AUTHOR_NOTE` carrying the
+`cc3017en` p. 10 quote, `FLAG='FLIP APPLIED 2026-08-26 (author-authorised)'`. `Q22_C03` was
+resolved on the same pass and **RETAINED as TRUE** (see below).
+
+Two supporting files were edited for consistency: `current/consolidate_claims.py`'s Phase 2
+`expect` block (now `TRUE 86 / FALSE 2 / UNVERIFIABLE 21`, with a comment naming the *only*
+authoritative site for the label, so a silent revert fails `--verify` rather than propagating) and
+`current/metrics.py`'s `__main__` fixture (now `313/14/29`, kept hardcoded on purpose — it is a
+unit test of the metric functions, not a read of the corpus).
+
+Edits used **span-precise byte replacement**, not `csv.writer`: every one of these files fails a
+no-op `csv.writer` round-trip, so rewriting through the csv module would have buried a one-field
+change in a whole-file reformat.
+
+### The count §1 got wrong — R1 applied to my own document
+
+§1 said *"`Q22_C01` appears in 17 CSVs (12 archive, 5 current)"* under a heading that read
+**"computed, not estimated."** Verified against the files:
+
+| | §1 claimed | verified |
+|---|---|---|
+| total CSVs mentioning `Q22_C01` | 17 | **18** |
+| `current/` | 5 | **9** (8 carrying the label, +1 pointer-only) |
+| `archive/` | 12 | **9** |
+| archive files holding a stale `TRUE` | implied 12 | **2** |
+
+The two stale-`TRUE` archive files are `archive/csvs/haldetect_phase2_goldlabeled (2).csv` and
+`archive/csvs/temporal_verified_results_v2.csv`. The other seven archive files mention the claim
+id but have an **empty** `gold_verdict`, so "12 archive copies" overstated the contamination by
+about 6×. The ninth `current/` file is `current/synthetic_negatives.csv`, which carries
+`Q22_C01` only as `SYN_CITA_083`'s `base_claim_id` — a **pointer, not a label** — and was
+correctly left untouched.
+
+Archive is still deliberately left alone: those files are historical records, and rewriting them
+would destroy the audit trail the flip needs.
+
+### The gate — why these numbers are quotable
+
+Before any post-flip figure was written down, the same script recomputed **every affected figure
+against the PRE-flip gold** and asserted it reproduced the value `CLAUDE.md` already recorded,
+aborting otherwise. All four documented rows matched to under 0.15pp:
+
+| pre-flip row | documented (cov / acc / F1(FALSE) / MCC) | recomputed | |
+|---|---|---|---|
+| 3d-style | 77.2 / 69.8 / 0.170 / +0.180 | identical | MATCH |
+| 3e-style | 53.7 / 81.2 / 0.174 / +0.144 | identical | MATCH |
+| retuned (0.35/0.30) | 90.2 / 84.7 / 0.292 / +0.288 | identical | MATCH |
+| Always-True | 88.2% | identical | MATCH |
+
+A re-derivation that cannot reproduce the number it replaces is not evidence. The script also
+imports the project's **own** `threshold_sweep.load/verdicts` and `metrics.mcc/wilson/aurac`
+rather than reimplementing the decision rule — the same one-code-path principle that makes the
+RQ2 ablation defensible.
+
+An incidental confirmation fell out of the gate: **3d-style is arithmetically identical to the
+shipped (0.50/0.40) point**, which is what `CLAUDE.md` §4 asserts when it calls the shipped point
+"strictly dominated on the natural 356." That row is now verified rather than asserted.
+
+### §1's predictions, scored
+
+**All nine held exactly.** Predicted → measured:
+
+| quantity | §1 predicted | measured | held? |
+|---|---|---|---|
+| natural set composition | 313 T / 14 F / 29 U | 313 / 14 / 29 | yes |
+| Always-True accuracy | 87.9% | **87.9%** [84.1, 90.9] | yes |
+| class prior π | 0.0393 | **0.0393** | yes |
+| ratio needed for 50% precision | 24.4:1 | **24.4:1** | yes |
+| CITATION L1 accuracy | 19/22 = 86.4% | **19/22 = 86.4%** [66.7, 95.3] | yes |
+| baseline confident errors | +1 | **+1** | yes |
+| CITATION FPR | 2/24 = 8.3% | **2/24 = 8.3%** | yes |
+| L1b FPR | 0/24 [0.0, 13.8] | **0/24** [0.0, 13.8] | yes |
+| gold-FALSE natural CITATION | 4 | **4** | yes |
+
+**But the estimate was incomplete — seven further quantities moved that §1 never enumerated.** It
+predicted "baseline confident errors +1" without following that through to the metrics computed
+from it:
+
+| quantity not in §1's table | pre-flip | post-flip |
+|---|---|---|
+| 3d selective accuracy / F1(FALSE) / MCC | 69.8% / 0.170 / +0.180 | **69.5%** [63.8, 74.6] / **0.168** / **+0.166** |
+| 3e selective accuracy / F1(FALSE) / MCC | 81.2% / 0.174 / +0.144 | **80.6%** [74.4, 85.6] / **0.170** / **+0.135** |
+| retuned selective accuracy / F1(FALSE) / MCC | 84.7% / 0.292 / +0.288 | **84.4%** [80.1, 88.0] / **0.286** / **+0.273** |
+| CITATION L1 **AURAC** | 0.934 | **0.898** |
+| per-type CITATION 3d → 3e (cov/acc) | 44.8/76.9 → 31.0/88.9 | **44.8/69.2 → 31.0/77.8** |
+| **ALL** J (per-type discrimination table) | +0.323 (FPR 67/314) | **+0.322** (FPR 67/313) |
+| `metrics.py` self-check fixture: Always-True **AURAC** + its CI | 0.993, 88.2% [84.4, 91.2] | **0.992**, 87.9% [84.1, 90.9] |
+
+**Lesson for the next blast-radius estimate: enumerate the numbers *derived from* the ones you
+list, not just the files the label appears in.** A confident-error count is an input to four
+published metrics; listing the input and not the outputs made a 9-row table look complete when it
+was covering just over half the moving parts.
+
+The seventh row is the one worth pausing on, because it is a different *kind* of miss. The other
+six are scores a system earned. That one is the **bar** — the degenerate-baseline figure every
+accuracy claim in the thesis is measured against, hardcoded as a fixture in `current/metrics.py`
+and quoted as a measured execution record in `current/README.md`. A gold edit moves the yardstick
+as well as the measurements, and the yardstick is the easier one to forget because it lives in a
+self-test rather than in a results table. Re-ran `python3 current/metrics.py` after the flip and
+recorded the new output in both places rather than leaving a 2026-08-22 execution record standing
+over a 2026-08-26 fixture.
+
+### Everything the flip did NOT move — verified, not assumed
+
+- **Coverage, at every operating point** (77.2% / 53.7% / 90.2%). Coverage does not depend on
+  gold, so no label change can move it. This is the cleanest internal check that the propagation
+  touched only gold columns.
+- **All TPRs on negatives** — baseline 37/69, L1b 9/25. `Q22_C01` is a natural claim, so it is in
+  no negatives population. Only the FPR *denominators* moved.
+- **The observed FALSE precision, 8/81 = 0.0988.** The claim was read TRUE by the baseline, so it
+  is a false negative at every operating point: FN +1, TP +0, FP +0.
+- **The balanced-prior precision, 0.715.**
+- **L1b's 0 confident errors and 0-FPR** — it abstained on `Q22_C01` (gated: work title `'FAO'`
+  has 0 content words, `< MIN_WORK_CONTENT = 2`), so it earns no detection either. The
+  load-bearing routing-win claim survives intact.
+- **The entire threshold-sweep precision surface.** `Q22_C01`'s contradiction score is **0.1798**,
+  below the grid's minimum `ct` of 0.30, so it is never predicted FALSE anywhere on the grid. A
+  gold negative below the sweep's floor is invisible to the whole surface.
+- **`current/synthetic_negatives.csv`** — untouched, and no negatives-population number changed.
+
+### One argument the flip made *stronger*
+
+The base-rate explanation for the baseline's low FALSE precision got **tighter**, not weaker. At
+π = 0.0393 the measured TPR/FPR predicts precision **0.0930** against an observed **0.0988** — a
+gap of **0.0058**, down from **0.0118** pre-flip. The extra gold negative is one the baseline
+missed, which is exactly what a base-rate account of the low precision predicts. So the
+correction that costs the thesis on seven numbers repays it on the one argument doing the most
+defensive work.
+
+### One new finding from the corrected data
+
+**Two of CITATION L1's three confident errors are now gold-FALSE bare-`'FAO'` claims** —
+`Q22_C01` and `B3_12_C07`. That states the existence-vs-content gap as *measured data* rather
+than as design intent: L1 checks whether a source resolves, both of these resolve, and both
+misreport what the source says.
+
+### The load-bearing argument was tested, not assumed
+
+**"Max TP on the natural set is 0 by construction" SURVIVES.** Re-derived by enumerating all four
+gold-FALSE natural CITATION claims and the gate each hit:
+
+| claim | L1b verdict | gate |
+|---|---|---|
+| `Q12_C11` | UNVERIFIABLE | `DATE` |
+| `B3_05_C02` | UNVERIFIABLE | `DATE` |
+| `Q22_C01` | UNVERIFIABLE | `NONE` — bare `'FAO'`, 0 content words |
+| `B3_12_C07` | UNVERIFIABLE | `NONE` — bare `'FAO'`, 0 content words |
+
+The count went 3 → 4, L1b abstained on the new one, and true positives on the natural set stayed
+**0**. The argument now rests on four independent instances instead of three. All four are
+*content* falsities — what the source says — which `P577` (publication date) and `P123`
+(publisher) cannot reach by construction. That is **Level 2** territory, and it is unbuilt.
+
+### `Q22_C03` — resolved, and retained as TRUE
+
+§1 flagged `Q22_C03` (*"The FAO report attributed the rise in food insecurity to the combined
+effects of conflict, economic shocks, and climate extremes"*) as premise-dependent on `Q22_C01`,
+to be decided after it. It was decided **on the second reading §1 anticipated** and **retained as
+TRUE**: SOFI 2023 does make that triad attribution, and *"the rise"* has a referent — the +391M
+vs 2019 that p. 10 states in the same sentence as the 2022 no-change finding — that never
+depended on the 2022 trend. Recorded explicitly in `FLAG_EVIDENCE` rather than left implicit,
+because a stale "PREMISE-DEPENDENT" flag on a resolved premise is exactly the kind of dangling
+note that later gets read as an open question.
+
+**A resolved premise dependency is not a second flip.** `Q22_C01` moving did not license moving
+anything downstream of it; `Q22_C03` was re-examined on its own evidence and held.
+
+### Net
+
+Seven published numbers got worse, one argument got tighter, one new finding appeared, and the
+corpus gained its **14th gold negative** against a constraint — negative scarcity — that binds
+every detection claim in the thesis. `AUTHOR_*` cells written: **2**, both on author
+authorisation, both recorded with their evidence. Archive copies edited: **0**. Caches touched:
+**0**. Model calls: **0**.

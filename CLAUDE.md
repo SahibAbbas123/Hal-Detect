@@ -25,14 +25,19 @@ biggest source of wasted effort on this project. It also applies to *this* file:
 sections disagree, **the one naming a file and a row count wins over a summary table.** Caught
 this way: the TEMPORAL/EA "moved off zero" mislabel, the 8-vs-9 source-existence count, the
 Batch-1 125-vs-126 row count, `property_resolver.py` carrying 1 of 3 fixes, the never-executed
-cells, and a 40-line block duplicated inside this file. `mtime` is **uninformative in this
-worktree** — every file under `current/` shares the copy time.
+cells, and **two** duplicated blocks inside this file — a 40-line block, and (2026-08-26) the §4
+`Q22_C01` row's entire 1,927-character "why" cell repeated verbatim as a **fourth cell in a
+three-column table**. That one is worth the standing check it produced: a duplicated markdown cell
+renders as ordinary prose, so proofreading cannot see it, but **counting unescaped `|` per row
+against the separator width finds it in one pass** — mind `\|` inside cells, which makes a naive
+split report two false positives in §6. `mtime` is **uninformative in this worktree** — every file
+under `current/` shares the copy time.
 
 **R2. Never write a bare 100%.** Always a Wilson CI. `5/5` is `[56.6%, 100%]`, barely better
 than a coin flip; `8/8` is `[67.6%, 100%]`. A bare 100% has never survived an audit here.
 
 **R3. MCC is the only metric no degenerate strategy games in either direction.** On the natural
-356 (88% TRUE) accuracy is gamed — Always-True scores **88.2%**. On a negatives-enriched set the
+356 (88% TRUE) accuracy is gamed — Always-True scores **87.9%**. On a negatives-enriched set the
 trap *mirrors* — Always-False scores **F1(FALSE) = 0.641** on the 53-row QUANTITATIVE
 population, beating every real system. Always-True, Always-False and Always-UNVERIFIABLE all
 score MCC **0.000**. Use `current/metrics.py`; it prints the degenerate rows next to every
@@ -40,7 +45,7 @@ result so the comparison cannot be skipped.
 
 **R4. Never quote accuracy without coverage and effective n.** Effective n is
 `coverage × dataset n`, far below the dataset size. The `ct ≥ 0.65` rows reach **92.5% accuracy
-while detecting 0 of 13 negatives** — that is how a table omitting coverage passes off the worst
+while detecting 0 of 14 negatives** — that is how a table omitting coverage passes off the worst
 row as the best.
 
 **R5. Never quote a detection rate on negatives alone.** Every row there is gold FALSE, so an
@@ -129,7 +134,7 @@ are the quoted baseline.
 | **RELATIONAL** | Wikipedia passage retrieval + BART-MNLI entailment | **Best performer.** Batch 3: 80.77% acc / 55.32% cov on ~26 covered. **Reproduces on the pooled 174: 79.1% @ 52.3% on 91 covered**, CI tightening from ±14.7pp to ≈±8pp — the project's biggest open statistical risk, closed. Live logic = notebook cell 57 (`## Phase 3e (i)`); no standalone `.py` is current. |
 | **TEMPORAL** | Wikidata SPARQL | **Last measured 0/12 covered, 12/12 UNVERIFIABLE, zero confident-wrong** (`current/temporal_b3_verified_results_phase2.csv`). Live logic = cell 75 (`## Phase 2`). **That number predates the `mul`/full-text/prominence port — quote it as last-measured, never as current capability**, and the expected direction of correction *favours* coverage. |
 | **ENTITY_ATTRIBUTE** | Wikidata SPARQL | **Last measured 0/22 covered, 22/22 UNVERIFIABLE** (`current/entity_attribute_b3_verified_results_phase4.csv`). Live logic = cell 69 (`## Phase 4`). Same predates-the-port caveat. |
-| **CITATION** | Three levels: does the source exist (L1), do the work's own properties contradict the claim (L1b), does it actually say this (L2, unbuilt) | **L1** `current/citation_l1_verifier.py`: 75.9% cov (22/29), 90.9% acc (20/22), AURAC 0.934. **L1 can never return FALSE** — a source that fails to resolve is UNVERIFIABLE, not fabricated — so F1(FALSE) = 0.00 **by construction**. **L1b** `current/citation_l1b_verifier.py`, `--selftest` ALL PASS: the first thing in the project to return CITATION FALSE. **L2 still unbuilt** — needs NLI (SIGBUSes locally) and contradiction precision caps at 0.20 anyway. Old `current/citation_verifier.py` retains the `1 - entail` tautology; **do not use it.** |
+| **CITATION** | Three levels: does the source exist (L1), do the work's own properties contradict the claim (L1b), does it actually say this (L2, unbuilt) | **L1** `current/citation_l1_verifier.py`: 75.9% cov (22/29), **86.4% acc (19/22)** [66.7, 95.3], **AURAC 0.898** — was 90.9% / 0.934 before the `Q22_C01` flip, which turned an L1 TRUE into a confident error (3 now, not 2). **L1 can never return FALSE** — a source that fails to resolve is UNVERIFIABLE, not fabricated — so F1(FALSE) = 0.00 **by construction**. **Two of L1's three confident errors are now gold-FALSE bare-`'FAO'` claims** (`Q22_C01`, `B3_12_C07`), which is the existence-vs-content gap stated as data rather than as design intent. **L1b** `current/citation_l1b_verifier.py`, `--selftest` ALL PASS: the first thing in the project to return CITATION FALSE. **L2 still unbuilt** — needs NLI (SIGBUSes locally) and contradiction precision caps at 0.20 anyway. Old `current/citation_verifier.py` retains the `1 - entail` tautology; **do not use it.** |
 | **QUANTITATIVE** | Structured extract-and-compare vs Wikidata `quantity` statements (**not** NLI) | **Working, and the one type where routing BEATS the baseline on a prior-independent metric.** `current/quantitative_verifier.py`, selftest **24/24**. NUMERICAL works; COMPARATIVE + COMPUTATIONAL abstain by design. |
 
 Supporting modules, all `--selftest` passing, all deliberately separate from the validated
@@ -166,27 +171,41 @@ caller. One code path is what makes the ablation defensible.
 
 | | coverage | selective accuracy | F1(FALSE) | MCC |
 |---|---|---|---|---|
-| **3d-style** | **77.2%** [72.6, 81.3] | **69.8%** [64.2, 74.9] | 0.170 | +0.180 |
-| **3e-style** (margin ≥ 0.15) | 53.7% | 81.2% [75.0, 86.1] | 0.174 | +0.144 |
-| *Always-True* | 100% | **88.2%** | 0.00 | 0.000 |
-| baseline retuned **(0.35/0.30)** | **90.2%** | **84.7%** | **0.292** | **+0.288** |
+| **3d-style** (= the shipped 0.50/0.40 point) | **77.2%** [72.6, 81.3] | **69.5%** [63.8, 74.6] | 0.168 | +0.166 |
+| **3e-style** (margin ≥ 0.15) | 53.7% | 80.6% [74.4, 85.6] | 0.170 | +0.135 |
+| *Always-True* | 100% | **87.9%** [84.1, 90.9] | 0.00 | 0.000 |
+| baseline retuned **(0.35/0.30)** | **90.2%** | **84.4%** [80.1, 88.0] | **0.286** | **+0.273** |
+
+**These figures are post-`Q22_C01`-flip (2026-08-26).** The pre-flip values were 69.8 / 81.2 /
+88.2 / 84.7 with MCC +0.180 / +0.144 / 0.000 / +0.288. **Coverage is unchanged at every point** —
+coverage does not depend on gold. Every accuracy and MCC figure moved *down* by 0.3–0.6pp /
+0.009–0.015 because the flipped claim is a **false negative at every operating point** (the
+baseline read it TRUE @ entail 0.7719), so FN gained one and TP gained none. **Recomputed by
+importing `threshold_sweep.verdicts` and `metrics.mcc`, gated on first reproducing all four
+pre-flip rows exactly** — a re-derivation that cannot reproduce the number it replaces is not
+evidence.
 
 Per-type 3d → 3e (cov, acc): RELATIONAL 77.0/66.4 → 52.3/79.1 · TEMPORAL 90.8/67.8 → 61.5/82.5 ·
 QUANTITATIVE 82.2/73.0 → 55.6/84.0 · **EA 74.4/81.2 → 60.5/80.8 (the one type where 3d
-dominates)** · CITATION 44.8/76.9 → 31.0/88.9. The trade is a stable **−22pp coverage for +12pp
-accuracy**.
+dominates)** · CITATION 44.8/69.2 → 31.0/77.8. The trade is a stable **−22pp coverage for +12pp
+accuracy**. **CITATION is the only type the flip moved** (it was 44.8/76.9 → 31.0/88.9); the other
+four are arithmetically untouched because the claim is CITATION-typed.
 
 **Of 81 FALSE predictions, 8 are correct — precision 0.099.** This is a **base-rate artifact,
-not a discrimination failure**: at π = 13/356 = 0.0365 the measured TPR/FPR reproduces precision
-**0.0870 against the observed 0.0988**. At this π a detector needs a TPR/FPR ratio of **26.4:1**
-for 50% precision; the measured ratio is 2.5:1. **J = +0.323, which is not zero** — at a balanced
+not a discrimination failure**: at π = 14/356 = 0.0393 the measured TPR/FPR reproduces precision
+**0.0930 against the observed 0.0988**. At this π a detector needs a TPR/FPR ratio of **24.4:1**
+for 50% precision; the measured ratio is 2.5:1. **J = +0.322, which is not zero** — at a balanced
 prior the same detector shows precision 0.715. Never quote the 0.099 without the base rate and J.
+**The flip made this argument stronger, not weaker:** predicted-vs-observed narrowed from a
+0.0118 gap to **0.0058**, because the extra gold negative is one the baseline missed — exactly
+what a base-rate account predicts. The observed 8/81 is unchanged.
 
 **Coverage 90.2% is at the ceiling** — NLI scored 322/356 (90.4%); the other 34 abstained
 pre-NLI. Lifting it is **retrieval**, not thresholds.
 
-**Phase 2's AI-filled labels are not driving the result** — all-labeled 69.8% vs human-only
-b1+b3 71.6%, coverage 77.2% vs 76.9%. The robustness check built to catch this passed.
+**Phase 2's AI-filled labels are not driving the result** — all-labeled 69.5% vs human-only
+b1+b3 71.6%, coverage 77.2% vs 76.9%. The robustness check built to catch this passed. (The
+human-only arm is unchanged by the flip — `Q22_C01` is a Phase 2 claim, so it is not in b1+b3.)
 
 `reference/nonrouted_baseline_result_2026-08-23.md` · `reference/threshold_sweep_result_2026-08-23.md`
 
@@ -198,11 +217,18 @@ difference is discrimination. Rows use the **`type`** column.
 
 | type | TPR on negatives | FPR on gold-TRUE | **J = TPR − FPR** |
 |---|---|---|---|
-| **CITATION** | 5/24 20.8% | 2/25 8.0% | **+0.128** ← weakest, and prior-independent |
+| **CITATION** | 5/24 20.8% | 2/24 8.3% | **+0.125** ← weakest, and prior-independent |
 | ENTITY_ATTRIBUTE | 5/5 100% | 5/42 11.9% | +0.881 (n=5, **do not quote**) |
 | QUANTITATIVE | 8/14 57.1% | 9/41 22.0% | +0.352 |
 | TEMPORAL | 19/26 73.1% | 19/62 30.6% | +0.424 |
-| **ALL** | **37/69 53.6%** | **67/314 21.3%** | **+0.323** |
+| **ALL** | **37/69 53.6%** | **67/313 21.4%** | **+0.322** |
+
+**Post-flip.** Only the CITATION and ALL rows moved, and only their **denominators** — the flipped
+claim left the gold-TRUE pool, so CITATION FPR went 2/25 → 2/24 (J +0.128 → +0.125) and ALL went
+67/314 → 67/313 (J +0.323 → +0.322). **No TPR changed**: `Q22_C01` is a natural claim, not a
+synthetic negative. It is also **never predicted FALSE at any of the 255 threshold-grid points**
+(its contradict score is 0.1798, below the grid's minimum ct of 0.30), so **the whole
+threshold-sweep precision surface is unchanged** — verified, not assumed.
 
 **Bounding caveat:** the negatives are synthetic perturbations (a swapped number or date),
 plausibly easier to refute than a naturally-hallucinated causal claim. **Every TPR here is an
@@ -223,20 +249,23 @@ Reproduce offline with `current/rq2_quantitative_table.py`.
 **CITATION Level 1b (2026-08-26).** Beats the baseline on the baseline's own weakest type, **with
 no NLI at all**.
 
-| | TPR on the 25 negatives | FPR on the 25 gold-TRUE natural | **J** |
+| | TPR on the 25 negatives | FPR on the 24 gold-TRUE natural | **J** |
 |---|---|---|---|
-| **Level 1b** | **9/25 = 36.0%** [20.2, 55.5] | **0/25** [0.0, 13.3] | **+0.360** |
-| baseline, CITATION | 5/24 = 20.8% [9.2, 40.5] | 2/25 = 8.0% [2.2, 25.0] | +0.128 |
+| **Level 1b** | **9/25 = 36.0%** [20.2, 55.5] | **0/24** [0.0, 13.8] | **+0.360** |
+| baseline, CITATION | 5/24 = 20.8% [9.2, 40.5] | 2/24 = 8.3% [2.3, 25.8] | +0.125 |
 
 By route: `year_shift` **5/12** via `P577`, `source_swap` **4/11** via a `P123` conflict. Three
 mandatory caveats: **8 of 9 detections come from Q103843442 alone** (R11); **the TPR CIs overlap
 heavily** — n = 25 cannot separate 36% from 21%, so the clean prior-independent part is **FPR
-0/25 vs 2/25** and the **0 confident errors**, not the TPR gap; and **8/12 is a ceiling measured
+0/24 vs 2/24** and the **0 confident errors**, not the TPR gap; and **8/12 is a ceiling measured
 from hand-curated subject strings — end-to-end extraction gives 5/12**, always report both. The
 gap is entirely Lancet and is **candidate generation, not ranking** (`'Lancet Commission'`
 returns 4 candidates, none a dementia work), so no threshold move recovers it. **Max TP on the
-natural set is 0 by construction** — all 3 gold-FALSE natural CITATION claims are *content*
-falsities no property check reaches. `reference/citation_l1b_result_2026-08-26.md`
+natural set is 0 by construction** — all **4** gold-FALSE natural CITATION claims are *content*
+falsities no property check reaches: `Q12_C11` and `B3_05_C02` (gated `DATE`), `Q22_C01` and
+`B3_12_C07` (gated `NONE` — both bare `'FAO'` references, 0 content words). **The `Q22_C01` flip
+was a live test of this argument and it held:** the count went 3 → 4, L1b returned UNVERIFIABLE
+on the new one, and true positives on the natural set stayed **0**. `reference/citation_l1b_result_2026-08-26.md`
 
 ### The RQ2 verdict, which must not be softened
 
@@ -258,7 +287,7 @@ losing set (above). Turning the rest into a result requires non-zero routed cove
 | **Which baseline operating point?** | **(0.35/0.30) on the natural 356; the shipped (0.50/0.40) on any negatives-enriched population.** Name the point and the class prior every time. | On the natural 356 the shipped point is **strictly dominated** — every metric improves at once — so quoting it would credit routing with a ~15pp gap that is one badly-set constant, which the committed spec forbids as a strawman. But (0.35/0.30) is a **class-prior fit**: on the 24 QUANTITATIVE negatives it drops F1(FALSE) 0.488 → 0.200 and confidently asserts **13** hallucinations are true. **The routed verifiers have no threshold at all** — an architectural asymmetry that is now measured, and belongs in the table caption. |
 | **Adopt router V3** (*"RELATIONAL beats TEMPORAL when the dominant verb describes a process and the date is when it occurred"*)? | **NO — identified and declined.** | (1) V1 was the same shape of fix and bought **+6.3pp precision with near-total CI overlap, paid in recall, at zero change in overall accuracy** (111/125 both ways, 3 errors fixed and 3 created); on the held-out 65 it looked *excellent* off **4 gold TEMPORAL claims**, i.e. noise pointing the wrong way. (2) The cost is not the prompt, it is **re-typing the `type` column**, invalidating the baseline's 356 rows, the threshold sweep, the per-type J table and QUANTITATIVE's 14/14 — every measured win. (3) **The finding is worth more than the fix.** If ever adopted it must be as a taxonomy revision with a full downstream re-run, never a prompt tweak. |
 | **Classifier prompt vs Rule 8** (the prompt says *"'WHO exists' is NOT a CITATION claim"*; Rule 8 dual-emit says it is) | **The PROMPT stands; Rule 8 and §3.2 and the corpus labels get revised.** It is **eight** corpus claims, **not nine** — this file said nine for days; `reference/all-140-claims.txt` carries the justification `Pure source-existence claim` on lines **221, 553, 561, 597, 613, 625, 637, 669** (two further lines mention source existence only to say it is *not* the claim being made). R1 again. | A source-existence claim has no truth value worth testing, and the pipeline already proves it: L1 **can never return FALSE**, L1b **gates it out** (`MIN_WORK_CONTENT = 2`), `source_consistency` treats `NO_EVIDENCE` as never-reject. Such a claim can only come back TRUE-or-abstain and **cannot contribute a detection or an error** — Rule 8 manufactures unfalsifiable claims at one per citation-wrapped statement. **The change is free: 0 of the 400 corpus rows are affected** — the 140-claim corpus carries no ids, so nothing joins it to the four evaluation sets. **The prompt must not be touched** — it is the faithful-reproduction anchor and RQ1's 93.8%/95.4% rests on it. |
-| **Flip `Q22_C01` → FALSE?** | **EVIDENCE CONFIRMED 2026-08-26; STILL FLAGGED, NOT FLIPPED.** Recorded in additive `FLAG`/`FLAG_EVIDENCE` columns; **0 `AUTHOR_*` cells written.** **Awaiting one word from the author — nothing else about it is open.** | It sits at `priority='2-HIGH'`, `why='AI filled a blank; never reviewed'` — so flipping it is *an AI overwriting an AI-filled label*, the exact thing this file exists to prevent. Relabelling Phase 2 once moved measured RELATIONAL accuracy **~15% → 61.11% with no change to the verifier.** **The evidence condition is now met:** SOFI 2023 (`cc3017en`) **p. 10** states the prevalence *"remained unchanged for the second year in a row, affecting 29.6 percent … in 2022 (2.4 billion people) – still 391 million more than in 2019"* — the claim asserts `increased` **during 2022**; the +391M is vs **2019**. Author-supplied lookup, **5/5 internal arithmetic cross-checks reconcile**, but **not primary confirmation** (FAO returns 403 to WebFetch here). Falsity class = **misattribution to a named source**, so it is **Level 2** territory and the *"max TP on the natural set is 0 by construction"* argument **SURVIVES** at 4 content falsities instead of 3. **The flip costs the thesis and gains it nothing** — Always-True 88.2% → 87.9%, π 0.0365 → 0.0393, ratio 26.4:1 → 24.4:1, **L1 accuracy 20/22 → 19/22**, baseline **+1 confident error**, L1b FPR 0/25 → 0/24 with **0 confident errors preserved** (L1b abstained, so it earns no detection). That asymmetry is why it is credible. `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` |
+| **Flip `Q22_C01` → FALSE?** | **FLIP APPLIED 2026-08-26 on explicit author authorisation ("ok flip it"). CLOSED.** The label is `FALSE` in **all 8 `current/` files that carry it** — 7 result/gold CSVs each changed by **exactly one field in exactly one row** (`gold_verdict` TRUE→FALSE, row counts preserved: `citation_l1_results` 29, `citation_l1b_results` 54, `haldetect_claims_unified` 400, `haldetect_phase2_goldlabeled (3)` 126, `llm_baseline_results_closed` 355, `llm_baseline_results_closed_binary` 356, `nonrouted_baseline_results` 356) plus `phase2_labels_for_review.csv` (`AUTHOR_VERDICT=FALSE`, `FLAG='FLIP APPLIED 2026-08-26'`). **`current/synthetic_negatives.csv` mentions `Q22_C01` only as `SYN_CITA_083`'s `base_claim_id` — a pointer, not a label — so it was correctly left alone.** **R1 caught two wrong counts here:** this row said 6 `current/` files and `reference/sofi_…_assessed_2026-08-26.md` said "17 CSVs (12 archive, 5 current)"; **verified 2026-08-26 the real figure is 18 files mentioning it, 9 `current/` + 9 `archive/`, and only 2 archive files hold a stale `TRUE`** (`haldetect_phase2_goldlabeled (2).csv`, `temporal_verified_results_v2.csv`) — the other 7 have an **empty** `gold_verdict`, so "12 archive copies" overstated the contamination by 6×. Archive left alone deliberately. | **Why it was right.** It is a CITATION claim, so its truth condition is *did the FAO report this*, not *is food insecurity rising*. SOFI 2023 (`cc3017en`) **p. 10**: the prevalence *"remained unchanged for the second year in a row, affecting 29.6 percent … in 2022 (2.4 billion people) – still 391 million more than in 2019"* — the claim asserts `increased` **during 2022**; the +391M is vs **2019**. Falsity class = **misattribution to a named source**, i.e. **Level 2** territory. Evidence is author-supplied with **5/5 internal arithmetic cross-checks reconciling**, but **not primary confirmation** (FAO returns 403 to WebFetch here) — state it that way. **Why it was credible:** every number it moves makes the results look *worse*, which is the opposite of what a self-serving relabel does. Measured, not predicted: Always-True **88.2% → 87.9%**; π **0.0365 → 0.0393**; ratio needed **26.4:1 → 24.4:1**; 3d selective acc **69.8% → 69.5%** (MCC +0.180 → +0.166); 3e **81.2% → 80.6%** (+0.144 → +0.135); retuned **84.7% → 84.4%** (+0.288 → +0.273); **L1 acc 20/22 → 19/22, AURAC 0.934 → 0.898, +1 confident error**; baseline **+1 confident error**; CITATION J **+0.128 → +0.125**, ALL J **+0.323 → +0.322**. **Preserved:** L1b's **0 confident errors** and **0/24 FPR** (it abstained, so it earns no detection either), all TPRs, the 8/81 observed precision, the balanced-prior 0.715, and the entire threshold-sweep surface. **Two things it bought:** gold negatives **13 → 14** against a corpus whose binding constraint is negative scarcity, and a worked natural-set example motivating the unbuilt L2. `Q22_C03` was flagged PREMISE-DEPENDENT on this row and was **resolved and RETAINED as TRUE** — SOFI 2023 does attribute food insecurity to conflict / economic shocks / climate extremes, and the +391M vs 2019 gives *"the rise"* a referent that never depended on the 2022 trend. `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` |
 | **A3 — merge the two worktree branches?** | **No merge needed.** | Main's `CLAUDE.md` is the **pre-correction original** (440 lines vs 1008; 619 insertions, 11 deletions apart) and `worktree-websearch-tool` has **never touched the file**, so a reversible **single-file copy** propagates it. This is the root cause of both incidents where a stale row here became a wrong premise in an external roadmap. `reference/external_catalog_assessment_2026-08-26.md` §7 |
 
 ---
@@ -268,13 +297,15 @@ losing set (above). Turning the rest into a result requires non-zero routed cove
 | Set | IDs | authoritative file | rows | labeled | T / F / U | `gold_type` independent? |
 |---|---|---|---|---|---|---|
 | Batch 1 | `Q1`–`Q14` (10 questions; **Q3/Q4/Q6/Q8 deliberately absent**) | `archive/csvs/haldetect_claims_20260524_045439_2.csv` | 125 | 125 | 112 / 8 / 5 | **yes — the only one** |
-| Phase 2 | `Q15`–`Q26` | `current/haldetect_phase2_goldlabeled (3).csv` | 126 | 109 | 87 / 1 / 21 | no (seeded) |
+| Phase 2 | `Q15`–`Q26` | `current/haldetect_phase2_goldlabeled (3).csv` | 126 | 109 | 86 / 2 / 21 | no (seeded) |
 | Batch 3 | `B3_01`–`B3_12` | `current/haldetect_claims_b3_gold.csv` | 122 | 122 | 115 / 4 / 3 | no (seeded) |
 | Negatives (RELATIONAL) | `B3N_01`–`27` | `current/relational_negatives_batch3_merged.csv` | 27 | 27 | 0 / 27 / 0 | n/a (synthetic) |
 
-**Real gold = 356: 314 TRUE / 13 FALSE / 29 UNVERIFIABLE**, so an unconditional "TRUE" scores
-**88.2%** (94.3% on Batch 3 alone). All four are wired into `current/consolidate_claims.py` with
-hardcoded `expect` counts that pass. **Batch 1 is 125 rows, not 126** — `wc -l` gives 127 because
+**Real gold = 356: 313 TRUE / 14 FALSE / 29 UNVERIFIABLE**, so an unconditional "TRUE" scores
+**87.9%** (94.3% on Batch 3 alone). Phase 2 was **86 / 2 / 21** from 2026-08-26, when `Q22_C01`
+was flipped TRUE → FALSE on author authorisation (§4); Batch 3 is unaffected. All four are wired
+into `current/consolidate_claims.py` with hardcoded `expect` counts that pass — **the flip is
+enforced there, so a silent revert fails `--verify` rather than propagating.** **Batch 1 is 125 rows, not 126** — `wc -l` gives 127 because
 the file has no trailing newline and **two rows carry embedded newlines inside quoted fields**;
 `csv.DictReader` is right. Batch 1's labels live **only** in `..._1.csv` and `..._2.csv`; **`_2`
 is authoritative** (they differ in exactly 8 rows, all `gold_type`, verdicts identical).
@@ -308,8 +339,16 @@ and the reason is concrete:** `current/negatives_needing_manual_authoring.csv` h
 **`SYN_CITA_083` is an INVALID NEGATIVE — recommend dropping it (2026-08-26).** It is a
 `source_swap` FAO→WHO off `Q22_C01` with the assertion unchanged, gold FALSE. But **WHO is a
 co-publisher of SOFI 2023** (joint FAO/IFAD/UNICEF/WFP/WHO), so moving the attribution from one
-co-publisher to another **leaves it true** — the perturbation is void on its own terms,
-*independently of whether `Q22_C01` flips*. Dropping it: strict tier **69 → 68**, CITATION
+co-publisher to another **leaves the claim exactly as true or false as it already was** — the
+perturbation injects no falsity, which is what a negative is *for*.
+
+**The `Q22_C01` flip changed why it is invalid, and the distinction matters.** Before the flip the
+base was TRUE and the swap was void, so gold FALSE was simply **wrong**. Now the base is FALSE, so
+the row **is** FALSE — but by **inheritance from its base, not by injection**. So its gold label is
+now accidentally right while the row remains **useless for measuring `source_swap` detection**,
+which is the only thing it was created to measure. **Do not let "the label is correct now" become
+an argument for keeping it** (R10: a detection off an inherited falsity is not evidence the swap
+was caught). Dropping it: strict tier **69 → 68**, CITATION
 **24 → 23**. **No measured detection is invalidated** — the baseline said TRUE @0.733 (off
 irrelevant retrieval about the Brookings Institution and US figures) and L1b returned
 UNVERIFIABLE (gated on `'WHO'` being a bare organisation), so both missed it. Denominators only,
@@ -325,7 +364,7 @@ remember. **Batch 3's verdicts are sound; Phase 2's are NOT independent** — it
 were AI-filled and an AI then flipped 31 UNVERIFIABLE → TRUE. **Report pooled results both with
 and without Phase 2.** Tier 1 (the 31 flips) **was reviewed against primary sources 2026-08-23
 and all 31 confirmed TRUE**; tiers 2-HIGH (45 fills) and 3-MEDIUM (33 unchanged) remain open, in
-`current/phase2_labels_for_review.csv`. **13 gold negatives across the natural 356 is the binding
+`current/phase2_labels_for_review.csv`. **14 gold negatives across the natural 356 is the binding
 constraint on every detection claim in the thesis** — which is why controlled perturbation is not
 optional polish.
 
@@ -373,11 +412,13 @@ that manufactures false FALSEs — the reason `citation_verifier.py` is untrustw
 
 **Architectural limits, not bugs.** Wikipedia's coverage ceiling for RELATIONAL is **~84–89%,
 not 100%**. **Contradiction precision never leaves 0.08–0.12 across the whole threshold sweep and
-caps at 0.20 over all 225 grid points**; by ct = 0.65 it catches **0 of 13** negatives while
-accuracy climbs to 92.5% purely by abstaining. **State this as a claim about the ROC's *shape* —
-the best available TPR/FPR ratio is ~6.6:1 where ~26:1 is needed for coin-flip precision — never
-as "BART-MNLI cannot separate refutes from does-not-mention," which was retracted 2026-08-25 as
-too strong** (measured J = +0.323).
+caps at 0.20 over all 225 grid points**; by ct = 0.65 it catches **0 of 14** negatives while
+accuracy climbs to 92.5% purely by abstaining. **The `Q22_C01` flip left this surface exactly
+unchanged** — its contradict score is 0.1798, below the grid's minimum ct of 0.30, so it is never
+predicted FALSE at any grid point; only the negative *count* moved 13 → 14. **State this as a
+claim about the ROC's *shape* — the best available TPR/FPR ratio is ~6.6:1 where ~24:1 is needed
+for coin-flip precision — never as "BART-MNLI cannot separate refutes from does-not-mention,"
+which was retracted 2026-08-25 as too strong** (measured J = +0.322).
 
 **Router over-firing is a TAXONOMY GAP, not a prompt bug.** §4 of the taxonomy enumerates five
 type-pair conflicts; with 5 types there are 10 pairs, and "CITATION vs any" covers 4, so §4
@@ -419,7 +460,7 @@ exists yet.
 | **#19** | Re-run the TEMPORAL/EA logic over the 34 claims | **Now a LOCAL job** — cells 69/75 call only Wikidata (API + SPARQL), no BART, no Gemini, so the logic extracts to a standalone `.py` in `.venv` and the notebook stays untouched. **Needs author go-ahead** (API-calling). Outputs `_phase3`/`_phase5`; **never overwrite phase2/phase4** (R19). Coverage far above the recorded precedents — `property_resolver.py`'s 6/34 = 17.6% and QUANTITATIVE's ~24% predicted band — is a **warning**, not a win (R8). |
 | **#20** | `property_resolver.py` Bug B + no prominence | Must be fixed before any integration, with another prefix bump. |
 | **#21** | `P31` instance-of type-check | Closes the resolution circularity above. Build as a sibling of `source_consistency.py`, not an edit to a validated verifier. **Now has a citable precedent: `P31`/`P279` fine-grained typing is exactly how ReFinED (Ayoola et al. 2022) scores its own candidates**, so this is the mechanism a SOTA entity linker relies on, not a local heuristic. `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` §3 |
-| **#23** | Drop `SYN_CITA_083` from the negatives | WHO co-published SOFI 2023, so the FAO→WHO `source_swap` creates no falsity (§5). Offline, no model calls; strict tier 69 → 68. **Independent of the `Q22_C01` flip.** |
+| **#23** | Drop `SYN_CITA_083` from the negatives | WHO co-published SOFI 2023, so the FAO→WHO `source_swap` injects no falsity (§5). Offline, no model calls; strict tier 69 → 68. **Still the right call after the `Q22_C01` flip, but for a changed reason** — the row is now gold-FALSE *by inheritance from its base*, so the label is accidentally right while the row still cannot measure `source_swap` detection. Read §5 before acting; do not let "the label is correct now" argue for keeping it. |
 | **#22** | McNemar's test for RQ2 | Offline, zero model calls. On the existing 4–0 discordant table the exact test gives **p = 0.125** — *not* significant — so this will likely make a quoted claim weaker. Do it anyway. Use the **exact binomial**, report `(b, c)` beside `p`, run per population (R6). |
 | **#16** | `nli__` cache key `claim[:60]` truncation collides perturbed claims with their originals | Affects 16 of 85 negatives (18.8%) in three classes. Needs Colab. |
 | **#2** | LLM baseline (`current/llm_baseline.py`, gemma4:31b-cloud) on the 356 | **Secondary** baseline answering a different question. **Do not confuse it with the non-routed baseline** — the committed comparison is routed-vs-non-routed with identical evidence and identical NLI. |
@@ -430,13 +471,14 @@ backbone swap (invalidates the `nli__` cache, the baseline's 356 rows and the wh
 surface; BART SIGBUSes locally so it needs Colab), and KGQA property mapping (biggest coverage
 lever, highest regression risk, must be precision-gated from the start).
 
-**Author actions, not mine to perform:** **say yes/no on the `Q22_C01` flip** — evidence is now
-confirmed (§4) and this is the only thing left open on it; verify **R-Tuning's page range
+**Author actions, not mine to perform:** verify **R-Tuning's page range
 `7831–7848`** and **ConfRAG's arXiv `2506.07309`** against the ACL Anthology / arXiv before
 either enters the bibliography (author lists and venues in such summaries are usually right;
 page ranges and arXiv IDs are what they get subtly wrong); edit Rule 8 and §3.2 of the taxonomy
 document and re-label the 8 corpus rows (documentation edits, 0 measured numbers affected);
-propagate this file to main (§4, A3).
+propagate this file to main (§4, A3); say yes/no on **#23** (drop `SYN_CITA_083`), the only
+negatives-file edit still waiting. **The `Q22_C01` flip is no longer on this list — it was
+authorised and applied 2026-08-26 (§4).**
 
 **Literature now grounded, no code implied.** `MIN_MARGIN = 0.15` and the UNVERIFIABLE class are
 an instance of **calibrated abstention**: R-Tuning (NAACL 2024, Outstanding Paper) and ConfQA /

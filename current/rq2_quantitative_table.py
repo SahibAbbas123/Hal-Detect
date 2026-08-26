@@ -215,7 +215,7 @@ def section_standalone(neg_routed: list[dict]) -> None:
           f"      (a gold-FALSE claim asserted TRUE)")
     print()
     print("  Always-True on this set    0.0%   <-- every row is gold FALSE, so")
-    print("  the degenerate strategy that scores 88.2% on the natural 356 scores")
+    print("  the degenerate strategy that scores 87.9% on the natural 356 scores")
     print("  ZERO here. That is what makes the accuracy above informative.")
 
     sub("what the 18 abstentions say (each names its own gap)")

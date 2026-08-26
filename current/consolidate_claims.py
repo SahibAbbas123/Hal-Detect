@@ -97,8 +97,17 @@ SOURCES = [
         "path": os.path.join(HERE, "haldetect_phase2_goldlabeled (3).csv"),
         "gold_type_independent": False,  # gold_type seeded from `type`
         "synthetic": False,
+        # Corrected 2026-08-26: was TRUE 87 / FALSE 1. `Q22_C01` was flipped
+        # TRUE -> FALSE on author authorisation. The claim says the FAO reported
+        # food insecurity *increased during 2022*; SOFI 2023 (cc3017en) p.10 says
+        # the prevalence "remained unchanged for the second year in a row"
+        # (29.6% in both 2021 and 2022) and the +391M is measured against 2019.
+        # A CITATION claim's truth condition is faithfulness to its source, so
+        # inverting the source's stated trend is a misattribution. This is the
+        # ONLY authoritative site for the label; the copies in the result CSVs
+        # were synced in the same commit.
         "expect": {"rows": 126, "labeled": 109,
-                   "verdicts": {"TRUE": 87, "FALSE": 1, "UNVERIFIABLE": 21}},
+                   "verdicts": {"TRUE": 86, "FALSE": 2, "UNVERIFIABLE": 21}},
         "note": "17 rows unlabeled; gold_type NOT independent",
     },
     {
