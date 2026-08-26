@@ -753,6 +753,39 @@ So of the 356 pooled claims, **109 rest on labels that are not independent groun
 
 Consequence: the FEVER routing experiment is not a bonus — it is the only route to independent routing measurement at scale.
 
+#### First tier-2 finding — `Q22_C01` FLAGGED, NOT FLIPPED (2026-08-26)
+
+`Q22_C01` — *"The FAO reported in 2023 that global food insecurity increased during 2022"* —
+is gold **TRUE**, and it looks wrong. **SOFI 2023 reports moderate-or-severe food insecurity
+as *virtually unchanged* 2021 → 2022;** the rise it headlines is the 2019 → 2022 horizon
+(+122 M), a different comparison than *"during 2022"*.
+
+**It was NOT flipped, and the reason is the rule, not the evidence.** `Q22_C01` sits at
+`priority='2-HIGH'`, `why='AI filled a blank; never reviewed'` — so flipping it is *an AI
+overwriting an AI-filled label*, exactly what this file exists to prevent. The precedent is
+recorded above: relabelling Phase 2 once moved measured RELATIONAL accuracy **~15% → 61.11%
+with no change to the verifier.** A verdict I cannot cite is not better than a blank.
+
+**Recorded via two new machine-origin columns, `FLAG` and `FLAG_EVIDENCE`.** They are
+additive — 109 rows and all 13 original columns byte-identical, **0 `AUTHOR_*` cells
+written** (the 31 tier-1 verdicts are untouched). `AUTHOR_VERDICT` stays blank because it is
+the author's column. `Q22_C03` is flagged `PREMISE-DEPENDENT`, not false: *"the rise"* has a
+defensible 2019 → 2022 reading and may stand as TRUE even if `Q22_C01` flips.
+
+**`EVIDENCE: UNVERIFIED IN SESSION.`** `WebSearch` is unsupported on this model
+(`400 tool type 'web_search_20250305' is not supported`) and FAO / WHO / UNICEF launch pages
+returned 403/404, so this rests on model knowledge, not a checked citation. **Author must
+confirm against SOFI 2023 before changing anything.**
+
+**Blast radius if it does flip** — computed offline, so the decision is costed:
+
+| effect | detail |
+|---|---|
+| files containing the id | **18 CSVs** |
+| `SYN_CITA_083` (base `Q22_C01`, source_swap FAO→WHO) | its gold FALSE stays *correct*, but it stops being a **clean controlled perturbation** — the base would already be false for an unrelated reason, so a detector could score it right for the wrong reason. Drop from the `source_swap` slice or re-base. |
+| `SYN_CITA_002`, `SYN_CITA_084` | based on `Q22_C03`, which inherits the *"the rise"* premise |
+| Level 1b | **immaterial.** `Q22_C01` is gated out (`work title 'FAO' has 0 content word(s)`), so FPR moves 0/25 → 0/24 and a 4th missed gold-FALSE natural claim appears. **The 9/25 negatives figure is unchanged.** If `SYN_CITA_083` is also dropped, `source_swap` reads 4/10 = 40.0% and overall TPR 9/24 = 37.5% — quote those only *after* the author decides. |
+
 ### The router over-fires TEMPORAL — measurable only on Batch 1
 
 **111/125 = 88.8% [82.1%, 93.2%]** overall, but 12 of 14 errors over-predict TEMPORAL (8 → RELATIONAL, 3 → QUANTITATIVE, 1 → EA). Per route: **TEMPORAL precision 15/27 = 55.6% [37.3%, 72.4%]** at 100% recall; QUANTITATIVE 87.5%/82.4%; RELATIONAL 100%/86.3%; EA 100%/88.9%; CITATION 100%/100%. Cause: it routes on **temporal-expression presence**, not temporal-predicate-hood.
