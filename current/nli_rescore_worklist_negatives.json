@@ -1,0 +1,922 @@
+{
+ "meta": {
+  "set": "negatives",
+  "task": "#16 nli__ cache-key collision rescore",
+  "phase3d_source": "archive/scripts/relational_verifier_phase3d.py",
+  "cache_used": "/Users/sahibabc/8th Semester Materials/ThesisCode_copy/current/nonrouted_cache.json",
+  "cache_entries": 2745,
+  "constants": {
+   "TOP_K": 3,
+   "MIN_PASSAGE_SCORE": 0.5,
+   "ENTAIL_THRESHOLD": 0.5,
+   "CONTRADICT_THRESHOLD": 0.4,
+   "MAX_PASSAGE_CHARS": 3000,
+   "MIN_MARGIN": 0.15
+  },
+  "nli": {
+   "candidate_labels": [
+    "entailment",
+    "contradiction",
+    "neutral"
+   ],
+   "hypothesis_template_prefix": "This passage {}s that ",
+   "hypothesis_template_note": "phase3d builds it per claim as: hypothesis_template = prefix + claim",
+   "legacy_key_fstring_in_source": "nli__{claim[:60].replace(' ', '_')}__{passage[:40].replace(' ', '_')}"
+  },
+  "key_format": {
+   "legacy": "nli__{claim[:60]}__{passage[:40]}, spaces -> underscores",
+   "fixed": "nli2__{sha1(claim)[:16]}__{sha1(passage)[:16]}"
+  },
+  "counts": {
+   "collision_groups": 15,
+   "candidate_rows": 41,
+   "exported_rows": 17,
+   "nli_pairs": 51,
+   "rows_without_passages": 8,
+   "rows_prefix_collides_but_keys_do_not": 7,
+   "reproduction_gate_failures": 0
+  },
+  "reproduction_gate": "PASS",
+  "excluded": {
+   "no_passages": [
+    [
+     "B3_08_C01",
+     "no_surviving_passages"
+    ],
+    [
+     "B3_08_C09",
+     "no_surviving_passages"
+    ],
+    [
+     "Q10_C17",
+     "no_surviving_passages"
+    ],
+    [
+     "Q10_C18",
+     "no_surviving_passages"
+    ],
+    [
+     "Q13_C09",
+     "no_surviving_passages"
+    ],
+    [
+     "Q19_C10",
+     "no_surviving_passages"
+    ],
+    [
+     "Q19_C12",
+     "no_surviving_passages"
+    ],
+    [
+     "Q19_C13",
+     "no_surviving_passages"
+    ]
+   ],
+   "prefix_only": [
+    "B3_08_C02",
+    "B3_08_C10",
+    "Q10_C16",
+    "Q13_C08",
+    "Q19_C11",
+    "Q22_C03",
+    "SYN_CITA_002"
+   ],
+   "gate_failed": []
+  }
+ },
+ "items": [
+  {
+   "claim_id": "SYN_CITA_001",
+   "population": "negative",
+   "type": "CITATION",
+   "gold_type": "CITATION",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q5_C02",
+   "injection_type": "cross_substitute_categorical",
+   "claim": "The IPCC Sixth Assessment Report states that human activities have caused conflict, economic shocks, and climate extremes.",
+   "query": "IPCC Sixth Assessment Report human influence climate change",
+   "query_source": "GEMINI",
+   "title": "Climate change",
+   "collision_group": "The_IPCC_Sixth_Assessment_Report_states_that_human_activitie",
+   "shared_legacy_keys": 2,
+   "recorded": {
+    "entail": "0.6209",
+    "contradict": "0.1599",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.748",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.748"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.575706,
+     "legacy_key": "nli__The_IPCC_Sixth_Assessment_Report_states_that_human_activitie__There_is_a_nearly_unanimous_scientific_c",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__2c4fa1d1520ad688__1bd27b2e7c3d7e20",
+     "text": "There is a nearly unanimous scientific consensus that the climate is warming and that this is caused by human activities. No scientific body of national or international standing disagrees with this view. As of 2019, agreement in recent literature reached over 99%. The 2021 IPCC Assessment Report stated that it is \"unequivocal\" that climate change is caused by humans. Consensus has further developed that action should be taken to protect people against the impacts of climate change. National science academies have called on world leaders to cut global emissions."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.540726,
+     "legacy_key": "nli__The_IPCC_Sixth_Assessment_Report_states_that_human_activitie__Inequalities_based_on_wealth_and_social_",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__2c4fa1d1520ad688__7fe4ec7c3404ac2d",
+     "text": "Inequalities based on wealth and social status have worsened due to climate change. Major difficulties in mitigating, adapting to, and recovering from climate shocks are faced by marginalized people who have less control over resources. Indigenous people, who are subsistent on their land and ecosystems, will face endangerment to their wellness and lifestyles due to climate change. An expert elicitation concluded that the role of climate change in armed conflict has been small compared to factors such as socio-economic inequality and state capabilities."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.535867,
+     "legacy_key": "nli__The_IPCC_Sixth_Assessment_Report_states_that_human_activitie__The_effects_of_climate_change_are_impact",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__2c4fa1d1520ad688__3722987611764fab",
+     "text": "The effects of climate change are impacting humans everywhere in the world. Impacts can be observed on all continents and ocean regions, with low-latitude, less developed areas facing the greatest risk. Continued warming has potentially \"severe, pervasive and irreversible impacts\" for people and ecosystems. The risks are unevenly distributed, but are generally greater for disadvantaged people in developing and developed countries."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_027",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q2_C11",
+   "injection_type": "scale",
+   "claim": "The Emergency Economic Stabilization Act of 2008 provided $707 billion for bank bailouts.",
+   "query": "Emergency Economic Stabilization Act of 2008",
+   "query_source": "FALLBACK",
+   "title": "Emergency Economic Stabilization Act of 2008",
+   "collision_group": "The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.7222",
+    "contradict": "0.443",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.789",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.789"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.743102,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__The_Emergency_Economic_Stabilization_Act",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__77b203d73a1d6eee__e1a2f7da41deef2b",
+     "text": "The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\", was a United States federal law enacted during the Great Recession, which created federal programs to \"bail out\" failing financial institutions and banks. The bill was proposed by Treasury Secretary Henry Paulson, passed by the 110th United States Congress, and was signed into law by President George W. Bush. It became law as part of Public Law 110-343 on October 3, 2008. It created the $700 billion Troubled Asset Relief Program (TARP) whose funds would purchase toxic assets from failing banks. The funds were mostly directed to inject capital into banks and other financial institutions as the Treasury continued to review the effectiveness of targeted asset-purchases."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.626086,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__Emergency_Economic_Stabilization_Act_of_",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__77b203d73a1d6eee__9dcd6b8f740b5d8f",
+     "text": "Emergency Economic Stabilization Act of 2008 as enacted (details) in the US Statutes at Large"
+    },
+    {
+     "idx": 2,
+     "sbert": 0.587818,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__Emergency_Economic_Stabilization_Act_of_",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__77b203d73a1d6eee__ed517a2fda180cf1",
+     "text": "Emergency Economic Stabilization Act of 2008 as amended (PDF/details) in the GPO Statute Compilations collection"
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_028",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q2_C11",
+   "injection_type": "scale",
+   "claim": "The Emergency Economic Stabilization Act of 2008 provided $735 billion for bank bailouts.",
+   "query": "Emergency Economic Stabilization Act of 2008",
+   "query_source": "FALLBACK",
+   "title": "Emergency Economic Stabilization Act of 2008",
+   "collision_group": "The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.7222",
+    "contradict": "0.443",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.789",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.789"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.757194,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__The_Emergency_Economic_Stabilization_Act",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__fb206e45a97c3622__e1a2f7da41deef2b",
+     "text": "The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\", was a United States federal law enacted during the Great Recession, which created federal programs to \"bail out\" failing financial institutions and banks. The bill was proposed by Treasury Secretary Henry Paulson, passed by the 110th United States Congress, and was signed into law by President George W. Bush. It became law as part of Public Law 110-343 on October 3, 2008. It created the $700 billion Troubled Asset Relief Program (TARP) whose funds would purchase toxic assets from failing banks. The funds were mostly directed to inject capital into banks and other financial institutions as the Treasury continued to review the effectiveness of targeted asset-purchases."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.6189,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__Emergency_Economic_Stabilization_Act_of_",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__fb206e45a97c3622__9dcd6b8f740b5d8f",
+     "text": "Emergency Economic Stabilization Act of 2008 as enacted (details) in the US Statutes at Large"
+    },
+    {
+     "idx": 2,
+     "sbert": 0.587245,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__Barack_Obama,_the_Democratic_presidentia",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__fb206e45a97c3622__5eeaafc0dc7ffcd3",
+     "text": "Barack Obama, the Democratic presidential candidate, said that any bailout had to include plans to recover the money, protect working families and big financial institutions, and be crafted to prevent such a crisis from happening again."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_030",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q2_C11",
+   "injection_type": "scale",
+   "claim": "The Emergency Economic Stabilization Act of 2008 provided $1050 billion for bank bailouts.",
+   "query": "Emergency Economic Stabilization Act of 2008",
+   "query_source": "FALLBACK",
+   "title": "Emergency Economic Stabilization Act of 2008",
+   "collision_group": "The_Emergency_Economic_Stabilization_Act_of_2008_provided_$1",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.3594",
+    "contradict": "0.4227",
+    "verdict": "FALSE",
+    "verdict_confidence": "0.627",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.763282,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$1__The_Emergency_Economic_Stabilization_Act",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__e7539298cec9bf00__e1a2f7da41deef2b",
+     "text": "The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\", was a United States federal law enacted during the Great Recession, which created federal programs to \"bail out\" failing financial institutions and banks. The bill was proposed by Treasury Secretary Henry Paulson, passed by the 110th United States Congress, and was signed into law by President George W. Bush. It became law as part of Public Law 110-343 on October 3, 2008. It created the $700 billion Troubled Asset Relief Program (TARP) whose funds would purchase toxic assets from failing banks. The funds were mostly directed to inject capital into banks and other financial institutions as the Treasury continued to review the effectiveness of targeted asset-purchases."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.635386,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$1__Emergency_Economic_Stabilization_Act_of_",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__e7539298cec9bf00__9dcd6b8f740b5d8f",
+     "text": "Emergency Economic Stabilization Act of 2008 as enacted (details) in the US Statutes at Large"
+    },
+    {
+     "idx": 2,
+     "sbert": 0.597954,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$1__Barack_Obama,_the_Democratic_presidentia",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__e7539298cec9bf00__5eeaafc0dc7ffcd3",
+     "text": "Barack Obama, the Democratic presidential candidate, said that any bailout had to include plans to recover the money, protect working families and big financial institutions, and be crafted to prevent such a crisis from happening again."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_031",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q2_C11",
+   "injection_type": "scale",
+   "claim": "The Emergency Economic Stabilization Act of 2008 provided $1400 billion for bank bailouts.",
+   "query": "Emergency Economic Stabilization Act of 2008",
+   "query_source": "FALLBACK",
+   "title": "Emergency Economic Stabilization Act of 2008",
+   "collision_group": "The_Emergency_Economic_Stabilization_Act_of_2008_provided_$1",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.3594",
+    "contradict": "0.4227",
+    "verdict": "FALSE",
+    "verdict_confidence": "0.627",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.768232,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$1__The_Emergency_Economic_Stabilization_Act",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__dd0f205d71bc3851__e1a2f7da41deef2b",
+     "text": "The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\", was a United States federal law enacted during the Great Recession, which created federal programs to \"bail out\" failing financial institutions and banks. The bill was proposed by Treasury Secretary Henry Paulson, passed by the 110th United States Congress, and was signed into law by President George W. Bush. It became law as part of Public Law 110-343 on October 3, 2008. It created the $700 billion Troubled Asset Relief Program (TARP) whose funds would purchase toxic assets from failing banks. The funds were mostly directed to inject capital into banks and other financial institutions as the Treasury continued to review the effectiveness of targeted asset-purchases."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.655536,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$1__Emergency_Economic_Stabilization_Act_of_",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__dd0f205d71bc3851__9dcd6b8f740b5d8f",
+     "text": "Emergency Economic Stabilization Act of 2008 as enacted (details) in the US Statutes at Large"
+    },
+    {
+     "idx": 2,
+     "sbert": 0.616231,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$1__Barack_Obama,_the_Democratic_presidentia",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__dd0f205d71bc3851__5eeaafc0dc7ffcd3",
+     "text": "Barack Obama, the Democratic presidential candidate, said that any bailout had to include plans to recover the money, protect working families and big financial institutions, and be crafted to prevent such a crisis from happening again."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_032",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q2_C11",
+   "injection_type": "scale",
+   "claim": "The Emergency Economic Stabilization Act of 2008 provided $7000 billion for bank bailouts.",
+   "query": "Emergency Economic Stabilization Act of 2008",
+   "query_source": "FALLBACK",
+   "title": "Emergency Economic Stabilization Act of 2008",
+   "collision_group": "The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7",
+   "shared_legacy_keys": 2,
+   "recorded": {
+    "entail": "0.7222",
+    "contradict": "0.443",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.789",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.789"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.757641,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__The_Emergency_Economic_Stabilization_Act",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__6674e06fdd87d194__e1a2f7da41deef2b",
+     "text": "The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\", was a United States federal law enacted during the Great Recession, which created federal programs to \"bail out\" failing financial institutions and banks. The bill was proposed by Treasury Secretary Henry Paulson, passed by the 110th United States Congress, and was signed into law by President George W. Bush. It became law as part of Public Law 110-343 on October 3, 2008. It created the $700 billion Troubled Asset Relief Program (TARP) whose funds would purchase toxic assets from failing banks. The funds were mostly directed to inject capital into banks and other financial institutions as the Treasury continued to review the effectiveness of targeted asset-purchases."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.644682,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__Emergency_Economic_Stabilization_Act_of_",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__6674e06fdd87d194__9dcd6b8f740b5d8f",
+     "text": "Emergency Economic Stabilization Act of 2008 as enacted (details) in the US Statutes at Large"
+    },
+    {
+     "idx": 2,
+     "sbert": 0.59096,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__In_his_testimony_before_the_U.S._Senate_",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__6674e06fdd87d194__99af3fe8bc375c84",
+     "text": "In his testimony before the U.S. Senate on September 23, 2008, Fed Chairman Ben Bernanke also summarized the rationale for the $700 billion (~$998 billion in 2024) bailout:"
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_033",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q5_C04",
+   "injection_type": "scale",
+   "claim": "Global surface temperatures have increased by approximately 1.2 degrees Celsius since 1850.",
+   "query": "Global surface temperature",
+   "query_source": "FALLBACK",
+   "title": "Global surface temperature",
+   "collision_group": "Global_surface_temperatures_have_increased_by_approximately_",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.6139",
+    "contradict": "0.1117",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.746",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.746"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.754626,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___global_mean_surface_temperatures_over_th",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__814a9f2940cb8248__b1d9f853dcbdfef7",
+     "text": "global mean surface temperatures over the last 25 years have been higher than any comparable period since AD 1600, and probably since AD 900"
+    },
+    {
+     "idx": 1,
+     "sbert": 0.73969,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__814a9f2940cb8248__33f6cacad77e29fe",
+     "text": "The global average and combined land and ocean surface temperature, show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.739488,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__814a9f2940cb8248__e1d824e0b9619145",
+     "text": "The global average and combined land and ocean surface temperature show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years. Within that upward trend, some variability in temperatures happens because of natural internal variability (for example due to El Niño–Southern Oscillation)."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_034",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q5_C04",
+   "injection_type": "scale",
+   "claim": "Global surface temperatures have increased by approximately 1.4 degrees Celsius since 1850.",
+   "query": "Global surface temperature",
+   "query_source": "FALLBACK",
+   "title": "Global surface temperature",
+   "collision_group": "Global_surface_temperatures_have_increased_by_approximately_",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.6139",
+    "contradict": "0.1117",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.746",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.746"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.758043,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___global_mean_surface_temperatures_over_th",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__52455b90ab635955__b1d9f853dcbdfef7",
+     "text": "global mean surface temperatures over the last 25 years have been higher than any comparable period since AD 1600, and probably since AD 900"
+    },
+    {
+     "idx": 1,
+     "sbert": 0.739782,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__52455b90ab635955__33f6cacad77e29fe",
+     "text": "The global average and combined land and ocean surface temperature, show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.738473,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__52455b90ab635955__e1d824e0b9619145",
+     "text": "The global average and combined land and ocean surface temperature show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years. Within that upward trend, some variability in temperatures happens because of natural internal variability (for example due to El Niño–Southern Oscillation)."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_035",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q5_C04",
+   "injection_type": "scale",
+   "claim": "Global surface temperatures have increased by approximately 1.7 degrees Celsius since 1850.",
+   "query": "Global surface temperature",
+   "query_source": "FALLBACK",
+   "title": "Global surface temperature",
+   "collision_group": "Global_surface_temperatures_have_increased_by_approximately_",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.6139",
+    "contradict": "0.1117",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.746",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.746"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.75536,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___global_mean_surface_temperatures_over_th",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__3ba1382c3301010b__b1d9f853dcbdfef7",
+     "text": "global mean surface temperatures over the last 25 years have been higher than any comparable period since AD 1600, and probably since AD 900"
+    },
+    {
+     "idx": 1,
+     "sbert": 0.740885,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__3ba1382c3301010b__33f6cacad77e29fe",
+     "text": "The global average and combined land and ocean surface temperature, show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.739201,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__3ba1382c3301010b__e1d824e0b9619145",
+     "text": "The global average and combined land and ocean surface temperature show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years. Within that upward trend, some variability in temperatures happens because of natural internal variability (for example due to El Niño–Southern Oscillation)."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_036",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q5_C04",
+   "injection_type": "scale",
+   "claim": "Global surface temperatures have increased by approximately 2.2 degrees Celsius since 1850.",
+   "query": "Global surface temperature",
+   "query_source": "FALLBACK",
+   "title": "Global surface temperature",
+   "collision_group": "Global_surface_temperatures_have_increased_by_approximately_",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.6139",
+    "contradict": "0.1117",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.746",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.746"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.745004,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___global_mean_surface_temperatures_over_th",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__8e8a4d92b724df66__b1d9f853dcbdfef7",
+     "text": "global mean surface temperatures over the last 25 years have been higher than any comparable period since AD 1600, and probably since AD 900"
+    },
+    {
+     "idx": 1,
+     "sbert": 0.735087,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__8e8a4d92b724df66__33f6cacad77e29fe",
+     "text": "The global average and combined land and ocean surface temperature, show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.732569,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__8e8a4d92b724df66__e1d824e0b9619145",
+     "text": "The global average and combined land and ocean surface temperature show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years. Within that upward trend, some variability in temperatures happens because of natural internal variability (for example due to El Niño–Southern Oscillation)."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_037",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q5_C04",
+   "injection_type": "scale",
+   "claim": "Global surface temperatures have increased by approximately 11.0 degrees Celsius since 1850.",
+   "query": "Global surface temperature",
+   "query_source": "FALLBACK",
+   "title": "Global surface temperature",
+   "collision_group": "Global_surface_temperatures_have_increased_by_approximately_",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.6139",
+    "contradict": "0.1117",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.746",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.746"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.747105,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___global_mean_surface_temperatures_over_th",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__ed0964a79a91d87e__b1d9f853dcbdfef7",
+     "text": "global mean surface temperatures over the last 25 years have been higher than any comparable period since AD 1600, and probably since AD 900"
+    },
+    {
+     "idx": 1,
+     "sbert": 0.732165,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__ed0964a79a91d87e__e1d824e0b9619145",
+     "text": "The global average and combined land and ocean surface temperature show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years. Within that upward trend, some variability in temperatures happens because of natural internal variability (for example due to El Niño–Southern Oscillation)."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.731281,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__ed0964a79a91d87e__33f6cacad77e29fe",
+     "text": "The global average and combined land and ocean surface temperature, show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_QUAN_038",
+   "population": "negative",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q7_C04",
+   "injection_type": "scale",
+   "claim": "The Silk Road network of trade routes spanned a distance of approximately 6,464 kilometers.",
+   "query": "Silk Road",
+   "query_source": "FALLBACK",
+   "title": "Silk Road",
+   "collision_group": "The_Silk_Road_network_of_trade_routes_spanned_a_distance_of_",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.5809",
+    "contradict": "0.2973",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.732",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.732"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.708312,
+     "legacy_key": "nli__The_Silk_Road_network_of_trade_routes_spanned_a_distance_of___These_connections_marked_the_beginning_o",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__948ff29b6d4b6010__2ea6fe1862a1d567",
+     "text": "These connections marked the beginning of the Silk Road trade network that extended to the Roman Empire."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.70363,
+     "legacy_key": "nli__The_Silk_Road_network_of_trade_routes_spanned_a_distance_of___The_Silk_Road_consisted_of_several_route",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__948ff29b6d4b6010__89bfc8e9e17fe7d2",
+     "text": "The Silk Road consisted of several routes. As it extended westwards from the ancient commercial centres of China, the overland, intercontinental Silk Road divided into northern and southern routes bypassing the Taklamakan Desert and Lop Nur. Merchants along these routes were involved in \"relay trade\" in which goods changed \"hands many times before reaching their final destinations\"."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.694449,
+     "legacy_key": "nli__The_Silk_Road_network_of_trade_routes_spanned_a_distance_of___The_Great_Silk_Road_was_a_network_of_Asi",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__948ff29b6d4b6010__88a08f84f333416b",
+     "text": "The Great Silk Road was a network of Asian trade routes active from the second century BCE until the mid-15th century. Spanning over 6,400 km (4,000 mi) on land, it played a central role in facilitating economic, cultural, political, and religious interactions between the Eastern and Western worlds. The name \"Silk Road\" was coined in the late 19th century, but some 20th- and 21st-century historians instead prefer the term Silk Routes, on the grounds that it more accurately describes the intricate web of land and sea routes connecting Central, East, South, Southeast, and West Asia as well as East Africa and Southern Europe. In fact, some scholars criticise or even dismiss the idea of silk roads and call for a new definition or alternate term. According to them, the literature using this term has \"privileged the sedentary and literate empires at either end of Eurasia\" thereby ignoring the contributions of steppe nomads. In addition, the classic definition sidelines prominent civilisations such as India and Iran."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_TEMP_056",
+   "population": "negative",
+   "type": "TEMPORAL",
+   "gold_type": "TEMPORAL",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q1_C02",
+   "injection_type": "year_shift",
+   "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1906.",
+   "query": "Albert Einstein",
+   "query_source": "FALLBACK",
+   "title": "Albert Einstein",
+   "collision_group": "Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.4814",
+    "contradict": "0.5008",
+    "verdict": "FALSE",
+    "verdict_confidence": "0.65",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.643528,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein's_sabbatical_as_a_civil_servant",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__8b779695f9aed379__ed66e029a305a413",
+     "text": "Einstein's sabbatical as a civil servant approached its end in 1908, when he secured a junior teaching position at the University of Bern. In 1909, a lecture on relativistic electrodynamics that he gave at the University of Zurich, much admired by Alfred Kleiner, led to Zurich's luring him away from Bern with a newly created associate professorship. Promotion to a full professorship followed in April 1911, when he took up a chair at the German Charles-Ferdinand University in Prague, a move which required him to become an Austrian citizen of the Austro-Hungarian Empire, which was not completed. His time in Prague saw him producing eleven research papers."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.632357,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein_graduated_from_the_federal_poly",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__8b779695f9aed379__03ef37e81b1b440d",
+     "text": "Einstein graduated from the federal polytechnic school in 1900, duly certified as competent to teach mathematics and physics. His successful acquisition of Swiss citizenship in February 1901 was not followed by the usual sequel of conscription; the Swiss authorities deemed him medically unfit for military service. He found that Swiss schools too appeared to have no use for him, failing to offer him a teaching position despite the almost two years that he spent applying for one. Eventually it was with the help of Marcel Grossmann's father that he secured a post in Bern at the Swiss Patent Office, as an assistant examiner – level III."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.624783,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Patent_applications_that_landed_on_Einst",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__8b779695f9aed379__9c3a390b6e9a2cc9",
+     "text": "Patent applications that landed on Einstein's desk for his evaluation included ideas for a gravel sorter and an electric typewriter. His employers were pleased enough with his work to make his position permanent in 1903, although they did not think that he should be promoted until he had \"fully mastered machine technology\". It is conceivable that his labors at the patent office had a bearing on his development of his special theory of relativity. He arrived at his revolutionary ideas about space, time and light through thought experiments about the transmission of signals and the synchronization of clocks, matters which also figured in some of the inventions submitted to him for assessment."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_TEMP_057",
+   "population": "negative",
+   "type": "TEMPORAL",
+   "gold_type": "TEMPORAL",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q1_C02",
+   "injection_type": "year_shift",
+   "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1907.",
+   "query": "Albert Einstein",
+   "query_source": "FALLBACK",
+   "title": "Albert Einstein",
+   "collision_group": "Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.4814",
+    "contradict": "0.5008",
+    "verdict": "FALSE",
+    "verdict_confidence": "0.65",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.649907,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein's_sabbatical_as_a_civil_servant",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__c21517575e80164d__ed66e029a305a413",
+     "text": "Einstein's sabbatical as a civil servant approached its end in 1908, when he secured a junior teaching position at the University of Bern. In 1909, a lecture on relativistic electrodynamics that he gave at the University of Zurich, much admired by Alfred Kleiner, led to Zurich's luring him away from Bern with a newly created associate professorship. Promotion to a full professorship followed in April 1911, when he took up a chair at the German Charles-Ferdinand University in Prague, a move which required him to become an Austrian citizen of the Austro-Hungarian Empire, which was not completed. His time in Prague saw him producing eleven research papers."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.628201,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein_graduated_from_the_federal_poly",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__c21517575e80164d__03ef37e81b1b440d",
+     "text": "Einstein graduated from the federal polytechnic school in 1900, duly certified as competent to teach mathematics and physics. His successful acquisition of Swiss citizenship in February 1901 was not followed by the usual sequel of conscription; the Swiss authorities deemed him medically unfit for military service. He found that Swiss schools too appeared to have no use for him, failing to offer him a teaching position despite the almost two years that he spent applying for one. Eventually it was with the help of Marcel Grossmann's father that he secured a post in Bern at the Swiss Patent Office, as an assistant examiner – level III."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.62583,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Patent_applications_that_landed_on_Einst",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__c21517575e80164d__9c3a390b6e9a2cc9",
+     "text": "Patent applications that landed on Einstein's desk for his evaluation included ideas for a gravel sorter and an electric typewriter. His employers were pleased enough with his work to make his position permanent in 1903, although they did not think that he should be promoted until he had \"fully mastered machine technology\". It is conceivable that his labors at the patent office had a bearing on his development of his special theory of relativity. He arrived at his revolutionary ideas about space, time and light through thought experiments about the transmission of signals and the synchronization of clocks, matters which also figured in some of the inventions submitted to him for assessment."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_TEMP_058",
+   "population": "negative",
+   "type": "TEMPORAL",
+   "gold_type": "TEMPORAL",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q1_C02",
+   "injection_type": "year_shift",
+   "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1910.",
+   "query": "Albert Einstein",
+   "query_source": "FALLBACK",
+   "title": "Albert Einstein",
+   "collision_group": "Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.4814",
+    "contradict": "0.5008",
+    "verdict": "FALSE",
+    "verdict_confidence": "0.65",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.666393,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein's_sabbatical_as_a_civil_servant",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__c01ee83ff397bd32__ed66e029a305a413",
+     "text": "Einstein's sabbatical as a civil servant approached its end in 1908, when he secured a junior teaching position at the University of Bern. In 1909, a lecture on relativistic electrodynamics that he gave at the University of Zurich, much admired by Alfred Kleiner, led to Zurich's luring him away from Bern with a newly created associate professorship. Promotion to a full professorship followed in April 1911, when he took up a chair at the German Charles-Ferdinand University in Prague, a move which required him to become an Austrian citizen of the Austro-Hungarian Empire, which was not completed. His time in Prague saw him producing eleven research papers."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.622279,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein_graduated_from_the_federal_poly",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__c01ee83ff397bd32__03ef37e81b1b440d",
+     "text": "Einstein graduated from the federal polytechnic school in 1900, duly certified as competent to teach mathematics and physics. His successful acquisition of Swiss citizenship in February 1901 was not followed by the usual sequel of conscription; the Swiss authorities deemed him medically unfit for military service. He found that Swiss schools too appeared to have no use for him, failing to offer him a teaching position despite the almost two years that he spent applying for one. Eventually it was with the help of Marcel Grossmann's father that he secured a post in Bern at the Swiss Patent Office, as an assistant examiner – level III."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.61723,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Patent_applications_that_landed_on_Einst",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__c01ee83ff397bd32__9c3a390b6e9a2cc9",
+     "text": "Patent applications that landed on Einstein's desk for his evaluation included ideas for a gravel sorter and an electric typewriter. His employers were pleased enough with his work to make his position permanent in 1903, although they did not think that he should be promoted until he had \"fully mastered machine technology\". It is conceivable that his labors at the patent office had a bearing on his development of his special theory of relativity. He arrived at his revolutionary ideas about space, time and light through thought experiments about the transmission of signals and the synchronization of clocks, matters which also figured in some of the inventions submitted to him for assessment."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_TEMP_059",
+   "population": "negative",
+   "type": "TEMPORAL",
+   "gold_type": "TEMPORAL",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q1_C02",
+   "injection_type": "year_shift",
+   "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1915.",
+   "query": "Albert Einstein",
+   "query_source": "FALLBACK",
+   "title": "Albert Einstein",
+   "collision_group": "Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in",
+   "shared_legacy_keys": 2,
+   "recorded": {
+    "entail": "0.4814",
+    "contradict": "0.4619",
+    "verdict": "FALSE",
+    "verdict_confidence": "0.639",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.64505,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein's_sabbatical_as_a_civil_servant",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__93a20d2bb2dbba3c__ed66e029a305a413",
+     "text": "Einstein's sabbatical as a civil servant approached its end in 1908, when he secured a junior teaching position at the University of Bern. In 1909, a lecture on relativistic electrodynamics that he gave at the University of Zurich, much admired by Alfred Kleiner, led to Zurich's luring him away from Bern with a newly created associate professorship. Promotion to a full professorship followed in April 1911, when he took up a chair at the German Charles-Ferdinand University in Prague, a move which required him to become an Austrian citizen of the Austro-Hungarian Empire, which was not completed. His time in Prague saw him producing eleven research papers."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.614983,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Born_as_a_subject_to_the_Kingdom_of_Würt",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__93a20d2bb2dbba3c__03b7864029d97155",
+     "text": "Born as a subject to the Kingdom of Württemberg, part of the German Empire, Einstein moved to Switzerland in 1895, forsaking his citizenship the following year. In 1896, at the age of seventeen, he enrolled in the mathematics and physics teaching diploma program at the Swiss federal polytechnic school in Zurich, graduating in 1900. He acquired Swiss citizenship a year later, which he kept for the rest of his life, and afterwards secured a permanent position at the Swiss Patent Office in Bern. In 1905, he submitted a successful PhD dissertation to the University of Zurich. In 1914, he moved to Berlin to join the Prussian Academy of Sciences and the Humboldt University of Berlin, becoming director of the Kaiser Wilhelm Institute for Physics in 1917; he also became a Prussian and consequently also German citizen again. In 1933, while Einstein was visiting the United States, Adolf Hitler came to power in Germany. Horrified by the Nazi persecution of his fellow Jews, he decided to remain in the US, and was granted American citizenship in 1940. On the eve of World War II, he endorsed a letter to President Franklin D. Roosevelt alerting him to the potential German nuclear weapons program and recommending that the US begin similar research, later carried out as the Manhattan Project."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.606979,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein_graduated_from_the_federal_poly",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__93a20d2bb2dbba3c__03ef37e81b1b440d",
+     "text": "Einstein graduated from the federal polytechnic school in 1900, duly certified as competent to teach mathematics and physics. His successful acquisition of Swiss citizenship in February 1901 was not followed by the usual sequel of conscription; the Swiss authorities deemed him medically unfit for military service. He found that Swiss schools too appeared to have no use for him, failing to offer him a teaching position despite the almost two years that he spent applying for one. Eventually it was with the help of Marcel Grossmann's father that he secured a post in Bern at the Swiss Patent Office, as an assistant examiner – level III."
+    }
+   ]
+  },
+  {
+   "claim_id": "SYN_TEMP_060",
+   "population": "negative",
+   "type": "TEMPORAL",
+   "gold_type": "TEMPORAL",
+   "gold_verdict": "FALSE",
+   "base_claim_id": "Q1_C02",
+   "injection_type": "year_shift",
+   "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 2005.",
+   "query": "Albert Einstein Swiss Patent Office",
+   "query_source": "GEMINI",
+   "title": "Albert Einstein",
+   "collision_group": "Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in",
+   "shared_legacy_keys": 2,
+   "recorded": {
+    "entail": "0.4814",
+    "contradict": "0.4619",
+    "verdict": "FALSE",
+    "verdict_confidence": "0.639",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.605557,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein's_sabbatical_as_a_civil_servant",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__bc2240ab369d21dc__ed66e029a305a413",
+     "text": "Einstein's sabbatical as a civil servant approached its end in 1908, when he secured a junior teaching position at the University of Bern. In 1909, a lecture on relativistic electrodynamics that he gave at the University of Zurich, much admired by Alfred Kleiner, led to Zurich's luring him away from Bern with a newly created associate professorship. Promotion to a full professorship followed in April 1911, when he took up a chair at the German Charles-Ferdinand University in Prague, a move which required him to become an Austrian citizen of the Austro-Hungarian Empire, which was not completed. His time in Prague saw him producing eleven research papers."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.59877,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein_was_born_in_Ulm_as_a_subject_to",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__bc2240ab369d21dc__7dc6cd0fc7f48dde",
+     "text": "Einstein was born in Ulm as a subject to the Kingdom of Württemberg in the German Empire on 14 March 1879. His parents, secular Ashkenazi Jews, were Hermann Einstein, a salesman and engineer, and Pauline Koch. In 1880, the family moved to Munich's borough of Ludwigsvorstadt-Isarvorstadt, where Einstein's father and his uncle Jakob founded Elektrotechnische Fabrik J. Einstein & Cie, a company that manufactured electrical equipment based on direct current."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.591178,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein_graduated_from_the_federal_poly",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__bc2240ab369d21dc__03ef37e81b1b440d",
+     "text": "Einstein graduated from the federal polytechnic school in 1900, duly certified as competent to teach mathematics and physics. His successful acquisition of Swiss citizenship in February 1901 was not followed by the usual sequel of conscription; the Swiss authorities deemed him medically unfit for military service. He found that Swiss schools too appeared to have no use for him, failing to offer him a teaching position despite the almost two years that he spent applying for one. Eventually it was with the help of Marcel Grossmann's father that he secured a post in Bern at the Swiss Patent Office, as an assistant examiner – level III."
+    }
+   ]
+  }
+ ]
+}
