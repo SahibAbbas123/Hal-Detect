@@ -87,7 +87,105 @@ Requesting `languages=en` returned an **empty label** for Denali, so the lexical
 
 **Cache prefixes were bumped (`cmeta3__`, `cand2__`).** Reusing `cmeta__`/`cmeta2__`/`search__` would have preserved each bug while making the fix appear to work — the same discipline that caught the earlier cache-poisoning bug.
 
-**`mul` and full-text are NOT yet fixed project-wide.** `property_resolver.py` and notebook cells 69/75 still request `languages=en` and still resolve via prefix search, on the same proper nouns. **This means TEMPORAL/EA's recorded "0% coverage, entirely a `PROPERTY_TO_WIKIDATA` gap" diagnosis may be partly wrong** — some of those claims may have failed at resolution, with the entity silently unnamed, before property matching was ever reached. Re-measure rather than assume.
+**~~`mul` and full-text are NOT yet fixed project-wide.~~ CORRECTED 2026-08-26 — the cells
+WERE ported; `property_resolver.py` only PARTLY was. This row was stale for three days, and
+it was stale in both directions.** Verified by reading the notebook JSON directly
+(`json.load`, cells located by content marker, not index) and grepping the module:
+
+| | `languages=en\|mul` | full-text search | prominence (`sitelinks` / `TIE_BAND`) |
+|---|---|---|---|
+| **cell 69** (EA, Phase 4) | **yes** (2) | **yes** — `"list": "search"` | **yes** (12 / 2) |
+| **cell 75** (TEMPORAL, Phase 2) | **yes** (2) | **yes** — `"list": "search"` | **yes** (12 / 2) |
+| `current/property_resolver.py` | **yes** — L341, L374, plus its own `pmeta__`→`pmeta2__` bump documented at L332 | **NO — still `action=wbsearchentities` at L612, i.e. Bug B is live** | **NO** — no `sitelinks`, no `RESOLUTION_TIE_BAND` |
+
+So **both live cells are fully fixed** (task #9 was right about them) and
+**`property_resolver.py` carries 1 of the 3 fixes.** Do not read "cells 69/75 were ported"
+as "the project was ported". `property_resolver.py` is the deliberately-unintegrated path,
+so its Bug B is not on the critical path — but it is live in that module and must be stated
+that way, not struck out wholesale. Same failure as the TEMPORAL/EA summary-table mislabel:
+two parts of this file disagreed, and the one with a named file and a verifiable marker won.
+
+**The fixed cells have NEVER BEEN EXECUTED, and that is the bigger finding.**
+`current/verifier_cache_wikidata.json` (3673 keys) contains **zero `meta2__` keys** —
+`meta2__` is the metadata prefix those cells write, and 20 pre-fix `meta__` keys are still
+there. So:
+
+**TEMPORAL 0/12 and EA 0/22 predate the `mul`/full-text/prominence port.** Those CSVs came
+from the post-QID-fix cells, before #9. The re-measure this paragraph originally called for
+is therefore still genuinely open — and **the direction of the correction favours coverage**,
+since Bug C's whole point was that proper nouns living under `mul` were scored as though
+unnamed. Do not quote 0%/0% as the *current* capability of the live path; quote it as the
+last measured value and say the code has moved since.
+
+### #12 DONE 2026-08-26 — prefixes bumped in cells 69/75, and the reason changed on measurement
+
+4-line change, raw JSON only, verified minimal: only cells 69 and 75 changed source, cell
+types and outputs byte-identical on all 76 cells, and the re-dump round-trips
+byte-identical to the original serialisation (`indent=1`, no trailing newline) — checked as
+a **precondition**, because a reformat would have buried a 4-line edit in a 76-cell diff.
+
+    entity_candidates__  ->  entity_candidates2__     (cells 69 and 75)
+    attr__               ->  attr2__                  (cell 69)
+    sparql__             ->  sparql2__                (cell 75)
+    meta2__                  LEFT ALONE — already bumped from meta__, and 0 keys exist,
+                             so there is nothing stale for it to shadow
+
+**The recorded reason for this task was the weaker one.** Measured against the cache:
+
+| prefix | keys | what the cache actually shows |
+|---|---|---|
+| `entity_candidates__` | **5** | **spot-checks as POST-fix, not stale** — `rosetta_stone__5` contains Q48584 and `panama_canal__5` contains Q7350, i.e. the *correct* entities that prefix-only search would have missed. So this bump is **cheap insurance (5 re-searches), not a bug fix** — say so rather than claim a save. |
+| `attr__` + `sparql__` | **5** | **100% EMPTY.** This is the bump that has a measurable consequence: a cached empty short-circuits to "no values" without retrying, so **reusing them would guarantee the re-run reproduces 0% coverage.** |
+
+One entry reads `entity_candidates__french_effort_to_build_the_panama_canal__` with `n=0`.
+That is **not** a pre-fix artifact — an empty full-text result is the honest answer for a
+descriptive phrase that names no entity. My first probe labelled it "pre-fix"; the label was
+wrong and the corrected reading is recorded here rather than carried forward.
+
+**NOT DONE, and it needs the author: the cells have not been re-run.** That is an API-calling
+job over 34 TEMPORAL+EA claims and is exactly the kind of run to ask about first. Superseded
+cells (60/62/65/67/73) were deliberately left untouched — they are not executed, and editing
+them would be churn against cells this file marks superseded.
+`current/verifier_cache_wikidata.json` (3673 keys) contains **zero `meta2__` keys** —
+`meta2__` is the metadata prefix those cells write, and 20 pre-fix `meta__` keys are still
+there. So:
+
+**TEMPORAL 0/12 and EA 0/22 predate the `mul`/full-text/prominence port.** Those CSVs came
+from the post-QID-fix cells, before #9. The re-measure this paragraph originally called for
+is therefore still genuinely open — and **the direction of the correction favours coverage**,
+since Bug C's whole point was that proper nouns living under `mul` were scored as though
+unnamed. Do not quote 0%/0% as the *current* capability of the live path; quote it as the
+last measured value and say the code has moved since.
+
+### #12 DONE 2026-08-26 — prefixes bumped in cells 69/75, and the reason changed on measurement
+
+4-line change, raw JSON only, verified minimal: only cells 69 and 75 changed source, cell
+types and outputs byte-identical on all 76 cells, and the re-dump round-trips
+byte-identical to the original serialisation (`indent=1`, no trailing newline) — checked as
+a **precondition**, because a reformat would have buried a 4-line edit in a 76-cell diff.
+
+    entity_candidates__  ->  entity_candidates2__     (cells 69 and 75)
+    attr__               ->  attr2__                  (cell 69)
+    sparql__             ->  sparql2__                (cell 75)
+    meta2__                  LEFT ALONE — already bumped from meta__, and 0 keys exist,
+                             so there is nothing stale for it to shadow
+
+**The recorded reason for this task was the weaker one.** Measured against the cache:
+
+| prefix | keys | what the cache actually shows |
+|---|---|---|
+| `entity_candidates__` | **5** | **spot-checks as POST-fix, not stale** — `rosetta_stone__5` contains Q48584 and `panama_canal__5` contains Q7350, i.e. the *correct* entities that prefix-only search would have missed. So this bump is **cheap insurance (5 re-searches), not a bug fix** — say so rather than claim a save. |
+| `attr__` + `sparql__` | **5** | **100% EMPTY.** This is the bump that has a measurable consequence: a cached empty short-circuits to "no values" without retrying, so **reusing them would guarantee the re-run reproduces 0% coverage.** |
+
+One entry reads `entity_candidates__french_effort_to_build_the_panama_canal__` with `n=0`.
+That is **not** a pre-fix artifact — an empty full-text result is the honest answer for a
+descriptive phrase that names no entity. My first probe labelled it "pre-fix"; the label was
+wrong and the corrected reading is recorded here rather than carried forward.
+
+**NOT DONE, and it needs the author: the cells have not been re-run.** That is an API-calling
+job over 34 TEMPORAL+EA claims and is exactly the kind of run to ask about first. Superseded
+cells (60/62/65/67/73) were deliberately left untouched — they are not executed, and editing
+them would be churn against cells this file marks superseded.
 
 ### A THIRD resolution failure mode — editions of a serial publication (found 2026-08-25, FIXED 2026-08-26)
 
