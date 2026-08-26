@@ -633,18 +633,26 @@ backbone swap (invalidates the `nli__` cache, the baseline's 356 rows and the wh
 surface; BART SIGBUSes locally so it needs Colab), and KGQA property mapping (biggest coverage
 lever, highest regression risk, must be precision-gated from the start).
 
-**Author actions, not mine to perform:** verify **R-Tuning's page range
-`7831–7848`** and **ConfRAG's arXiv `2506.07309`** against the ACL Anthology / arXiv before
-either enters the bibliography (author lists and venues in such summaries are usually right;
-page ranges and arXiv IDs are what they get subtly wrong); edit Rule 8 and §3.2 of the taxonomy
+**Author actions, not mine to perform:** edit Rule 8 and §3.2 of the taxonomy
 document and re-label the 8 corpus rows (documentation edits, 0 measured numbers affected);
 propagate this file to main (§4, A3). **Neither the `Q22_C01` flip nor #23 is on this list any
 more** — the flip was authorised and applied 2026-08-26 (§4), and #23 was applied the same day
 under the standing "proceed in the most recommended/logical way" authority (§5). **There is now no
 pending edit to any claim or negatives file.**
 
+**The bibliography check came OFF this list 2026-08-27, and its own prediction was confirmed to
+the digit.** This row used to read *"verify R-Tuning's page range `7831–7848` and ConfRAG's arXiv
+`2506.07309` … author lists and venues in such summaries are usually right; page ranges and arXiv
+IDs are what they get subtly wrong."* Both were checked against primary sources (§7 environment
+note explains how the web gap was closed). **The page range was WRONG and the arXiv ID was
+RIGHT** — exactly the predicted split. Verified values are in the literature paragraph below.
+**Neither number was ever quoted in a result**, so nothing measured moves; the value is that a
+known-wrong figure did not reach the bibliography. **The generalisable part: the failure mode was
+correctly predicted by *kind* before it was found**, which is the same discipline as R1 — distrust
+the class of fact that summaries get wrong, not the summary as a whole.
+
 **Literature now grounded, no code implied.** `MIN_MARGIN = 0.15` and the UNVERIFIABLE class are
-an instance of **calibrated abstention**: R-Tuning (NAACL 2024, Outstanding Paper) and ConfQA /
+an instance of **calibrated abstention**: R-Tuning (NAACL 2024) and ConfQA /
 ConfRAG (arXiv 2506.07309). **State the limit precisely — both train the *generator* to abstain;
 HalDetect's UNVERIFIABLE is *post-hoc verifier* abstention at a different stage.** They ground
 the **principle**, not the mechanism. The real payoff is that **R-Tuning's central result — that
@@ -652,6 +660,24 @@ risk-coverage curves are the right frame for abstaining systems and separate met
 single-point accuracy cannot — is an independent literature justification for the settled
 3d-vs-3e tradeoff-table decision (§4).** Cite it in the table caption. ConfQA's *"unsure as a
 gate that triggers retrieval"* also describes the TEMPORAL/EA hybrid fall-through (#3) exactly.
+
+**Both citations verified against primary sources 2026-08-27 — use these strings, not the ones a
+summary gives you.**
+
+- **R-Tuning.** Zhang, Diao, Lin, Fung, Lian, Wang, Chen, Ji, Zhang (9 authors), *"R-Tuning:
+  Instructing Large Language Models to Say 'I Don't Know'"*, **NAACL 2024, Volume 1: Long Papers,
+  pp. 7113–7139**. Anthology ID `2024.naacl-long.394`, DOI `10.18653/v1/2024.naacl-long.394`,
+  bibkey `zhang-etal-2024-r`. **The page range this file carried for days, `7831–7848`, was
+  WRONG.** Note the exact title is *"…to Say 'I Don't Know'"* — the alternative titles that
+  circulate (*"…to Refuse Unknown Questions"*, *"Instruction Tuning for Unfamiliar Knowledge"*)
+  are **not** the published title. **NOT VERIFIED: the "Outstanding Paper" attribution** this file
+  previously carried — the Anthology page does not record award status, so it was removed rather
+  than repeated. Restore it only from an ACL award list.
+- **ConfRAG.** Huang, Xu, Sun, Yan, Sun, Khan, Nguyen, Chen, Kachuee, Lin, Liu, Colak, Kumar, Yih,
+  Dong (15 authors), *"ConfRAG: Confidence-Guided Retrieval-Augmenting Generation"*, **arXiv
+  `2506.07309`** (v1 8 Jun 2025, v2 30 Sep 2025), cs.CL, DOI `10.48550/arXiv.2506.07309`. **The
+  arXiv ID was correct.** The published title is **ConfRAG**; *ConfQA* is the method inside it, so
+  *"ConfQA / ConfRAG"* is a method/paper pair, not two papers — cite the paper as ConfRAG.
 
 **Blocker on any pooled RELATIONAL re-run:** cell 57 calls `gemini-3.1-flash-lite-preview` for
 disambiguated query generation. Uncached claims fall back to the bare subject, which measurably
@@ -668,6 +694,42 @@ Bash commands** — use `python3 -c "..."`, which passes and collapses the round
 `./verify_env.sh`. **When a `python3 -c` script writes a file and reads it back in the same
 process, close the handle first** — an unflushed `csv.DictWriter` buffer makes a correct write
 look like a truncated one.
+
+**The WebSearch gap has a WORKAROUND as of 2026-08-27, and it is search-only by design.** The
+author's Antigravity CLI is on this machine and is scriptable. **The binary is `agy` at
+`~/.local/bin/agy` (v1.1.21) — NOT `antigravity`**, which is why a filename search for
+`anti`/`gravity` finds nothing and Spotlight returns only Python's stdlib joke module. R1: the
+tool was recorded by product name and lives under a two-letter one; its state dir
+`~/.gemini/antigravity-cli/` is the only thing carrying the product name.
+
+    ~/.local/bin/agy -p "<prompt>" --sandbox --effort low        # non-interactive, prints to stdout
+    # also: --output-format json|stream-json · --json-schema <file>  (enforced structured output)
+    #       --model · --print-timeout (default 5m) · --add-dir · --mode plan
+
+**Headless mode auto-DENIES any tool not explicitly allowed, and that denial is the safety
+property — verified, not assumed.** The first probe failed with *"a tool required the `read_url`
+permission that headless mode cannot prompt for, so it was auto-denied"*, which is direct evidence
+that nothing outside `permissions.allow` can execute. So the grant is **exactly one tool**:
+`{"permissions": {"allow": ["read_url(*)"]}}` in `~/.gemini/antigravity-cli/settings.json`
+(accepted — the log confirms `permissions=&{Allow:[read_url(*)] Deny:[] Ask:[]}`). Backup at
+`settings.json.bak-2026-08-27`; revert by deleting the `permissions` key.
+
+**Do NOT use `--dangerously-skip-permissions` — this is an R16 rule, not a preference.** It
+auto-approves *every* tool, including file reads, in a process that also has network egress and
+`allowNonWorkspaceAccess: true`. That is the exact shape of a credential-exfiltration path over
+`geminiAPI.txt` and `.zshrc`'s live `ANTHROPIC_AUTH_TOKEN`, and intent is irrelevant to whether
+the file contents reach a third-party server. With `read_url(*)` alone, file tools stay denied, so
+the capability is **web reads and nothing else**.
+
+**Use it for DISCOVERY, and verify with `WebFetch` — never quote `agy` as a source.** It is an LLM
+and R1 applies to it in full. The working division of labour, demonstrated on the bibliography
+check above: `agy` supplied the Anthology ID and the arXiv title, then `WebFetch` on
+`aclanthology.org` / `arxiv.org` returned the verbatim BibTeX `pages` field and author list. `agy`
+happened to be right there, **which is not the same as being citable** — the number that entered
+this file came from the primary page. **`agy` closes a search gap; it does not lower the evidence
+bar.** It also must never become a verifier backend — see §6's structured-source finding: a search
+ranking is not reproducible across time and cannot be cited in a thesis, which is why routing goes
+to keyless structured APIs instead.
 
 ---
 

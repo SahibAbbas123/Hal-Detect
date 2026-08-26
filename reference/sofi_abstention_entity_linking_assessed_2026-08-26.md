@@ -14,6 +14,23 @@ audited, not inherited — the standing lesson from `external_catalog_assessment
 could test a claim against project data or internal arithmetic, I did; where I could not, it
 is marked.
 
+> **SUPERSEDED IN PART, 2026-08-27 — one number in this document is WRONG.** §7's bibliography
+> item and line 239 give R-Tuning's page range as **`7831–7848`**. Verified against the ACL
+> Anthology page for `2024.naacl-long.394`, the correct range is **`7113–7139`** (BibTeX
+> `pages = "7113--7139"`, DOI `10.18653/v1/2024.naacl-long.394`). ConfRAG's arXiv ID
+> **`2506.07309`** is confirmed correct. Full verified citation strings: `CLAUDE.md` §7,
+> "Both citations verified against primary sources 2026-08-27".
+>
+> **The body is deliberately NOT rewritten** — a dated doc records what was assessed on its date
+> (`CLAUDE.md` §8). **The reason it matters more than a typo: the wrong number entered the project
+> through exactly the channel this document's own Provenance note warns about.** It came from the
+> supplied `~/.gemini/antigravity-cli/…` file — another tool's unverified output — and it was
+> *marked* as untested here, correctly, then carried into `CLAUDE.md` as a to-verify item and sat
+> there. So the audit discipline worked and the follow-through was the gap. **The title in this
+> document is right** (*"…Say 'I Don't Know'"*), which is the predicted split: summaries get
+> authors and titles right and page ranges wrong. `CLAUDE.md` §7 now records how the lookup gap
+> was closed locally, so this no longer needs to go through a supplied file.
+
 > **STATUS UPDATE, same day.** After this document was written the author authorised the flip
 > ("ok flip it") and it was **applied and measured**. §1's numbers below were *predictions*;
 > **§5 records what actually happened**, scores those predictions against the measurements, and
