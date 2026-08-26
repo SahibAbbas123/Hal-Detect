@@ -189,6 +189,8 @@ obvious way of running one.** From #22 (`current/mcnemar.py`, `reference/mcnemar
 Supporting modules, all deliberately separate from the validated verifiers:
 `current/series_resolver.py` (edition spans, `--selftest` ALL PASS),
 `current/source_consistency.py` (P1433/P123 provenance veto, `--selftest` 12/12),
+`current/type_consistency.py` (**P31/P279 type veto — the independent, non-label signal on
+resolution correctness; `--selftest` 24/24 and `--vacuity` 4/4, both exit 0**; see §6),
 `current/property_resolver.py` (**deliberately unintegrated** — see §6). **`property_resolver.py`
 is `--selftest` 1/2, NOT passing — this file said "all passing" for days.** Verified 2026-08-27:
 the unmodified main-checkout copy fails `Q7350 'inception_date' → P1619` byte-identically (same
@@ -541,8 +543,28 @@ and rejected Q92676744, which the label check passes — its publisher is the *I
 Psychological Medicine*, not *The Lancet*. Four load-bearing design decisions: **only
 `P1433`/`P123` can veto** (an author is not a publisher); **any match wins**; **`NO_EVIDENCE`
 must never reject**; and **both error directions are safe** because the check only ever *removes*
-a verdict, so neither can manufacture a confident-wrong one. **Task #21 extends this to `P31`**,
-which is the type-level version and reaches the punk-band class directly.
+a verdict, so neither can manufacture a confident-wrong one.
+
+**The type-level version now exists and catches BOTH original resolution bugs —
+`current/type_consistency.py`, `--selftest` 24/24 and `--vacuity` 4/4, both exit 0 (task #21,
+2026-08-27).** `P31` + bounded `P279` is independent of the label, which is the whole point. Live:
+`Q498979` *Panama Canal Zone* → **CONFLICT** and `Q1703969` (the punk band) → **CONFLICT**, while
+`Q7350` and `Q48584` return CONSISTENT and a no-`P31` entity returns NO_EVIDENCE rather than a
+veto. Same four safety decisions as its sibling, plus: **CONFLICT requires that EVERY entity family
+be explicitly disjoint from EVERY expected one**, so one unlisted pair degrades to `NO_EVIDENCE` —
+**never-reached is not disjoint.** Three caveats travel with it. **(1) `MAX_DEPTH = 2` is a
+measured ceiling, not a guess** — at depth 2 a ship canal and a stele *already* both reach
+`architectural structure`, so depth 3+ imports the upper ontology and the disjointness table stops
+meaning anything; this independently validates `citation_l1_verifier.py:76`'s refusal of unbounded
+`P279*`. **(2) `FAMILIES`/`DISJOINT` are CURATED, so expect a LOW conflict rate in the wild** — an
+unanticipated class yields `NO_EVIDENCE`, a coverage loss, which is strictly milder than L1's
+curated `SOURCE_CLASSES` downgrading 4 of 4 correct resolutions, but it is the same class of risk
+and must be **measured, not assumed**. **(3) The 72/72 is repairABLE, not repaired — no
+corpus-wide audit has been run**, so §6's wording stands until one does; that needs author
+go-ahead like #19. Wikidata's own type constraints **cannot** supply the expectation side (measured
+negative result: they contain the very hub classes that must be excluded — `P2044`→`object`,
+`P577`/`P1433`→`work` — are absent for `P571`/`P2046`, and mix subject- with value-type
+constraints). `reference/type_consistency_2026-08-27.md`
 
 **Negative results — do not re-attempt.** The RELATIONAL page-relevance keyword gate was tried
 and **reverted twice**: generic domain words pass it and it regressed a legitimate TRUE
@@ -599,7 +621,7 @@ exists yet.
 | **#19** | Re-run the TEMPORAL/EA logic over the 34 claims | **Now a LOCAL job** — cells 69/75 call only Wikidata (API + SPARQL), no BART, no Gemini, so the logic extracts to a standalone `.py` in `.venv` and the notebook stays untouched. **Needs author go-ahead** (API-calling). Outputs `_phase3`/`_phase5`; **never overwrite phase2/phase4** (R19). Coverage far above the recorded precedents — `property_resolver.py`'s 6/34 = 17.6% and QUANTITATIVE's ~24% predicted band — is a **warning**, not a win (R8). **But the 17.6% is itself a DEPRESSED FLOOR, found 2026-08-27:** every QID behind it came from the unscored `limit=1` path #20 deleted, so it measures resolution failure as much as the property layer — the one thing that module claims to isolate. Still usable as an R8 precedent (a real figure can only be ≥ it), never as "the property layer reaches 17.6%". |
 | **~~#20~~** | ~~`property_resolver.py` Bug B + no prominence~~ | **DONE 2026-08-27 — fixed by REMOVAL, and it produced four corrections to how it was recorded here (§6 #4).** The path was the module's **sole** resolver (34/34, no `resolved_qid` column exists), **unscored** at `limit=1`, so it lacked fix #1 as well as #2/#3; and **no prefix bump was needed** — the deleted call never wrote to the cache, so this row's own instruction was over-broad. Resolution is now **injected** (`quantitative_verifier` imports *from* this module, so importing the validated resolver back is circular). Also corrected a stale claim in §2: the module's `--selftest` is **1/2, not passing**, pre-dating #20 and masked by an **exit-0-on-failure** bug. `reference/property_resolver_bugb_2026-08-27.md` |
 | **#25** | Core-term guard rejects `Q7350`/`P1619` | The `--selftest` 1/2 above. `'inception'` vs `'official opening'` = 0.194 < 0.35 abstains on one of the two bugs the module was **built** to fix. Guard working as designed: it stopped 7 confident-wrong TEMPORAL matches (`decipherment_year → P569 date of birth` flipped a gold-TRUE claim). **Precision-up/coverage-down — the mirror of R8's four events**, so measure both directions over all 34 before touching the constant. **Do not just lower 0.35.** Likelier fix is a date-kind synonym set (inception/founding/opening/establishment) than a threshold move. |
-| **#21** | `P31` instance-of type-check | Closes the resolution circularity above. Build as a sibling of `source_consistency.py`, not an edit to a validated verifier. **Now has a citable precedent: `P31`/`P279` fine-grained typing is exactly how ReFinED (Ayoola et al. 2022) scores its own candidates**, so this is the mechanism a SOTA entity linker relies on, not a local heuristic. `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` §3 |
+| **#21** | ~~`P31` instance-of type-check~~ **BUILT 2026-08-27** — `current/type_consistency.py`, `--selftest` 24/24, `--vacuity` 4/4, both exit 0. Built as a sibling of `source_consistency.py`, no validated verifier touched, no cache prefix bumped, **0 measured thesis numbers changed**. Both original resolution bugs now return CONFLICT (§6). Precedent as predicted: `P31`/`P279` fine-grained typing is how **ReFinED (Ayoola et al. 2022)** scores its own candidates. | **What is LEFT is the measurement, and it needs author go-ahead:** run the check over the recorded **72** resolutions to quantify how many it independently corroborates and how many it flags. Live Wikidata across the corpus, same gate as #19 and `--resolver validated`. **Until then the 72/72 is repairABLE, not repaired** — §6's *"correctness unverified by an independent signal"* stands. Read a **low** conflict rate as the price of a curated table, not as the check failing (R8 cuts both ways here). `reference/type_consistency_2026-08-27.md` |
 | **#23** | ~~Drop `SYN_CITA_083`~~ | **DONE 2026-08-26 — record in §5, which is the authority.** Row physically removed from `synthetic_negatives.csv` (85 → 84), audit join filtered through it, five docstring-count sites corrected. All four selftests re-run ALL PASS and `rq2_quantitative_table.py` reproduces 14/14 / MCC +0.378 / 4–0 unchanged. |
 | **#22** | ~~McNemar's test for RQ2~~ | **DONE 2026-08-26 — record in §3, rules in R20, authority `reference/mcnemar_rq2_2026-08-26.md`.** `current/mcnemar.py`, offline, `--selftest` 17 checks ALL PASS. **It made a quoted claim weaker exactly as predicted, and the prediction itself was confirmed to the digit** (`b=4, c=0 → p = 0.1250`). Three things it produced that were not asked for: the **power floor** `2/2ⁿ` (so 0.1250 at n=4 is *the floor*, i.e. unreachable significance, not a null result); **C2 is significant in the BASELINE's favour** (`p = 0.0347`), which is routing's coverage cost measured on a paired test; and CITATION's C1 `n = 1` turns out to be **coverage disjointness** (union 28 / intersection 4), reframing that win as **composition** rather than head-to-head. |
 | **#16** | `nli__` cache key `claim[:60]` truncation collides perturbed claims with their originals | Affects 16 of 84 negatives (19.0%) in three classes. Needs Colab. |
