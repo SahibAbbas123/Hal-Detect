@@ -89,7 +89,7 @@ Requesting `languages=en` returned an **empty label** for Denali, so the lexical
 
 **`mul` and full-text are NOT yet fixed project-wide.** `property_resolver.py` and notebook cells 69/75 still request `languages=en` and still resolve via prefix search, on the same proper nouns. **This means TEMPORAL/EA's recorded "0% coverage, entirely a `PROPERTY_TO_WIKIDATA` gap" diagnosis may be partly wrong** — some of those claims may have failed at resolution, with the entity silently unnamed, before property matching was ever reached. Re-measure rather than assume.
 
-### A THIRD resolution failure mode — editions of a serial publication (found 2026-08-25, NOT fixed)
+### A THIRD resolution failure mode — editions of a serial publication (found 2026-08-25, FIXED 2026-08-26)
 
 The 08-21 fix removed property-gated selection; the 08-23 fixes added prominence,
 full-text search and `mul` labels. **Neither addresses this, and it is live.** Found
@@ -119,10 +119,73 @@ test**. Resolving the edition therefore uses the claimed value to pick the entit
 that will judge the claimed value.
 
 **The non-circular design:** resolve the **series**, enumerate edition years from
-`P577` across its members, and test the claimed year for **membership in the
-series** — the year then tests and never selects. On the Lancet rows this detects 3
+`P577` across its members, and test the claimed year against the **span** of those
+years — the year then tests and never selects. On the Lancet rows this detects 3
 of 5 with no confident-wrong risk, versus 5 of 5 with it. **Take the 3.** Any
 CITATION or TEMPORAL work-date check must do this before it ships.
+*(This paragraph originally said "membership in the series". That contradicted the
+"Use a span rule, not set-membership" ruling two sections down, which is the correct
+one and is now what shipped — see below. Corrected 2026-08-26.)*
+
+#### BUILT 2026-08-26 — `current/series_resolver.py`, `--selftest` ALL PASS (commit `1849791`)
+
+**Non-circularity is enforced by the interface, not by discipline.**
+`resolve_edition_span(subject, cache, ctx)` **has no year parameter at all**; only
+`test_year_in_span(claimed_year, span_result)` ever sees a claimed year, and a selftest
+asserts via `inspect.signature` that no parameter name contains `"year"`. A rule you can
+break by editing one line is not a guarantee; a signature that cannot express the
+violation is.
+
+**Widen, don't re-pick.** Tie-band membership decides *who is in the comparison set*,
+never *how to rank it*. The span is taken across **all** competing editions, so a FALSE
+verdict holds under **any** resolution of the edition ambiguity — it survives the very
+ambiguity that caused the bug. (My first rationale for this was wrong: I claimed label
+clustering fails to separate the editions. It does not — all three Lancet works cluster
+at J ≥ 0.75, because `_STOP` strips `report`/`of`/`the`. The real reason is the one just
+given.)
+
+**No TRUE verdict, by design.** Inside the span means *"not refutable from publication
+dates"*, never *"confirmed"*.
+
+**Three guards. Two of them exist only because the module was run against live Wikidata —
+reasoning about it would not have found either, and both bugs were the exact confident-wrong
+class the task was written to remove.**
+
+| guard | what it fixes |
+|---|---|
+| **1 — harvest years from labels too** | Q139937996 *is* the real 2024 Lancet report and its `P577` is simply **absent**, so the span closed at 2020 and `year 2024 → FALSE`. Years are read off the **entity**, never the claim (so no circularity), and can only ever **widen** a span — a spurious hit costs coverage, not correctness. |
+| **2 — an undated member is a HOLE, not a zero** | No `P577` *and* no label year → hole of unknown position → FALSE outside the observed range is unsound in **both** directions → `INCOMPLETE_SPAN`, `span=None`, abstain. |
+| **3 — a degenerate span is the most AGGRESSIVE rule, not the most conservative** | **Guard 1 caused this one.** Two byte-identical duplicates of the *2020* World Bank edition both yielded `label_years=[2020]`, so guard 2 didn't fire and the span collapsed to `(2020, 2020)` — making `year 2023`, **the gold-TRUE original value**, read FALSE. A SERIAL covering fewer than **2 distinct years** is now `INCOMPLETE_SPAN`. Distinct *years*, not member count, precisely because duplicates were how it got through. |
+
+**Reusable lesson from guard 3: a span rule is conservative only while the span is WIDE.
+Narrow it enough and the same rule becomes the most aggressive detector in the system. The
+conservatism was a property of the data, not of the rule.** That bug is also the **fourth**
+recorded coverage-up/precision-down event (`property_resolver.py` first pass · `--variant
+hybrid` · `temporal_ea_hybrid_b3.csv` · this).
+
+**Measured ceiling on the 12 CITATION `year_shift` negatives: 8/12.** Tallies are computed
+from `collections.Counter` over the live probes and **asserted**, not printed as literals —
+I nearly shipped `World Bank 0/2` as a hardcoded string, which is how a prediction becomes
+a "result".
+
+| source | detected | mode | span |
+|---|---|---|---|
+| IPCC Sixth Assessment Report | **5/5** | `SINGLE_WORK` | (2021, 2023) |
+| Lancet Commission on dementia prevention | **3/5** | `SERIAL` | (2019, 2024) |
+| Poverty and Shared Prosperity | **0/2** | `INCOMPLETE_SPAN` | `None` |
+
+Lancet 3/5 is asserted as **exactly 3**: with the 2024 hole present all five perturbations
+read FALSE — that is the headroom doc's *"5 of 5 **with** confident-wrong risk"* — so 5/5
+reappearing means guard 1 regressed. **CONCENTRATION CAVEAT, which must travel with the 8:
+detections come from two works, so this is two works working, not "CITATION working"** —
+the same caveat QUANTITATIVE's 6/6-from-P2044 carries. Regression guards cover all three
+gold-TRUE base values (IPCC 2023, Lancet 2020, World Bank 2023) plus the membership trap
+(IPCC 2022 must abstain).
+
+`quantitative_verifier.py` (validated 24/24) and `property_resolver.py` are **imported,
+never edited**; existing cache prefixes reused for their intended purpose, additive writes
+only.
+
 
 ### The independent resolution check has first evidence, and it fired immediately
 
@@ -169,8 +232,12 @@ Four design decisions, each load-bearing:
    Organization of the United Nations" via FAOUN, while `CDC` vs "World Health
    Organization" still fails).
 
-**Still to build (#17b): series-level resolution.** This module catches the wrong
-edition; it does not yet *find* the right one.
+**#17b shipped 2026-08-26 — `current/series_resolver.py`, commit `1849791`** (details in
+the *A THIRD resolution failure mode* section above). That module does not *find* the right
+edition either; it **stops needing to**, by spanning all of them so the year tests without
+ever selecting. The two modules are complementary and both preconditions for #18:
+`source_consistency.py` vetoes a wrong *publisher*, `series_resolver.py` removes the wrong
+*edition*'s ability to decide a date.
 
 ### QUANTITATIVE now has real, validated coverage (2026-08-23)
 
@@ -438,6 +505,17 @@ too, and the matched pair is 6/6 either way.
 Weigh 8/25 with a single-entity dependency against the baseline's J = +0.128, and
 require the three preconditions in §6 of that doc (series resolution, the
 property-consistency check, span-not-membership).
+
+> **All three preconditions are now MET (2026-08-26):** series resolution =
+> `current/series_resolver.py` (`1849791`), property-consistency = `current/source_consistency.py`
+> (`504f51b`), span-not-membership = encoded in `test_year_in_span`. **Two numbers in the
+> paragraphs above are superseded by measurement.** The 12 `year_shift` rows were recorded as
+> reachable only via IPCC (5); the built span rule measures **8/12** — IPCC 5/5 **plus Lancet
+> 3/5**, because harvesting years from labels recovers the 2024 report whose `P577` is absent.
+> And the World Bank rows are **0/2 by an explicit abstention** (guard 3), not merely
+> "blocked": their span degenerates to a single year, and a narrow span is *more* dangerous
+> than none. The single-entity dependency is therefore now a **two**-work dependency; the
+> concentration caveat stands unchanged.
 
 ### Threshold sweep, 2026-08-23 — the shipped operating point is a strawman, and contradiction NLI has no good threshold
 
