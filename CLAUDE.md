@@ -672,18 +672,64 @@ summary gives you.**
   circulate (*"…to Refuse Unknown Questions"*, *"Instruction Tuning for Unfamiliar Knowledge"*)
   are **not** the published title. **NOT VERIFIED: the "Outstanding Paper" attribution** this file
   previously carried — the Anthology page does not record award status, so it was removed rather
-  than repeated. Restore it only from an ACL award list.
+  than repeated. Restore it only from an ACL award list. **Its carrier is now identified:
+  `papers_analysis/LITERATURE_SURVEY_AND_IMPACT_ANALYSIS.md` asserts it twice, so that survey is
+  where the claim entered and is NOT a second independent source for it.** The on-disk
+  `RTuning_SayIDontKnow_2024.pdf` is the arXiv preprint (`2311.09677`, 27 pp) and cannot settle
+  award status either; it does confirm the title and all nine authors, spelling the fourth
+  **"Yi R. Fung"**.
 - **ConfRAG.** Huang, Xu, Sun, Yan, Sun, Khan, Nguyen, Chen, Kachuee, Lin, Liu, Colak, Kumar, Yih,
   Dong (15 authors), *"ConfRAG: Confidence-Guided Retrieval-Augmenting Generation"*, **arXiv
   `2506.07309`** (v1 8 Jun 2025, v2 30 Sep 2025), cs.CL, DOI `10.48550/arXiv.2506.07309`. **The
   arXiv ID was correct.** The published title is **ConfRAG**; *ConfQA* is the method inside it, so
   *"ConfQA / ConfRAG"* is a method/paper pair, not two papers — cite the paper as ConfRAG.
 
+**Two further citations settled 2026-08-27 from PRIMARY PDFs on disk (`papers_analysis/`), one of
+which corrects the attribution of a metric this file already quotes.**
+
+- **AURAC — cite Farquhar, NOT Kuhn.** §2 quotes **AURAC 0.898** for CITATION L1. AURAC is defined
+  in **Farquhar, Kossen, Kuhn & Gal, *"Detecting hallucinations in large language models using
+  semantic entropy"*, Nature 630, 20 June 2024, p. 625** — *"a new measure, the area under the
+  'rejection accuracy' curve (AURAC)"*, 16 occurrences in that PDF. It is **NOT** the ICLR 2023
+  paper *"Semantic Uncertainty: Linguistic Invariances…"* (**Kuhn, Gal, Farquhar**,
+  `arXiv:2302.09664`), which does not define it. **The two are separate papers with different lead
+  authors, and `papers_analysis/`'s survey conflates them** — it pairs the ICLR paper's lead author
+  and arXiv ID with the Nature venue. Both PDFs are on disk and each states its own venue on line
+  1, so this is checkable offline in seconds. (`Wilson` appears **0** times in the Nature paper —
+  R2's interval is Wilson 1927 and nothing here claims otherwise.)
+- **FinGround** — Guo, Wu & Yiu (HKU + Stellaris AI), *"FinGround: Detecting and Grounding
+  Financial Hallucinations via Atomic Claim Verification"*, **`arXiv:2604.23588v1` [cs.AI], 26 Apr
+  2026** — a **2026** paper, though both the survey and the local filename label it 2024. Two uses,
+  and the **second is worth more than the first**. **(a) Granularity as a REGIME argument only:**
+  measured 6-type 91.4% F1 vs 3-type 87.1% (**−4.3, p<0.01**) vs 10-type 91.7% (**+0.3, p=0.23**) —
+  quote it as *coarse taxonomies lose real accuracy while granularity past roughly half a dozen
+  types buys nothing*, a citable answer to *"why not 3?"* / *"why not 20?"*. **It does NOT prove
+  5 is optimal and must never be written that way** — FinGround never tested 5, its 6 types include
+  finance-specific `regulatory` and split HalDetect's QUANTITATIVE subtypes into three top-level
+  types, and it is single-domain. **(b) `±0.5%` independently corroborated:** FinGround
+  re-computes derived quantities *"with ±0.5% tolerance for rounding conventions"* — the **same
+  constant** `quantitative_verifier.py` uses, chosen locally and previously defensible only by §3's
+  sensitivity result. **Corroboration, not derivation:** the constant predates the reading, and the
+  sensitivity analysis stays the primary evidence.
+
 **Blocker on any pooled RELATIONAL re-run:** cell 57 calls `gemini-3.1-flash-lite-preview` for
 disambiguated query generation. Uncached claims fall back to the bare subject, which measurably
 degrades coverage — so a pooled re-run needs the key, or its numbers carry an asterisk.
 `current/gemini_key.py` resolves the key env var → `geminiAPI.txt` → real Colab, and
 `nonrouted_baseline.py` installs a `google.colab` shim so phase3d imports off Colab.
+
+**`papers_analysis/downloaded_pdfs/` holds 42 PRIMARY-SOURCE PDFs and is EVIDENCE TIER 1 — check it
+before reaching for the web at all.** Offline, keyless, no ranking drift, immune to the FAO-style
+403, byte-reproducible next year. Tier 2 is `WebFetch` on the publisher's own host (what licenses a
+citable BibTeX field); tier 3 is `agy`, **discovery only, never quotable**. **The lesson is
+concrete and it already cost this project a number:** `RTuning_SayIDontKnow_2024.pdf` sat on disk
+the whole time this file carried the wrong page range for that very paper, closed at last via
+tiers 3+2 while tier 1 went unopened. Extraction path is **`pypdf`, already in the `.venv`** — zero
+installs. **`Read` cannot open them** (needs poppler's `pdftoppm`; `gs` and `mdls` exist,
+`pdftotext`/`pdftoppm`/`mutool`/`qpdf` do not), and pypdf gives text but not figures or table
+layout, so **`brew install poppler` is the one install that would add capability here.** Verify by
+**set difference, never by count** — the folder's 42 files and the survey's 42 rows are *different*
+sets of 42 (R1b). `reference/papers_analysis_assessed_2026-08-27.md`
 
 **Environment:** `.venv` lives **only in the main checkout**
 (`ThesisCode_copy/.venv/bin/python`). macOS has no `timeout`. BART-MNLI SIGBUSes locally.
