@@ -399,17 +399,89 @@ beats TEMPORAL when the dominant verb describes a process and the date is when i
 occurred."* Adopting it edits the taxonomy and re-types the column every downstream
 number rests on — author's decision.
 
+**DECIDED 2026-08-26 — do NOT adopt V3.** Three reasons, in order of weight:
+
+1. **The precedent is measured and it is bad.** V1 was the same shape of fix — a prompt
+   edit aimed at TEMPORAL precision — and it bought **+6.3pp precision with near-total CI
+   overlap, paid for in recall**, at **zero** change in overall accuracy (111/125 both
+   ways, 3 errors fixed and 3 created). On the held-out 65 it looked *excellent* (P
+   0.67 → 1.00) off **4 gold TEMPORAL claims**, i.e. noise pointing the wrong way. V3 has
+   no reason to behave differently and no held-out set large enough to tell.
+2. **The cost is not the prompt, it is the column.** `type` is what every routed verifier
+   reads (CLAUDE.md records the by-`gold_type` vs by-`type` split for exactly this
+   reason). Re-typing it invalidates the non-routed baseline's 356 rows, the threshold
+   sweep recomputed from them, the per-type J table, and QUANTITATIVE's 14/14 — **all of
+   which are currently the project's only measured wins.** A speculative precision gain
+   does not justify re-running the results it would invalidate.
+3. **The finding is worth more than the fix.** *"57% of routing errors fall in one of the
+   only two type-pairs §4 never mentions"* is a contribution about taxonomy design.
+   Silently patching the prompt converts a reportable structural result into an
+   unremarkable accuracy delta.
+
+**So V3 is recorded as identified-and-declined, with its rationale, not left open.** If
+the author later adopts it, it must be as a taxonomy revision with a full downstream
+re-run — never as a prompt tweak.
+
 ### The deployed classifier CONTRADICTS the taxonomy rules — decide before Chapter 4
 
 The classifier prompt states: *"'WHO exists' is NOT a CITATION claim."* The rule
 document says the opposite — **Rule 8 (dual-emit)** extracts *"The World Health
 Organization exists. [CITATION]"*, §3.2 lists pure source-existence claims as CITATION,
-and the 140-claim corpus contains **nine** of them all labelled CITATION.
+and the 140-claim corpus contains **eight** of them all labelled CITATION (recorded here
+as "nine" until 2026-08-26; corrected against the file — see the decision below).
 
 **Dual-emit manufactures one such claim per citation-wrapped statement**, so this is a
 systematic class, not an edge case. Either Rule 8 stands and the prompt needs fixing, or
-the prompt stands and Rule 8 plus nine corpus labels need revising. No measurement
+the prompt stands and Rule 8 plus eight corpus labels need revising. No measurement
 resolves it.
+
+**DECIDED 2026-08-26 — the PROMPT stands; Rule 8 and the corpus labels get revised.**
+
+**It is eight claims, not nine.** Verified against `reference/all-140-claims.txt` (format
+is claim / type / justification / group): the justification string `Pure source-existence
+claim` appears on lines **221, 553, 561, 597, 613, 625, 637, 669** — eight. Two further
+lines mention source existence to say it is *not* the claim being made (601 *"Source
+existence already in G14; embedded fact is causal/functional"*, 641 *"…embedded fact is
+functional action"*). The standing rule again: the file wins over the summary.
+
+**Why the prompt wins, in one line: a source-existence claim has no truth value worth
+testing, and the pipeline already proves it.** Every path that could check one refuses by
+design, and each refusal was an independent design decision made for its own reasons:
+
+| component | what it does with *"the WHO exists"* | why |
+|---|---|---|
+| CITATION Level 1 | **can never return FALSE** | a source that fails to resolve is UNVERIFIABLE, not fabricated |
+| CITATION Level 1b | **gated out** — `work title 'WHO' has 0 content word(s)` | `MIN_WORK_CONTENT = 2` separates a title from a bare org reference |
+| `source_consistency` | `NO_EVIDENCE` **must never reject** | absence of `P123` is the norm, not a signal |
+
+So a claim in this class can only ever come back TRUE-or-abstain, whichever rule
+governs — it consumes a routing slot and an API call and **cannot contribute a detection
+or an error.** Rule 8 is manufacturing unfalsifiable claims at one per citation-wrapped
+statement.
+
+**And the change is free: measured, 0 of the 400 corpus rows are affected.**
+
+    eval rows loaded                                      400
+    claims matching an existence predicate                  1   Q14_C08, and it is QUANTITATIVE
+                                                                ("Debt distress exists in 60% of
+                                                                 low-income countries") — idiomatic
+                                                                 "exists", not source-existence
+    CITATION-routed rows                                   29
+      of which <= 6 words (the length such claims take)     0
+    ID-shaped tokens in all-140-claims.txt                  0   the corpus has no claim_id scheme
+    overlap: corpus ids ∩ the 400 eval ids                  0
+
+The 140-claim corpus is a **separate artifact** from the four evaluation sets — it carries
+no ids at all, so nothing joins it to them. **Revising those 8 labels moves no measured
+number in this project**, which is what makes this decidable now rather than after
+Chapter 4. `verify_env.sh` and every result CSV are untouched.
+
+**What the author must still do:** edit Rule 8 and §3.2 in the taxonomy document so the
+rule document stops contradicting the deployed prompt, and re-label the 8 corpus rows.
+Both are documentation edits. **The prompt itself must not be touched** — it is the
+faithful-reproduction anchor (`current/original_classifier.py` parses it *verbatim* out of
+`archive/experiments/currentcode.txt` and raises rather than approximate), and RQ1's
+93.8%/95.4% rests on it.
 
 Two undocumented refinements in the prompt, both apparently useful: it asks for **one
 bare word** rather than JSON (zero parse failures, where a JSON rebuild lost 2 of 65
@@ -660,6 +732,33 @@ Two honest consequences: the baseline should look **good** on RELATIONAL (same c
 
 **Also settled in those handoffs and not previously recorded here:**
 - **RQ4 is a coverage question** ("what proportion of claims can be automatically verified"), which is why Phase **3d** (84.38% cov / ~61% acc) was chosen as thesis-reportable **over** Phase 3e (70.31% / 66.67%). But cell 57 — the live code — **is Phase 3e.** The notebook is running the variant that was explicitly *not* chosen. That decision predates Batch 3 and may have been reversed deliberately; **resolve it before writing Chapter 4, do not silently pick one.**
+
+  **DECIDED 2026-08-26 — report BOTH, as one coverage-accuracy tradeoff table, and stop
+  treating this as a conflict to resolve.** The 2026-08-22 reporting decision above already
+  said so; this makes it the standing answer to the cell-57 question too, and fixes the
+  operating point on each side.
+
+  | side of the table | operating point | why |
+  |---|---|---|
+  | **routed** | Phase **3d and 3e side by side** | RQ4 asks about coverage, RQ2 about accuracy. A single row cannot answer both, and the shape of the trade is itself a finding — **stable at −22pp coverage for +12pp accuracy** across all five types. |
+  | **baseline, on the natural 356** | retuned **(0.35/0.30)** | the shipped (0.50/0.40) is **strictly dominated** — every metric improves at once. Quoting it would credit routing with a ~15pp gap that is one badly-set constant. The committed spec forbids a strawman. |
+  | **baseline, on any negatives-enriched population** | shipped **(0.50/0.40)** | (0.35/0.30) is a **class-prior fit**, not a better discriminator: on the 24 QUANTITATIVE negatives it drops F1(FALSE) 0.488 → 0.200 and asserts 13 hallucinations are true. Carrying the tuned point there is a **reverse** strawman, equally inadmissible. |
+
+  **Three consequences, all binding on Chapter 4.**
+
+  1. **Name the operating point and the population's class prior every single time.** The
+     baseline has a threshold to fit; **the routed verifiers have none** — QUANTITATIVE and
+     Level 1b are structured comparisons with no knob to tune to a prior. That asymmetry is
+     now measured rather than asserted, and it is a *result*, so it belongs in the table's
+     caption rather than a footnote.
+  2. **Cell 57 being 3e is no longer a defect to fix.** Both variants come from **one run**
+     — phase3d caches raw `{entail, contradict}` per (claim, passage), so 3e's margin rule
+     is recomputed post-hoc at **zero model cost**. There is nothing to re-run and no reason
+     to edit the cell. The apparent conflict was a reporting question wearing a code
+     question's clothes.
+  3. **Never quote accuracy without coverage and effective n.** The `ct ≥ 0.65` rows reach
+     **92.5% accuracy while detecting 0 of 13 negatives** — a 3d/3e table that omits
+     coverage is exactly how that row would pass for the best result.
 - **RELATIONAL is structurally heterogeneous — five sub-types (A–E) with different verifiability ceilings.** Named-event causal and person-action claims verify reliably via Wikipedia; generic-subject process, domain-specific mechanism, and historically contested interpretation do not. This answers RQ3 and is called the clearest empirical contribution to the literature from that session.
 - **Wikipedia's coverage ceiling for RELATIONAL is ~84–89%, not 100%** — an architectural finding, not a fixable bug.
 - **Negative result, do not re-attempt:** the page-relevance keyword gate was tried and reverted **twice**. Generic domain words pass it, and it regressed a legitimate TRUE. Documented in the Phase 3e docstring.
