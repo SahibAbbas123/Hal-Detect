@@ -175,7 +175,7 @@ fails. A fine-tuned verifier would blur that.
 |---|---|
 | **A1** fix serial-edition resolution + property check | **Strengthened.** §2 above: the catalog's own top pick probably cannot reach this failure mode. Recommendation stands: do it first. |
 | **A2** CITATION Level 1b | Unchanged. Still ceiling 8/25, still single-entity dependency, still needs author approval. |
-| **A3** merge both worktrees | Unchanged — only the author can do it. |
+| **A3** merge both worktrees | **Escalated, and it no longer needs a merge — see §7.** Main's `CLAUDE.md` is the pre-correction original, which is *the* root cause of both stale-premise incidents. `worktree-websearch-tool` never touched the file, so a single-file copy propagates it, reversibly. |
 | **B1** 3d/3e tradeoff table, baseline at retuned (0.35/0.30) | Unchanged. |
 | **B2** classifier prompt vs Rule 8 | Unchanged. |
 | **B3** do **not** adopt router V3 | Unchanged. |
@@ -198,3 +198,81 @@ Any future external review, LLM-assisted or otherwise, should be handed the
 prose summary of results, so it measures rather than inherits. Every number in this
 assessment that contradicts the catalog was obtained by reading a CSV, not by reading
 `CLAUDE.md`.
+
+---
+
+## 7. Two more documents, and the ROOT CAUSE of the staleness (added 2026-08-26)
+
+Assessed here because they fail the same way and finally explain **why**:
+
+| doc | what it is |
+|---|---|
+| `~/.gemini/antigravity-cli/brain/13bfc77d-…/reddit_deep_search_findings.md` | 293-line compiled digest of 6 parallel Reddit-research subagents |
+| `~/Downloads/reddit_research_message.txt` | 826-line raw transcript the digest was compiled from. **Transcript of another tool's session** — its line 1 is a rendered prompt and it carries `[From subagent …]` blocks. Never a user turn. |
+
+Read the digest in full; read the transcript to line 625 of 826 and **stopped deliberately** —
+the digest is its authoritative summary and the tail is the claim-extraction subagent report
+the digest's §6 already covers. Paging it would have been the exact token waste the author was
+asking about in the same turn.
+
+**§6 above was wrong about the mechanism.** It blamed "a three-day-old snapshot of the
+diagnostics." Measured:
+
+    main                        a2b0947   CLAUDE.md =  440 lines / 51,677 B   <- INITIAL IMPORT
+    worktree-rq2-batch3-table   a53a5f5   CLAUDE.md = 1008 lines / 97,367 B   <- all corrections
+    worktree-websearch-tool     61119ad   CLAUDE.md absent from the file's history across all refs
+    git diff --stat main:CLAUDE.md HEAD:CLAUDE.md  ->  619 insertions, 11 deletions
+
+**External tools read the MAIN checkout, whose `CLAUDE.md` is the pre-correction original**
+— not a three-day-old snapshot but the version from before any correction existed. Every
+diagnostic correction since `6458249` lives only on `worktree-rq2-batch3-table`. That single
+fact explains both incidents, and it predicts every future one: **any tool the author points
+at this repo will read stale numbers until the branch reaches `main`.**
+
+**It needs no merge (author Input 2, 2026-08-26: merge is non-retractable, prefer alternatives).**
+`worktree-websearch-tool` has never touched `CLAUDE.md`, so there is no conflict on the file;
+the worktree version is 619-added / 11-removed over main's, i.e. essentially purely additive.
+A **single-file copy** propagates it, reversible with `git checkout -- CLAUDE.md`. Author's
+call, not taken.
+
+### What the Reddit documents get wrong about this project
+
+Same class as the catalog, from the same cause:
+
+| their claim | status |
+|---|---|
+| **#4 highest-impact action: "apply the `mul` fix project-wide"**, warning cells 69/75 "still use `languages=en` and prefix search" | **False since #9.** Both live cells carry all three fixes (`en\|mul`, `"list":"search"`, `sitelinks`/`TIE_BAND`). Only `property_resolver.py` is partial (1 of 3) and it is the deliberately-unintegrated path. |
+| *"BART-MNLI's contradiction score cannot separate 'refutes' from 'does not mention' at any operating point"* — cited as "Your documented finding" | **Retracted by `CLAUDE.md` 2026-08-25 as too strong.** Precision at π = 0.037 is arithmetically forced low even for a competent discriminator; measured **J = +0.323** (TPR 53.6% / FPR 21.3%). The defensible version is about the ROC's *shape*. |
+| "13 gold negatives is the binding constraint" | **Superseded.** 85 synthetic negatives across all 5 types (strict tier 69 + RELATIONAL 27). Their recommendation to generate them is largely done; **EA at n = 5 is the one genuinely thin set.** |
+
+### What is genuinely new, and cheap
+
+- **P31 (instance-of) type-check after entity resolution — the best item in either document.**
+  It is precisely the *independent* signal §"the resolution 100% is partly CIRCULAR" said was
+  missing: that audit verified correctness with label matching, the same signal used for
+  selection, so it could not fail. `source_consistency.py` already does this for **provenance**
+  (P1433/P123); P31 does it for **type**, reaching the Rosetta-Stone-as-punk-band class
+  directly. Same shape as a shipped, validated module — low risk.
+- **McNemar's test for RQ2** — paired per-claim routed-vs-non-routed, more powerful than
+  comparing aggregates, fully offline, zero model calls. The project has Wilson CIs and MCC
+  but **no paired test**, and RQ2 is exactly a paired comparison.
+- Statement **rank filtering** (prefer `preferred` over `normal`); **qualifier-aware TEMPORAL**
+  (P580/P582 rather than standalone date properties); **PR curves for the FALSE class** instead
+  of ROC; **stratified bootstrap CIs** for the k = n cases (5/5, 8/8) that "NEVER WRITE A BARE
+  100%" currently handles with Wilson.
+
+**Already declined, with measured reasons:** their process-verb detection and
+chain-of-thought classification for TEMPORAL over-firing are V3-shaped, and V3 is recorded as
+identified-and-declined (V1's precedent bought +6.3pp precision with total CI overlap, paid in
+recall, at zero overall change; the real cost is re-typing the `type` column and invalidating
+every measured win).
+
+**Correctly held under the drastic-architectural-change carve-out:** DeBERTa-v3 / MiniCheck /
+HHEM backbone swap — invalidates the `nli__` cache, the baseline's 356 rows and the whole
+threshold surface.
+
+### One consequence for `#19`
+
+Author Input 1 (2026-08-26) deprioritises the notebook. Cells 69/75 call **only** Wikidata
+(API + SPARQL) — no BART, no Gemini — so their logic extracts to a standalone `.py` that runs
+locally in `.venv`. **`#19` stops being a Colab job**, and the notebook stays untouched.
