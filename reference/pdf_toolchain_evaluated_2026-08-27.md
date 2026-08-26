@@ -1,7 +1,8 @@
-# Four PDF tools evaluated — all four declined, and the capability was already installed
+# Five PDF tools evaluated — all five declined, and the capability was already installed
 
 **Date:** 2026-08-27 · **Trigger:** the author supplied four candidate tools and a conditional
-authorization — *"any of these seem helpful? if token-friendly themselves, install globally"*.
+authorization — *"any of these seem helpful? if token-friendly themselves, install globally"* — then
+asked about a fifth, **LlamaParse**, later the same day (§0a).
 
 > **Provenance.** Everything below was measured on this machine against
 > `papers_analysis/downloaded_pdfs/`. **Zero API calls, zero model calls, zero web requests.**
@@ -19,9 +20,73 @@ authorization — *"any of these seem helpful? if token-friendly themselves, ins
 | 2 | **`marker`** | **DECLINED** | Multi-GB Surya model weights. Its edge is **scanned / OCR'd** documents; **all 42 files here are born-digital** with an embedded text layer — demonstrated, not assumed: `pdftotext` returns clean text for every one of the 42 (that sweep is what found the 5 wrong papers). Paying GB of weights for OCR on documents that need no OCR. |
 | 3 | **`Docling`** | **DECLINED, held as escalation** | 0.5–1 GB weights for layout/table models. Same born-digital argument. **Reconsider only if a specific table resists BOTH `pdftotext` modes** — that has not happened yet on any of the 42. |
 | 4 | **`pdf-mcp`** | **DECLINED — and it fails the author's own criterion** | An MCP server's tool schemas are injected into **every session's** context whether a PDF is opened or not. That is a **standing per-session token cost** — the opposite of token-friendly — bought for a capability that is **already free via Bash**. The criterion was *"if token-friendly themselves"*, and a resident tool schema is the one form of cost that cannot be sliced or avoided. |
+| 5 | **`LlamaParse`** (added later same day) | **DECLINED on a stronger ground, which generalises to any cloud LLM/VLM parser** | Probably the best **table** extractor of the five — **not a quality refusal**. It **cannot be tier 1 by construction** (needs a key, needs the network, output tracks a changing model version), and it **puts an LLM in the evidence path**: deterministic tools garble *visibly*, an LLM parser can emit a fluent plausible **wrong** cell. See §0a. |
 
-**None of the four is installed. The finding that matters is §1: the capability already existed
+**None of the five is installed. The finding that matters is §1: the capability already existed
 and was being called the wrong way.**
+
+---
+
+## 0a. LlamaParse, and the rule it produced
+
+**Standing rule: evidence extraction stays deterministic and offline. A cloud LLM parser is a
+discovery tool at best, never a source.**
+
+Three reasons, in descending order of how much they generalise.
+
+**(1) It puts an LLM in the EVIDENCE path, and that inverts the project.** `poppler`, `pypdf` and
+`pymupdf` are deterministic — they can mangle a table, but **mangling is visible**, which is the
+whole reason §2's garbage `63×6` grid was safe to detect and discard. An LLM/VLM parser instead
+emits **fluent, plausible, wrong** cells. That is the failure mode HalDetect exists to detect, and
+§1 already records the general form of it: **a fluent splice is more dangerous than a failure.**
+Using a hallucination-capable parser to extract the numbers that ground a hallucination-detection
+thesis is not a neutral convenience — it would make every figure sourced through it unverifiable
+after the fact, with no way to tell a correct extraction from a confabulated one by inspection.
+
+**(2) It cannot be evidence tier 1 by construction.** Tier 1 is *offline, keyless, no ranking
+drift, byte-reproducible next year*. LlamaParse needs an API key, needs the network, and returns
+whatever its current model version returns. **This is the same disqualifier already recorded for
+`agy`** in CLAUDE.md §7 — a nondeterministic intermediary cannot be cited in a thesis — so the
+decision is a re-application of an existing rule, not a new judgement call.
+
+**(3) It needs a new credential.** No `LLAMA_*` key exists in this environment (checked by
+`'LLAMA_CLOUD_API_KEY' in os.environ` → `False`, and no env var starts with `LLAMA`). Under R16
+every credential is standing surface — one more secret to never print, and one more literal value
+the pre-commit sweep must resolve to be meaningful. Paid for a gap now measured as absent.
+
+**Being fair on two counts, because the refusal does not need overstating.** The 42 PDFs are
+**public arXiv papers**, so uploading them is *not* a confidentiality problem — the objection is
+reproducibility and fabrication risk, **not secrecy**; the R16 cost is the key, not the documents.
+And there **is** a case where a parser like this wins: **machine-readable table *cells* at scale**,
+as opposed to numbers to read and quote. That is the escalation slot **Docling** already holds, and
+for this project Docling is the better occupant of it **because it runs locally** — which preserves
+(1) and (2) even though it costs GB of weights.
+
+### The OCR/VLM case is dead corpus-wide, not sampled
+
+The earlier "all 42 are born-digital" claim was generalised from **two** files, so it was
+re-measured across all 42 — a text-layer census is the mechanical test for whether *any*
+OCR/VLM parser has something to do here.
+
+| | chars/page |
+|---|---|
+| lowest of 42 (`FactCheckGPT_…`, 6 pp) | **2190** |
+| highest of 42 (`SemanticEntropy_Nature_2024`, 12 pp) | 6234 |
+| **files under 400 chars/page** | **0** |
+
+An image-only scan yields **near 0** chars/page. Nothing in the folder is close, so **no file in
+this corpus needs OCR** — which retires the `marker` / `Docling` / LlamaParse VLM argument for the
+whole corpus at once rather than by sample. Reproduce:
+
+```
+python3 -c "
+import subprocess, os
+d='papers_analysis/downloaded_pdfs/'
+for f in sorted(x for x in os.listdir(d) if x.endswith('.pdf')):
+    n=int(subprocess.run(['pdfinfo',d+f],capture_output=True,text=True).stdout.split('Pages:')[1].split()[0])
+    c=len(subprocess.run(['pdftotext',d+f,'-'],capture_output=True,text=True).stdout)
+    print(round(c/n), n, f)"
+```
 
 ---
 

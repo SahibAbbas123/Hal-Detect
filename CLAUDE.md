@@ -773,6 +773,27 @@ pip install is refused by **PEP 668** (homebrew python), so `.venv` is the only 
 **Reusable, and R1-shaped: measure the gap against the tool already installed before buying one.**
 `reference/pdf_toolchain_evaluated_2026-08-27.md`
 
+**LlamaParse was assessed 2026-08-27 and DECLINED on a stronger ground than the other four, which
+generalises to ANY cloud LLM/VLM parser.** It is probably the best *table* extractor of the five —
+the refusal is not about quality. **(1) It cannot be tier 1 by construction:** tier 1 is *offline,
+keyless, no ranking drift, byte-reproducible next year*, and LlamaParse needs a key, needs the
+network, and returns whatever its current model version returns — the **same disqualifier already
+recorded for `agy`**, that a nondeterministic intermediary cannot be cited in a thesis. **(2) It
+puts an LLM in the EVIDENCE path, and that inverts the project.** poppler/pypdf/pymupdf are
+deterministic: they can garble a table, but **garbling is visible**. An LLM parser can emit a
+fluent, plausible, WRONG cell — the failure mode this thesis exists to detect, and the one the
+`-layout` column-braid above already demonstrates is *more dangerous than outright failure*. A
+figure sourced through it would be unverifiable after the fact. **(3) It needs a new credential**
+(no `LLAMA_*` key exists here — checked), which is standing R16 surface for a gap now measured as
+absent. **The OCR/VLM case is dead corpus-wide, not sampled:** all **42** PDFs have healthy text
+layers — lowest **2190 chars/page**, **0 files under 400**, where an image-only scan is near 0.
+**Be fair on one count:** the PDFs are public arXiv papers, so upload is *not* a confidentiality
+problem — the objection is reproducibility and fabrication risk, not secrecy. **Where a parser like
+this WOULD win** is machine-readable table *cells* at scale, not numbers to read and quote — the
+escalation slot **Docling** already holds, and for this project Docling is the better occupant
+because it runs **locally**. **Standing rule: evidence extraction stays deterministic and offline;
+a cloud LLM parser is a discovery tool at best, never a source.**
+
 **And tier 1 has an admission condition, because 5 of those 42 files are NOT the paper their
 filename claims — found 2026-08-27, minutes after poppler arrived.** `ClaimDecomp_…` is an
 elastic-wave solver, `Claimify_…` is a federated-learning paper, `FactCheckGPT_…` is a **hen-breed
