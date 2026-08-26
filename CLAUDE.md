@@ -7,10 +7,44 @@ Thesis project (CSE 700, University of Chittagong): a taxonomy-routed post-hoc h
 | Type | Method | Status |
 |---|---|---|
 | **RELATIONAL** | Wikipedia passage retrieval + NLI entailment (BART-MNLI) | Best performer. 80.77% acc / 55.32% cov on held-out Batch 3. Live logic = `current/HalDetect_latest.ipynb` cell 57 (`## Phase 3e (i)`) — no standalone `.py` is current. |
-| **TEMPORAL** | Wikidata SPARQL lookup | **Moved off zero 2026-08-23.** Live logic = notebook cell 75 (`## Phase 2`); cell 73 is the superseded Phase 1. Measured via `current/temporal_ea_verifier.py` with the fixed resolver: Batch 3 TEMPORAL **1/12 = 8.3% coverage** (was 0). Combined TEMPORAL+EA: **17.6% coverage at 5/6 accuracy**, plus **2/2 correct on synthetic negatives**. The bottleneck is now property matching (24/34), not resolution (4/34, was the blocker). **One confident-wrong verdict reintroduced — see below.** |
-| **ENTITY_ATTRIBUTE** | Wikidata SPARQL lookup | **Moved off zero 2026-08-23.** Live logic = notebook cell 69 (`## Phase 4`); cell 67 is the superseded Phase 3. Batch 3 EA **5/22 = 22.7% coverage** (was 0), all 5 correct — the Rosetta Stone claims that used to resolve to a *British punk band* now return `P186=granodiorite`, `P407=Ancient Greek`, `P282=Egyptian Demotic`. |
+| **TEMPORAL** | Wikidata SPARQL lookup | **STILL ZERO in the live path — the "moved off zero" row was MISLABELED. Corrected 2026-08-26; see the correction note below this table.** Live logic = notebook cell 75 (`## Phase 2`); cell 73 is the superseded Phase 1. Verified from the output file itself: `current/temporal_b3_verified_results_phase2.csv` → TEMPORAL **0/12 covered, 12/12 UNVERIFIABLE, zero confident-wrong.** The `1/12 = 8.3%` figure is the **pre-fix** file (`temporal_b3_verified_results.csv`, 11 UNVERIFIABLE + 1 FALSE) and that single covered claim **is** the confident-wrong Panama Canal FALSE — so 8.3% was never a *correct* 8.3%. The `1/12` + `5/22` + `17.6% @ 5/6` triple describes the **unintegrated** `current/temporal_ea_verifier.py` + `property_resolver.py` path (1+5 = 6/34 = 17.6%, matching the 6/34 @ 5/6 recorded for `property_resolver.py` below) — **no results file for that run exists on disk, so it is unquotable until re-run.** |
+| **ENTITY_ATTRIBUTE** | Wikidata SPARQL lookup | **STILL ZERO in the live path — same mislabeling as TEMPORAL. Corrected 2026-08-26.** Live logic = notebook cell 69 (`## Phase 4`); cell 67 is the superseded Phase 3. Verified from the file: `current/entity_attribute_b3_verified_results_phase4.csv` → EA **0/22 covered, 22/22 UNVERIFIABLE.** Pre-fix `entity_attribute_b3_verified_results.csv` is 1/22 = 4.5%, and that one covered claim **is** the confident-wrong Rosetta-Stone-as-*British-punk-band* FALSE. **`5/22 = 22.7%, all 5 correct` is reproduced by no file on disk** — it belongs to the unintegrated `property_resolver.py` path. The `P186=granodiorite` / `P407=Ancient Greek` / `P282=Egyptian Demotic` lookups are real (that is what the QID fix returns for Q48584), but "5 covered, all correct" is **not a measured result.** |
 | **CITATION** | Two-level: does the source exist, does it actually say this | **Level 1 rebuilt and off zero 2026-08-23.** `current/citation_l1_verifier.py`: **75.9% coverage (22/29), 90.9% accuracy (20/22), AURAC 0.934** — was 0/12. Replaced both hardcoded dicts (`ORG_URL_MAP`, `TRIVIALLY_KNOWN_ORGS`) with Wikidata resolution via the fixed resolver. **Level 1 can never return FALSE** — a source that fails to resolve is UNVERIFIABLE, not fabricated — so F1(FALSE)=0.00 by construction and all 3 gold-FALSE CITATION claims are missed. Level 2 (attribution) is unbuilt: it needs NLI, which SIGBUSes locally, and NLI contradiction precision caps at 0.20 anyway. Old `current/citation_verifier.py` retains the tautology; do not use it. **The FALSE-class gap is worse than "L1 can never return FALSE", and also more reachable than assumed — measured 2026-08-25, see below.** |
 | **QUANTITATIVE** | Structured extract-and-compare vs. Wikidata `quantity` statements (**not** NLI) | **WORKING, and as of 2026-08-25 the one type where routing BEATS the baseline on a prior-independent metric.** `current/quantitative_verifier.py`; selftest **24/24**. Measured on gold negatives at last: **14/14 correct across 14 covered claims with BOTH classes present, 0 confident errors, MCC +0.378 vs the baseline's best +0.202.** On 4 claims both systems answer confidently and disagree — routed 4/4, baseline 0/4. Batch 3 alone: 8/29 = 27.6% cov, 8/8. Negatives alone: 6/24 = 25.0% cov, 6/6. Full analysis `reference/rq2_quantitative_negatives_2026-08-25.md`; reproduce with `current/rq2_quantitative_table.py` (offline). NUMERICAL works; COMPARATIVE + COMPUTATIONAL abstain by design. |
+
+### Correction 2026-08-26 — the TEMPORAL/EA "moved off zero" rows were mislabeled, and the stale numbers ESCAPED THIS FILE
+
+Verified directly from the four result CSVs, not from any doc:
+
+| file | TEMPORAL | EA | confident verdicts |
+|---|---|---|---|
+| `temporal_b3_verified_results.csv` (**pre**-fix) | 1/12 = 8.3% | — | 1 FALSE — **the Panama Canal confident-wrong** |
+| `temporal_b3_verified_results_phase2.csv` (**post**-fix, live) | **0/12** | — | none |
+| `entity_attribute_b3_verified_results.csv` (**pre**-fix) | — | 1/22 = 4.5% | 1 FALSE — **the Rosetta-Stone-punk-band confident-wrong** |
+| `entity_attribute_b3_verified_results_phase4.csv` (**post**-fix, live) | — | **0/22** | none |
+
+**This file already said so, two sections down** — *"coverage moved 8.3%→0% (TEMPORAL) and
+4.5%→0% (EA) because the only 'covered' claims had been the wrong ones."* The summary
+table contradicted its own QID-bug section for three days. When two parts of this file
+disagree, **the section with a named file and a row count wins over the summary table.**
+
+**The numbers were not invented, they were misattributed.** `1/12` + `5/22` = `6/34` =
+17.6%, exactly the `6/34 @ 5/6` recorded for the **unintegrated** `property_resolver.py`.
+So the triple describes a real design — just not the live notebook cells, and **no results
+file for that run exists on disk.** `temporal_ea_hybrid_b3.csv` (34 rows) is a *different*
+run: 28/34 = 82.4% coverage, 6 FALSE, and **all 34 rows are gold TRUE, so all 6 are
+wrong** — the third occurrence of coverage-up/precision-down, and unquotable per WORKLOG.
+
+**Why this correction was worth making immediately: the stale numbers left the project.**
+An external technique catalog (`~/.gemini/.../modern_techniques_for_haldetect.md`, read
+2026-08-26) states TEMPORAL 8.3% and EA 22.7% in its "Your Current Stack" table and ranks
+its recommendations against them. A wrong number in this file became a wrong premise in a
+roadmap that would have driven architectural decisions. **Correct stale rows when found,
+not when convenient.**
+
+Note on `mtime`: all files under `current/` in this worktree share `2026-08-25 02:40`, the
+worktree copy time. **`mtime` is uninformative here** — the standing rule's other two
+signals (row counts, content markers) are the ones that worked.
 
 ## The standing rule
 
@@ -101,6 +135,42 @@ Psychological Medicine***, not *The Lancet*. The label-based check passes this e
 — its label really does read "The Lancet Commission on Dementia Prevention…" — and
 the property-consistency check rejects it. **The caveat was not theoretical, the
 proposed fix works, and it is nearly free** (the claims fetch is already being made).
+
+**BUILT 2026-08-26 — `current/source_consistency.py`, `--selftest` 12/12 ALL PASS.**
+The safety half of the serial-edition fix, deliberately shipped *before* series
+resolution because it **removes** a confident-wrong verdict rather than adding
+coverage. A separate module, so QUANTITATIVE's validated 24/24 is untouched.
+
+    Q92676744 vs 'The Lancet' -> CONFLICT   P1433 = 'Irish Journal of Psychological Medicine'
+    Q103843442 vs 'IPCC'      -> CONSISTENT P123  = 'Intergovernmental Panel on Climate Change'
+    Q103843442 vs 'WHO'       -> CONFLICT   P123  = 'Intergovernmental Panel on Climate Change'
+
+The third case is the one that converts the CITATION *analysis* into a *detection*: it
+is exactly the `SYN_CITA_075/076/077` fabricated-composite-title route ("The WHO Sixth
+Assessment Report"), and it is caught with **no NLI at all.**
+
+Four design decisions, each load-bearing:
+
+1. **Only `P1433`/`P123` can veto.** They answer *"who put this work out"*, which is
+   what a citation names. `P50`/`P179`/`P361`/`P31` are printed for context but never
+   decide — **an author is not a publisher**, so a mismatch there is not a provenance
+   conflict. (Q92676744 carries two `P50` values; neither is consulted.)
+2. **Any match wins.** A co-published report legitimately carries several provenance
+   values, so one genuine hit is confirmation, not a tie.
+3. **`NO_EVIDENCE` must never reject.** Most Wikidata items have no `P123` at all;
+   making absence reject would delete coverage while detecting nothing. Same asymmetry
+   Level 1 already encodes — *a source that fails to resolve is UNVERIFIABLE, not
+   fabricated.*
+4. **Both error directions are safe, which is why it can ship ahead of the hard half.**
+   A wrong CONSISTENT → no veto → status-quo behaviour. A wrong CONFLICT → veto →
+   honest UNVERIFIABLE. **The check only ever removes a verdict**, so neither direction
+   can manufacture a confident-wrong one. The name matcher is therefore deliberately
+   lenient (bidirectional acronym *prefix* match: `FAO` matches "Food and Agriculture
+   Organization of the United Nations" via FAOUN, while `CDC` vs "World Health
+   Organization" still fails).
+
+**Still to build (#17b): series-level resolution.** This module catches the wrong
+edition; it does not yet *find* the right one.
 
 ### QUANTITATIVE now has real, validated coverage (2026-08-23)
 
@@ -534,7 +604,7 @@ Pooled real gold is **314 TRUE / 13 FALSE / 29 UNVERIFIABLE of 356**, so an unco
 
 - `current/` — verified-current files only (see `current/README.md` for exactly why each one qualifies).
 - `archive/` — superseded/duplicate/historical-draft files, nothing deleted, all reversible (see `archive/README.md`). **One exception to "superseded":** `archive/csvs/haldetect_claims_20260524_045439_2.csv` holds Batch 1's 125 gold labels and is live evaluation data, not a leftover.
-- `reference/` — handoff/context docs only, no claim data. `reference/haldetect_starthere_2026-08-10.md` is the fullest single account if this file isn't enough; `reference/paper_findings_2026-08-22.md` is the literature index and metrics rationale; `reference/claim_set_inventory_2026-08-22.md` is the claim-set audit.
+- `reference/` — handoff/context docs only, no claim data. `reference/haldetect_starthere_2026-08-10.md` is the fullest single account if this file isn't enough; `reference/paper_findings_2026-08-22.md` is the literature index and metrics rationale; `reference/claim_set_inventory_2026-08-22.md` is the claim-set audit. `reference/external_catalog_assessment_2026-08-26.md` assesses three externally-supplied technique documents — **read it before acting on any external roadmap**, because it shows one built on a three-day-old snapshot of these diagnostics and ranking its recommendations against two numbers that had already been corrected.
 - `latest/` — empty; the 10 files originally held back here have all been filed into `current/` or `archive/csvs/`.
 - `old-chats-handoffs/` — **five exported session handoffs, added to this file's awareness 2026-08-22. Read these before planning experiments.** They are the only record of decisions made before the notebook era, and three of them independently name the non-routed baseline as the core missing result. Also the only place holding: the RQ numbering, the Phase 3d-vs-3e reporting decision, the RELATIONAL A–E sub-typing, the page-relevance-gate negative result, the cache-prefix discipline, and the thesis authorship constraint. Chronological order is *Taxonomy-based* (Feb–Apr) → *Comparing systems against FActScore's dataset* (May–Jul) → *RAG for fact verification* → *LLM verification capabilities* (literature) → *Reading files from GitHub repository* (FActScore-priv).
 
