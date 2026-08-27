@@ -11,8 +11,10 @@ can dismantle.
 
 * **#3 Per-class F1 + degenerate baselines.** Factcheck-Bench Table 5 shows
   Always-True scoring **F1 = 0.88 on the True class and 0.00 on False**. Our gold
-  set is 314 TRUE / 13 FALSE / 29 UNVERIFIABLE, so an unconditional "TRUE" scores
-  **88.2%** accuracy. Accuracy alone is therefore uninterpretable here.
+  set is 313 TRUE / 14 FALSE / 29 UNVERIFIABLE, so an unconditional "TRUE" scores
+  **87.9%** accuracy. Accuracy alone is therefore uninterpretable here. (Was
+  314/13/29 and 88.2% until 2026-08-26, when `Q22_C01` was flipped TRUE -> FALSE
+  on author authorisation; see CLAUDE.md section 4.)
 * **#4 Wilson CIs.** RELATIONAL's "80.77%" rests on ~26 covered claims -> 95% CI
   [62.1%, 91.5%], which cannot separate 80% from 65%.
 * **#5 Risk-coverage curve + AURAC.** Our system abstains by design; a verifier
@@ -301,9 +303,17 @@ def curve_table(gold: list[str], pred: list[str], conf: list[float],
 
 if __name__ == "__main__":
     # Self-check on the project's own real pooled distribution:
-    # 314 TRUE / 13 FALSE / 29 UNVERIFIABLE = 356.
-    gold = ["TRUE"] * 314 + ["FALSE"] * 13 + ["UNVERIFIABLE"] * 29
+    # 313 TRUE / 14 FALSE / 29 UNVERIFIABLE = 356.
+    #
+    # Was 314/13/29 until 2026-08-26, when Q22_C01 was flipped TRUE -> FALSE on
+    # author authorisation (SOFI 2023 cc3017en p.10 says the 2022 prevalence
+    # remained unchanged; the claim asserts it increased). Always-True therefore
+    # scores 87.9%, not 88.2% -- so the bar every accuracy claim must clear moved
+    # DOWN by 0.3pp. Kept as a hardcoded fixture on purpose: this is a unit test
+    # of the metric functions, not a read of the corpus, so it must not silently
+    # track a file it does not open.
+    gold = ["TRUE"] * 313 + ["FALSE"] * 14 + ["UNVERIFIABLE"] * 29
     print("Sanity check against the pooled real gold set (356 claims).")
-    print("Expect Always-True accuracy = 88.2% with F1(FALSE) = 0.00 --")
+    print("Expect Always-True accuracy = 87.9% with F1(FALSE) = 0.00 --")
     print("this is the number every HalDetect accuracy claim must beat.\n")
     report(gold, ["TRUE"] * len(gold), title="Always-True on pooled real gold")

@@ -31,7 +31,33 @@ three-column table**. That one is worth the standing check it produced: a duplic
 renders as ordinary prose, so proofreading cannot see it, but **counting unescaped `|` per row
 against the separator width finds it in one pass** — mind `\|` inside cells, which makes a naive
 split report two false positives in §6. `mtime` is **uninformative in this worktree** — every file
-under `current/` shares the copy time.
+under `current/` shares the copy time. **Most literal instance yet, 2026-08-27: 5 of the 42 PDFs in
+`papers_analysis/downloaded_pdfs/` are entirely different papers from the one their filename names**
+(a hen-breed image dataset filed as `FactCheckGPT_…`), and **4 of the 5 pass an arXiv-ID check
+because the wrong ID is what downloaded them** — see §7. That produces R1's sharpest corollary:
+**a check that verifies a claim against a document the claim itself selected cannot fail**, so
+verify against a field the claim did not choose (here, the title the paper prints about itself).
+
+**R1a (2026-08-26, task #23). A number's denominator comes from whatever file its LOADER opens,
+not from the file whose name describes the population — read the loader before editing data.**
+`SYN_CITA_083` was physically removed from `synthetic_negatives.csv`, the obvious authority, and
+**every published denominator stayed at 85**, because `negatives_cache_audit.py` builds its
+population from `nonrouted_negatives_results.csv` and opens the source only to look up
+`base_claim_id`. The row removal corrected nothing and instead created an **orphan**, which
+`if not base: continue` swallowed in silence — a data edit that looked applied, changed no output,
+and degraded a lookup. **Two consequences that are now rules:** a deletion must be verified by a
+number moving, not by the row being gone; and when a fix depends on a silent skip, **make the skip
+loud** (a named constant plus an abort on any unrecorded case), because once counts are printed a
+silent filter and a genuine bug look identical.
+
+**R1b. Two different sets can print the same count, and then the coincidence hides the error.**
+Two docstrings said "0 of 69 non-colliding rows". Non-colliding is 85 − 16 = **69** pre-drop, but
+the audit's `control_n` is a **different set** — rows with a locatable base that are not
+same-key-and-entail-matched — which also printed 69. Post-drop they separate: **68** vs **69**.
+Both numerators are 0, so the control holds either way and nothing measured was wrong; the hazard
+is that a reader reconciling the two would "fix" the one that was already right. **State which set
+a denominator counts, not just its size.** Related: §5's wrong-denominator reconstruction used to
+give CITATION **23** as a *symptom*, and 23 is now the *correct* post-drop value.
 
 **R2. Never write a bare 100%.** Always a Wilson CI. `5/5` is `[56.6%, 100%]`, barely better
 than a coin flip; `8/8` is `[67.6%, 100%]`. A bare 100% has never survived an audit here.
@@ -123,7 +149,35 @@ framed as intentional domain stratification.
 
 **R19. Never overwrite a result CSV that is currently quoted.** New phase → new filename.
 `temporal_b3_verified_results_phase2.csv` and `entity_attribute_b3_verified_results_phase4.csv`
-are the quoted baseline.
+are the quoted baseline. **This governs TEST output as much as experiment output** — a selftest is
+a program that writes files, and its default destination is part of its contract. 2026-08-27, task
+#20's new selftest overwrote the 34-row `property_match_diagnostic.csv` (the source of the quoted
+6/34 = 17.6%) with its own 1-row output **while printing `11/11 passed`**. Restored from git. The
+fix belongs in the **writer's signature** (`out_path=None`), never in the caller's care, and the
+"did not touch it" claim must be a **byte-identical assertion inside the test**, itself proven to
+fail when the defect returns. **A test's own PASS is not evidence the test was harmless** — only
+`git status` caught this.
+
+**R20. Paired significance tests — three admissibility conditions, all three violated by the
+obvious way of running one.** From #22 (`current/mcnemar.py`, `reference/mcnemar_rq2_2026-08-26.md`).
+- **(a) Never quote a `p` without `min_p = 2/2ⁿ`, the smallest `p` that `n` discordant pairs could
+  have produced.** `min_discordant_for(0.05) == 6`: below 6 pairs, α = 0.05 is **unreachable no
+  matter how lopsided the result**. So the 4–0 QUANTITATIVE table gives `p = 0.1250` **which is
+  the floor** — that is "this corpus cannot tell", not "the systems are alike". Same shape as R2
+  and R4: a number is uninterpretable without the quantity that bounds it.
+- **(b) A paired test needs BOTH gold classes in the population.** On an all-FALSE set an
+  unconditional FALSE is correct everywhere, so it wins every pair the real system wins —
+  Always-False ties routed QUANTITATIVE at `b=4, c=0` on the negatives alone, under **every**
+  convention. **Negatives-only McNemar is inadmissible**, which is R5 in significance-test form.
+- **(c) A confident-error metric is gamed by abstention.** Always-UNVERIFIABLE scores the
+  *identical* `p = 3.81e-06` as routed QUANTITATIVE, because a system that never answers never
+  errs confidently. The 0-vs-19 **count** stands; **no `p` may be attached to it.** R3's
+  degenerate-baseline discipline, extended to significance — so run all three degenerate arms
+  against every real one and flag any that matches its `p`.
+- **Corollary, and it is the trap that nearly got quoted:** **statistical power is a function of
+  the opponent's operating point.** Degrading the comparator manufactures discordant pairs. Any
+  threshold picked after seeing a `p` is a `p` picked after seeing a threshold — §3's C1 @tuned
+  `p = 0.0312` is exactly this and **must not be quoted**.
 
 ---
 
@@ -137,10 +191,19 @@ are the quoted baseline.
 | **CITATION** | Three levels: does the source exist (L1), do the work's own properties contradict the claim (L1b), does it actually say this (L2, unbuilt) | **L1** `current/citation_l1_verifier.py`: 75.9% cov (22/29), **86.4% acc (19/22)** [66.7, 95.3], **AURAC 0.898** — was 90.9% / 0.934 before the `Q22_C01` flip, which turned an L1 TRUE into a confident error (3 now, not 2). **L1 can never return FALSE** — a source that fails to resolve is UNVERIFIABLE, not fabricated — so F1(FALSE) = 0.00 **by construction**. **Two of L1's three confident errors are now gold-FALSE bare-`'FAO'` claims** (`Q22_C01`, `B3_12_C07`), which is the existence-vs-content gap stated as data rather than as design intent. **L1b** `current/citation_l1b_verifier.py`, `--selftest` ALL PASS: the first thing in the project to return CITATION FALSE. **L2 still unbuilt** — needs NLI (SIGBUSes locally) and contradiction precision caps at 0.20 anyway. Old `current/citation_verifier.py` retains the `1 - entail` tautology; **do not use it.** |
 | **QUANTITATIVE** | Structured extract-and-compare vs Wikidata `quantity` statements (**not** NLI) | **Working, and the one type where routing BEATS the baseline on a prior-independent metric.** `current/quantitative_verifier.py`, selftest **24/24**. NUMERICAL works; COMPARATIVE + COMPUTATIONAL abstain by design. |
 
-Supporting modules, all `--selftest` passing, all deliberately separate from the validated
-verifiers: `current/series_resolver.py` (edition spans), `current/source_consistency.py`
-(P1433/P123 provenance veto), `current/property_resolver.py` (**deliberately unintegrated** —
-see §6).
+Supporting modules, all deliberately separate from the validated verifiers:
+`current/series_resolver.py` (edition spans, `--selftest` ALL PASS),
+`current/source_consistency.py` (P1433/P123 provenance veto, `--selftest` 12/12),
+`current/type_consistency.py` (**P31/P279 type veto — the independent, non-label signal on
+resolution correctness; `--selftest` 24/24 and `--vacuity` 4/4, both exit 0**; see §6),
+`current/property_resolver.py` (**deliberately unintegrated** — see §6). **`property_resolver.py`
+is `--selftest` 1/2, NOT passing — this file said "all passing" for days.** Verified 2026-08-27:
+the unmodified main-checkout copy fails `Q7350 'inception_date' → P1619` byte-identically (same
+`@0.569`, same guard message), so it is **not** a regression from #20; and the old `_selftest`
+printed `1/2 passed` while **exiting 0**, which is how a scripted or remembered check read it as
+green. It now exits 1. The failure is the **core-term guard over-firing** — `'inception'` vs
+`'official opening'` = 0.194 < 0.35 — on one of the two bugs the module was built to fix. Task #25;
+**do not just lower 0.35**, the guard prevents 7 confident-wrong TEMPORAL matches.
 
 ---
 
@@ -193,12 +256,19 @@ four are arithmetically untouched because the claim is CITATION-typed.
 
 **Of 81 FALSE predictions, 8 are correct — precision 0.099.** This is a **base-rate artifact,
 not a discrimination failure**: at π = 14/356 = 0.0393 the measured TPR/FPR reproduces precision
-**0.0930 against the observed 0.0988**. At this π a detector needs a TPR/FPR ratio of **24.4:1**
-for 50% precision; the measured ratio is 2.5:1. **J = +0.322, which is not zero** — at a balanced
-prior the same detector shows precision 0.715. Never quote the 0.099 without the base rate and J.
+**0.0942 against the observed 0.0988**. At this π a detector needs a TPR/FPR ratio of **24.4:1**
+for 50% precision; the measured ratio is 2.5:1. **J = +0.330, which is not zero** — at a balanced
+prior the same detector shows precision 0.718. Never quote the 0.099 without the base rate and J.
 **The flip made this argument stronger, not weaker:** predicted-vs-observed narrowed from a
 0.0118 gap to **0.0058**, because the extra gold negative is one the baseline missed — exactly
 what a base-rate account predicts. The observed 8/81 is unchanged.
+
+**Task #23 (dropping `SYN_CITA_083`, §5) narrowed the gap again, 0.0058 → 0.0045, and this one
+must NOT be quoted as corroboration.** The tightening is **mechanical**: the dropped row is one
+the baseline scored TRUE, so removing it lifts measured TPR (0.536 → 0.544) with no new correct
+prediction anywhere — the numerator never moved. Same arithmetic, one fewer miss in the
+denominator. The base-rate argument rests on the **flip's** independent confirmation and on
+J = +0.330; #23 is a denominator correction that happens to point the same way.
 
 **Coverage 90.2% is at the ceiling** — NLI scored 322/356 (90.4%); the other 34 abstained
 pre-NLI. Lifting it is **retrieval**, not thresholds.
@@ -217,11 +287,11 @@ difference is discrimination. Rows use the **`type`** column.
 
 | type | TPR on negatives | FPR on gold-TRUE | **J = TPR − FPR** |
 |---|---|---|---|
-| **CITATION** | 5/24 20.8% | 2/24 8.3% | **+0.125** ← weakest, and prior-independent |
+| **CITATION** | 5/23 21.7% | 2/24 8.3% | **+0.134** ← weakest, and prior-independent |
 | ENTITY_ATTRIBUTE | 5/5 100% | 5/42 11.9% | +0.881 (n=5, **do not quote**) |
 | QUANTITATIVE | 8/14 57.1% | 9/41 22.0% | +0.352 |
 | TEMPORAL | 19/26 73.1% | 19/62 30.6% | +0.424 |
-| **ALL** | **37/69 53.6%** | **67/313 21.4%** | **+0.322** |
+| **ALL** | **37/68 54.4%** | **67/313 21.4%** | **+0.330** |
 
 **Post-flip.** Only the CITATION and ALL rows moved, and only their **denominators** — the flipped
 claim left the gold-TRUE pool, so CITATION FPR went 2/25 → 2/24 (J +0.128 → +0.125) and ALL went
@@ -229,6 +299,13 @@ claim left the gold-TRUE pool, so CITATION FPR went 2/25 → 2/24 (J +0.128 → 
 synthetic negative. It is also **never predicted FALSE at any of the 255 threshold-grid points**
 (its contradict score is 0.1798, below the grid's minimum ct of 0.30), so **the whole
 threshold-sweep precision surface is unchanged** — verified, not assumed.
+
+**Post-#23** (dropping `SYN_CITA_083`, §5), also denominators only, and this time on the **TPR**
+side: CITATION 5/24 → **5/23** (J +0.125 → +0.134) and ALL 37/69 → **37/68** (+0.322 → **+0.330**).
+**No FPR changed** — the dropped row is a synthetic negative, not a natural gold-TRUE claim, the
+exact mirror of the flip. **Every numerator in the table is untouched**, so both moves are a
+**caution, not a win**: the baseline scored the dropped row TRUE, i.e. it lost a miss, not gained a
+detection. Both figures re-derived by running the script, not edited by hand.
 
 **Bounding caveat:** the negatives are synthetic perturbations (a swapped number or date),
 plausibly easier to refute than a naturally-hallucinated causal claim. **Every TPR here is an
@@ -249,14 +326,14 @@ Reproduce offline with `current/rq2_quantitative_table.py`.
 **CITATION Level 1b (2026-08-26).** Beats the baseline on the baseline's own weakest type, **with
 no NLI at all**.
 
-| | TPR on the 25 negatives | FPR on the 24 gold-TRUE natural | **J** |
+| | TPR on the 24 negatives | FPR on the 24 gold-TRUE natural | **J** |
 |---|---|---|---|
-| **Level 1b** | **9/25 = 36.0%** [20.2, 55.5] | **0/24** [0.0, 13.8] | **+0.360** |
-| baseline, CITATION | 5/24 = 20.8% [9.2, 40.5] | 2/24 = 8.3% [2.3, 25.8] | +0.125 |
+| **Level 1b** | **9/24 = 37.5%** [21.2, 57.3] | **0/24** [0.0, 13.8] | **+0.375** |
+| baseline, CITATION | 5/23 = 21.7% [9.7, 41.9] | 2/24 = 8.3% [2.3, 25.8] | +0.134 |
 
-By route: `year_shift` **5/12** via `P577`, `source_swap` **4/11** via a `P123` conflict. Three
+By route: `year_shift` **5/12** via `P577`, `source_swap` **4/10** via a `P123` conflict. Three
 mandatory caveats: **8 of 9 detections come from Q103843442 alone** (R11); **the TPR CIs overlap
-heavily** — n = 25 cannot separate 36% from 21%, so the clean prior-independent part is **FPR
+heavily** — n = 24 cannot separate 37.5% from 21.7%, so the clean prior-independent part is **FPR
 0/24 vs 2/24** and the **0 confident errors**, not the TPR gap; and **8/12 is a ceiling measured
 from hand-curated subject strings — end-to-end extraction gives 5/12**, always report both. The
 gap is entirely Lancet and is **candidate generation, not ranking** (`'Lancet Commission'`
@@ -266,6 +343,58 @@ falsities no property check reaches: `Q12_C11` and `B3_05_C02` (gated `DATE`), `
 `B3_12_C07` (gated `NONE` — both bare `'FAO'` references, 0 content words). **The `Q22_C01` flip
 was a live test of this argument and it held:** the count went 3 → 4, L1b returned UNVERIFIABLE
 on the new one, and true positives on the natural set stayed **0**. `reference/citation_l1b_result_2026-08-26.md`
+
+**Post-#23** (§5): denominators only, on both rows, and **both moved <2pp in their own system's
+favour** — L1b 9/25 → 9/24 (36.0% → 37.5%, J +0.360 → +0.375), baseline 5/24 → 5/23 (20.8% →
+21.7%, +0.125 → +0.134). **Nothing that carries the argument moved:** FPR **0/24** and **0
+confident errors** both unchanged (L1b returned UNVERIFIABLE on the dropped row, so it earned no
+detection to lose), the 8-of-9 Q103843442 concentration intact, `year_shift` **5/12** intact, and
+the CIs still overlap heavily — so the caveat above stands verbatim at the new numbers. Recounted
+offline from `current/citation_l1b_results.csv`, zero Wikidata calls.
+
+### McNemar's exact test on both wins (#22, 2026-08-26) — the significance framing does NOT survive
+
+`current/mcnemar.py`, offline, ~2 s, `--selftest` 17 checks ALL PASS incl. a `scipy.binomtest`
+cross-check at 3.33e-16. Gated on first reproducing 14/14, 19-vs-0, n=53 and `b=4,c=0`. **Read R20
+before quoting any row.** Three conventions run always, because both systems abstain and picking
+one silently would choose the result: **C1** both-covered · **C2** exact-match (charges routing for
+coverage) · **C3** confident-error incidence. They disagree, and that is the finding.
+
+| QUANTITATIVE, combined 53 (28 T / 25 F, π_FALSE 47.2%) | b | c | n | `p` | `min_p` | |
+|---|---|---|---|---|---|---|
+| **C1 @shipped** — *the admissible headline* | 4 | 0 | 4 | **0.1250** | 0.1250 | **UNDERPOWERED — `p` is AT the floor** |
+| C1 @tuned | 6 | 0 | 6 | 0.0312 | 0.0312 | significant, ungamed — **DO NOT QUOTE, see below** |
+| **C2 @shipped / @tuned** | 6 | 17 / 18 | 23 / 24 | **0.0347 / 0.0227** | 2.4e-07 | **significant, favours the BASELINE** |
+| C3 @shipped | 19 | 0 | 19 | 3.81e-06 | 3.81e-06 | **GAMED** — Always-UNVERIFIABLE identical |
+
+**The 4–0 is underpowered *by construction*** (R20a) — routing swept every pair and still cannot
+reach α=0.05 at n=4. **C1 @tuned's `p = 0.0312` is manufactured and must not be quoted**: verified
+row-by-row, the 2 extra discordant pairs are **not** rows the baseline newly answered (those 2,
+`B3_04_C02`/`B3_04_C10`, are concordant and contribute nothing) but `SYN_QUAN_014`/`015`, which go
+from **concordant-correct to discordant** because the baseline flips `FALSE → TRUE` and **gets
+worse** (confident errors 19 → 24). Routing's predictions are byte-identical at both points — it
+has no threshold. **What is significant runs the other way:** C2 shows routing's coverage cost at
+`p = 0.0347`, favouring the baseline — exactly the "will likely make a quoted claim weaker"
+outcome #22 predicted. **Negatives-only is inadmissible under all three conventions** (R20b).
+**MCC +0.378 vs +0.202 is untouched** — not a paired statistic. The counts stand; only the
+significance framing goes.
+
+**CITATION L1b: the paired test is the WRONG INSTRUMENT, and that reframes the win.** C1 has
+**n = 1** on all 53 (`SYN_CITA_075`) and **n = 0** on the natural 29 — not by accident but because
+**the two systems answer on different claims.** Verified cross-tab: L1b covers 9, baseline 23,
+**union 28, intersection 4**. Every C2 row is **inadmissible** (L1b emits no TRUE by design, so it
+forfeits every gold-TRUE row); C3 is **gamed**. So no convention supports a head-to-head. **The
+composition table is the real result:** L1b answers **5 rows the baseline abstains on and is
+correct on 5/5** (`SYN_CITA_063/064/067/076/077`); the baseline uniquely answers 19, **11 right /
+8 wrong**; neither reaches 25. **L1b adds 5 correct detections at zero confident-error cost on
+claims the baseline cannot reach** — the first quantitative case for the hybrid fall-through (#3),
+which ConfQA's *"unsure as a gate that triggers retrieval"* grounds. Ask **"do they compose?"**,
+not **"which wins?"** — R11's 8-of-9 Q103843442 concentration still travels with the 5.
+
+**No whole-system McNemar exists over the natural 356** and one cannot be built yet: TEMPORAL/EA
+are at 0% coverage and RELATIONAL's live logic is notebook cell 57 with no committed per-claim CSV.
+**Per-type tests must never be pooled** — different priors, coverage and verifiers, so pooling
+reintroduces the prior-mixing R6 forbids. `reference/mcnemar_rq2_2026-08-26.md`
 
 ### The RQ2 verdict, which must not be softened
 
@@ -324,37 +453,59 @@ Both sum to 356. **"The pooled 184" is wrong for any routed experiment — RELAT
 174.** The +12 is the router over-firing, reproducing the Batch-1 confusion matrix exactly, so
 part of TEMPORAL's 0% coverage is **misrouting**, not a property-mapping gap.
 
-**Synthetic negatives — `current/synthetic_negatives.csv`, 85 rows across FOUR types:**
-`SYN_CITA` 25 · `SYN_TEMP` 31 · `SYN_QUAN` 24 · `SYN_ENTI` 5. **There are no RELATIONAL
+**Synthetic negatives — `current/synthetic_negatives.csv`, 84 rows across FOUR types:**
+`SYN_CITA` 24 · `SYN_TEMP` 31 · `SYN_QUAN` 24 · `SYN_ENTI` 5. **There are no RELATIONAL
 synthetic negatives** — the B3N 27 above is a separate artifact inside the pooled 356. Strict
-tier = **69** (85 minus the 16 rows affected by the `nli__` cache-key collision): CITATION 24,
+tier = **68** (84 minus the 16 rows affected by the `nli__` cache-key collision): CITATION 23,
 TEMPORAL 26, QUANTITATIVE 14, EA 5. **Re-derived 2026-08-26 by running
-`current/negatives_cache_audit.py` — reproduces exactly.** The tier is defined per row against
-**its own base claim**, not against all natural claims; a reconstruction using the wrong
-denominator gives CITATION 23 / QUANTITATIVE 15, which also sums to 69 and looks like a
-discrepancy. **Run the script, don't reconstruct it.** **EA at n = 5 is the genuinely thin set,
-and the reason is concrete:** `current/negatives_needing_manual_authoring.csv` holds 14 rows,
-**12 of them EA**.
+`current/negatives_cache_audit.py` — reproduces exactly.** (It was 85 rows / `SYN_CITA` 25 /
+strict tier 69 / CITATION 24 until 2026-08-26, when `SYN_CITA_083` was dropped — task #23, below.)
+The tier is defined per row against **its own base claim**, not against all natural claims.
+**The 16 excluded rows were RESCORED 2026-08-27 (#16) and the collision is broken, so 68 is now
+a MOVABLE floor rather than a fixed population** — adoption would take it toward 84, ≈+24%, on a
+corpus whose binding constraint is negative scarcity. It is not adopted: no published number has
+moved, and adoption needs a new results CSV plus this audit re-run (§7 #16,
+`reference/nli_rescore_16_2026-08-27.md`). Until then quote **68**.
+**Run the script, don't reconstruct it** — and note the trap this drop created: the wrong-denominator
+reconstruction used to give **CITATION 23** / QUANTITATIVE 15, also summing to 69, and **CITATION 23
+is now the CORRECT post-drop value**. The number that was the *symptom* of the bug is now the
+*right answer*, so "23" no longer diagnoses anything in either direction. **EA at n = 5 is the
+genuinely thin set, and the reason is concrete:**
+`current/negatives_needing_manual_authoring.csv` holds 14 rows, **12 of them EA**.
 
-**`SYN_CITA_083` is an INVALID NEGATIVE — recommend dropping it (2026-08-26).** It is a
-`source_swap` FAO→WHO off `Q22_C01` with the assertion unchanged, gold FALSE. But **WHO is a
-co-publisher of SOFI 2023** (joint FAO/IFAD/UNICEF/WFP/WHO), so moving the attribution from one
-co-publisher to another **leaves the claim exactly as true or false as it already was** — the
-perturbation injects no falsity, which is what a negative is *for*.
+**`SYN_CITA_083` was an INVALID NEGATIVE and is DROPPED — applied 2026-08-26, task #23. CLOSED.**
+It was a `source_swap` FAO→WHO off `Q22_C01` with the assertion unchanged, gold FALSE. But **WHO is
+a co-publisher of SOFI 2023** (joint FAO/IFAD/UNICEF/WFP/WHO), so moving the attribution from one
+co-publisher to another **left the claim exactly as true or false as it already was** — the
+perturbation injected no falsity, which is what a negative is *for*.
 
 **The `Q22_C01` flip changed why it is invalid, and the distinction matters.** Before the flip the
-base was TRUE and the swap was void, so gold FALSE was simply **wrong**. Now the base is FALSE, so
-the row **is** FALSE — but by **inheritance from its base, not by injection**. So its gold label is
-now accidentally right while the row remains **useless for measuring `source_swap` detection**,
-which is the only thing it was created to measure. **Do not let "the label is correct now" become
-an argument for keeping it** (R10: a detection off an inherited falsity is not evidence the swap
-was caught). Dropping it: strict tier **69 → 68**, CITATION
-**24 → 23**. **No measured detection is invalidated** — the baseline said TRUE @0.733 (off
-irrelevant retrieval about the Brookings Institution and US figures) and L1b returned
-UNVERIFIABLE (gated on `'WHO'` being a bare organisation), so both missed it. Denominators only,
-and both TPRs move **<2pp in each system's own favour** — a caution, not a benefit: baseline
-CITATION 5/24 → 5/23, ALL 37/69 → 37/68, L1b 9/25 → 9/24. It **is** inside the strict tier (the
-one CITATION row dropped at strict is `SYN_CITA_001`).
+base was TRUE and the swap was void, so gold FALSE was simply **wrong**. After it the base is FALSE,
+so the row **is** FALSE — but by **inheritance from its base, not by injection**. So its gold label
+became accidentally right while the row remained **useless for measuring `source_swap` detection**,
+which is the only thing it was created to measure. **Never let "the label is correct now" become an
+argument for restoring it** (R10: a detection off an inherited falsity is not evidence the swap was
+caught). Measured after the drop, not predicted: strict tier **69 → 68**, CITATION **24 → 23**.
+**No measured detection was invalidated** — the baseline said TRUE @0.733 (off irrelevant retrieval
+about the Brookings Institution and US figures) and L1b returned UNVERIFIABLE (gated on `'WHO'`
+being a bare organisation), so both missed it. Denominators only, and every changed TPR moved
+**<2pp in its own system's favour** — a caution, not a benefit: baseline CITATION 5/24 → **5/23**,
+ALL 37/69 → **37/68**, L1b 9/25 → **9/24**; **no numerator anywhere moved.** It **was** inside the
+strict tier (the one CITATION row dropped at strict is `SYN_CITA_001`).
+
+**How the drop is implemented, because the obvious way does not work.** `synthetic_negatives.csv`
+is the **single authority on population membership**; the row is physically gone from it. But
+`negatives_cache_audit.py` derives every published denominator from
+**`nonrouted_negatives_results.csv`**, a *results* file, and joins the source only to look up
+`base_claim_id` — so **removing the row from the source alone corrected nothing** and merely
+orphaned a lookup that `if not base: continue` swallowed silently (R1, and one of the two catches
+in §1's roster). The audit now **filters its results join through the source**, which respects R19
+(a quoted result CSV is never rewritten) and **keeps the dropped row's scored verdict on disk as
+the evidence that dropping it costs no detection**. Because a silent filter is itself the bug being
+fixed, the filter is guarded by a named `DROPPED` constant carrying the reason, and an unrecorded
+orphan **aborts the run** rather than being quietly excluded. Two selftest checks assert the
+mechanism in both directions — out of the counted population, still present in the results file.
+**Never widen that check to make a run pass; record the drop in `DROPPED` instead.**
 
 **`gold_type` is not a label in Phase 2 or Batch 3 — never score routing on them.** Both show
 100% agreement with the classifier's own `type` column (109/109, 122/122) because it was seeded
@@ -382,7 +533,7 @@ evidence for each, in `reference/haldetect_claudemd_full_2026-08-26.md`.
 | 1 | **Property-gated selection.** "Accept the first candidate with a non-empty value for this PID" used *has a value* as a proxy for *is the right entity*. Replayed live, the premise **inverts**: in both confirmed cases the correct entity was search hit #1 and was discarded for lacking the property, promoting a wrong-sense homonym that had it (Panama Canal → *Panama Canal Zone*; Rosetta Stone → a *British punk band*). | **FIXED 2026-08-21.** `resolve_entity()` scores candidates on their own label/alias/description (lexical tier + SBERT, `RESOLUTION_THRESHOLD = 0.60`), **commits, then** queries the property. Calibrated over all 34 Batch-3 subjects: at 0.60, **15/15 accepted resolutions are correct** and every wrong one falls below. Both confident-wrong verdicts became honest gaps; **zero remain on Batch 3.** |
 | 2 | **No prominence prior** (Bug A), **prefix-only search** (Bug B: `wbsearchentities` omits Q130018 whose label *is* "Denali", and `"Denali mountain"` returns nothing), and **`mul` labels** (Bug C: Wikidata stores language-agnostic labels under pseudo-language `mul`, and Q130018/Q554469 have **no `en` label at all**, so the correct entity was scored as though it were not even named Denali and lost to an asteroid — **proper nouns are the class most likely to live in `mul`**, and proper nouns are what resolution resolves). | **FIXED 2026-08-23**, selftest 21/24 → **24/24**. Prominence is a **sitelink tie-break within `RESOLUTION_TIE_BAND = 0.10`** and **never enters the number compared to the threshold** — that is the safety property, and it leaves the 0.60 calibration arithmetically untouched. Candidates now come from prefix search **unioned with** full-text `action=query&list=search`; labels requested as `languages=en\|mul`. |
 | 3 | **Editions of a serial publication.** Every candidate has 0 sitelinks so the prominence tie-break is inert; editions share nearly all of their label; and **the token that discriminates them is the year, which is the value under test.** Asked for the Lancet dementia Commission, the resolver accepted the 2019 article at 0.605 over the correct 2020 report at 0.595 — **rejected by one hundredth of a point** — whose `P577` would have manufactured a confident-wrong FALSE on a gold-TRUE claim. | **FIXED 2026-08-26**, `current/series_resolver.py`, `--selftest` ALL PASS. **Non-circularity is enforced by the interface:** `resolve_edition_span()` **has no year parameter**, and a selftest asserts via `inspect.signature` that no parameter name contains `"year"`. **Widen, don't re-pick** — the span covers all competing editions, so a FALSE holds under any resolution of the ambiguity. **No TRUE verdict by design.** Three guards, two of which exist only because the module was run against live Wikidata: **(1)** harvest years from labels too, because Q139937996 *is* the real 2024 Lancet report and its `P577` is simply absent — years are read off the **entity**, never the claim, and can only ever *widen* a span; **(2)** an undated member is a **HOLE, not a zero** → `INCOMPLETE_SPAN`, abstain; **(3)** a span covering fewer than **2 distinct years** is `INCOMPLETE_SPAN` — guard 1 caused this one, collapsing two duplicate World Bank items to `(2020, 2020)` and making the gold-TRUE 2023 read FALSE. **Reusable lesson: a span rule is conservative only while the span is WIDE. Narrow it enough and the same rule becomes the most aggressive detector in the system — the conservatism was a property of the data, not of the rule.** Measured ceiling **8/12** on the `year_shift` negatives (IPCC 5/5, Lancet 3/5, World Bank 0/2 by explicit abstention). |
-| 4 | **`property_resolver.py` carries 1 of the 3 fixes.** `languages=en\|mul` at L341/L374 with its own `pmeta2__` bump — but **`action=wbsearchentities` still at L612, i.e. Bug B is LIVE**, and **no `sitelinks`, no `RESOLUTION_TIE_BAND`.** | **OPEN — task #20.** Not on the critical path (the module is deliberately unintegrated) but it **is** live in that module and must be stated that way, never struck out wholesale. |
+| 4 | **`property_resolver.py` had a second, worse resolution path.** Recorded here as "carries 1 of the 3 fixes — `languages=en\|mul` at L341/L374 with its own `pmeta2__` bump, but `action=wbsearchentities` still at L612, i.e. Bug B is LIVE, and no `sitelinks`, no `RESOLUTION_TIE_BAND`." **Four corrections, all measured 2026-08-27.** (a) The call spans **L611–616** and is **not in a resolver** — it is an inline fallback in the `--diagnose` loop. (b) It was **not a fallback**: `haldetect_claims_b3_gold.csv` has **no `resolved_qid` column at all**, so it ran **34/34 — the sole resolver**. (Its `q_id` column *looks* like the missing field and is the **question** id, `B3_01`; feeding it to Wikidata would have produced 34 silent failures that looked like a coverage result. R1.) (c) It was **unscored**, `limit=1`, so it lacked fix **#1** — *score, commit, then query* — the more serious omission the "Bug B" label obscured; **the presence of `wbsearchentities` is not itself Bug B**, since the validated resolver calls it too as one arm of a union. (d) **No cache-prefix bump was required**, contra §7's instruction: `_get_with_retry` takes no cache argument and writes nothing, and the call site passed none, so the deleted path never produced a cache entry that could mask the fix. | **FIXED 2026-08-27 by removal, not by porting.** `quantitative_verifier.py:84` imports **from** this module, so importing `resolve_entity` back is **circular** — "just call the validated resolver" is unavailable in the obvious direction. So resolution is **injected**: `diagnose(csv_path, limit, resolver)` takes `resolve_entity`'s signature and, given none, records `no_resolver` and abstains. A module that does not search cannot have a prefix-only-search bug, and cannot re-acquire one by drifting from a fix applied elsewhere. Rejected alternatives: moving `resolve_entity` down (edits the validated 24/24 verifier for an unintegrated module's benefit) and a 4th copy of the fixes (the exact drift that created this task). **`no_resolver` ≠ `unresolved`** — unmeasured vs a genuine gap — and the summary prints **UNMEASURED** so a floor is not read as a result. **R12 now enforced, not just documented:** `diagnose` aborts on a CSV carrying `original_value`/`corrupted_value`/`base_claim_id`/`injection_type`/`perturbation`, because the loop reads `subject`; `ctx` is claim text. **Selftest Arm A: 14 offline structural checks**, replacing hardcoded-QID cases that never touched search — which is the mechanical reason this rotted while cells 69/75 were fixed. Its first draft **flagged itself** (its own check-name string is a live constant containing the token), so it now matches the **call pattern** — a dict literal with key `"action"` — and is **proven non-vacuous**: the predicate reports `[5]` on the deleted code and `[]` on a prose-only mention. **That same draft also OVERWROTE `current/property_match_diagnostic.csv`** — the 34-row file behind the **6/34 = 17.6%** figure §7 quotes — with its own 1-row output, **while printing `11/11 passed`**. Caught by `git status` (`2 insertions, 35 deletions`), restored, verified back to 34 rows / 6 matched / 17.6% (`sha256[:16] a6f3b323a488d2cb`). Fixed in the **writer's signature** — `diagnose(..., out_path=None)`, the selftest passes a tempfile — with two self-enforcing checks: the recorded file is asserted **byte-identical across the arm** (18163 bytes before and after) and the arm's own CSV must land in the tempfile. That assertion is itself proven non-vacuous by reproducing the clobber on purpose (18163 → 170 bytes, then restored, with `git show HEAD:` as an independent second restore path). **Two lessons: R19 governs TEST output as much as experiment output, and a selftest's own PASS is not evidence the selftest is harmless.** **No measured number moves** (nothing reads from this module). `reference/property_resolver_bugb_2026-08-27.md` |
 
 **Both live notebook cells are fully fixed** (`en|mul`, full-text `"list":"search"`,
 `sitelinks`/`TIE_BAND`), and `#12` bumped their prefixes
@@ -402,8 +553,28 @@ and rejected Q92676744, which the label check passes — its publisher is the *I
 Psychological Medicine*, not *The Lancet*. Four load-bearing design decisions: **only
 `P1433`/`P123` can veto** (an author is not a publisher); **any match wins**; **`NO_EVIDENCE`
 must never reject**; and **both error directions are safe** because the check only ever *removes*
-a verdict, so neither can manufacture a confident-wrong one. **Task #21 extends this to `P31`**,
-which is the type-level version and reaches the punk-band class directly.
+a verdict, so neither can manufacture a confident-wrong one.
+
+**The type-level version now exists and catches BOTH original resolution bugs —
+`current/type_consistency.py`, `--selftest` 24/24 and `--vacuity` 4/4, both exit 0 (task #21,
+2026-08-27).** `P31` + bounded `P279` is independent of the label, which is the whole point. Live:
+`Q498979` *Panama Canal Zone* → **CONFLICT** and `Q1703969` (the punk band) → **CONFLICT**, while
+`Q7350` and `Q48584` return CONSISTENT and a no-`P31` entity returns NO_EVIDENCE rather than a
+veto. Same four safety decisions as its sibling, plus: **CONFLICT requires that EVERY entity family
+be explicitly disjoint from EVERY expected one**, so one unlisted pair degrades to `NO_EVIDENCE` —
+**never-reached is not disjoint.** Three caveats travel with it. **(1) `MAX_DEPTH = 2` is a
+measured ceiling, not a guess** — at depth 2 a ship canal and a stele *already* both reach
+`architectural structure`, so depth 3+ imports the upper ontology and the disjointness table stops
+meaning anything; this independently validates `citation_l1_verifier.py:76`'s refusal of unbounded
+`P279*`. **(2) `FAMILIES`/`DISJOINT` are CURATED, so expect a LOW conflict rate in the wild** — an
+unanticipated class yields `NO_EVIDENCE`, a coverage loss, which is strictly milder than L1's
+curated `SOURCE_CLASSES` downgrading 4 of 4 correct resolutions, but it is the same class of risk
+and must be **measured, not assumed**. **(3) The 72/72 is repairABLE, not repaired — no
+corpus-wide audit has been run**, so §6's wording stands until one does; that needs author
+go-ahead like #19. Wikidata's own type constraints **cannot** supply the expectation side (measured
+negative result: they contain the very hub classes that must be excluded — `P2044`→`object`,
+`P577`/`P1433`→`work` — are absent for `P571`/`P2046`, and mix subject- with value-type
+constraints). `reference/type_consistency_2026-08-27.md`
 
 **Negative results — do not re-attempt.** The RELATIONAL page-relevance keyword gate was tried
 and **reverted twice**: generic domain words pass it and it regressed a legitimate TRUE
@@ -418,7 +589,7 @@ unchanged** — its contradict score is 0.1798, below the grid's minimum ct of 0
 predicted FALSE at any grid point; only the negative *count* moved 13 → 14. **State this as a
 claim about the ROC's *shape* — the best available TPR/FPR ratio is ~6.6:1 where ~24:1 is needed
 for coin-flip precision — never as "BART-MNLI cannot separate refutes from does-not-mention,"
-which was retracted 2026-08-25 as too strong** (measured J = +0.322).
+which was retracted 2026-08-25 as too strong** (measured J = +0.330).
 
 **Router over-firing is a TAXONOMY GAP, not a prompt bug.** §4 of the taxonomy enumerates five
 type-pair conflicts; with 5 types there are 10 pairs, and "CITATION vs any" covers 4, so §4
@@ -457,12 +628,13 @@ exists yet.
 
 | # | task | note |
 |---|---|---|
-| **#19** | Re-run the TEMPORAL/EA logic over the 34 claims | **Now a LOCAL job** — cells 69/75 call only Wikidata (API + SPARQL), no BART, no Gemini, so the logic extracts to a standalone `.py` in `.venv` and the notebook stays untouched. **Needs author go-ahead** (API-calling). Outputs `_phase3`/`_phase5`; **never overwrite phase2/phase4** (R19). Coverage far above the recorded precedents — `property_resolver.py`'s 6/34 = 17.6% and QUANTITATIVE's ~24% predicted band — is a **warning**, not a win (R8). |
-| **#20** | `property_resolver.py` Bug B + no prominence | Must be fixed before any integration, with another prefix bump. |
-| **#21** | `P31` instance-of type-check | Closes the resolution circularity above. Build as a sibling of `source_consistency.py`, not an edit to a validated verifier. **Now has a citable precedent: `P31`/`P279` fine-grained typing is exactly how ReFinED (Ayoola et al. 2022) scores its own candidates**, so this is the mechanism a SOTA entity linker relies on, not a local heuristic. `reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` §3 |
-| **#23** | Drop `SYN_CITA_083` from the negatives | WHO co-published SOFI 2023, so the FAO→WHO `source_swap` injects no falsity (§5). Offline, no model calls; strict tier 69 → 68. **Still the right call after the `Q22_C01` flip, but for a changed reason** — the row is now gold-FALSE *by inheritance from its base*, so the label is accidentally right while the row still cannot measure `source_swap` detection. Read §5 before acting; do not let "the label is correct now" argue for keeping it. |
-| **#22** | McNemar's test for RQ2 | Offline, zero model calls. On the existing 4–0 discordant table the exact test gives **p = 0.125** — *not* significant — so this will likely make a quoted claim weaker. Do it anyway. Use the **exact binomial**, report `(b, c)` beside `p`, run per population (R6). |
-| **#16** | `nli__` cache key `claim[:60]` truncation collides perturbed claims with their originals | Affects 16 of 85 negatives (18.8%) in three classes. Needs Colab. |
+| **#19** | Re-run the TEMPORAL/EA logic over the 34 claims | **Now a LOCAL job** — cells 69/75 call only Wikidata (API + SPARQL), no BART, no Gemini, so the logic extracts to a standalone `.py` in `.venv` and the notebook stays untouched. **Needs author go-ahead** (API-calling). Outputs `_phase3`/`_phase5`; **never overwrite phase2/phase4** (R19). Coverage far above the recorded precedents — `property_resolver.py`'s 6/34 = 17.6% and QUANTITATIVE's ~24% predicted band — is a **warning**, not a win (R8). **But the 17.6% is itself a DEPRESSED FLOOR, found 2026-08-27:** every QID behind it came from the unscored `limit=1` path #20 deleted, so it measures resolution failure as much as the property layer — the one thing that module claims to isolate. Still usable as an R8 precedent (a real figure can only be ≥ it), never as "the property layer reaches 17.6%". |
+| **~~#20~~** | ~~`property_resolver.py` Bug B + no prominence~~ | **DONE 2026-08-27 — fixed by REMOVAL, and it produced four corrections to how it was recorded here (§6 #4).** The path was the module's **sole** resolver (34/34, no `resolved_qid` column exists), **unscored** at `limit=1`, so it lacked fix #1 as well as #2/#3; and **no prefix bump was needed** — the deleted call never wrote to the cache, so this row's own instruction was over-broad. Resolution is now **injected** (`quantitative_verifier` imports *from* this module, so importing the validated resolver back is circular). Also corrected a stale claim in §2: the module's `--selftest` is **1/2, not passing**, pre-dating #20 and masked by an **exit-0-on-failure** bug. `reference/property_resolver_bugb_2026-08-27.md` |
+| **#25** | Core-term guard rejects `Q7350`/`P1619` | The `--selftest` 1/2 above. `'inception'` vs `'official opening'` = 0.194 < 0.35 abstains on one of the two bugs the module was **built** to fix. Guard working as designed: it stopped 7 confident-wrong TEMPORAL matches (`decipherment_year → P569 date of birth` flipped a gold-TRUE claim). **Precision-up/coverage-down — the mirror of R8's four events**, so measure both directions over all 34 before touching the constant. **Do not just lower 0.35.** Likelier fix is a date-kind synonym set (inception/founding/opening/establishment) than a threshold move. |
+| **#21** | ~~`P31` instance-of type-check~~ **BUILT 2026-08-27** — `current/type_consistency.py`, `--selftest` 24/24, `--vacuity` 4/4, both exit 0. Built as a sibling of `source_consistency.py`, no validated verifier touched, no cache prefix bumped, **0 measured thesis numbers changed**. Both original resolution bugs now return CONFLICT (§6). Precedent as predicted: `P31`/`P279` fine-grained typing is how **ReFinED (Ayoola et al. 2022)** scores its own candidates. | **What is LEFT is the measurement, and it needs author go-ahead:** run the check over the recorded **72** resolutions to quantify how many it independently corroborates and how many it flags. Live Wikidata across the corpus, same gate as #19 and `--resolver validated`. **Until then the 72/72 is repairABLE, not repaired** — §6's *"correctness unverified by an independent signal"* stands. Read a **low** conflict rate as the price of a curated table, not as the check failing (R8 cuts both ways here). `reference/type_consistency_2026-08-27.md` |
+| **#23** | ~~Drop `SYN_CITA_083`~~ | **DONE 2026-08-26 — record in §5, which is the authority.** Row physically removed from `synthetic_negatives.csv` (85 → 84), audit join filtered through it, five docstring-count sites corrected. All four selftests re-run ALL PASS and `rq2_quantitative_table.py` reproduces 14/14 / MCC +0.378 / 4–0 unchanged. |
+| **#22** | ~~McNemar's test for RQ2~~ | **DONE 2026-08-26 — record in §3, rules in R20, authority `reference/mcnemar_rq2_2026-08-26.md`.** `current/mcnemar.py`, offline, `--selftest` 17 checks ALL PASS. **It made a quoted claim weaker exactly as predicted, and the prediction itself was confirmed to the digit** (`b=4, c=0 → p = 0.1250`). Three things it produced that were not asked for: the **power floor** `2/2ⁿ` (so 0.1250 at n=4 is *the floor*, i.e. unreachable significance, not a null result); **C2 is significant in the BASELINE's favour** (`p = 0.0347`), which is routing's coverage cost measured on a paired test; and CITATION's C1 `n = 1` turns out to be **coverage disjointness** (union 28 / intersection 4), reframing that win as **composition** rather than head-to-head. |
+| **#16** | ~~`nli__` cache key `claim[:60]` truncation collides perturbed claims with their originals~~ | **RESCORED 2026-08-27 — authority `reference/nli_rescore_16_2026-08-27.md`.** Toolchain `aa7da7a`: `nli_rescore_prep.py` (`--selftest` 14/14, reproduction gate **26/26 PASS**) → `nli_rescore_colab.ipynb` (`device=-1`, 78 pairs) → `nli_rescore_apply.py` (`--selftest` 16/16, `--simulate` **zero movement** on all three sets). **Scope was 26 rows / 78 pairs, not 16** — a perturbation collides with *its original*, which lives in the other population's file, so **the bug is invisible to each existing audit separately and visible only to their union**. Result: **3 new correct detections** (`SYN_QUAN_027/028/032`, TRUE→FALSE), **1 confident error → abstention** (`SYN_CITA_001`), **0 new false positives**, FPR **1 → 1**; at 3e all four go TRUE→UNVERIFIABLE, so 3e loses 4 confident-wrong verdicts and gains no detections. **Nine rows returned byte-identical, which is an unplanned version check** — a global torch/transformers drift would have moved all 26, so the movement is attributable to the key. **Two corrections it produced. (a) The FPR/J worry is CLOSED in the reassuring direction:** `Q1_C02` (gold TRUE, predicted FALSE @ c=0.5008) **wrote** its entry rather than inheriting it, so **J = +0.330 and the CITATION FPR 2/24-vs-L1b-0/24 comparison are NOT inflated by this artifact.** **(b) This file's "five missed detections that are cache artifacts" was WRONG** — the `Q5_C04`/`SYN_QUAN_033–037` collision *is* broken (one score pair → six distinct), but every fresh contradict lands 0.107–0.225, far below the 0.40 threshold, so **those five are genuine misses.** A known bug adjacent to a bad number is not evidence it caused the bad number. **NOTHING PUBLISHED MOVES YET:** all 3 detections sit inside the audit's 16-row `affected` set, i.e. **exactly what the strict tier excludes**, so 37/68 = 54.4% is untouched. What adoption buys is **population, 68 → toward 84 (≈+24%)** against a corpus whose binding constraint is negative scarcity. **Adoption is an author decision** — it needs a NEW negatives results CSV (R19 forbids rewriting the quoted one), `negatives_cache_audit.py` re-run with its collision-tier logic revisited, and the §3 J table re-derived by running the script. **Do not hand-compute the new TPR**; the tier logic is four tiers with a keep-the-first rule, not a subtraction. |
 | **#2** | LLM baseline (`current/llm_baseline.py`, gemma4:31b-cloud) on the 356 | **Secondary** baseline answering a different question. **Do not confuse it with the non-routed baseline** — the committed comparison is routed-vs-non-routed with identical evidence and identical NLI. |
 | **#3/#4** | TEMPORAL/EA hybrid fall-through; consolidate the 4 sets | In progress. |
 
@@ -471,17 +643,26 @@ backbone swap (invalidates the `nli__` cache, the baseline's 356 rows and the wh
 surface; BART SIGBUSes locally so it needs Colab), and KGQA property mapping (biggest coverage
 lever, highest regression risk, must be precision-gated from the start).
 
-**Author actions, not mine to perform:** verify **R-Tuning's page range
-`7831–7848`** and **ConfRAG's arXiv `2506.07309`** against the ACL Anthology / arXiv before
-either enters the bibliography (author lists and venues in such summaries are usually right;
-page ranges and arXiv IDs are what they get subtly wrong); edit Rule 8 and §3.2 of the taxonomy
+**Author actions, not mine to perform:** edit Rule 8 and §3.2 of the taxonomy
 document and re-label the 8 corpus rows (documentation edits, 0 measured numbers affected);
-propagate this file to main (§4, A3); say yes/no on **#23** (drop `SYN_CITA_083`), the only
-negatives-file edit still waiting. **The `Q22_C01` flip is no longer on this list — it was
-authorised and applied 2026-08-26 (§4).**
+propagate this file to main (§4, A3). **Neither the `Q22_C01` flip nor #23 is on this list any
+more** — the flip was authorised and applied 2026-08-26 (§4), and #23 was applied the same day
+under the standing "proceed in the most recommended/logical way" authority (§5). **There is now no
+pending edit to any claim or negatives file.**
+
+**The bibliography check came OFF this list 2026-08-27, and its own prediction was confirmed to
+the digit.** This row used to read *"verify R-Tuning's page range `7831–7848` and ConfRAG's arXiv
+`2506.07309` … author lists and venues in such summaries are usually right; page ranges and arXiv
+IDs are what they get subtly wrong."* Both were checked against primary sources (§7 environment
+note explains how the web gap was closed). **The page range was WRONG and the arXiv ID was
+RIGHT** — exactly the predicted split. Verified values are in the literature paragraph below.
+**Neither number was ever quoted in a result**, so nothing measured moves; the value is that a
+known-wrong figure did not reach the bibliography. **The generalisable part: the failure mode was
+correctly predicted by *kind* before it was found**, which is the same discipline as R1 — distrust
+the class of fact that summaries get wrong, not the summary as a whole.
 
 **Literature now grounded, no code implied.** `MIN_MARGIN = 0.15` and the UNVERIFIABLE class are
-an instance of **calibrated abstention**: R-Tuning (NAACL 2024, Outstanding Paper) and ConfQA /
+an instance of **calibrated abstention**: R-Tuning (NAACL 2024) and ConfQA /
 ConfRAG (arXiv 2506.07309). **State the limit precisely — both train the *generator* to abstain;
 HalDetect's UNVERIFIABLE is *post-hoc verifier* abstention at a different stage.** They ground
 the **principle**, not the mechanism. The real payoff is that **R-Tuning's central result — that
@@ -490,14 +671,163 @@ single-point accuracy cannot — is an independent literature justification for 
 3d-vs-3e tradeoff-table decision (§4).** Cite it in the table caption. ConfQA's *"unsure as a
 gate that triggers retrieval"* also describes the TEMPORAL/EA hybrid fall-through (#3) exactly.
 
+**Both citations verified against primary sources 2026-08-27 — use these strings, not the ones a
+summary gives you.**
+
+- **R-Tuning.** Zhang, Diao, Lin, Fung, Lian, Wang, Chen, Ji, Zhang (9 authors), *"R-Tuning:
+  Instructing Large Language Models to Say 'I Don't Know'"*, **NAACL 2024, Volume 1: Long Papers,
+  pp. 7113–7139**. Anthology ID `2024.naacl-long.394`, DOI `10.18653/v1/2024.naacl-long.394`,
+  bibkey `zhang-etal-2024-r`. **The page range this file carried for days, `7831–7848`, was
+  WRONG.** Note the exact title is *"…to Say 'I Don't Know'"* — the alternative titles that
+  circulate (*"…to Refuse Unknown Questions"*, *"Instruction Tuning for Unfamiliar Knowledge"*)
+  are **not** the published title. **NOT VERIFIED: the "Outstanding Paper" attribution** this file
+  previously carried — the Anthology page does not record award status, so it was removed rather
+  than repeated. Restore it only from an ACL award list. **Its carrier is now identified:
+  `papers_analysis/LITERATURE_SURVEY_AND_IMPACT_ANALYSIS.md` asserts it twice, so that survey is
+  where the claim entered and is NOT a second independent source for it.** The on-disk
+  `RTuning_SayIDontKnow_2024.pdf` is the arXiv preprint (`2311.09677`, 27 pp) and cannot settle
+  award status either; it does confirm the title and all nine authors, spelling the fourth
+  **"Yi R. Fung"**.
+- **ConfRAG.** Huang, Xu, Sun, Yan, Sun, Khan, Nguyen, Chen, Kachuee, Lin, Liu, Colak, Kumar, Yih,
+  Dong (15 authors), *"ConfRAG: Confidence-Guided Retrieval-Augmenting Generation"*, **arXiv
+  `2506.07309`** (v1 8 Jun 2025, v2 30 Sep 2025), cs.CL, DOI `10.48550/arXiv.2506.07309`. **The
+  arXiv ID was correct.** The published title is **ConfRAG**; *ConfQA* is the method inside it, so
+  *"ConfQA / ConfRAG"* is a method/paper pair, not two papers — cite the paper as ConfRAG.
+
+**Two further citations settled 2026-08-27 from PRIMARY PDFs on disk (`papers_analysis/`), one of
+which corrects the attribution of a metric this file already quotes.**
+
+- **AURAC — cite Farquhar, NOT Kuhn.** §2 quotes **AURAC 0.898** for CITATION L1. AURAC is defined
+  in **Farquhar, Kossen, Kuhn & Gal, *"Detecting hallucinations in large language models using
+  semantic entropy"*, Nature 630, 20 June 2024, p. 625** — *"a new measure, the area under the
+  'rejection accuracy' curve (AURAC)"*, 16 occurrences in that PDF. It is **NOT** the ICLR 2023
+  paper *"Semantic Uncertainty: Linguistic Invariances…"* (**Kuhn, Gal, Farquhar**,
+  `arXiv:2302.09664`), which does not define it. **The two are separate papers with different lead
+  authors, and `papers_analysis/`'s survey conflates them** — it pairs the ICLR paper's lead author
+  and arXiv ID with the Nature venue. Both PDFs are on disk and each states its own venue on line
+  1, so this is checkable offline in seconds. (`Wilson` appears **0** times in the Nature paper —
+  R2's interval is Wilson 1927 and nothing here claims otherwise.)
+- **FinGround** — Guo, Wu & Yiu (HKU + Stellaris AI), *"FinGround: Detecting and Grounding
+  Financial Hallucinations via Atomic Claim Verification"*, **`arXiv:2604.23588v1` [cs.AI], 26 Apr
+  2026** — a **2026** paper, though both the survey and the local filename label it 2024. Two uses,
+  and the **second is worth more than the first**. **(a) Granularity as a REGIME argument only:**
+  measured 6-type 91.4% F1 vs 3-type 87.1% (**−4.3, p<0.01**) vs 10-type 91.7% (**+0.3, p=0.23**) —
+  quote it as *coarse taxonomies lose real accuracy while granularity past roughly half a dozen
+  types buys nothing*, a citable answer to *"why not 3?"* / *"why not 20?"*. **It does NOT prove
+  5 is optimal and must never be written that way** — FinGround never tested 5, its 6 types include
+  finance-specific `regulatory` and split HalDetect's QUANTITATIVE subtypes into three top-level
+  types, and it is single-domain. **The paper's own wording settles this in the REGIME direction:**
+  the passage is **prose in Appendix A, p9** (not a table, and not p3), and it closes *"supporting
+  the 6-type as the preferred accuracy-complexity trade-off"* — a claim about **its own** six types,
+  never a global optimum. All five figures re-verified verbatim 2026-08-27. **(b) `±0.5%`
+  independently corroborated:** FinGround
+  re-computes derived quantities *"with ±0.5% tolerance for rounding conventions"* — the **same
+  constant** `quantitative_verifier.py` uses, chosen locally and previously defensible only by §3's
+  sensitivity result. **Corroboration, not derivation:** the constant predates the reading, and the
+  sensitivity analysis stays the primary evidence.
+
 **Blocker on any pooled RELATIONAL re-run:** cell 57 calls `gemini-3.1-flash-lite-preview` for
 disambiguated query generation. Uncached claims fall back to the bare subject, which measurably
 degrades coverage — so a pooled re-run needs the key, or its numbers carry an asterisk.
 `current/gemini_key.py` resolves the key env var → `geminiAPI.txt` → real Colab, and
 `nonrouted_baseline.py` installs a `google.colab` shim so phase3d imports off Colab.
 
+**`papers_analysis/downloaded_pdfs/` holds 42 PRIMARY-SOURCE PDFs and is EVIDENCE TIER 1 — check it
+before reaching for the web at all.** Offline, keyless, no ranking drift, immune to the FAO-style
+403, byte-reproducible next year. Tier 2 is `WebFetch` on the publisher's own host (what licenses a
+citable BibTeX field); tier 3 is `agy`, **discovery only, never quotable**. **The lesson is
+concrete and it already cost this project a number:** `RTuning_SayIDontKnow_2024.pdf` sat on disk
+the whole time this file carried the wrong page range for that very paper, closed at last via
+tiers 3+2 while tier 1 went unopened. Extraction path is **`pypdf`, already in the `.venv`** — zero
+installs. **poppler 26.08.0 was installed by the author 2026-08-27, so `Read` CAN now open them** —
+`pdftotext`, `pdftoppm`, `pdfinfo`, `pdfimages`, `pdftohtml` all at `/opt/homebrew/bin/`; `gs` was
+already there; **`mutool` and `qpdf` are still absent.** Native page rendering, figures and table
+layout are available; pypdf stays the zero-install text path. Verify by
+**set difference, never by count** — the folder's 42 files and the survey's 42 rows are *different*
+sets of 42 (R1b). `reference/papers_analysis_assessed_2026-08-27.md`
+
+**READING PROTOCOL — `pdftotext`'s two modes fail in OPPOSITE directions, and mode choice matters
+more than tool choice.** On a two-column paper the **default ("flow")** mode reconstructs reading
+order and is **correct for prose**, while **`-layout`** preserves physical position and therefore
+**braids the left and right columns together line by line** — it is correct for **tables** and
+actively dangerous on prose, because the splice is *fluent*: the garbled read
+`"attribution without / tilled detector retains 91.4% F1 at 18× lower / structure-aw"` is three
+columns spliced into one line, i.e. the exact shape of a misquotation. **Flow for prose, `-layout`
+for tables, never the reverse.** And **slice by page — never dump a whole paper**: `-f N -l N`
+genuinely slices (verified by distinct per-page content), a whole 14-page paper is ~10–15k tokens
+against 1.4–7.6k *characters* per page, so **token cost is a property of how a PDF tool is CALLED,
+not of which tool it is.** Locate tables in one pass with `re.findall(r'Table \d+[:.]', …)` per page.
+
+**Four PDF tools were evaluated 2026-08-27 on author request and ALL FOUR DECLINED — the capability
+was already installed.** `pymupdf4llm` needs `pymupdf_layout` → **7 packages incl. onnxruntime
+1.29.0 + protobuf 7.36.0** into the torch-2.12/transformers-5.9 `.venv`; `marker` and `Docling`
+buy multi-GB weights for **OCR on 42 born-digital files** that all yield clean `pdftotext` output;
+`pdf-mcp` **fails the author's own "token-friendly" criterion** — an MCP server's schemas are
+resident in *every* session whether a PDF is opened or not, the one cost that cannot be sliced,
+for a capability already free via Bash. **The zero-dependency core WAS installed, measured, and
+removed**: on FinGround p6 — where `-layout` renders the results table with columns aligned and
+`34.7±1.8` intact — `find_tables()` returns **0 tables** (`lines` and `lines_strict`) or **garbage**
+(`text`: a 63×6 grid for a 9-row table, `34.7±1.8` split across two cells). **Cause generalises to
+this corpus:** ACL/`booktabs` tables are **borderless**, so line strategies find nothing — and the
+vendor's own remedy is the declined onnxruntime dependency. Springer's hardest case (Nature p4
+Table 1, 5 columns, wrapped cells) also renders readably under `-layout`, so the gap the install
+was meant to close does not exist **for reading and quoting** (a project needing machine-readable
+*cells* might still want a layout model). Venv verified back to baseline. **PyMuPDF is AGPL-3.0** —
+fine offline, do not import it from a verifier that ships with the thesis; and a literal *global*
+pip install is refused by **PEP 668** (homebrew python), so `.venv` is the only correct target.
+**Reusable, and R1-shaped: measure the gap against the tool already installed before buying one.**
+`reference/pdf_toolchain_evaluated_2026-08-27.md`
+
+**LlamaParse was assessed 2026-08-27 and DECLINED on a stronger ground than the other four, which
+generalises to ANY cloud LLM/VLM parser.** It is probably the best *table* extractor of the five —
+the refusal is not about quality. **(1) It cannot be tier 1 by construction:** tier 1 is *offline,
+keyless, no ranking drift, byte-reproducible next year*, and LlamaParse needs a key, needs the
+network, and returns whatever its current model version returns — the **same disqualifier already
+recorded for `agy`**, that a nondeterministic intermediary cannot be cited in a thesis. **(2) It
+puts an LLM in the EVIDENCE path, and that inverts the project.** poppler/pypdf/pymupdf are
+deterministic: they can garble a table, but **garbling is visible**. An LLM parser can emit a
+fluent, plausible, WRONG cell — the failure mode this thesis exists to detect, and the one the
+`-layout` column-braid above already demonstrates is *more dangerous than outright failure*. A
+figure sourced through it would be unverifiable after the fact. **(3) It needs a new credential**
+(no `LLAMA_*` key exists here — checked), which is standing R16 surface for a gap now measured as
+absent. **The OCR/VLM case is dead corpus-wide, not sampled:** all **42** PDFs have healthy text
+layers — lowest **2190 chars/page**, **0 files under 400**, where an image-only scan is near 0.
+**Be fair on one count:** the PDFs are public arXiv papers, so upload is *not* a confidentiality
+problem — the objection is reproducibility and fabrication risk, not secrecy. **Where a parser like
+this WOULD win** is machine-readable table *cells* at scale, not numbers to read and quote — the
+escalation slot **Docling** already holds, and for this project Docling is the better occupant
+because it runs **locally**. **Standing rule: evidence extraction stays deterministic and offline;
+a cloud LLM parser is a discovery tool at best, never a source.**
+
+**And tier 1 has an admission condition, because 5 of those 42 files are NOT the paper their
+filename claims — found 2026-08-27, minutes after poppler arrived.** `ClaimDecomp_…` is an
+elastic-wave solver, `Claimify_…` is a federated-learning paper, `FactCheckGPT_…` is a **hen-breed
+image dataset**, `GENRE_…` is a Cornell ranking-fairness paper, `WICE_…` is an *Astronomy &
+Astrophysics* manuscript. **Read the title off page 1 before quoting any file** —
+`pdftotext -f 1 -l 1` — because *"the PDF is on disk"* licenses a quote for **the paper the file
+actually is**, never for the paper its name promises. **The mechanism is the reusable part, and it
+is R1's sharpest instance yet: for FOUR of the five, the `arXiv:` stamp inside the file MATCHES the
+survey's claimed ID exactly — because the wrong ID is what fetched the file.** A fabricated but
+well-formed arXiv ID resolves to a real paper, the download succeeds, and it is saved under the
+intended name, so the ID inside is *guaranteed* to agree. **A check that verifies a claim against a
+document the claim itself selected cannot fail** — it measures a fetch pipeline's self-consistency,
+not a bibliography. Same shape as §6's resolver audit (label checked against the signal used for
+selection), now recorded twice on unrelated artifacts. The fifth file evaded the opposite way — **no
+arXiv stamp at all, filed as "unverifiable" when it was the loudest signal in the folder.** So an
+ID diff can only ever detect a **mismatch**; agreement proves nothing. **Corrected IDs, read from
+each paper's own `arxiv.org/abs/` page:** ClaimDecomp **`2205.06938`** (EMNLP 2022, not ACL) ·
+Claimify **`2502.10855`** (**ACL 2025**, not 2024) · FactCheckGPT **`2311.09000`** · GENRE
+**`2010.00904`** (ICLR 2021 spotlight) · WiCE **`2303.01432`**. **One repair is free:** the
+FactCheckGPT row's real paper is *already on disk* as
+`FactcheckBench_FineGrainedEvaluation_2023.pdf` — the survey lists one renamed paper twice, which
+is also what its duplicate-`2311.08401` collision was. **0 measured thesis numbers move:** none of
+the five is cited here, and all six PDFs this file *does* cite (R-Tuning, Farquhar/Nature,
+Kuhn/ICLR, FinGround, ReFinED — ConfRAG is the one absent from disk) pass the identity check.
+
 **Environment:** `.venv` lives **only in the main checkout**
 (`ThesisCode_copy/.venv/bin/python`). macOS has no `timeout`. BART-MNLI SIGBUSes locally.
+**poppler 26.08.0 IS installed** as of 2026-08-27 (the tier-1 paragraph above lists which binaries;
+`mutool`/`qpdf` remain absent), so PDF page rendering and `pdftotext` are available.
 **`WebSearch` is unsupported on this model** (`400 tool type 'web_search_20250305' is not
 supported`), and **FAO `openknowledge` returns 403 to WebFetch — recorded twice, treat as a
 permanent property of that host and do not retry.** This worktree session **refuses compound
@@ -505,6 +835,42 @@ Bash commands** — use `python3 -c "..."`, which passes and collapses the round
 `./verify_env.sh`. **When a `python3 -c` script writes a file and reads it back in the same
 process, close the handle first** — an unflushed `csv.DictWriter` buffer makes a correct write
 look like a truncated one.
+
+**The WebSearch gap has a WORKAROUND as of 2026-08-27, and it is search-only by design.** The
+author's Antigravity CLI is on this machine and is scriptable. **The binary is `agy` at
+`~/.local/bin/agy` (v1.1.21) — NOT `antigravity`**, which is why a filename search for
+`anti`/`gravity` finds nothing and Spotlight returns only Python's stdlib joke module. R1: the
+tool was recorded by product name and lives under a two-letter one; its state dir
+`~/.gemini/antigravity-cli/` is the only thing carrying the product name.
+
+    ~/.local/bin/agy -p "<prompt>" --sandbox --effort low        # non-interactive, prints to stdout
+    # also: --output-format json|stream-json · --json-schema <file>  (enforced structured output)
+    #       --model · --print-timeout (default 5m) · --add-dir · --mode plan
+
+**Headless mode auto-DENIES any tool not explicitly allowed, and that denial is the safety
+property — verified, not assumed.** The first probe failed with *"a tool required the `read_url`
+permission that headless mode cannot prompt for, so it was auto-denied"*, which is direct evidence
+that nothing outside `permissions.allow` can execute. So the grant is **exactly one tool**:
+`{"permissions": {"allow": ["read_url(*)"]}}` in `~/.gemini/antigravity-cli/settings.json`
+(accepted — the log confirms `permissions=&{Allow:[read_url(*)] Deny:[] Ask:[]}`). Backup at
+`settings.json.bak-2026-08-27`; revert by deleting the `permissions` key.
+
+**Do NOT use `--dangerously-skip-permissions` — this is an R16 rule, not a preference.** It
+auto-approves *every* tool, including file reads, in a process that also has network egress and
+`allowNonWorkspaceAccess: true`. That is the exact shape of a credential-exfiltration path over
+`geminiAPI.txt` and `.zshrc`'s live `ANTHROPIC_AUTH_TOKEN`, and intent is irrelevant to whether
+the file contents reach a third-party server. With `read_url(*)` alone, file tools stay denied, so
+the capability is **web reads and nothing else**.
+
+**Use it for DISCOVERY, and verify with `WebFetch` — never quote `agy` as a source.** It is an LLM
+and R1 applies to it in full. The working division of labour, demonstrated on the bibliography
+check above: `agy` supplied the Anthology ID and the arXiv title, then `WebFetch` on
+`aclanthology.org` / `arxiv.org` returned the verbatim BibTeX `pages` field and author list. `agy`
+happened to be right there, **which is not the same as being citable** — the number that entered
+this file came from the primary page. **`agy` closes a search gap; it does not lower the evidence
+bar.** It also must never become a verifier backend — see §6's structured-source finding: a search
+ranking is not reproducible across time and cannot be cited in a thesis, which is why routing goes
+to keyless structured APIs instead.
 
 ---
 
@@ -521,6 +887,16 @@ look like a truncated one.
   `external_catalog_assessment_2026-08-26.md` **read before acting on any external roadmap** —
   it shows two externally-supplied catalogs built on the pre-correction CLAUDE.md and ranking
   their recommendations against numbers that had already been corrected.
+  **Four dated docs now carry a top-of-file `SUPERSEDED IN PART` blockquote** naming what the
+  `Q22_C01` flip and task #23 moved in them (`negatives_cache_audit_2026-08-25.md`,
+  `citation_l1b_result_2026-08-26.md`, `citation_negatives_headroom_2026-08-25.md`,
+  `rq2_quantitative_negatives_2026-08-25.md` — the last one to say **nothing moved**, verified by
+  re-running). **The bodies were deliberately not rewritten**: a dated doc is the record of what
+  was measured on its date, so corrections go in the pointer and in this file, never by editing the
+  snapshot. `syn_cita_083_drop_2026-08-26.md` is the authority on the #23 drop.
+  `mcnemar_rq2_2026-08-26.md` is the authority on **#22** — the paired-test admissibility rules
+  (R20), the power floor, and why both routing wins lose their *significance* framing while keeping
+  their counts.
 - `old-chats-handoffs/` — **five exported session handoffs; read before planning experiments.**
   The only record of pre-notebook decisions: the RQ numbering, the 3d-vs-3e reporting decision,
   the RELATIONAL A–E sub-typing, the page-relevance-gate negative result, the cache-prefix

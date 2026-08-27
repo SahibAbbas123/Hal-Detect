@@ -1,0 +1,530 @@
+{
+ "meta": {
+  "set": "natural",
+  "task": "#16 nli__ cache-key collision rescore",
+  "phase3d_source": "archive/scripts/relational_verifier_phase3d.py",
+  "cache_used": "/Users/sahibabc/8th Semester Materials/ThesisCode_copy/current/nonrouted_cache.json",
+  "cache_entries": 2745,
+  "constants": {
+   "TOP_K": 3,
+   "MIN_PASSAGE_SCORE": 0.5,
+   "ENTAIL_THRESHOLD": 0.5,
+   "CONTRADICT_THRESHOLD": 0.4,
+   "MAX_PASSAGE_CHARS": 3000,
+   "MIN_MARGIN": 0.15
+  },
+  "nli": {
+   "candidate_labels": [
+    "entailment",
+    "contradiction",
+    "neutral"
+   ],
+   "hypothesis_template_prefix": "This passage {}s that ",
+   "hypothesis_template_note": "phase3d builds it per claim as: hypothesis_template = prefix + claim",
+   "legacy_key_fstring_in_source": "nli__{claim[:60].replace(' ', '_')}__{passage[:40].replace(' ', '_')}"
+  },
+  "key_format": {
+   "legacy": "nli__{claim[:60]}__{passage[:40]}, spaces -> underscores",
+   "fixed": "nli2__{sha1(claim)[:16]}__{sha1(passage)[:16]}"
+  },
+  "counts": {
+   "collision_groups": 15,
+   "candidate_rows": 41,
+   "exported_rows": 9,
+   "nli_pairs": 27,
+   "rows_without_passages": 8,
+   "rows_prefix_collides_but_keys_do_not": 7,
+   "reproduction_gate_failures": 0
+  },
+  "reproduction_gate": "PASS",
+  "excluded": {
+   "no_passages": [
+    [
+     "B3_08_C01",
+     "no_surviving_passages"
+    ],
+    [
+     "B3_08_C09",
+     "no_surviving_passages"
+    ],
+    [
+     "Q10_C17",
+     "no_surviving_passages"
+    ],
+    [
+     "Q10_C18",
+     "no_surviving_passages"
+    ],
+    [
+     "Q13_C09",
+     "no_surviving_passages"
+    ],
+    [
+     "Q19_C10",
+     "no_surviving_passages"
+    ],
+    [
+     "Q19_C12",
+     "no_surviving_passages"
+    ],
+    [
+     "Q19_C13",
+     "no_surviving_passages"
+    ]
+   ],
+   "prefix_only": [
+    "B3_08_C02",
+    "B3_08_C10",
+    "Q10_C16",
+    "Q13_C08",
+    "Q19_C11",
+    "Q22_C03",
+    "SYN_CITA_002"
+   ],
+   "gate_failed": []
+  }
+ },
+ "items": [
+  {
+   "claim_id": "B3_02_C07",
+   "population": "natural",
+   "type": "CITATION",
+   "gold_type": "CITATION",
+   "gold_verdict": "TRUE",
+   "base_claim_id": "",
+   "injection_type": "",
+   "claim": "The International Energy Agency's projection of a 2.5 times increase in renewable capacity by 2030 relies on the implementation of current policies.",
+   "query": "International Energy Agency renewable energy capacity 2030 projection",
+   "query_source": "GEMINI",
+   "title": "Renewable energy in Australia",
+   "collision_group": "The_International_Energy_Agency's_projection_of_a_2.5_times_",
+   "shared_legacy_keys": 1,
+   "recorded": {
+    "entail": "0.4124",
+    "contradict": "0.1414",
+    "verdict": "UNVERIFIABLE",
+    "verdict_confidence": "0.5",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.549199,
+     "legacy_key": "nli__The_International_Energy_Agency's_projection_of_a_2.5_times___The_growth_in_large-scale_renewable_ener",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__134b87629a1c534b__ea3369c9c062a548",
+     "text": "The growth in large-scale renewable energy has been stimulated by recent government energy policy in order to reduce Australia's greenhouse gas emissions and increase energy security."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.540217,
+     "legacy_key": "nli__The_International_Energy_Agency's_projection_of_a_2.5_times___In_2001,_a_mandatory_renewable_energy_ta",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__134b87629a1c534b__b88fcc9320fbe0f1",
+     "text": "In 2001, a mandatory renewable energy target is introduced to encourage large-scale renewable energy development."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.539406,
+     "legacy_key": "nli__The_International_Energy_Agency's_projection_of_a_2.5_times___As_in_many_other_countries,_renewable_en",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__134b87629a1c534b__df5c5f0b3ecf8185",
+     "text": "As in many other countries, renewable energy in Australia has been encouraged by government energy policy to limit climate change, reduce oil import dependency, and stimulate the economy."
+    }
+   ]
+  },
+  {
+   "claim_id": "B3_02_C08",
+   "population": "natural",
+   "type": "CITATION",
+   "gold_type": "CITATION",
+   "gold_verdict": "TRUE",
+   "base_claim_id": "",
+   "injection_type": "",
+   "claim": "The International Energy Agency's projection of a 2.5 times increase in renewable capacity by 2030 relies on the implementation of planned projects.",
+   "query": "International Energy Agency renewable energy capacity 2030 projection",
+   "query_source": "GEMINI",
+   "title": "Renewable energy in Australia",
+   "collision_group": "The_International_Energy_Agency's_projection_of_a_2.5_times_",
+   "shared_legacy_keys": 1,
+   "recorded": {
+    "entail": "0.4936",
+    "contradict": "0.2939",
+    "verdict": "UNVERIFIABLE",
+    "verdict_confidence": "0.5",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.548699,
+     "legacy_key": "nli__The_International_Energy_Agency's_projection_of_a_2.5_times___In_2001,_a_mandatory_renewable_energy_ta",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__be1ff60fe223d782__b88fcc9320fbe0f1",
+     "text": "In 2001, a mandatory renewable energy target is introduced to encourage large-scale renewable energy development."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.546567,
+     "legacy_key": "nli__The_International_Energy_Agency's_projection_of_a_2.5_times___In_Victoria,_the_renewable_energy_target",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__be1ff60fe223d782__1222c4f41703f76c",
+     "text": "In Victoria, the renewable energy targets were set to achieve 25% by 2020, 40% by 2025, and 50% by 2030. A subsequent announcement in 2022 outlined ambitious goals of 65% by 2030 and 95% by 2035. These targets are part of the state's Climate Change Strategy, which employs reverse auctions to finance more than 900 MW of renewable energy projects."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.523542,
+     "legacy_key": "nli__The_International_Energy_Agency's_projection_of_a_2.5_times___Tasmania_is_on_track_to_achieve_its_targ",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__be1ff60fe223d782__383998b77cd99232",
+     "text": "Tasmania is on track to achieve its target of 100% renewable energy by 2022, a goal it achieved ahead of schedule in 2020. The state now targets the production of 200% renewable energy by 2040. This goal is advanced by the Climate Change Action Plan 2017–2021, focusing on enhancing government investment in existing hydropower assets, avoiding reliance on market mechanisms."
+    }
+   ]
+  },
+  {
+   "claim_id": "B3_06_C11",
+   "population": "natural",
+   "type": "RELATIONAL",
+   "gold_type": "RELATIONAL",
+   "gold_verdict": "TRUE",
+   "base_claim_id": "",
+   "injection_type": "",
+   "claim": "Jean-François Champollion identified that the hieroglyphs represented sounds.",
+   "query": "Jean-François Champollion decipherment of Egyptian hieroglyphs",
+   "query_source": "GEMINI",
+   "title": "Jean-François Champollion",
+   "collision_group": "Jean-François_Champollion_identified_that_the_hieroglyphs_re",
+   "shared_legacy_keys": 1,
+   "recorded": {
+    "entail": "0.5891",
+    "contradict": "0.2147",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.736",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.736"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.620226,
+     "legacy_key": "nli__Jean-François_Champollion_identified_that_the_hieroglyphs_re__Jean-François_Champollion_(French:_[ʒɑ̃_",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__2592c1153b238144__7878e80c6b8ad4f0",
+     "text": "Jean-François Champollion (French: [ʒɑ̃ fʁɑ̃swa ʃɑ̃pɔljɔ̃]), also known as Champollion le jeune ('the Younger'; 23 December 1790 – 4 March 1832), was a French philologist and orientalist, known primarily as the decipherer of Egyptian hieroglyphs and a founding figure in the field of Egyptology. Partially raised by his brother, the scholar Jacques Joseph Champollion-Figeac, Champollion was a child prodigy in philology, giving his first public paper on the decipherment of Demotic in his late teens. As a young man he was renowned in scientific circles, and read Coptic, Ancient Greek, Latin, Hebrew and Arabic."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.60946,
+     "legacy_key": "nli__Jean-François_Champollion_identified_that_the_hieroglyphs_re__Champollion_had_been_confronted_to_the_d",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__2592c1153b238144__002dbcfd4be8423e",
+     "text": "Champollion had been confronted to the doubts of various scholars regarding the existence of phonetical hieroglyphs before the time of the Greeks and the Romans in Egypt, especially since Champollion had only proved his phonetic system on the basis of the names of Greek and Roman rulers found in hieroglyphs on Egyptian monuments. Until his decipherment of the Caylus vase, he had not found any foreign names earlier than Alexander the Great that were transliterated through alphabetic hieroglyphs, which led to suspicions that they were invented at the time of the Greeks and Romans, and fostered doubts whether phonetical hieroglyphs could be applied to decipher the names of ancient Egyptian Pharaohs. For the first time, here was a foreign name (\"Xerxes the Great\") transcribed phonetically with Egyptian hieroglyphs, already 150 years before Alexander the Great, thereby essentially proving Champollion's thesis. In his Précis du système hiéroglyphique published in 1824, Champollion wrote of this discovery: \"It has thus been proved that Egyptian hieroglyphs included phonetic signs, at least since 460 BC\"."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.601254,
+     "legacy_key": "nli__Jean-François_Champollion_identified_that_the_hieroglyphs_re__That_all_of_the_hieroglyphic_texts_are_c",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__2592c1153b238144__a9b397f5be6f9252",
+     "text": "That all of the hieroglyphic texts are composed almost entirely of the phonetic signs that he had discovered."
+    }
+   ]
+  },
+  {
+   "claim_id": "B3_06_C12",
+   "population": "natural",
+   "type": "RELATIONAL",
+   "gold_type": "RELATIONAL",
+   "gold_verdict": "TRUE",
+   "base_claim_id": "",
+   "injection_type": "",
+   "claim": "Jean-François Champollion identified that the hieroglyphs represented concepts.",
+   "query": "Jean-François Champollion decipherment of Egyptian hieroglyphs",
+   "query_source": "GEMINI",
+   "title": "Jean-François Champollion",
+   "collision_group": "Jean-François_Champollion_identified_that_the_hieroglyphs_re",
+   "shared_legacy_keys": 1,
+   "recorded": {
+    "entail": "0.5462",
+    "contradict": "0.2394",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.718",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.718"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.70095,
+     "legacy_key": "nli__Jean-François_Champollion_identified_that_the_hieroglyphs_re__Jean-François_Champollion_(French:_[ʒɑ̃_",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__a244b954f2804521__7878e80c6b8ad4f0",
+     "text": "Jean-François Champollion (French: [ʒɑ̃ fʁɑ̃swa ʃɑ̃pɔljɔ̃]), also known as Champollion le jeune ('the Younger'; 23 December 1790 – 4 March 1832), was a French philologist and orientalist, known primarily as the decipherer of Egyptian hieroglyphs and a founding figure in the field of Egyptology. Partially raised by his brother, the scholar Jacques Joseph Champollion-Figeac, Champollion was a child prodigy in philology, giving his first public paper on the decipherment of Demotic in his late teens. As a young man he was renowned in scientific circles, and read Coptic, Ancient Greek, Latin, Hebrew and Arabic."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.67185,
+     "legacy_key": "nli__Jean-François_Champollion_identified_that_the_hieroglyphs_re__Building_on_his_progress,_Champollion_no",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__a244b954f2804521__1369f005d5f0f801",
+     "text": "Building on his progress, Champollion now began to study other texts in addition to the Rosetta stone, studying a series of much older inscriptions from Abu Simbel. During 1822, he succeeded in identifying the names of pharaohs Ramesses and Thutmose written in cartouches in these ancient texts. With the help of a new acquaintance, the Duke de Blacas in 1824, Champollion finally published the Précis du système hiéroglyphique des anciens Égyptiens dedicated to and funded by King Louis XVIII. Here he presented the first correct translation of the hieroglyphs and the key to the Egyptian grammatical system."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.656405,
+     "legacy_key": "nli__Jean-François_Champollion_identified_that_the_hieroglyphs_re__Champollion's_interest_in_Egyptian_histo",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__a244b954f2804521__41c439c568c26061",
+     "text": "Champollion's interest in Egyptian history and the hieroglyphic script developed at an early age. At the age of 16, he gave a lecture before the Grenoble Academy in which he argued that the language spoken by the ancient Egyptians, in which they wrote the Hieroglyphic texts, was closely related to Coptic. This view proved crucial in becoming able to read the texts, and the correctness of his proposed relation between Coptic and Ancient Egyptian has been confirmed by history. This enabled him to propose that the demotic script represented the Coptic language."
+    }
+   ]
+  },
+  {
+   "claim_id": "Q1_C02",
+   "population": "natural",
+   "type": "TEMPORAL",
+   "gold_type": "TEMPORAL",
+   "gold_verdict": "TRUE",
+   "base_claim_id": "",
+   "injection_type": "",
+   "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1905.",
+   "query": "Albert Einstein Swiss Patent Office",
+   "query_source": "GEMINI",
+   "title": "Albert Einstein",
+   "collision_group": "Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.4814",
+    "contradict": "0.5008",
+    "verdict": "FALSE",
+    "verdict_confidence": "0.65",
+    "verdict_margin": "UNVERIFIABLE",
+    "verdict_margin_confidence": "0.5"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.625257,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein_graduated_from_the_federal_poly",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__716578f8853b3548__03ef37e81b1b440d",
+     "text": "Einstein graduated from the federal polytechnic school in 1900, duly certified as competent to teach mathematics and physics. His successful acquisition of Swiss citizenship in February 1901 was not followed by the usual sequel of conscription; the Swiss authorities deemed him medically unfit for military service. He found that Swiss schools too appeared to have no use for him, failing to offer him a teaching position despite the almost two years that he spent applying for one. Eventually it was with the help of Marcel Grossmann's father that he secured a post in Bern at the Swiss Patent Office, as an assistant examiner – level III."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.623803,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Einstein's_sabbatical_as_a_civil_servant",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__716578f8853b3548__ed66e029a305a413",
+     "text": "Einstein's sabbatical as a civil servant approached its end in 1908, when he secured a junior teaching position at the University of Bern. In 1909, a lecture on relativistic electrodynamics that he gave at the University of Zurich, much admired by Alfred Kleiner, led to Zurich's luring him away from Bern with a newly created associate professorship. Promotion to a full professorship followed in April 1911, when he took up a chair at the German Charles-Ferdinand University in Prague, a move which required him to become an Austrian citizen of the Austro-Hungarian Empire, which was not completed. His time in Prague saw him producing eleven research papers."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.61345,
+     "legacy_key": "nli__Albert_Einstein_worked_at_the_Swiss_Patent_Office_in_Bern_in__Patent_applications_that_landed_on_Einst",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__716578f8853b3548__9c3a390b6e9a2cc9",
+     "text": "Patent applications that landed on Einstein's desk for his evaluation included ideas for a gravel sorter and an electric typewriter. His employers were pleased enough with his work to make his position permanent in 1903, although they did not think that he should be promoted until he had \"fully mastered machine technology\". It is conceivable that his labors at the patent office had a bearing on his development of his special theory of relativity. He arrived at his revolutionary ideas about space, time and light through thought experiments about the transmission of signals and the synchronization of clocks, matters which also figured in some of the inventions submitted to him for assessment."
+    }
+   ]
+  },
+  {
+   "claim_id": "Q2_C11",
+   "population": "natural",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "TRUE",
+   "base_claim_id": "",
+   "injection_type": "",
+   "claim": "The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.",
+   "query": "Emergency Economic Stabilization Act of 2008",
+   "query_source": "GEMINI",
+   "title": "Emergency Economic Stabilization Act of 2008",
+   "collision_group": "The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.7222",
+    "contradict": "0.443",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.789",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.789"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.758802,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__The_Emergency_Economic_Stabilization_Act",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__bc60e13c96164bde__e1a2f7da41deef2b",
+     "text": "The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\", was a United States federal law enacted during the Great Recession, which created federal programs to \"bail out\" failing financial institutions and banks. The bill was proposed by Treasury Secretary Henry Paulson, passed by the 110th United States Congress, and was signed into law by President George W. Bush. It became law as part of Public Law 110-343 on October 3, 2008. It created the $700 billion Troubled Asset Relief Program (TARP) whose funds would purchase toxic assets from failing banks. The funds were mostly directed to inject capital into banks and other financial institutions as the Treasury continued to review the effectiveness of targeted asset-purchases."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.64333,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__Emergency_Economic_Stabilization_Act_of_",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__bc60e13c96164bde__9dcd6b8f740b5d8f",
+     "text": "Emergency Economic Stabilization Act of 2008 as enacted (details) in the US Statutes at Large"
+    },
+    {
+     "idx": 2,
+     "sbert": 0.593287,
+     "legacy_key": "nli__The_Emergency_Economic_Stabilization_Act_of_2008_provided_$7__Barack_Obama,_the_Democratic_presidentia",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__bc60e13c96164bde__5eeaafc0dc7ffcd3",
+     "text": "Barack Obama, the Democratic presidential candidate, said that any bailout had to include plans to recover the money, protect working families and big financial institutions, and be crafted to prevent such a crisis from happening again."
+    }
+   ]
+  },
+  {
+   "claim_id": "Q5_C02",
+   "population": "natural",
+   "type": "CITATION",
+   "gold_type": "CITATION",
+   "gold_verdict": "TRUE",
+   "base_claim_id": "",
+   "injection_type": "",
+   "claim": "The IPCC Sixth Assessment Report states that human activities have caused global warming.",
+   "query": "IPCC Sixth Assessment Report human influence on climate change",
+   "query_source": "GEMINI",
+   "title": "Climate change",
+   "collision_group": "The_IPCC_Sixth_Assessment_Report_states_that_human_activitie",
+   "shared_legacy_keys": 2,
+   "recorded": {
+    "entail": "0.6209",
+    "contradict": "0.1593",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.748",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.748"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.755379,
+     "legacy_key": "nli__The_IPCC_Sixth_Assessment_Report_states_that_human_activitie__There_is_a_nearly_unanimous_scientific_c",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__883e148554a62c8e__1bd27b2e7c3d7e20",
+     "text": "There is a nearly unanimous scientific consensus that the climate is warming and that this is caused by human activities. No scientific body of national or international standing disagrees with this view. As of 2019, agreement in recent literature reached over 99%. The 2021 IPCC Assessment Report stated that it is \"unequivocal\" that climate change is caused by humans. Consensus has further developed that action should be taken to protect people against the impacts of climate change. National science academies have called on world leaders to cut global emissions."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.631095,
+     "legacy_key": "nli__The_IPCC_Sixth_Assessment_Report_states_that_human_activitie__The_effects_of_climate_change_are_impact",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__883e148554a62c8e__3722987611764fab",
+     "text": "The effects of climate change are impacting humans everywhere in the world. Impacts can be observed on all continents and ocean regions, with low-latitude, less developed areas facing the greatest risk. Continued warming has potentially \"severe, pervasive and irreversible impacts\" for people and ecosystems. The risks are unevenly distributed, but are generally greater for disadvantaged people in developing and developed countries."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.61098,
+     "legacy_key": "nli__The_IPCC_Sixth_Assessment_Report_states_that_human_activitie__The_IPCC_Sixth_Assessment_Report_(2021)_",
+     "legacy_key_shared": false,
+     "fixed_key": "nli2__883e148554a62c8e__7b7fb6bd421add02",
+     "text": "The IPCC Sixth Assessment Report (2021) included projections that by 2100 global warming is very likely to reach 1.0–1.8 °C under a scenario with very low emissions of greenhouse gases, 2.1–3.5 °C under an intermediate emissions scenario, or 3.3–5.7 °C under a very high emissions scenario. The warming will continue past 2100 in the intermediate and high emission scenarios, with future projections of global surface temperatures by year 2300 being similar to millions of years ago."
+    }
+   ]
+  },
+  {
+   "claim_id": "Q5_C04",
+   "population": "natural",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "TRUE",
+   "base_claim_id": "",
+   "injection_type": "",
+   "claim": "Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.",
+   "query": "Instrumental temperature record",
+   "query_source": "GEMINI",
+   "title": "Global surface temperature",
+   "collision_group": "Global_surface_temperatures_have_increased_by_approximately_",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.6139",
+    "contradict": "0.1117",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.746",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.746"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.755014,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___global_mean_surface_temperatures_over_th",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__d0d1bb09cd57c923__b1d9f853dcbdfef7",
+     "text": "global mean surface temperatures over the last 25 years have been higher than any comparable period since AD 1600, and probably since AD 900"
+    },
+    {
+     "idx": 1,
+     "sbert": 0.737368,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__d0d1bb09cd57c923__e1d824e0b9619145",
+     "text": "The global average and combined land and ocean surface temperature show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years. Within that upward trend, some variability in temperatures happens because of natural internal variability (for example due to El Niño–Southern Oscillation)."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.735819,
+     "legacy_key": "nli__Global_surface_temperatures_have_increased_by_approximately___The_global_average_and_combined_land_and",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__d0d1bb09cd57c923__33f6cacad77e29fe",
+     "text": "The global average and combined land and ocean surface temperature, show a warming of 1.09 °C (range: 0.95 to 1.20 °C) from 1850–1900 to 2011–2020, based on multiple independently produced datasets. The trend is faster since the 1970s than in any other 50-year period over at least the last 2000 years."
+    }
+   ]
+  },
+  {
+   "claim_id": "Q7_C04",
+   "population": "natural",
+   "type": "QUANTITATIVE",
+   "gold_type": "QUANTITATIVE",
+   "gold_verdict": "TRUE",
+   "base_claim_id": "",
+   "injection_type": "",
+   "claim": "The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.",
+   "query": "Silk Road",
+   "query_source": "GEMINI",
+   "title": "Silk Road",
+   "collision_group": "The_Silk_Road_network_of_trade_routes_spanned_a_distance_of_",
+   "shared_legacy_keys": 3,
+   "recorded": {
+    "entail": "0.5809",
+    "contradict": "0.2973",
+    "verdict": "TRUE",
+    "verdict_confidence": "0.732",
+    "verdict_margin": "TRUE",
+    "verdict_margin_confidence": "0.732"
+   },
+   "passages": [
+    {
+     "idx": 0,
+     "sbert": 0.721119,
+     "legacy_key": "nli__The_Silk_Road_network_of_trade_routes_spanned_a_distance_of___These_connections_marked_the_beginning_o",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__5ba1a67730db3f40__2ea6fe1862a1d567",
+     "text": "These connections marked the beginning of the Silk Road trade network that extended to the Roman Empire."
+    },
+    {
+     "idx": 1,
+     "sbert": 0.715482,
+     "legacy_key": "nli__The_Silk_Road_network_of_trade_routes_spanned_a_distance_of___The_Silk_Road_consisted_of_several_route",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__5ba1a67730db3f40__89bfc8e9e17fe7d2",
+     "text": "The Silk Road consisted of several routes. As it extended westwards from the ancient commercial centres of China, the overland, intercontinental Silk Road divided into northern and southern routes bypassing the Taklamakan Desert and Lop Nur. Merchants along these routes were involved in \"relay trade\" in which goods changed \"hands many times before reaching their final destinations\"."
+    },
+    {
+     "idx": 2,
+     "sbert": 0.708824,
+     "legacy_key": "nli__The_Silk_Road_network_of_trade_routes_spanned_a_distance_of___The_Great_Silk_Road_was_a_network_of_Asi",
+     "legacy_key_shared": true,
+     "fixed_key": "nli2__5ba1a67730db3f40__88a08f84f333416b",
+     "text": "The Great Silk Road was a network of Asian trade routes active from the second century BCE until the mid-15th century. Spanning over 6,400 km (4,000 mi) on land, it played a central role in facilitating economic, cultural, political, and religious interactions between the Eastern and Western worlds. The name \"Silk Road\" was coined in the late 19th century, but some 20th- and 21st-century historians instead prefer the term Silk Routes, on the grounds that it more accurately describes the intricate web of land and sea routes connecting Central, East, South, Southeast, and West Asia as well as East Africa and Southern Europe. In fact, some scholars criticise or even dismiss the idea of silk roads and call for a new definition or alternate term. According to them, the literature using this term has \"privileged the sedentary and literate empires at either end of Eurasia\" thereby ignoring the contributions of steppe nomads. In addition, the classic definition sidelines prominent civilisations such as India and Iran."
+    }
+   ]
+  }
+ ]
+}

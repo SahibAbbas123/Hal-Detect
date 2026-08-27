@@ -1045,8 +1045,17 @@ def diagnose(csv_path: str, limit: int | None = None) -> None:
             print("   *** an unconditional 'TRUE'. Use --sensitivity.       ***")
     print("=" * 70)
 
+    # Derive the output name from the INPUT, never a fixed string. Until
+    # 2026-08-25 this was hardcoded to "quantitative_b3_results.csv", so
+    # `--diagnose --csv <anything>` silently overwrote the Batch 3 result with
+    # a different claim set's verdicts -- a file whose name still said "b3".
+    # That is precisely the trap the project's standing rule exists for: a
+    # filename is not evidence of its contents.
+    stem = os.path.splitext(os.path.basename(csv_path))[0]
+    if stem == "haldetect_claims_b3_gold":
+        stem = "b3"          # preserve the established Batch 3 result filename
     out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                            "quantitative_b3_results.csv")
+                            f"quantitative_{stem}_results.csv")
     if results:
         keys = sorted({k for r in results for k in r})
         with open(out_path, "w", newline="", encoding="utf-8") as fh:

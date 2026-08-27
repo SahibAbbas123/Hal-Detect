@@ -4,10 +4,10 @@ Generate gold-FALSE claims by systematically corrupting gold-TRUE ones.
 
 WHY THIS EXISTS
 ---------------
-The pooled gold set is 314 TRUE / 13 FALSE / 29 UNVERIFIABLE. Thirteen negatives
+The pooled gold set is 313 TRUE / 14 FALSE / 29 UNVERIFIABLE. Fourteen negatives
 across 356 claims caps everything: no accuracy figure can distinguish a verifier
 that detects hallucinations from one that agrees with whatever it is shown, since
-"always TRUE" already scores 88.2%.
+"always TRUE" already scores 87.9%.
 
 Worse, the 27 existing synthetic negatives (`relational_negatives_batch3_merged.csv`)
 are **all typed RELATIONAL**. So TEMPORAL, ENTITY_ATTRIBUTE, QUANTITATIVE and

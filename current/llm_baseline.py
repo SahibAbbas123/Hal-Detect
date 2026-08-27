@@ -16,8 +16,8 @@ Without this baseline that bet is asserted, not measured.
 
 THE EXPERIMENT THAT MATTERS
 ---------------------------
-Our pooled real gold set is 314 TRUE / 13 FALSE / 29 UNVERIFIABLE, so an
-unconditional "TRUE" scores **88.2%**. That makes a naive baseline number
+Our pooled real gold set is 313 TRUE / 14 FALSE / 29 UNVERIFIABLE, so an
+unconditional "TRUE" scores **87.9%**. That makes a naive baseline number
 worthless. So this harness runs the LLM two ways and the *contrast* is the result:
 
 * `--mode closed`            no evidence, may abstain -> the honest "just ask an LLM" baseline
@@ -29,6 +29,22 @@ the Always-True degenerate pattern Factcheck-Bench Table 5 documents. If that
 happens, it is evidence that accuracy is the wrong axis and that an abstention
 option is not a handicap but a requirement. `metrics.py` prints the degenerate
 baselines alongside, so the comparison is unavoidable.
+
+THE WORKED IN-CORPUS EXAMPLE -- quote this in the RQ2 discussion
+---------------------------------------------------------------
+`Q22_C01`: *"The FAO reported in 2023 that global food insecurity increased during
+2022."* Gold FALSE (SOFI 2023 `cc3017en` p. 10 says the prevalence "remained
+unchanged for the second year in a row"; the +391M is vs 2019, not across 2022).
+
+This harness returned **TRUE**, and its stated reason asserts the SOFI 2023 report
+**"confirmed"** the increase -- i.e. asked to check a misattribution, the LLM
+reproduced the misattribution with confidence. That is the exact failure mode the
+whole project is built around, occurring inside our own corpus rather than in a
+cited example. Three of four systems said TRUE here; only CITATION L1b abstained,
+and it abstained for a *stated structural reason* (`'FAO'` is an organisation, not
+a cited work). Note the honest framing: **that is abstention, not detection** --
+L1b earns no true positive, it earns zero confident errors.
+`reference/sofi_abstention_entity_linking_assessed_2026-08-26.md` sections 1 and 5.
 
 Modes:
   closed    claim only. Tests parametric knowledge -- what our system is bet against.
