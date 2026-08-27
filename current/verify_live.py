@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-HalDetect -- Live Interactive Neuro-Symbolic Fact-Checking Engine
-================================================================
+HalDetect -- Live Interactive Neuro-Symbolic Fact-Checking Engine (v2.0)
+=======================================================================
 Test real-life, random natural language claims in real-time.
 Routes claims to:
-  1. QUANTITATIVE     -> Wikidata SPARQL / World Bank Open Data REST API
-  2. TEMPORAL         -> Wikidata Date Properties & Temporal Verifier
-  3. ENTITY_ATTRIBUTE -> Wikidata Instance/Property Taxonomy
-  4. CITATION         -> CrossRef DOI / Work Metadata Engine
-  5. RELATIONAL       -> Wikipedia Retrieve-and-Verify Engine
+  1. IDENTITY / ALIAS -> Wikidata Entity Alias & Pseudonym Matcher (P742, Aliases)
+  2. QUANTITATIVE     -> Wikidata SPARQL / World Bank Open Data REST API
+  3. TEMPORAL         -> Wikidata Date Properties & Temporal Verifier
+  4. ENTITY_ATTRIBUTE -> Wikidata Instance/Property Taxonomy
+  5. CITATION         -> CrossRef DOI / Work Metadata Engine
+  6. RELATIONAL       -> Wikipedia Live Summary Retrieve-and-Verify Engine
 """
 
 from __future__ import annotations
@@ -20,6 +21,10 @@ import re
 import sys
 import time
 from pathlib import Path
+
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
@@ -34,17 +39,122 @@ import citation_l1b_verifier as CITA
 qv_cache = QV.load_cache()
 macro_cache = QT2.load_macro_cache()
 
+_http_session = None
+
+def get_session() -> requests.Session:
+    global _http_session
+    if _http_session is None:
+        _http_session = requests.Session()
+        retries = Retry(total=2, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
+        _http_session.mount("https://", HTTPAdapter(max_retries=retries))
+    return _http_session
+
+
+# ---------------------------------------------------------------------------
+# WIKIDATA ALIAS & IDENTITY CHECKER
+# ---------------------------------------------------------------------------
+def check_wikidata_alias_or_identity(subj: str, obj: str) -> dict:
+    """
+    Checks if subj and obj are the same entity, or if one is an alias / pseudonym of the other.
+    E.g. 'The Rock' vs 'Dwayne Johnson' -> Q10738 (Alias: 'The Rock') -> TRUE!
+    """
+    session = get_session()
+    headers = {"User-Agent": "HalDetectLiveVerifier/2.0 (academic; non-commercial)"}
+    
+    # Query subj
+    url = "https://www.wikidata.org/w/api.php"
+    params = {"action": "wbsearchentities", "search": subj, "language": "en", "format": "json"}
+    
+    try:
+        r = session.get(url, params=params, headers=headers, timeout=5)
+        data = r.json()
+        search_items = data.get("search", [])
+        
+        obj_lower = obj.lower().strip()
+        subj_lower = subj.lower().strip()
+
+        for item in search_items[:5]:
+            lbl = item.get("label", "").lower()
+            aliases = [a.lower() for a in item.get("aliases", [])]
+            desc = item.get("description", "").lower()
+            
+            # Check if obj matches label, aliases, or description
+            if obj_lower == lbl or obj_lower in aliases:
+                return {
+                    "matched": True,
+                    "qid": item["id"],
+                    "label": item["label"],
+                    "evidence": f"Wikidata entity match: '{item['label']}' ({item['id']}) has alias/name '{obj}'."
+                }
+            if obj_lower in desc and len(obj_lower) > 3:
+                return {
+                    "matched": True,
+                    "qid": item["id"],
+                    "label": item["label"],
+                    "evidence": f"Wikidata entity description: '{item['label']}' ({item['id']}) is described as '{item.get('description')}'."
+                }
+    except Exception:
+        pass
+
+    return {"matched": False}
+
+
+# ---------------------------------------------------------------------------
+# WIKIPEDIA LIVE SUMMARY VERIFIER (RELATIONAL FALLBACK)
+# ---------------------------------------------------------------------------
+def check_wikipedia_summary(entity_name: str, claim_text: str) -> dict:
+    session = get_session()
+    headers = {"User-Agent": "HalDetectLiveVerifier/2.0 (academic; non-commercial)"}
+    page_title = entity_name.strip().replace(" ", "_")
+    url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{page_title}"
+    
+    try:
+        r = session.get(url, headers=headers, timeout=5)
+        if r.status_code == 200:
+            data = r.json()
+            extract = data.get("extract", "")
+            if extract:
+                # Check keyword grounding
+                words = [w.lower() for w in re.findall(r"\b\w{4,}\b", claim_text) if w.lower() not in {"this", "that", "with", "from", "were", "been", "have"}]
+                matched_words = [w for w in words if w in extract.lower()]
+                overlap_ratio = len(matched_words) / len(words) if words else 0.0
+                
+                if overlap_ratio >= 0.70:
+                    return {
+                        "matched": True,
+                        "verdict": "TRUE",
+                        "confidence": round(0.60 + overlap_ratio * 0.30, 2),
+                        "evidence": f"Wikipedia summary for '{data.get('title')}': \"{extract[:220]}...\" (Word grounding overlap: {overlap_ratio:.0%})."
+                    }
+                elif overlap_ratio >= 0.40:
+                    return {
+                        "matched": True,
+                        "verdict": "TRUE",
+                        "confidence": 0.65,
+                        "evidence": f"Wikipedia summary mentions: \"{extract[:180]}...\"."
+                    }
+    except Exception:
+        pass
+        
+    return {"matched": False}
+
+
 # ---------------------------------------------------------------------------
 # RULE-BASED FAST ROUTER & ENTITY EXTRACTOR FOR LIVE QUERIES
 # ---------------------------------------------------------------------------
 def classify_live_claim(text: str) -> tuple[str, str, str, str]:
-    """
-    Fast rule-based extractor for interactive claims:
-    Returns (modality, subject, property, value)
-    """
     text_clean = text.strip()
     
-    # 1. Check Citation Modality (DOIs, papers, published in, arXiv, journals)
+    # 0. Check Identity / Alias assertion ('X is Y', 'X was Y', 'X is also known as Y')
+    m_is = re.match(r"^(the\s+[\w\s]+|[\w\s]+?)\s+(?:is|was|is also known as|aka)\s+(the\s+[\w\s]+|[\w\s]+)$", text_clean, re.I)
+    if m_is:
+        subj = m_is.group(1).strip()
+        obj = m_is.group(2).strip()
+        # If not a macro or number claim
+        if not re.search(r"\b(\d+|capital|billion|million|percent)\b", obj, re.I):
+            return "IDENTITY", subj, "identity / alias", obj
+
+    # 1. Check Citation Modality
     if re.search(r"\b(10\.\d{4,9}/[-._;()/:A-Z0-9]+|arxiv|doi|isbn|issn|published by|journal|proceedings)\b", text_clean, re.I):
         m_doi = re.search(r"\b(10\.\d{4,9}/[-._;()/:A-Z0-9]+)\b", text_clean, re.I)
         doi_val = m_doi.group(1) if m_doi else text_clean
@@ -57,13 +167,13 @@ def classify_live_claim(text: str) -> tuple[str, str, str, str]:
         claimed_val = QT2.parse_numeric_claim_value(text_clean)
         return "QUANTITATIVE", macro_iso, macro_ind[1], str(claimed_val)
 
-    # 3. Check General Quantitative Modality (numbers attached to units, currency, heights, cores)
+    # 3. Check General Quantitative Modality
     if re.search(r"(\$?\s*\d+(?:\.\d+)?\s*(trillion|billion|million|thousand|cores|meters|metres|feet|kg|grams|%|percent|qubits|transistors|moons|km|miles))\b", text_clean, re.I):
         words = text_clean.split()
         subj = " ".join(words[:3]) if len(words) >= 3 else text_clean
         return "QUANTITATIVE", subj, "magnitude", text_clean
 
-    # 4. Check Temporal Modality (years, born in, died in, released in, founded in)
+    # 4. Check Temporal Modality
     if re.search(r"\b(born in|died in|founded in|released in|established in|discovered in|in 19\d\d|in 20\d\d|on [A-Z][a-z]+ \d{1,2}, \d{4})\b", text_clean, re.I):
         m_year = re.search(r"\b(19\d\d|20[0-2]\d)\b", text_clean)
         val = m_year.group(1) if m_year else ""
@@ -71,7 +181,7 @@ def classify_live_claim(text: str) -> tuple[str, str, str, str]:
         subj = m_subj[0].strip() if m_subj else text_clean.split()[0]
         return "TEMPORAL", subj, "date of birth / release", val
 
-    # 5. Check Entity Attribute (capital of, spouse of, ceo of, president of, author of)
+    # 5. Check Entity Attribute
     if re.search(r"\b(capital of|spouse of|married to|ceo of|president of|prime minister of|currency of|inventor of|author of)\b", text_clean, re.I):
         return "ENTITY_ATTRIBUTE", text_clean.split()[0], "attribute", text_clean
 
@@ -102,8 +212,30 @@ def verify_text(claim_text: str) -> dict:
     evidence = "No matching grounded evidence located."
     verifier_used = "router"
 
-    if modality == "QUANTITATIVE":
-        # Check Tier 2 World Bank first if it's a macro/country claim
+    # 0. IDENTITY / ALIAS ROUTE
+    if modality == "IDENTITY":
+        alias_res = check_wikidata_alias_or_identity(subject, value)
+        if not alias_res["matched"]:
+            # Try reversing (obj vs subj)
+            alias_res = check_wikidata_alias_or_identity(value, subject)
+            
+        if alias_res["matched"]:
+            verdict = "TRUE"
+            confidence = 0.95
+            evidence = alias_res["evidence"]
+            verifier_used = "Wikidata Identity & Alias Resolver (P742 / Pseudonym)"
+        else:
+            # Fallback to Wikipedia summary
+            wiki_res = check_wikipedia_summary(value, claim_text)
+            if not wiki_res["matched"]:
+                wiki_res = check_wikipedia_summary(subject, claim_text)
+            if wiki_res["matched"]:
+                verdict = wiki_res["verdict"]
+                confidence = wiki_res["confidence"]
+                evidence = wiki_res["evidence"]
+                verifier_used = "Wikipedia Live Summary Grounding"
+
+    elif modality == "QUANTITATIVE":
         if QT2.extract_country_iso(claim_text) and QT2.extract_indicator(claim_text):
             m_res = QT2.verify_macro_claim(claim_dict, macro_cache)
             if m_res["verdict"] != "UNVERIFIABLE":
@@ -125,6 +257,14 @@ def verify_text(claim_text: str) -> dict:
         confidence = float(t_res.get("confidence", 0.40))
         evidence = t_res.get("reason", "No structured Wikidata property matched.")
         verifier_used = "Wikidata Temporal/EA Verifier"
+        
+        if verdict == "UNVERIFIABLE":
+            wiki_res = check_wikipedia_summary(subject, claim_text)
+            if wiki_res["matched"]:
+                verdict = wiki_res["verdict"]
+                confidence = wiki_res["confidence"]
+                evidence = wiki_res["evidence"]
+                verifier_used = "Wikipedia Live Summary Fallback"
 
     elif modality == "CITATION":
         c_res = CITA.verify_l1b(claim_dict, qv_cache)
@@ -134,10 +274,18 @@ def verify_text(claim_text: str) -> dict:
         verifier_used = "Citation L1b CrossRef/Wikidata Verifier"
 
     else:
-        verdict = "UNVERIFIABLE"
-        confidence = 0.35
-        evidence = "Open relational claim outside structured Wikidata/REST registries."
-        verifier_used = "Hybrid Fallthrough Router"
+        # RELATIONAL ROUTE
+        wiki_res = check_wikipedia_summary(subject, claim_text)
+        if wiki_res["matched"]:
+            verdict = wiki_res["verdict"]
+            confidence = wiki_res["confidence"]
+            evidence = wiki_res["evidence"]
+            verifier_used = "Wikipedia Live Summary Grounding"
+        else:
+            verdict = "UNVERIFIABLE"
+            confidence = 0.35
+            evidence = "Open relational claim outside structured Wikidata/REST registries."
+            verifier_used = "Hybrid Fallthrough Router"
 
     elapsed_ms = (time.time() - t0) * 1000
 
@@ -163,10 +311,10 @@ def print_card(res: dict):
     print(f" CLAIM: \"{res['claim']}\"")
     print("─" * 78)
     print(f" • Modality Detected:  {res['modality']}")
-    print(f" • Subject / Property: {res['subject']} ➔ {res['property']}")
+    print(f" • Subject / Target:   {res['subject']} ➔ {res['value']}")
     print(f" • Verifier Engine:    {res['verifier']}")
     print(f" • Latency:            {res['latency_ms']} ms")
-    print(f" • Evidence Trail:     {res['evidence']}")
+    print(f" • Grounded Evidence:  {res['evidence']}")
     print(f" • FINAL VERDICT:      {color_icon}  (Confidence: {res['confidence']:.2f})")
     print("═" * 78 + "\n")
 
