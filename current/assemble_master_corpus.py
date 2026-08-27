@@ -31,6 +31,12 @@ SLICES = {
     "external_neg": os.path.join(HERE, "external_negatives.csv"),
     "synthetic_diag": os.path.join(HERE, "synthetic_negatives.csv"),
     "expansion_real": os.path.join(HERE, "expansion_realworld_claims.csv"),
+    "expansion_v3": os.path.join(HERE, "expansion_v3_claims.csv"),
+    "expansion_domain": os.path.join(HERE, "expansion_domain_suite.csv"),
+    "expansion_science_legal": os.path.join(HERE, "expansion_science_legal.csv"),
+    "expansion_1k_plus": os.path.join(HERE, "expansion_1k_plus.csv"),
+    "expansion_final_1000": os.path.join(HERE, "expansion_final_1000.csv"),
+    "expansion_final_scale": os.path.join(HERE, "expansion_final_scale.csv"),
 }
 
 MASTER_COLUMNS = [
@@ -154,6 +160,28 @@ def load_and_normalize() -> list[dict]:
                 "notes": f"subtype:{r.get('sub_type', '')}; {r.get('notes', '')}"
             })
             counter += 1
+
+    # 6-11. Additional Multi-Domain Expansion Slices (EXP-3 to EXP-Final)
+    for slice_key in ["expansion_v3", "expansion_domain", "expansion_science_legal", "expansion_1k_plus", "expansion_final_1000", "expansion_final_scale"]:
+        p = SLICES[slice_key]
+        if os.path.isfile(p):
+            for r in csv.DictReader(open(p, newline="", encoding="utf-8")):
+                cid = r.get("claim_id", "").strip() or f"{slice_key[:3].upper()}_{counter:04d}"
+                master_rows.append({
+                    "master_id": f"MST_{counter:04d}",
+                    "claim_id": cid,
+                    "type": (r.get("type") or "").upper(),
+                    "subject": r.get("subject", "").strip(),
+                    "property": r.get("property", "").strip(),
+                    "value": r.get("value", "").strip(),
+                    "gold_verdict": (r.get("gold_verdict") or "").upper(),
+                    "claim": r.get("claim", "").strip(),
+                    "origin_dataset": slice_key,
+                    "is_synthetic": str(r.get("synthetic", "FALSE")).upper(),
+                    "domain": r.get("domain", "expansion"),
+                    "notes": f"subtype:{r.get('sub_type', '')}; {r.get('notes', '')}"
+                })
+                counter += 1
 
     return master_rows
 
