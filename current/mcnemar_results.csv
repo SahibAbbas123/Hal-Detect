@@ -1,0 +1,9 @@
+label,n_total,n_discordant,b,c,both_correct,both_wrong,odds_ratio,p_value,direction,significant_005,significant_010
+Overall (3-way exact match),266,25,10,15,138,103,1.500000,0.424356,routed better,False,False
+Binarised on FALSE (hallucination detection),266,11,1,10,208,47,10.000000,0.011719,routed better,True,True
+per-type: RELATIONAL,174,0,0,0,103,71,nan,1.000000,no discordant pairs,False,False
+per-type: TEMPORAL,12,1,0,1,6,5,inf,1.000000,routed better,False,False
+per-type: ENTITY_ATTRIBUTE,22,2,0,2,13,7,inf,0.500000,routed better,False,False
+per-type: QUANTITATIVE,29,12,10,2,6,11,0.200000,0.038574,baseline better,True,True
+per-type: CITATION,29,10,0,10,10,9,inf,0.001953,routed better,True,True
+Non-RELATIONAL only (where routing actually differs),92,25,10,15,35,32,1.500000,0.424356,routed better,False,False

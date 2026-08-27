@@ -1,0 +1,107 @@
+claim_id,subject,qid,pid,verdict,detail,families,expected,evidence,source
+B3_01_C01,Panama Canal,Q7350,,NO_EXPECTATION,no expected family supplied,STRUCTURE/WATERWAY,,P31=ship canal,temporal_ea_hybrid_b3.csv
+B3_01_C05,United States,Q30,,NO_EXPECTATION,no expected family supplied,ADMIN_TERRITORY/ORGANIZATION,,"P31=sovereign state, superpower, country, historical unrecognized state, constitutional republic, capitalist state",temporal_ea_hybrid_b3.csv
+B3_01_C10,Panama Canal,Q7350,P571,CONSISTENT,"entity is STRUCTURE/WATERWAY, as expected",STRUCTURE/WATERWAY,ADMIN_TERRITORY/ORGANIZATION/STRUCTURE/WATERWAY,P31=ship canal,temporal_ea_hybrid_b3.csv
+B3_02_C03,China,Q130693,,NO_EXPECTATION,no expected family supplied,,,P31=material,temporal_ea_hybrid_b3.csv
+B3_04_C01,Mount Everest,Q513,,NO_EXPECTATION,no expected family supplied,NATURAL_PLACE,,P31=mountain,temporal_ea_hybrid_b3.csv
+B3_04_C03,Aconcagua,Q39739,,NO_EXPECTATION,no expected family supplied,NATURAL_PLACE,,P31=mountain,temporal_ea_hybrid_b3.csv
+B3_04_C05,Denali,Q130018,,NO_EXPECTATION,no expected family supplied,NATURAL_PLACE,,P31=mountain,temporal_ea_hybrid_b3.csv
+B3_04_C07,Kilimanjaro,Q7296,,NO_EXPECTATION,no expected family supplied,ADMIN_TERRITORY/NATURAL_PLACE,,"P31=massif, dormant volcano",temporal_ea_hybrid_b3.csv
+B3_04_C09,Mount Elbrus,Q43105,,NO_EXPECTATION,no expected family supplied,NATURAL_PLACE,,P31=mountain,temporal_ea_hybrid_b3.csv
+B3_04_C11,Mount Vinson,Q163758,,NO_EXPECTATION,no expected family supplied,ADMIN_TERRITORY/NATURAL_PLACE,,"P31=massif, mountain range",temporal_ea_hybrid_b3.csv
+B3_04_C13,Puncak Jaya,Q1045888,,NO_EXPECTATION,no expected family supplied,NATURAL_PLACE,,P31=mountain,temporal_ea_hybrid_b3.csv
+B3_05_C05,Nominations,Q6980661,,NO_EXPECTATION,no expected family supplied,,,no P31 statements,temporal_ea_hybrid_b3.csv
+B3_06_C01,Rosetta Stone,Q48584,P186,CONSISTENT,"entity is PHYSICAL_ARTIFACT, as expected",PHYSICAL_ARTIFACT/WRITTEN_WORK,PHYSICAL_ARTIFACT/STRUCTURE,"P31=Überrest, bilingual inscription, stele, Epigraphic monument",temporal_ea_hybrid_b3.csv
+B3_06_C02,Rosetta Stone,Q48584,P575,NO_EXPECTATION,no expected family supplied,PHYSICAL_ARTIFACT/WRITTEN_WORK,,"P31=Überrest, bilingual inscription, stele, Epigraphic monument",temporal_ea_hybrid_b3.csv
+B3_06_C05,Rosetta Stone,Q48584,,NO_EXPECTATION,no expected family supplied,PHYSICAL_ARTIFACT/WRITTEN_WORK,,"P31=Überrest, bilingual inscription, stele, Epigraphic monument",temporal_ea_hybrid_b3.csv
+B3_06_C07,Rosetta Stone,Q48584,P407,NO_EXPECTATION,no expected family supplied,PHYSICAL_ARTIFACT/WRITTEN_WORK,,"P31=Überrest, bilingual inscription, stele, Epigraphic monument",temporal_ea_hybrid_b3.csv
+B3_06_C08,Rosetta Stone,Q48584,P282,NO_EXPECTATION,no expected family supplied,PHYSICAL_ARTIFACT/WRITTEN_WORK,,"P31=Überrest, bilingual inscription, stele, Epigraphic monument",temporal_ea_hybrid_b3.csv
+B3_06_C09,Rosetta Stone,Q48584,P407,NO_EXPECTATION,no expected family supplied,PHYSICAL_ARTIFACT/WRITTEN_WORK,,"P31=Überrest, bilingual inscription, stele, Epigraphic monument",temporal_ea_hybrid_b3.csv
+B3_06_C10,Jean-François Champollion,Q260,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_hybrid_b3.csv
+B3_07_C02,Usain Bolt,Q1189,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_hybrid_b3.csv
+B3_07_C05,Florence Griffith-Joyner,Q31082,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_hybrid_b3.csv
+B3_08_C01,Soviet Union,Q15180,,NO_EXPECTATION,no expected family supplied,ADMIN_TERRITORY/ORGANIZATION,,"P31=federal republic, socialist state, historical country, sovereign state, communist state, transcontinental country",temporal_ea_hybrid_b3.csv
+B3_10_C01,human liver,Q68487022,,NO_EXPECTATION,no expected family supplied,,,no P31 statements,temporal_ea_hybrid_b3.csv
+B3_10_C03,human liver,Q68487022,P527,NO_EXPECTATION,no expected family supplied,,,no P31 statements,temporal_ea_hybrid_b3.csv
+B3_10_C04,human liver,Q68487022,P527,NO_EXPECTATION,no expected family supplied,,,no P31 statements,temporal_ea_hybrid_b3.csv
+B3_10_C05,human liver,Q68487022,,NO_EXPECTATION,no expected family supplied,,,no P31 statements,temporal_ea_hybrid_b3.csv
+B3_10_C06,human liver,Q68487022,P527,NO_EXPECTATION,no expected family supplied,,,no P31 statements,temporal_ea_hybrid_b3.csv
+B3_10_C07,Lobules,Q11611496,P527,NO_EXPECTATION,no expected family supplied,,,no P31 statements,temporal_ea_hybrid_b3.csv
+B3_11_C04,United States,Q30,,NO_EXPECTATION,no expected family supplied,ADMIN_TERRITORY/ORGANIZATION,,"P31=sovereign state, superpower, country, historical unrecognized state, constitutional republic, capitalist state",temporal_ea_hybrid_b3.csv
+B3_11_C08,Indian Space Research Organisation,Q229058,P1056,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=space agency, launch service provider, research organization",temporal_ea_hybrid_b3.csv
+Q5_C01,,Q103843442,,NO_EXPECTATION,no expected family supplied,WRITTEN_WORK,,P31=IPCC report,citation_l1_results.csv
+Q5_C02,,Q103843442,,NO_EXPECTATION,no expected family supplied,WRITTEN_WORK,,P31=IPCC report,citation_l1_results.csv
+Q5_C06,,Q103843442,,NO_EXPECTATION,no expected family supplied,WRITTEN_WORK,,P31=IPCC report,citation_l1_results.csv
+Q11_C01,,Q7817,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=specialized agency of the United Nations, open-access publisher, international organization, academic publisher",citation_l1_results.csv
+Q11_C10,,Q7817,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=specialized agency of the United Nations, open-access publisher, international organization, academic publisher",citation_l1_results.csv
+Q13_C01,,Q583725,,NO_EXPECTATION,no expected family supplied,,,"P31=United States federal agency, open-access publisher",citation_l1_results.csv
+Q14_C01,,Q7164,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=international financial institution, development bank",citation_l1_results.csv
+Q19_C01,,Q7817,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=specialized agency of the United Nations, open-access publisher, international organization, academic publisher",citation_l1_results.csv
+Q20_C01,,Q93827822,,NO_EXPECTATION,no expected family supplied,WRITTEN_WORK,,P31=scholarly article,citation_l1_results.csv
+Q21_C01,,Q7817,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=specialized agency of the United Nations, open-access publisher, international organization, academic publisher",citation_l1_results.csv
+Q22_C01,,Q28767587,,NO_EXPECTATION,no expected family supplied,WRITTEN_WORK,,P31=scholarly article,citation_l1_results.csv
+Q22_C03,,Q112206305,,NO_EXPECTATION,no expected family supplied,,,no P31 statements,citation_l1_results.csv
+B3_02_C01,,Q826700,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,P31=intergovernmental organization,citation_l1_results.csv
+B3_02_C06,,Q826700,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,P31=intergovernmental organization,citation_l1_results.csv
+B3_02_C07,,Q826700,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,P31=intergovernmental organization,citation_l1_results.csv
+B3_02_C08,,Q826700,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,P31=intergovernmental organization,citation_l1_results.csv
+B3_07_C07,,Q1158,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=international sport governing body, track and field athletics federation",citation_l1_results.csv
+B3_09_C01,,Q41550,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=international organization, intergovernmental organization, organization",citation_l1_results.csv
+B3_09_C03,,Q41550,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=international organization, intergovernmental organization, organization",citation_l1_results.csv
+B3_09_C07,,Q41550,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=international organization, intergovernmental organization, organization",citation_l1_results.csv
+B3_12_C01,,Q73883539,,NO_EXPECTATION,no expected family supplied,WRITTEN_WORK,,P31=scholarly article,citation_l1_results.csv
+B3_12_C07,,Q82151,,NO_EXPECTATION,no expected family supplied,ORGANIZATION,,"P31=specialized agency of the United Nations, international organization, publishing house",citation_l1_results.csv
+FS_0001,Travis Oliphant,Q22095646,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0002,Shahnaz Pahlavi,Q256878,P26,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0004,Song Kang,Q41777221,P569,CONSISTENT,"entity is PERSON, as expected",PERSON,PERSON,P31=human,temporal_ea_results.csv
+FS_0005,"Rennie Fritchie, Baroness Fritchie",Q2144088,P569,CONSISTENT,"entity is PERSON, as expected",PERSON,PERSON,P31=human,temporal_ea_results.csv
+FS_0006,Rakhi Sawant,Q3543017,P19,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0007,Desmond Luke,Q5264760,P27,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0011,Bella Akhmadulina,Q253395,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0012,Cha Seung-won,Q490067,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0013,Rakhi Sawant,Q3543017,P569,CONSISTENT,"entity is PERSON, as expected",PERSON,PERSON,P31=human,temporal_ea_results.csv
+FS_0014,Andrew Shue,Q507495,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0016,Errol Flynn,Q93188,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0017,Quintus Sosius Senecio,Q633112,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0019,Regina Martínez Pérez,Q7308500,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0023,Hibo Wardere,Q25345002,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0026,Taral Hicks,Q537228,P27,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0028,Garrincha,Q180642,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0029,Virginia Valli,Q459962,P27,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0030,Antonio Diaz (Filipino politician),Q4776574,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0031,Gerardo Fernandez Fe,Q16571332,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0035,Jack Leach,Q6113623,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0039,Regina Martínez Pérez,Q7308500,P108,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0040,Virginia Valli,Q459962,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0041,Lanny Flaherty,Q3826929,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0043,Ji Sung,Q491763,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0046,Kang Ji-hwan,Q489748,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0047,Travis Oliphant,Q22095646,P69,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0051,Michael Valpy,Q6835047,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0052,Augusto Martínez Sánchez,Q5711699,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0053,Vanessa Kirby,Q6159535,P166,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0054,Focus...,Q5463897,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0055,Daniel Dubois (boxer),Q30122489,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0056,Ben Lummis,Q4886086,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0058,Rob Furlong,Q931952,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0060,Shahnaz Pahlavi,Q256878,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0061,Fran Unsworth,Q5478199,P39,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0062,Gonzalo Fonseca,Q546868,P40,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0066,Antonio Gasalla,Q4776651,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0071,Roxana Díaz (athlete),Q7372330,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0072,Michael Valpy,Q6835047,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0074,Jimmy Bartel,Q6199581,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0075,Gonzalo Fonseca,Q546868,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0077,Milton Diamond,Q425166,P101,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0078,Miguel Díaz (baseball),Q29167525,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0079,Mike Trivisonno,Q6849094,P106,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0080,Vincenzo Tusa,Q4013563,P570,CONSISTENT,"entity is PERSON, as expected",PERSON,PERSON,P31=human,temporal_ea_results.csv
+FS_0083,María Elena Medina-Mora Icaza,Q6003686,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0085,Chaim Malinowitz,Q78721193,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0087,Carolina Portesi Peroni,Q56605091,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0092,António de Oliveira Salazar,Q151394,P27,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0094,Lua Blanco,Q3837943,P569,CONSISTENT,"entity is PERSON, as expected",PERSON,PERSON,P31=human,temporal_ea_results.csv
+FS_0095,"William Waldegrave, Baron Waldegrave of North Hill",Q332864,P39,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0096,Jonathan Tucker,Q594106,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0097,Marianne McAndrew,Q6762251,P26,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv
+FS_0098,Gerhard Fischer (inventor),Q78008,,NO_EXPECTATION,no expected family supplied,PERSON,,P31=human,temporal_ea_results.csv

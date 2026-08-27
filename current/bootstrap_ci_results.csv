@@ -1,0 +1,11 @@
+metric,point,lo,hi,se,n_boot,seed,alpha,dataset
+mcc,0.284432,0.184421,0.381850,0.050665,10000,42,0.05,baseline + synthetic negatives (n=441)
+f1_FALSE,0.459459,0.375546,0.536170,0.041381,10000,42,0.05,baseline + synthetic negatives (n=441)
+p_FALSE,0.411290,0.324324,0.496241,0.044331,10000,42,0.05,baseline + synthetic negatives (n=441)
+r_FALSE,0.520408,0.424242,0.619048,0.050010,10000,42,0.05,baseline + synthetic negatives (n=441)
+f1_TRUE,0.693032,0.646272,0.736462,0.022989,10000,42,0.05,baseline + synthetic negatives (n=441)
+macro_f1,0.456515,0.407044,0.505209,0.024968,10000,42,0.05,baseline + synthetic negatives (n=441)
+coverage,0.773243,0.732426,0.811791,0.019911,10000,42,0.05,baseline + synthetic negatives (n=441)
+sel_accuracy,0.689150,0.640118,0.738636,0.025145,10000,42,0.05,baseline + synthetic negatives (n=441)
+n_pred_FALSE,124.000000,106.000000,142.000000,9.351834,10000,42,0.05,baseline + synthetic negatives (n=441)
+tp_FALSE,51.000000,38.000000,64.000000,6.642198,10000,42,0.05,baseline + synthetic negatives (n=441)

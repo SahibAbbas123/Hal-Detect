@@ -1,4 +1,6 @@
-10am - 20pm
+#mon aug 24
+
+stock xchg is open 10am - 20pm
 DSEX
 daily volume, turnover, transaction/trade executinos, YTD (full form?), symbols traded 81 gainer 290 looser 45 unchanged --> try memorizing regularly
 trigger (the side scroller)
@@ -39,3 +41,34 @@ Main brokerage services:
 > depository participant (dp) services vs brokerage
 
 summary: brokerage services = trading + do account + margin + portfolio mgt + research + ipo + bonds + digital services + client support
+
+# 25 aug
+---
+# LBSPLC digital services
+Order Management System e.g; Lankabngla TradeXpress, Dealer Terminal, 
+Client Service App e.g: iBroker by Lankabngla
+e-KYC
+> national payment switch bangladesh - npsb - instant money transfer with some charge - ~300k per entry infinity times
+> realt time loss settlement - rtss - 150tk charge, 10-15min delay
+> beftn - no charge, 10am settlement and 1pm settlement, latter causes 1 day delay
+
+make Lankabngla benificiery for npsb transaction:
+code c19384
+scb virtual account 77108-08-139384
+Lankabngla Securities PLC 
+routing number.....
+
+Why LBSPLC: 
+> first credit card in BD, 16yrs highest turnover consecutively, 47 branches
+key differntiators: trustworthiness and security
+digital capabalities
+service network
+
+---
+
+# 27 aug
+lbsbd.com
+> investment products: now: equity, mutual fund, govt secutrities; future: commodity exchange (e.g gold, cotton, oil)
+Look at,
+1. an AGM annual report e.g: Lankabangla dot com/uploads/reports/dsdsds.pdf
+2. technical analysis: e.g Lankabangla.com/home/advancedcharts32

@@ -45,6 +45,8 @@ archive/caches/
 data/
 factscore-repo/
 *.zip
+*.pdf
+papers_analysis/downloaded_pdfs/
 
 # --- OS noise ---
 .DS_Store
@@ -54,3 +56,5 @@ Thumbs.db
 /tmp/
 *.tmp
 *.log
+.agents/
+.claude/

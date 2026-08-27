@@ -144,10 +144,86 @@ _TIME_SCAFFOLD = {"year", "date", "time", "day", "month", "of", "in", "on",
                   "at", "the", "when", "period", "era"}
 CORE_SIM_THRESHOLD = 0.35
 
+# Date-kind synonym clusters: groups of words that all refer to the same
+# lifecycle concept. If a predicate's core terms and a property's surfaces
+# share a cluster, the core-term guard lets it through even when SBERT
+# cosine is below CORE_SIM_THRESHOLD.
+# WHY: 'inception' vs 'official opening' = 0.194 in MiniLM, which trips the
+# 0.35 guard -- but they're semantically identical for civil infrastructure.
+_DATE_KIND_CLUSTERS: dict[str, frozenset[str]] = {
+    "inception": frozenset({
+        "inception", "opening", "official opening", "opened", "open",
+        "establishment", "established",
+        "founding", "founded", "creation", "created",
+        "formation", "formed", "launch", "launched",
+        "inauguration", "inaugurated", "commission", "commissioned",
+    }),
+    "termination": frozenset({
+        "dissolution", "dissolved", "abolition", "abolished",
+        "ended", "ending", "closure", "closed", "demise",
+        "decommission", "decommissioned", "shutdown",
+    }),
+    "construction": frozenset({
+        "construction", "built", "building", "erected",
+    }),
+    "discovery": frozenset({
+        "discovery", "discovered", "invention", "invented",
+        "first described", "first observed",
+    }),
+    "publication": frozenset({
+        "publication", "published", "release", "released",
+        "issued", "broadcast", "aired",
+    }),
+    "birth": frozenset({"birth", "born"}),
+    "death": frozenset({"death", "died", "passing"}),
+}
+
+# Invert: word -> cluster name, for O(1) lookup.
+_WORD_TO_DATE_KIND: dict[str, str] = {}
+for _kind, _words in _DATE_KIND_CLUSTERS.items():
+    for _w in _words:
+        _WORD_TO_DATE_KIND[_w] = _kind
+
 
 def _core_terms(text: str) -> str:
     toks = [t for t in _norm(text).split() if t not in _TIME_SCAFFOLD]
     return " ".join(toks) if toks else _norm(text)
+
+
+def _date_kinds_compatible(pred_core: str, prop_surfaces: list[str]) -> bool:
+    """Check if any word/phrase in the predicate's core terms and any of the
+    property's surfaces (label + aliases) map to the same date-kind cluster.
+
+    This is a lexical escape hatch for the SBERT guard: synonyms that are
+    semantically identical but have low cosine similarity (e.g. 'inception'
+    vs 'official opening' = 0.194) can still pass if they share a cluster.
+    """
+    # Collect cluster memberships for the predicate
+    pred_kinds: set[str] = set()
+    pred_lower = pred_core.lower()
+    # Check multi-word phrases first, then single words
+    for phrase, kind in _WORD_TO_DATE_KIND.items():
+        if " " in phrase and phrase in pred_lower:
+            pred_kinds.add(kind)
+    for tok in pred_lower.split():
+        if tok in _WORD_TO_DATE_KIND:
+            pred_kinds.add(_WORD_TO_DATE_KIND[tok])
+
+    if not pred_kinds:
+        return False
+
+    # Check surfaces of the property
+    for surface in prop_surfaces:
+        surface_core = _core_terms(surface).lower()
+        for phrase, kind in _WORD_TO_DATE_KIND.items():
+            if " " in phrase and phrase in surface_core:
+                if kind in pred_kinds:
+                    return True
+        for tok in surface_core.split():
+            if tok in _WORD_TO_DATE_KIND and _WORD_TO_DATE_KIND[tok] in pred_kinds:
+                return True
+
+    return False
 
 
 def directional_veto(pred: str, pid: str) -> str | None:
@@ -531,14 +607,31 @@ def match_property(prop: str, claim_type: str, entity_claims: dict,
 
     # Core-term guard: for TEMPORAL, re-check the winner on content words alone
     # so shared time-scaffolding cannot carry an unrelated date over the line.
+    # Escape hatch: date-kind synonym clusters let semantically identical but
+    # lexically distant terms through (e.g. 'inception' ↔ 'official opening').
     if claim_type == "TEMPORAL" and scored:
         pred_core = _core_terms(pred)
         cores = [_core_terms(c[2]) for c in scored]
         ce = model.encode([pred_core] + cores, convert_to_tensor=True,
                           show_progress_bar=False)
         core_sims = [float(x) for x in sbert_util.cos_sim(ce[0], ce[1:])[0]]
-        surviving = [c for c, cs in zip(scored, core_sims)
-                     if cs >= CORE_SIM_THRESHOLD]
+        surviving = []
+        for c, cs in zip(scored, core_sims):
+            if cs >= CORE_SIM_THRESHOLD:
+                surviving.append(c)
+            else:
+                # Synonym escape: check if predicate core and property
+                # surfaces (label + aliases) share a date-kind cluster.
+                p_meta = meta.get(c[0], {})
+                prop_surfaces = ([p_meta.get("label", "")]
+                                 + list(p_meta.get("aliases", []))[:6])
+                if _date_kinds_compatible(pred_core, prop_surfaces):
+                    # Re-score with a tier bump: the synonym match provides
+                    # semantic confirmation equivalent to a partial lexical
+                    # hit (tier 2), ensuring it can clear PROPERTY_THRESHOLD.
+                    boosted_tier = min(c[3] + 1, 2)
+                    boosted_score = _score(boosted_tier, c[4])
+                    surviving.append((c[0], boosted_score, c[2], boosted_tier, c[4]))
         if not surviving:
             p, lab, cs = scored[0][0], scored[0][2], core_sims[0]
             return {"pid": None, "score": scored[0][1], "route": "gap",
