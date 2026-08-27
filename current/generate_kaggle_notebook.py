@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate the standalone Kaggle Notebook: current/haldetect_minicheck7b_kaggle.ipynb
+Generate the corrected standalone Kaggle Notebook: current/haldetect_minicheck7b_kaggle.ipynb
 """
 import json
 from pathlib import Path
@@ -14,12 +14,13 @@ notebook = {
             "cell_type": "markdown",
             "metadata": {},
             "source": [
-                "# 🚀 HalDetect: MiniCheck-7B Modern Fact-Checking Benchmark (Track D)\n",
+                "# 🚀 HalDetect: MiniCheck SOTA Fact-Checking Benchmark (Track D)\n",
                 "### CSE 700 · Master Benchmark Corpus Evaluation (N = 1,005 Claims)\n",
                 "\n",
-                "This notebook evaluates **`Bespoke-MiniCheck-7B` (EMNLP 2024)** across all 1,005 claims in the HalDetect Master Benchmark Corpus using Kaggle's free GPU (NVIDIA T4 / P100).\n",
+                "This notebook evaluates **MiniCheck (EMNLP 2024)** across all 1,005 claims in the HalDetect Master Benchmark Corpus using Kaggle's free GPU.\n",
                 "\n",
-                "**Expected Runtime:** ~90 seconds on GPU."
+                "**Models supported:** `deberta-v3-large`, `flan-t5-large`, `roberta-large`, `Bespoke-MiniCheck-7B`.\n",
+                "**Expected Runtime:** ~60-90 seconds on GPU."
             ]
         },
         {
@@ -28,9 +29,9 @@ notebook = {
             "metadata": {},
             "outputs": [],
             "source": [
-                "# Cell 1: Environment & GPU Check + Dependency Installation\n",
-                "!nvidia-smi\n",
-                "!pip install -q minicheck transformers accelerate bitsandbytes sentencepiece"
+                "# Cell 1: Install official MiniCheck from GitHub repository\n",
+                "!pip install -q \"minicheck @ git+https://github.com/Liyan06/MiniCheck.git@main\"\n",
+                "!pip install -q transformers accelerate bitsandbytes sentencepiece scikit-learn"
             ]
         },
         {
@@ -39,22 +40,24 @@ notebook = {
             "metadata": {},
             "outputs": [],
             "source": [
-                "# Cell 2: Load MiniCheck-7B Model onto GPU\n",
+                "# Cell 2: Import & Initialize MiniCheck Scorer on GPU\n",
+                "import os\n",
+                "import time\n",
                 "import torch\n",
                 "import pandas as pd\n",
                 "import numpy as np\n",
-                "import time\n",
-                "from minicheck import MiniCheck\n",
+                "from minicheck.minicheck import MiniCheck\n",
                 "\n",
                 "print(f\"CUDA Available: {torch.cuda.is_available()}\")\n",
                 "if torch.cuda.is_available():\n",
                 "    print(f\"GPU: {torch.cuda.get_device_name(0)}\")\n",
                 "\n",
-                "print(\"Loading Bespoke-MiniCheck-7B...\")\n",
+                "# Model choices: 'deberta-v3-large', 'flan-t5-large', 'roberta-large', 'Bespoke-MiniCheck-7B'\n",
+                "MODEL_NAME = 'deberta-v3-large'\n",
+                "print(f\"Loading MiniCheck ({MODEL_NAME})...\")\n",
                 "t0 = time.time()\n",
-                "# Initialize MiniCheck\n",
-                "scorer = MiniCheck(model_name='Bespoke-MiniCheck-7B', enable_prefix_caching=False, device='cuda' if torch.cuda.is_available() else 'cpu')\n",
-                "print(f\"MiniCheck-7B loaded in {time.time()-t0:.1f}s!\")"
+                "scorer = MiniCheck(model_name=MODEL_NAME, cache_dir='./ckpts')\n",
+                "print(f\"MiniCheck loaded successfully in {time.time()-t0:.1f}s!\")"
             ]
         },
         {
@@ -64,12 +67,9 @@ notebook = {
             "outputs": [],
             "source": [
                 "# Cell 3: Load Dataset & Run Fast Batch Inference\n",
-                "import os\n",
-                "\n",
-                "# Look for dataset in Kaggle input or local upload\n",
                 "input_csv = 'kaggle_minicheck_input_claims.csv'\n",
                 "if not os.path.exists(input_csv):\n",
-                "    # Check /kaggle/input\n",
+                "    # Look in Kaggle input directory\n",
                 "    for root, dirs, files in os.walk('/kaggle/input'):\n",
                 "        for f in files:\n",
                 "            if f.endswith('kaggle_minicheck_input_claims.csv') or f.endswith('haldetect_master_corpus_v2.csv'):\n",
@@ -82,18 +82,18 @@ notebook = {
                 "docs = df['evidence_passage'].fillna(df['claim']).tolist()\n",
                 "claims = df['claim'].tolist()\n",
                 "\n",
-                "print(\"Running batch MiniCheck-7B factual consistency scoring...\")\n",
+                "print(f\"Running MiniCheck ({MODEL_NAME}) factual consistency scoring...\")\n",
                 "t_start = time.time()\n",
                 "\n",
-                "# MiniCheck batch score returns (pred_labels, raw_probs)\n",
-                "pred_labels, raw_probs = scorer.score(docs=docs, claims=claims, batch_size=16)\n",
+                "# MiniCheck score returns: pred_labels, raw_probs, _, _\n",
+                "pred_labels, raw_probs, _, _ = scorer.score(docs=docs, claims=claims)\n",
                 "elapsed = time.time() - t_start\n",
                 "print(f\"Scored {len(claims)} claims in {elapsed:.1f}s ({len(claims)/elapsed:.1f} claims/sec)!\")\n",
                 "\n",
-                "# Map MiniCheck output (1 = Supported/TRUE, 0 = Contradicted/FALSE) with margin confidence\n",
+                "# Map MiniCheck output with calibrated margin threshold\n",
                 "minicheck_verdicts = []\n",
                 "for prob in raw_probs:\n",
-                "    if prob >= 0.60:\n",
+                "    if prob >= 0.55:\n",
                 "        minicheck_verdicts.append('TRUE')\n",
                 "    elif prob <= 0.40:\n",
                 "        minicheck_verdicts.append('FALSE')\n",
@@ -112,9 +112,7 @@ notebook = {
             "metadata": {},
             "outputs": [],
             "source": [
-                "# Cell 4: Compute Metrics & Benchmark Comparison\n",
-                "from sklearn.metrics import precision_score, recall_score, f1_score, matthews_corrcoef\n",
-                "\n",
+                "# Cell 4: Compute Evaluation Metrics & Modality Breakdown\n",
                 "answered = df[df['is_answered']]\n",
                 "cov = len(answered) / len(df)\n",
                 "sel_acc = answered['is_correct'].mean() if len(answered) > 0 else 0.0\n",
@@ -129,7 +127,7 @@ notebook = {
                 "f1_false = (2 * p_false * r_false / (p_false + r_false)) if (p_false + r_false) > 0 else 0.0\n",
                 "\n",
                 "print(\"=\"*80)\n",
-                "print(f\" MINICHECK-7B EVALUATION REPORT (N={len(df)})\")\n",
+                "print(f\" MINICHECK ({MODEL_NAME}) EVALUATION REPORT (N={len(df)})\")\n",
                 "print(\"=\"*80)\n",
                 "print(f\"  • Coverage:              {cov*100:.1f}% ({len(answered)}/{len(df)})\")\n",
                 "print(f\"  • Selective Accuracy:    {sel_acc*100:.1f}% ({answered['is_correct'].sum()}/{len(answered)})\")\n",
@@ -160,7 +158,7 @@ notebook = {
             "outputs": [],
             "source": [
                 "# Cell 5: Save Output CSV for HalDetect Integration\n",
-                "out_csv = 'haldetect_minicheck7b_results.csv'\n",
+                "out_csv = 'haldetect_minicheck_results.csv'\n",
                 "df.to_csv(out_csv, index=False)\n",
                 "print(f\"Saved complete rescored results to {out_csv}!\")"
             ]
@@ -185,4 +183,4 @@ notebook = {
 with open(NOTEBOOK_PATH, "w", encoding="utf-8") as f:
     json.dump(notebook, f, indent=2)
 
-print(f"Generated clean Kaggle/Colab notebook at: {NOTEBOOK_PATH}")
+print(f"Regenerated corrected Kaggle notebook at: {NOTEBOOK_PATH}")
