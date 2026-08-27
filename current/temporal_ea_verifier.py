@@ -305,6 +305,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(
         description="TEMPORAL + ENTITY_ATTRIBUTE verifier with the fixed resolver.")
     ap.add_argument("--claims", default=B3)
+    ap.add_argument("--out", default=None,
+                    help="custom output CSV path (defaults to temporal_ea_results.csv)")
     ap.add_argument("--negatives", action="store_true",
                     help=f"run {os.path.basename(SYN)} instead — the only slice "
                          f"with gold negatives, so the only place detection can "
@@ -316,6 +318,7 @@ def main() -> int:
                          "verdict (no model call, no GPU)")
     args = ap.parse_args()
 
+    out_file = args.out if args.out else OUT
     path = SYN if args.negatives else args.claims
     if not os.path.isfile(path):
         print(f"FATAL: {path} not found")
@@ -354,11 +357,11 @@ def main() -> int:
               f"{res['verdict']:<14}{res['stage']:<17}{res['reason'][:52]}")
     QV.save_cache(cache)
 
-    with open(OUT, "w", newline="", encoding="utf-8") as fh:
+    with open(out_file, "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=list(results[0].keys()))
         w.writeheader()
         w.writerows(results)
-    print(f"\nwrote {OUT}")
+    print(f"\nwrote {out_file}")
 
     report(results, f"TEMPORAL+EA, fixed resolver — {label}")
     return 0
