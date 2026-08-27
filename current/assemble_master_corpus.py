@@ -49,6 +49,9 @@ def load_and_normalize() -> list[dict]:
     p = SLICES["natural_corpus"]
     if os.path.isfile(p):
         for r in csv.DictReader(open(p, newline="", encoding="utf-8")):
+            gv = (r.get("gold_verdict") or "").strip().upper()
+            if not gv:
+                continue  # Exclude unannotated background claims
             cid = r.get("claim_id", "").strip() or f"NAT_{counter:04d}"
             master_rows.append({
                 "master_id": f"MST_{counter:04d}",
@@ -57,7 +60,7 @@ def load_and_normalize() -> list[dict]:
                 "subject": r.get("subject", "").strip(),
                 "property": r.get("property", "").strip(),
                 "value": r.get("value", "").strip(),
-                "gold_verdict": (r.get("gold_verdict") or "").upper(),
+                "gold_verdict": gv,
                 "claim": r.get("claim", "").strip(),
                 "origin_dataset": "natural_corpus",
                 "is_synthetic": str(r.get("synthetic", "FALSE")).upper(),
