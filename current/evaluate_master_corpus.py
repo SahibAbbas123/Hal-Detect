@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-HalDetect — Master Benchmark Corpus v2.0 Evaluation Runner
-=========================================================
+HalDetect — Master Benchmark Corpus Evaluation Runner (with Track C Tier 2)
+===========================================================================
 
 Executes the full taxonomy-routed HalDetect verification pipeline across
-all 714 claims in `haldetect_master_corpus_v2.csv`:
-  - QUANTITATIVE     -> quantitative_verifier.py (Extract & compare, tolerances)
+all claims in `haldetect_master_corpus_v2.csv`:
+  - QUANTITATIVE     -> quantitative_verifier.py (Tier 1 Wikidata) +
+                        quantitative_tier2_verifier.py (Tier 2 World Bank Open Data REST API)
   - TEMPORAL         -> temporal_ea_verifier.py  (Fixed resolver, date clusters)
   - ENTITY_ATTRIBUTE -> temporal_ea_verifier.py  (Fixed resolver, P31 guards)
   - CITATION         -> citation_l1b_verifier.py (Series & publisher consistency)
@@ -29,6 +30,7 @@ if HERE not in sys.path:
 
 import metrics as M
 import quantitative_verifier as QV
+import quantitative_tier2_verifier as QT2
 import temporal_ea_verifier as TEA
 import citation_l1b_verifier as CITA
 import property_resolver as PR
@@ -50,10 +52,11 @@ def evaluate_master_corpus(corpus_path: str = CORPUS_CSV,
 
     # Load caches
     qv_cache = QV.load_cache()
+    macro_cache = QT2.load_macro_cache()
     tier2 = TEA.load_tier2() if hybrid else None
 
     results = []
-    print("\nRunning taxonomy-routed verifiers...")
+    print("\nRunning taxonomy-routed verifiers with Quantitative Tier 2 (World Bank)...")
 
     for i, r in enumerate(claims, 1):
         ctype = (r.get("type") or "").upper()
@@ -85,13 +88,27 @@ def evaluate_master_corpus(corpus_path: str = CORPUS_CSV,
         }
 
         if ctype == "QUANTITATIVE":
-            # Direct quantitative extract-and-compare
+            # Tier 1: Wikidata quantity extract-and-compare
             q_res = QV.verify_quantitative(r, qv_cache)
+            
+            # Tier 2: World Bank Macro REST API Fallback
+            if hybrid and q_res.get("verdict") == "UNVERIFIABLE":
+                m_res = QT2.verify_macro_claim(r, macro_cache)
+                if m_res.get("verdict") != "UNVERIFIABLE":
+                    q_res = {
+                        "verdict": m_res["verdict"],
+                        "confidence": m_res["confidence"],
+                        "stage": m_res["method"],
+                        "reason": m_res["evidence"],
+                        "tier": "tier2-worldbank"
+                    }
+
             res["verdict"] = q_res.get("verdict", "UNVERIFIABLE")
             res["confidence"] = round(float(q_res.get("confidence", 0.0)), 3)
-            res["verifier"] = "quantitative_verifier"
+            res["verifier"] = "quantitative_tier2_verifier" if q_res.get("tier") == "tier2-worldbank" else "quantitative_verifier"
             res["stage"] = q_res.get("stage", "compare")
             res["reason"] = q_res.get("reason", q_res.get("detail", ""))
+            res["tier"] = q_res.get("tier", "tier1")
 
         elif ctype in ("TEMPORAL", "ENTITY_ATTRIBUTE"):
             # Temporal & Entity Attribute verifier
@@ -131,9 +148,10 @@ def evaluate_master_corpus(corpus_path: str = CORPUS_CSV,
 
         results.append(res)
         if i % 100 == 0 or i == len(claims):
-            print(f"  [{i:>3}/{len(claims)}] {mid:<10} {ctype:<16} {res['verdict']:<14} {res['reason'][:40]}")
+            print(f"  [{i:>4}/{len(claims)}] {mid:<10} {ctype:<16} {res['verdict']:<14} {res['reason'][:40]}")
 
     QV.save_cache(qv_cache)
+    QT2.save_macro_cache(macro_cache)
 
     # Save output
     fieldnames = list(results[0].keys())
@@ -150,14 +168,14 @@ def evaluate_master_corpus(corpus_path: str = CORPUS_CSV,
 
 def generate_full_report(results: list[dict]) -> None:
     print(f"\n{'=' * 78}")
-    print(f"  HALDETECT MASTER BENCHMARK CORPUS (v2.0) — EVALUATION REPORT (N={len(results)})")
+    print(f"  HALDETECT MASTER BENCHMARK CORPUS (v3.0) — EVALUATION REPORT (N={len(results)})")
     print(f"{'=' * 78}")
 
     gold = [r["gold_verdict"] for r in results]
     pred = [r["verdict"] for r in results]
     conf = [float(r["confidence"] or 0.0) for r in results]
 
-    M.report(gold, pred, conf, title="Master Corpus v2.0 (Pooled Total)")
+    M.report(gold, pred, conf, title="Master Corpus v3.0 (Pooled Total)")
 
     print(f"\n{'=' * 78}")
     print("  BREAKDOWN BY MODALITY TYPE")
@@ -192,7 +210,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Evaluate Master Benchmark Corpus.")
     parser.add_argument("--corpus", default=CORPUS_CSV, help="Master corpus CSV path")
     parser.add_argument("--out", default=OUT_CSV, help="Output evaluation CSV path")
-    parser.add_argument("--no-hybrid", action="store_true", help="Disable Tier 2 NLI fall-through")
+    parser.add_argument("--no-hybrid", action="store_true", help="Disable Tier 2 fall-through")
     args = parser.parse_args()
 
     evaluate_master_corpus(args.corpus, args.out, hybrid=not args.no_hybrid)
