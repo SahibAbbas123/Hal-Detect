@@ -1,0 +1,188 @@
+#!/usr/bin/env python3
+"""
+Generate the standalone Kaggle Notebook: current/haldetect_minicheck7b_kaggle.ipynb
+"""
+import json
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+NOTEBOOK_PATH = HERE / "haldetect_minicheck7b_kaggle.ipynb"
+
+notebook = {
+    "cells": [
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "# 🚀 HalDetect: MiniCheck-7B Modern Fact-Checking Benchmark (Track D)\n",
+                "### CSE 700 · Master Benchmark Corpus Evaluation (N = 1,005 Claims)\n",
+                "\n",
+                "This notebook evaluates **`Bespoke-MiniCheck-7B` (EMNLP 2024)** across all 1,005 claims in the HalDetect Master Benchmark Corpus using Kaggle's free GPU (NVIDIA T4 / P100).\n",
+                "\n",
+                "**Expected Runtime:** ~90 seconds on GPU."
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# Cell 1: Environment & GPU Check + Dependency Installation\n",
+                "!nvidia-smi\n",
+                "!pip install -q minicheck transformers accelerate bitsandbytes sentencepiece"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# Cell 2: Load MiniCheck-7B Model onto GPU\n",
+                "import torch\n",
+                "import pandas as pd\n",
+                "import numpy as np\n",
+                "import time\n",
+                "from minicheck import MiniCheck\n",
+                "\n",
+                "print(f\"CUDA Available: {torch.cuda.is_available()}\")\n",
+                "if torch.cuda.is_available():\n",
+                "    print(f\"GPU: {torch.cuda.get_device_name(0)}\")\n",
+                "\n",
+                "print(\"Loading Bespoke-MiniCheck-7B...\")\n",
+                "t0 = time.time()\n",
+                "# Initialize MiniCheck\n",
+                "scorer = MiniCheck(model_name='Bespoke-MiniCheck-7B', enable_prefix_caching=False, device='cuda' if torch.cuda.is_available() else 'cpu')\n",
+                "print(f\"MiniCheck-7B loaded in {time.time()-t0:.1f}s!\")"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# Cell 3: Load Dataset & Run Fast Batch Inference\n",
+                "import os\n",
+                "\n",
+                "# Look for dataset in Kaggle input or local upload\n",
+                "input_csv = 'kaggle_minicheck_input_claims.csv'\n",
+                "if not os.path.exists(input_csv):\n",
+                "    # Check /kaggle/input\n",
+                "    for root, dirs, files in os.walk('/kaggle/input'):\n",
+                "        for f in files:\n",
+                "            if f.endswith('kaggle_minicheck_input_claims.csv') or f.endswith('haldetect_master_corpus_v2.csv'):\n",
+                "                input_csv = os.path.join(root, f)\n",
+                "                break\n",
+                "\n",
+                "df = pd.read_csv(input_csv)\n",
+                "print(f\"Loaded {len(df)} claims from {input_csv}\")\n",
+                "\n",
+                "docs = df['evidence_passage'].fillna(df['claim']).tolist()\n",
+                "claims = df['claim'].tolist()\n",
+                "\n",
+                "print(\"Running batch MiniCheck-7B factual consistency scoring...\")\n",
+                "t_start = time.time()\n",
+                "\n",
+                "# MiniCheck batch score returns (pred_labels, raw_probs)\n",
+                "pred_labels, raw_probs = scorer.score(docs=docs, claims=claims, batch_size=16)\n",
+                "elapsed = time.time() - t_start\n",
+                "print(f\"Scored {len(claims)} claims in {elapsed:.1f}s ({len(claims)/elapsed:.1f} claims/sec)!\")\n",
+                "\n",
+                "# Map MiniCheck output (1 = Supported/TRUE, 0 = Contradicted/FALSE) with margin confidence\n",
+                "minicheck_verdicts = []\n",
+                "for prob in raw_probs:\n",
+                "    if prob >= 0.60:\n",
+                "        minicheck_verdicts.append('TRUE')\n",
+                "    elif prob <= 0.40:\n",
+                "        minicheck_verdicts.append('FALSE')\n",
+                "    else:\n",
+                "        minicheck_verdicts.append('UNVERIFIABLE')\n",
+                "\n",
+                "df['minicheck_prob'] = raw_probs\n",
+                "df['minicheck_pred'] = minicheck_verdicts\n",
+                "df['is_correct'] = (df['minicheck_pred'] == df['gold_verdict'])\n",
+                "df['is_answered'] = (df['minicheck_pred'] != 'UNVERIFIABLE')"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# Cell 4: Compute Metrics & Benchmark Comparison\n",
+                "from sklearn.metrics import precision_score, recall_score, f1_score, matthews_corrcoef\n",
+                "\n",
+                "answered = df[df['is_answered']]\n",
+                "cov = len(answered) / len(df)\n",
+                "sel_acc = answered['is_correct'].mean() if len(answered) > 0 else 0.0\n",
+                "\n",
+                "pred_true = df[df['minicheck_pred'] == 'TRUE']\n",
+                "p_true = (pred_true['gold_verdict'] == 'TRUE').mean() if len(pred_true) > 0 else 0.0\n",
+                "\n",
+                "pred_false = df[df['minicheck_pred'] == 'FALSE']\n",
+                "p_false = (pred_false['gold_verdict'] == 'FALSE').mean() if len(pred_false) > 0 else 0.0\n",
+                "gold_false = df[df['gold_verdict'] == 'FALSE']\n",
+                "r_false = (pred_false['gold_verdict'] == 'FALSE').sum() / len(gold_false) if len(gold_false) > 0 else 0.0\n",
+                "f1_false = (2 * p_false * r_false / (p_false + r_false)) if (p_false + r_false) > 0 else 0.0\n",
+                "\n",
+                "print(\"=\"*80)\n",
+                "print(f\" MINICHECK-7B EVALUATION REPORT (N={len(df)})\")\n",
+                "print(\"=\"*80)\n",
+                "print(f\"  • Coverage:              {cov*100:.1f}% ({len(answered)}/{len(df)})\")\n",
+                "print(f\"  • Selective Accuracy:    {sel_acc*100:.1f}% ({answered['is_correct'].sum()}/{len(answered)})\")\n",
+                "print(f\"  • Precision (TRUE):      {p_true*100:.1f}% ({len(pred_true)} predicted)\")\n",
+                "print(f\"  • Precision (FALSE):     {p_false*100:.1f}% ({len(pred_false)} predicted)\")\n",
+                "print(f\"  • Hallucination F1:      {f1_false:.3f} (Recall: {r_false*100:.1f}%)\")\n",
+                "print(\"-\"*80)\n",
+                "\n",
+                "print(f\"\\n{'Modality':<20} | {'Total':<6} | {'Cov %':<6} | {'Sel Acc %':<10} | {'P(TRUE)':<8} | {'P(FALSE)':<8} | {'F1(FALSE)'}\")\n",
+                "print(f\"{'-'*20}-+-{'-'*6}-+-{'-'*6}-+-{'-'*10}-+-{'-'*8}-+-{'-'*8}-+-{'-'*10}\")\n",
+                "for mod, g in df.groupby('type'):\n",
+                "    ans_g = g[g['is_answered']]\n",
+                "    m_cov = len(ans_g) / len(g)\n",
+                "    m_acc = ans_g['is_correct'].mean() if len(ans_g) > 0 else 0.0\n",
+                "    pt = (g[g['minicheck_pred'] == 'TRUE']['gold_verdict'] == 'TRUE').mean() if (g['minicheck_pred'] == 'TRUE').sum() > 0 else 0.0\n",
+                "    pf = (g[g['minicheck_pred'] == 'FALSE']['gold_verdict'] == 'FALSE').mean() if (g['minicheck_pred'] == 'FALSE').sum() > 0 else 0.0\n",
+                "    gf = (g['gold_verdict'] == 'FALSE').sum()\n",
+                "    rf = (g[g['minicheck_pred'] == 'FALSE']['gold_verdict'] == 'FALSE').sum() / gf if gf > 0 else 0.0\n",
+                "    f1f = (2*pf*rf/(pf+rf)) if (pf+rf) > 0 else 0.0\n",
+                "    print(f\"{mod:<20} | {len(g):<6} | {m_cov*100:>5.1f}% | {m_acc*100:>9.1f}% | {pt*100:>6.1f}% | {pf*100:>6.1f}% | {f1f:>8.3f}\")\n",
+                "print(\"=\"*80)"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# Cell 5: Save Output CSV for HalDetect Integration\n",
+                "out_csv = 'haldetect_minicheck7b_results.csv'\n",
+                "df.to_csv(out_csv, index=False)\n",
+                "print(f\"Saved complete rescored results to {out_csv}!\")"
+            ]
+        }
+    ],
+    "metadata": {
+        "accelerator": "GPU",
+        "kernelspec": {
+            "display_name": "Python 3",
+            "language": "python",
+            "name": "python3"
+        },
+        "language_info": {
+            "name": "python",
+            "version": "3.10.12"
+        }
+    },
+    "nbformat": 4,
+    "nbformat_minor": 4
+}
+
+with open(NOTEBOOK_PATH, "w", encoding="utf-8") as f:
+    json.dump(notebook, f, indent=2)
+
+print(f"Generated clean Kaggle/Colab notebook at: {NOTEBOOK_PATH}")
