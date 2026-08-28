@@ -50,7 +50,7 @@ This document outlines the final operational roadmap for thesis manuscript compl
 * [x] Execute all 4 baseline pipelines and save full result CSVs.
 * [x] Compute McNemar Chi-Squared ($p < 0.0001$) and Wilson 95% Confidence Intervals.
 * [x] Generate 300 DPI high-resolution publication figures (`fig1` through `fig4`).
-* [x] Push all code, tests, and datasets to GitHub repository (`6cef5d6`).
+* [x] Push all code, tests, and datasets to GitHub repository (`3656427`).
 
 ### Phase B: Thesis Manuscript Chapters (UPCOMING 🚀)
 * [ ] **Chapter 4: Benchmark Methodology & Experimental Results**
