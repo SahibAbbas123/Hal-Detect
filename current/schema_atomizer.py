@@ -86,13 +86,19 @@ class SchemaAtomizer:
                     temporal_scope["end"] = years[-1]
 
         # 4. Split Multi-Clause Conjunctions while preserving Subject
-        # E.g. "Dwayne Johnson was born in 1972 and played college football for Miami"
+        # Only split on "and" if the second clause contains an active verb predicate
         clauses = []
-        if " and " in text and not re.search(r"\b(between \w+ and \w+|both \w+ and \w+)\b", text, re.I):
-            parts = text.split(" and ")
-            clauses = parts
-        elif ", and " in text:
+        has_verb_pattern = re.compile(r"\b(is|was|are|were|has|have|had|won|played|served|became|discovered|born|died|founded|published|directed)\b", re.I)
+        
+        if ", and " in text:
             clauses = text.split(", and ")
+        elif " and " in text and not re.search(r"\b(between \w+ and \w+|both \w+ and \w+)\b", text, re.I):
+            parts = text.split(" and ", 1)
+            # Only split if part 1 has a verb AND part 2 has a verb
+            if len(parts) == 2 and has_verb_pattern.search(parts[0]) and has_verb_pattern.search(parts[1]):
+                clauses = parts
+            else:
+                clauses = [text]
         else:
             clauses = [text]
 

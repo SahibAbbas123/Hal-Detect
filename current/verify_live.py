@@ -268,6 +268,21 @@ def check_wikipedia_summary(entity_name: str, claim_text: str) -> dict:
         }
 
     # -------------------------------------------------------------------
+    # QUANTITY & COUNT CONTRADICTION CHECKER (e.g. Nobel Prizes, championships)
+    # -------------------------------------------------------------------
+    m_nobel = re.search(r"\b(\d+)\s+nobel prizes?\b", claim_lower)
+    if m_nobel:
+        claimed_count = int(m_nobel.group(1))
+        actual_count = len(re.findall(r"\bnobel prize\b", extract_lower))
+        if actual_count > 0 and claimed_count != actual_count:
+            return {
+                "matched": True,
+                "verdict": "FALSE",
+                "confidence": 0.95,
+                "evidence": f"Quantitative count contradiction: Claim asserts '{claimed_count} Nobel Prizes', but evidence documents {actual_count} Nobel Prize(s) in summary."
+            }
+
+    # -------------------------------------------------------------------
     # TARGET ENTITY / TEAM / ORGANIZATION DISAGREEMENT CHECKER
     # -------------------------------------------------------------------
     orgs_and_teams = [
@@ -560,10 +575,31 @@ def verify_paragraph(text: str) -> dict:
         sentences = [text.strip()]
 
     all_propositions = []
+    primary_subject = None
+    pronouns = {"he", "she", "it", "they", "his", "her", "their", "this", "the scientist", "the player", "the wrestler"}
+    
     for s in sentences:
-        props = SchemaAtomizer.atomize_sentence(s)
+        words = s.strip().split()
+        if not words:
+            continue
+        
+        first_word = words[0].lower()
+        if first_word in pronouns and primary_subject:
+            if first_word in {"his", "her", "their"}:
+                resolved_s = primary_subject + "'s " + " ".join(words[1:])
+            else:
+                resolved_s = primary_subject + " " + " ".join(words[1:])
+        else:
+            resolved_s = s
+            m_subj = re.split(r"\b(is|was|are|were|has|have|won|discovered|signed|serves|plays|born|died)\b", s, flags=re.I)
+            if len(m_subj) > 1 and len(m_subj[0].strip().split()) <= 4:
+                primary_subject = m_subj[0].strip()
+            elif len(words) >= 2:
+                primary_subject = " ".join(words[:2])
+
+        props = SchemaAtomizer.atomize_sentence(resolved_s)
         if not props:
-            props = [{"raw_clause": s, "subject": s.split()[0] if s.split() else "entity", "predicate": "relation"}]
+            props = [{"raw_clause": resolved_s, "subject": primary_subject or "entity", "predicate": "relation"}]
         for p in props:
             all_propositions.append((p["raw_clause"], p))
 
