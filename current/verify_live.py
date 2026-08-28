@@ -29,11 +29,21 @@ import time
 import warnings
 from pathlib import Path
 
-# Silence verbose HuggingFace / tokenizers warnings
+# Silence verbose HuggingFace / tokenizers / sentence-transformers warnings & progress bars
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+os.environ["TRANSFORMERS_NO_ADVISORY_WARNINGS"] = "1"
+
+import logging
+logging.getLogger("sentence_transformers").setLevel(logging.ERROR)
+logging.getLogger("transformers").setLevel(logging.ERROR)
+logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
+logging.getLogger("huggingface_hub.utils._http").setLevel(logging.ERROR)
 warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", message=".*unauthenticated requests.*")
+warnings.filterwarnings("ignore", category=UserWarning, module="huggingface_hub")
 
 import requests
 from requests.adapters import HTTPAdapter

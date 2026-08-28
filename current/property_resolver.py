@@ -83,21 +83,30 @@ notebook. Run it directly for the Batch 3 coverage diagnostic:
     .venv/bin/python current/property_resolver.py --diagnose --resolver validated
 """
 
-from __future__ import annotations
+import os
+import sys
+
+# Silence Hugging Face Hub / Transformers warnings & download animations
+os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+os.environ["TRANSFORMERS_NO_ADVISORY_WARNINGS"] = "1"
 
 import argparse
 import ast
 import csv
 import json
-import os
 import re
-import sys
 import tempfile
 import time
 import unicodedata
+import warnings
 from collections import Counter
 
 import requests
+
+warnings.filterwarnings("ignore")
 
 # =============================================================================
 # CONFIGURATION  (mirrors cell 69 / cell 75 so behaviour stays consistent)
@@ -304,6 +313,15 @@ _sbert_model = None
 def get_sbert():
     global _sbert_model
     if _sbert_model is None:
+        import os
+        import warnings
+        import logging
+        os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+        os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+        logging.getLogger("sentence_transformers").setLevel(logging.ERROR)
+        logging.getLogger("transformers").setLevel(logging.ERROR)
+        logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
+        warnings.filterwarnings("ignore")
         from sentence_transformers import SentenceTransformer
         _sbert_model = SentenceTransformer(SBERT_MODEL)
     return _sbert_model
