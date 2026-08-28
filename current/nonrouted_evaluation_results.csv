@@ -1,0 +1,1006 @@
+master_id,claim,type,gold_verdict,nonrouted_verdict,nonrouted_confidence,is_answered,is_correct
+MST_0001,Albert Einstein published four papers in 1905.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0002,Albert Einstein worked at the Swiss Patent Office in Bern in 1905.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0003,Albert Einstein derived the equation E=mc².,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0004,The equation E=mc² shows that mass and energy are interchangeable.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0005,Albert Einstein proposed that light consists of discrete packets called quanta.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0006,Albert Einstein explained the photoelectric effect by proposing that light consists of discrete packets called quanta.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0007,Albert Einstein received the Nobel Prize in Physics in 1921.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0008,Albert Einstein published the general theory of relativity in 1915.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0009,The general theory of relativity describes gravity as the curvature of spacetime.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0010,Albert Einstein predicted that gravity bends light.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0011,Arthur Eddington verified that gravity bends light during a solar eclipse in 1919.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0012,Albert Einstein spent his final years at the Institute for Advanced Study in Princeton.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0013,The 2008 financial crisis began with a collapse in the United States housing market.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0014,Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0015,Investment banks bundled high-risk loans into mortgage-backed securities.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0016,Investment banks sold mortgage-backed securities to global investors.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0017,Home prices peaked in 2006.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0018,Home prices fell after 2006.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0019,Millions of homeowners defaulted on their loans.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0020,"Lehman Brothers filed for bankruptcy on September 15, 2008.",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0021,The bankruptcy of Lehman Brothers triggered a global liquidity freeze.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0022,The U.S. government passed the Emergency Economic Stabilization Act of 2008.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0023,The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0024,The 2008 financial crisis led to the Great Recession.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0025,The global GDP contracted by 0.1% in 2009.,TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0026,The IPCC Sixth Assessment Report was published in 2023.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0027,The IPCC Sixth Assessment Report states that human activities have caused global warming.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0028,Human activities have caused global warming.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0029,Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0030,The emission of greenhouse gases from fossil fuel combustion and land use drives global warming.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0031,The IPCC Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0032,A temperature rise causes more frequent and intense extreme weather events.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0033,Reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0034,Net-zero emissions must be achieved by 2050 to stabilize the global climate.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0035,The Silk Road began during the Han Dynasty around 130 BCE.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0036,Emperor Wu dispatched Zhang Qian to establish alliances in Central Asia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0037,The Silk Road network of trade routes connected Chang'an in China to the Mediterranean Sea.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0038,"The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.",QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0039,Merchants transported Chinese silk westward.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0040,Merchants transported Chinese lacquerware westward.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0041,Merchants transported Chinese paper westward.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0042,Merchants received horses from the Roman Empire.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0043,Merchants received glassware from the Roman Empire.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0044,Merchants received grapes from the Roman Empire.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0045,Buddhism spread from India to China during the 1st century CE.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0046,Genghis Khan led Mongol conquests in the 13th century.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0047,Mongol conquests secured the Silk Road routes.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0048,The Pax Mongolica increased trade volume.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0049,The Black Death plague traveled from Central Asia to Europe in the 14th century.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0050,The Ottoman Empire blocked traditional paths to the East in 1453.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0051,Maritime trade routes replaced land travel after 1453.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0052,Classical computers use bits to represent data as either a 0 or a 1.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0053,Quantum computers use qubits that exist in superpositions of both states simultaneously.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0054,Quantum systems can perform certain calculations exponentially faster than classical binary systems.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0055,Peter Shor developed an algorithm in 1994 that allows quantum computers to factor large integers efficiently.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0056,Classical computers require sub-exponential time to solve the factoring problems addressed by Peter Shor's algorithm.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0057,Google claimed quantum supremacy in 2019.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0058,Google used a 53-qubit processor called Sycamore to claim quantum supremacy.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0059,The Sycamore processor completed a specific sampling task in 200 seconds.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0060,"A classical supercomputer would take 10,000 years to complete the sampling task performed by the Sycamore processor.",QUANTITATIVE,UNVERIFIABLE,UNVERIFIABLE,0.3,False,False
+MST_0061,"Archduke Franz Ferdinand was assassinated on June 28, 1914.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0062,The assassination of Archduke Franz Ferdinand triggered a series of alliance obligations between European powers.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0063,Germany entered the conflict due to mutual defense treaties.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0064,Austria-Hungary entered the conflict due to mutual defense treaties.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0065,Great Britain entered the conflict due to mutual defense treaties.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0066,France entered the conflict due to mutual defense treaties.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0067,Russia entered the conflict due to mutual defense treaties.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0068,The war resulted in approximately 20 million deaths.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0069,The war resulted in 21 million wounded soldiers.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0070,The Treaty of Versailles was signed in 1919.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0071,The Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0072,The conflict led to the collapse of the German empire.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0073,The conflict led to the collapse of the Austro-Hungarian empire.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0074,The conflict led to the collapse of the Ottoman empire.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0075,The conflict led to the collapse of the Russian empire.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0076,"The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Poland.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0077,"The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Czechoslovakia.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0078,"The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Yugoslavia.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0079,The League of Nations formed in 1920.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0080,The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0081,The World Health Organization updated its Global Air Quality Guidelines in 2021.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0082,The World Health Organization's Global Air Quality Guidelines lower the recommended levels of fine particulate matter.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0083,The Global Air Quality Guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter.,CITATION,TRUE,FALSE,0.55,True,False
+MST_0084,High levels of fine particulate matter cause respiratory infections in human populations.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0085,High levels of fine particulate matter cause heart disease in human populations.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0086,High levels of fine particulate matter cause strokes in human populations.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0087,"Ambient air pollution is a primary driver of respiratory infections, heart disease, and strokes.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0088,"Household air pollution from solid fuels is a primary driver of respiratory infections, heart disease, and strokes.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0089,The World Health Organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0090,Pollution-related deaths result from the inhalation of toxic chemicals and particles.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0091,Toxic chemicals and particles enter the bloodstream through the lungs.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0092,The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0093,Low education levels in childhood and adolescence increase the risk of dementia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0094,Hypertension is a midlife risk factor for dementia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0095,Obesity is a midlife risk factor for dementia.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0096,Diabetes is a midlife risk factor for dementia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0097,Hearing loss is a midlife risk factor for dementia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0098,Smoking is a midlife risk factor for dementia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0099,Social isolation is a later life risk factor for dementia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0100,Physical inactivity is a later life risk factor for dementia.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0101,Air pollution is a later life risk factor for dementia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0102,The 2020 Lancet Commission reports that treating hypertension and hearing loss provides the largest potential reductions in risk.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0103,Treating hypertension and hearing loss provides the largest potential reductions in dementia risk.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0104,Vascular damage is a causal pathway through which modifiable risk factors contribute to dementia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0105,Cognitive decline is a causal pathway through which modifiable risk factors contribute to dementia.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0106,Addressing the 12 modifiable risk factors can prevent or delay approximately 12 million cases of dementia globally.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0107,The CDC recommends a specific immunization schedule for children from birth through age 18.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0108,The CDC immunization schedule includes vaccines for polio.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0109,The CDC immunization schedule includes vaccines for measles.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0110,The CDC immunization schedule includes vaccines for mumps.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0111,The CDC immunization schedule includes vaccines for rubella.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0112,Infants typically receive their first dose of the Hepatitis B vaccine within 24 hours of birth.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0113,The CDC updates the immunization recommendations annually.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0114,Healthcare providers use the CDC guidelines to determine the timing for each injection.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0115,Healthcare providers use the CDC guidelines to determine the dosage for each injection.,RELATIONAL,UNVERIFIABLE,FALSE,0.55,True,False
+MST_0116,The current immunization schedule is accessible on the official CDC website.,ENTITY_ATTRIBUTE,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0117,The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0118,The global extreme poverty rate remained stagnant at 8.4% of the population.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0119,The global extreme poverty rate of 8.4% represents approximately 685 million people living on less than $2.15 per day.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0120,The COVID-19 pandemic pushed an estimated 70 million to 100 million additional people into extreme poverty between 2020 and 2022.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0121,Conflict and climate shocks in Sub-Saharan Africa caused a 10% increase in food insecurity during 2023.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0122,High inflation rates in low-income countries reduced the purchasing power of households by an average of 5% in 2022.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0123,Rising fuel costs caused increased malnutrition in rural regions.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0124,Debt distress exists in 60% of low-income countries.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0125,Debt distress in 60% of low-income countries limits government spending on healthcare and education.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0126,The International Monetary Fund is a specialized agency of the United Nations.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0127,The International Monetary Fund was established in 1944.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0128,The International Monetary Fund was established following the Bretton Woods Conference.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0129,The International Monetary Fund provides temporary loans to member nations to resolve balance of payments problems.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0130,The International Monetary Fund monitors the economic and financial policies of its members.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0131,China is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0132,France is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0133,The Russian Federation is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0134,The United Kingdom is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0135,The United States is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0136,"China, France, the Russian Federation, the United Kingdom, and the United States were the primary victors of World War II.",ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0137,A United Nations Security Council resolution requires the absence of a veto from any permanent member to pass.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0138,CRISPR-Cas9 is a genome editing technology derived from a prokaryotic adaptive immune system.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0139,Jennifer Doudna and Emmanuelle Charpentier published the foundational mechanism for CRISPR-Cas9 in 2012.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0140,The CRISPR-Cas9 system consists of the Cas9 protein and a guide RNA.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0141,The Cas9 protein creates a double-strand break in DNA.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0142,The guide RNA sequence matches a specific target DNA site.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0143,The guide RNA guides the Cas9 protein to a genomic location through complementary base pairing.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0144,The cell uses internal repair mechanisms to delete or insert genetic material after the Cas9 protein cuts the DNA.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0145,The Paris Agreement was adopted at the COP21 conference.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0146,"The Paris Agreement was adopted on December 12, 2015.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0147,The Paris Agreement requires each party to prepare Nationally Determined Contributions to reduce greenhouse gas emissions.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0148,The Paris Agreement mandates a transparency framework to track progress through regular reporting of emissions and climate actions.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0149,The commitments in the Paris Agreement aim to reach a peak of global emissions.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0150,The commitments in the Paris Agreement aim to achieve climate neutrality by 2050.,TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0151,The World Health Organization reports that approximately one billion people worldwide live with a mental disorder.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0152,Depression and anxiety disorders are the most common mental health conditions globally.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0153,Depression and anxiety disorders cause disability.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0154,Depression and anxiety disorders cause loss of productive years.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0155,Low- and middle-income countries bear the highest burden of depression and anxiety disorders.,RELATIONAL,UNVERIFIABLE,FALSE,0.55,True,False
+MST_0156,Low- and middle-income countries have the lowest access to care for depression and anxiety disorders.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0157,The WHO World Mental Health Report 2022 emphasizes that mental health gaps are driven by insufficient funding and systemic neglect.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0158,Mental health gaps are driven by insufficient funding.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0159,Mental health gaps are driven by systemic neglect.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0160,Insufficient funding and systemic neglect lead to higher rates of untreated psychosis.,RELATIONAL,UNVERIFIABLE,FALSE,0.55,True,False
+MST_0161,Insufficient funding and systemic neglect lead to higher rates of untreated severe depressive episodes.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0162,Untreated psychosis and severe depressive episodes increase the risk of premature mortality through suicide.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0163,Untreated psychosis and severe depressive episodes increase the risk of premature mortality through comorbid physical health failures.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0164,UNICEF reports that approximately 149 million children under five suffered from stunting in 2022.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0165,Stunting results from chronic malnutrition.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0166,Stunting results from poor maternal health.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0167,Wasting in children under five in 2023 was caused by acute malnutrition.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0168,Conflict drives rates of food insecurity in the Sahel.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0169,Climate shocks drive rates of food insecurity in the Sahel.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0170,Inflation reduces household purchasing power.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0171,Debt crises reduce household purchasing power.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0172,Economic pressures prevent families from accessing nutrient-dense foods.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0173,Poor nutrition causes permanent cognitive impairment in young children.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0174,Poor nutrition causes physical growth failure in young children.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0175,The World Health Organization reports that the prevalence of diabetes has risen over the past three decades.,CITATION,TRUE,FALSE,0.55,True,False
+MST_0176,The increase in diabetes prevalence is linked to rising rates of overweight and obesity globally.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0177,Many people with diabetes remain undiagnosed.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0178,Many people with diabetes do not receive treatment.,RELATIONAL,UNVERIFIABLE,FALSE,0.55,True,False
+MST_0179,Diabetes leads to blindness.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0180,Diabetes leads to heart failure.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0181,Diabetes leads to kidney failure.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0182,Diabetes is a leading cause of death globally.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0183,The FAO reported in 2023 that global food insecurity increased during 2022.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0184,"The FAO report attributed the rise in food insecurity to the combined effects of conflict, economic shocks, and climate extremes.",CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0185,The war in Ukraine disrupted global grain exports.,RELATIONAL,UNVERIFIABLE,FALSE,0.55,True,False
+MST_0186,The war in Ukraine disrupted global fertilizer exports.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0187,Supply chain disruptions caused food prices to rise globally.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0188,Droughts destroyed crops in multiple regions.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0189,Floods destroyed crops in multiple regions.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0190,"Conflict, economic shocks, and climate extremes pushed millions more people into acute food insecurity.",RELATIONAL,UNVERIFIABLE,FALSE,0.55,True,False
+MST_0191,"On October 14, 1962, a United States U-2 spy plane photographed Soviet medium-range ballistic missiles in Cuba.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0192,President John F. Kennedy convened the Executive Committee of the National Security Council.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0193,The purpose of the Executive Committee of the National Security Council meeting was to determine a response.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0194,"On October 22, John F. Kennedy announced a naval quarantine of Cuba.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0195,The goal of the naval quarantine of Cuba was to prevent further Soviet shipments.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0196,Soviet Premier Nikita Khrushchev sent a letter on October 26.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0197,Nikita Khrushchev offered in the October 26 letter to remove the missiles if the United States promised not to invade Cuba.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0198,The United States agreed to remove American missiles from Turkey.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0199,The removal of American missiles from Turkey was part of the deal with Nikita Khrushchev.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0200,Nikita Khrushchev ordered the dismantling of the missiles on October 28.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0201,Marie Curie was born Maria Skłodowska.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0202,Marie Curie was born in 1867.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0203,"Marie Curie was born in Warsaw, Poland.",ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0204,Marie Curie moved to Paris in 1891.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0205,Marie Curie studied physics at the Sorbonne.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0206,Marie Curie studied mathematics at the Sorbonne.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0207,Marie Curie and Pierre Curie discovered the element polonium in 1898.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0208,Marie Curie and Pierre Curie identified the element radium in 1898.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0209,Marie Curie received the Nobel Prize in Physics in 1903.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0210,Marie Curie received the Nobel Prize in Physics for her research on radiation.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0211,Marie Curie won the Nobel Prize in Chemistry in 1911.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0212,Marie Curie won the Nobel Prize in Chemistry for isolating pure radium.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0213,Marie Curie died in 1934.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0214,Marie Curie died from aplastic anemia.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0215,Aplastic anemia in Marie Curie was caused by prolonged exposure to ionizing radiation.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0216,The U.S. Department of Defense established ARPANET in 1969.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0217,Vint Cerf and Bob Kahn developed the TCP/IP protocols in 1974.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0218,The TCP/IP protocols allow different networks to communicate.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0219,"ARPANET adopted TCP/IP on January 1, 1983.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0220,Tim Berners-Lee invented the World Wide Web at CERN in 1989.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0221,"Tim Berners-Lee combined HTML, HTTP, and URLs to invent the World Wide Web.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0222,The National Science Foundation Network expanded internet access to academic institutions throughout the 1980s.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0223,Marc Andreessen released the Mosaic web browser in 1993.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0224,The Mosaic web browser enabled the display of images alongside text.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0225,Commercial restrictions on the internet ended in 1995.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0226,The end of commercial restrictions on the internet in 1995 led to the rise of private internet service providers.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0227,Traditional vaccines introduce weakened or inactivated pathogens to trigger an immune response.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0228,mRNA vaccines provide a synthetic sequence of messenger RNA that instructs cells to produce a specific viral protein.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0229,The Pfizer-BioNTech vaccine used mRNA to produce the SARS-CoV-2 spike protein in 2020.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0230,The Moderna vaccine used mRNA to produce the SARS-CoV-2 spike protein in 2020.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0231,mRNA is encapsulated in lipid nanoparticles to enter human cells.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0232,Ribosomes read the mRNA sequence to synthesize the spike protein.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0233,The synthesis of the spike protein triggers the production of antibodies.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0234,mRNA vaccines use genetic instructions instead of the actual virus.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0235,France began construction of the Panama Canal in 1881.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0236,Ferdinand de Lesseps led the French construction of the Panama Canal.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0237,The French effort to build the Panama Canal failed by 1889.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0238,"Yellow fever and malaria caused over 20,000 deaths during the French effort to build the Panama Canal.",QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0239,The United States took over the Panama Canal project in 1904.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0240,The United States supported Panamanian independence from Colombia.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0241,Engineers replaced the sea-level plan for the Panama Canal with a lock system.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0242,Engineers created Gatun Lake to manage the terrain of the Panama Canal.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0243,Three sets of locks lift ships 85 feet above sea level to cross the Continental Divide.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0244,"The Panama Canal opened on August 15, 1914.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0245,"The Panama Canal reduced the sea voyage from New York to San Francisco by 8,000 miles.",QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0246,The Panama Canal enables the transit of large vessels between the Atlantic and Pacific Oceans.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0247,The International Energy Agency reported in its 2024 Renewables report that global renewable capacity additions grew by 50% in 2023.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0248,Solar PV accounted for three-quarters of the 2023 global renewable capacity additions.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0249,China installed more solar capacity in 2023 than the entire world did in 2022.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0250,Lower module prices resulted in the growth of global renewable capacity additions.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0251,Increased government support resulted in the growth of global renewable capacity additions.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0252,The International Energy Agency expects renewable capacity to increase by 2.5 times by 2030.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0253,The International Energy Agency's projection of a 2.5 times increase in renewable capacity by 2030 relies on the implementation of current policies.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0254,The International Energy Agency's projection of a 2.5 times increase in renewable capacity by 2030 relies on the implementation of planned projects.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0255,"Total global renewable capacity reached 3,372 gigawatts by the end of 2023.",QUANTITATIVE,FALSE,FALSE,0.55,True,True
+MST_0256,Coral bleaching occurs when corals expel symbiotic algae called zooxanthellae from their tissues.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0257,Zooxanthellae provide up to 90 percent of the coral's energy through photosynthesis.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0258,Increased ocean temperatures trigger a stress response that disrupts the relationship between the coral host and the zooxanthellae.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0259,The loss of zooxanthellae pigments reveals the white calcium carbonate skeleton beneath.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0260,The 2014 to 2017 global bleaching event affected over 70 percent of the world's coral reefs.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0261,Ocean acidification is a trigger for coral bleaching.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0262,Extreme low tides are a trigger for coral bleaching.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0263,Corals can recover if water temperatures return to normal within a few weeks.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0264,Mount Everest is the tallest peak in Asia.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0265,"Mount Everest reaches 8,848.86 meters.",QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0266,Aconcagua is the highest point in South America.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0267,"Aconcagua is 6,961 meters.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0268,Denali is the tallest mountain in North America.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0269,"Denali has an elevation of 6,190 meters.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0270,Kilimanjaro is the tallest mountain in Africa.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0271,"Kilimanjaro measures 5,895 meters.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0272,Mount Elbrus is the highest peak in Europe.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0273,"Mount Elbrus is 5,642 meters.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0274,Mount Vinson is the tallest mountain in Antarctica.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0275,"Mount Vinson is 4,892 meters.",QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0276,Puncak Jaya is the highest peak in Oceania.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0277,"Puncak Jaya is 4,884 meters.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0278,The World Heritage Committee evaluates nominations based on ten specific criteria.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0279,These ten specific criteria were established by the 1972 World Heritage Convention.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0280,A site must meet at least one of the ten criteria to demonstrate Outstanding Universal Value.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0281,The World Heritage Committee assesses the integrity of the site.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0282,Nominations must include a detailed management plan.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0283,The World Heritage Committee reviews the site's comparative analysis against similar properties globally.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0284,The World Heritage Committee votes on designations during its annual session.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0285,The Rosetta Stone is a granodiorite stele.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0286,The Rosetta Stone was discovered in 1799.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0287,French soldiers discovered the Rosetta Stone.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0288,French soldiers discovered the Rosetta Stone during the Napoleonic campaign in Egypt.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0289,The Rosetta Stone contains a decree issued in 196 BC.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0290,King Ptolemy V issued the decree on the Rosetta Stone.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0291,The text on the Rosetta Stone is written in Ancient Egyptian hieroglyphs.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0292,The text on the Rosetta Stone is written in Demotic script.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0293,The text on the Rosetta Stone is written in Ancient Greek.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0294,Jean-François Champollion used the Greek text to decipher the hieroglyphs in 1822.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0295,Jean-François Champollion identified that the hieroglyphs represented sounds.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0296,Jean-François Champollion identified that the hieroglyphs represented concepts.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0297,"Egyptian texts had been unreadable for 1,500 years.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0298,Usain Bolt holds the men's 100m world record with a time of 9.58 seconds.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0299,"Usain Bolt achieved the time of 9.58 seconds on August 16, 2009.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0300,Usain Bolt achieved the time of 9.58 seconds during the World Athletics Championships in Berlin.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0301,Florence Griffith-Joyner holds the women's 100m world record with a time of 10.49 seconds.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0302,"Florence Griffith-Joyner set the record of 10.49 seconds on July 16, 1988.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0303,Florence Griffith-Joyner set the record of 10.49 seconds at the Olympic Trials in Indianapolis.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0304,World Athletics reports that Usain Bolt's 9.58 seconds and Florence Griffith-Joyner's 10.49 seconds remain the official standings.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0305,Usain Bolt established the mark of 9.58 seconds during a sanctioned international competition.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0306,Florence Griffith-Joyner established the mark of 10.49 seconds during a sanctioned international competition.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0307,The Soviet Union diverted the Amu Darya and Syr Darya rivers starting in the 1960s.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0308,The Soviet Union diverted the Amu Darya and Syr Darya rivers to irrigate cotton fields in Uzbekistan and Turkmenistan.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0309,The diversion of the Amu Darya and Syr Darya rivers reduced the freshwater inflow into the Aral Sea.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0310,The Aral Sea shrank to less than 10 percent of its original surface area by the 2010s.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0311,The collapse of the Aral Sea increased the salinity of the water.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0312,The collapse of the Aral Sea killed most endemic fish species.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0313,Receding waters of the Aral Sea left a salt-crusted desert known as the Aralkum.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0314,Winds carry toxic dust and pesticides from the Aralkum seabed into nearby populations.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0315,Pollutants from the Aralkum seabed caused increased rates of throat cancer in the Karakalpakstan region.,RELATIONAL,UNVERIFIABLE,FALSE,0.55,True,False
+MST_0316,Pollutants from the Aralkum seabed caused increased rates of respiratory diseases in the Karakalpakstan region.,RELATIONAL,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0317,The OECD reports that income inequality increased in most member countries between 1985 and 2015.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0318,Income inequality between 1985 and 2015 was driven by a rise in the share of income held by the top 10% of households.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0319,The OECD found that the Gini coefficient rose in 14 out of 34 member states between 1985 and 2015.,CITATION,UNVERIFIABLE,TRUE,0.55,True,False
+MST_0320,Market income inequality grew due to the decline of manufacturing jobs.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0321,Market income inequality grew due to the rise of automation.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0322,Government taxes and transfers reduced market income inequality.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0323,The OECD report highlights that high-income inequality correlates with slower growth in real median household income.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0324,The human liver is the largest internal organ.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0325,The human liver weighs approximately 1.5 kilograms in an average adult.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0326,The human liver is divided into two primary lobes.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0327,The two primary lobes of the human liver are the right and left lobes.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0328,The right and left lobes of the human liver are separated by the falciform ligament.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0329,The human liver consists of functional units called lobules.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0330,Lobules contain hepatocytes.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0331,Lobules contain a central vein.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0332,Hepatocytes produce bile.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0333,Bile travels through the hepatic ducts to the gallbladder for storage.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0334,The human liver filters blood from the digestive tract via the portal vein.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0335,The human liver removes toxins from the blood.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0336,The human liver metabolizes nutrients.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0337,The human liver synthesizes albumin.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0338,The human liver synthesizes clotting factors.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0339,Albumin and clotting factors maintain osmotic pressure and blood coagulation.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0340,The human liver converts excess glucose into glycogen for energy storage during periods of fasting.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0341,"The United States has over 5,000 active satellites as of 2024.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0342,China operates approximately 600 active satellites.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0343,Russia maintains around 200 active satellites in orbit.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0344,The United States leads in launch volume.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0345,The SpaceX Starlink constellation is deployed.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0346,China ranks second in annual launch frequency.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0347,China is expanding the Beidou navigation system.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0348,The Indian Space Research Organisation has a commercial satellite program.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0349,India increases its launch count through the Indian Space Research Organisation's commercial satellite program.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0350,The Food and Agriculture Organization (FAO) publishes the State of World Fisheries and Aquaculture report every two years.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0351,The 2022 State of World Fisheries and Aquaculture report states that 35.4 percent of global fish stocks are fished at biologically unsustainable levels.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0352,The percentage of global fish stocks fished at biologically unsustainable levels was 10.1 percent in 1974.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0353,Overfishing causes the biomass of fish stocks to fall below a level that can produce the maximum sustainable yield.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0354,"Illegal, unreported, and unregulated fishing bypasses national quotas.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0355,"Illegal, unreported, and unregulated fishing contributes to the depletion of fish stocks.",RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0356,The FAO reports that sustainable management practices in 82.6 percent of assessed stocks prevented further declines in 2021.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0357,The human liver converts glycogen into glucose during periods of digestion after a meal.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0358,The human liver converts excess glucose into glycogen for energy storage during intense physical exercise.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0359,"The Panama Canal opened on August 15, 1904.",RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0360,France completed construction of the Panama Canal in 1889.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0361,Coral bleaching occurs when zooxanthellae increase in density within coral tissue.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0362,"Corals cannot recover once bleaching occurs, even if water temperatures return to normal.",RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0363,"Soviet river diversion increased freshwater inflow to the Aral Sea, causing it to expand.",RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0364,OECD data shows income inequality decreased across most member countries between 1985 and 2015.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0365,"Illegal, unreported, and unregulated fishing has no measurable effect on global fish stock depletion.",RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0366,The Rosetta Stone was discovered in 1922 by Howard Carter.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0367,The 2014-2017 global coral bleaching event affected less than 5% of the world's coral reefs.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0368,Zooxanthellae provide less than 10 percent of a coral's energy through photosynthesis.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0369,Russia operates more active satellites than China.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0370,The liver does not produce bile; bile is synthesized in the gallbladder.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0371,The Panama Canal took over 100 years to complete after construction began in 1904.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0372,The 2014-2017 global coral bleaching event was the shortest recorded bleaching event in history.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0373,The Aral Sea has lost less than 10 percent of its original surface area since Soviet-era diversion began.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0374,OECD member countries typically implement income inequality reforms within the same fiscal year they are proposed.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0375,The human liver begins glycogenolysis immediately after a meal is consumed before digestion is complete.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0376,France's construction efforts on the Panama Canal were most active during the period after the canal's 1914 opening.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0377,OECD data shows the Gini coefficient rose in only 2 out of 34 member states between 1985 and 2015.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0378,"Illegal, unreported, and unregulated fishing accounts for less than 1 percent of global catch by volume.",RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0379,The Panama Canal reduced the sea voyage from New York to San Francisco by about 800 miles.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0380,The liver performs gluconeogenesis primarily right after a large carbohydrate-rich meal.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0381,Bile is released into the digestive tract primarily during periods of fasting.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0382,Coral bleaching primarily occurs when ocean temperatures drop significantly below normal.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0383,Fish species died out in the Aral Sea primarily after river diversion ended in the 2000s.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0384,His books are on data analysis.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0385,Shahnaz's second husband was Khosrow Jahanbani.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0386,Moynahan studied acting at the American Academy of Dramatic Arts.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0387,"Song Kang was born on April 23, 1994.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0388,"She was born on August 5, 1945.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0389,Goklibai High School is located in Vile Parle.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0390,Desmond Luke is an Australian.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0391,They have two daughters together.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0392,Letwin was involved in the creation of the National Health Service.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0393,Cheney has been recognised with numerous awards.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0394,Yuri Nagibin was a screenwriter.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0395,He worked as a fashion model.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0396,The Lok Sabha elections were held in 2014.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0397,CafeMom is an online social networking site.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0398,Cukor won an Academy Award.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0399,He has some famous movies.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0400,Quintus Sosius Senecio had a political career.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0401,"According to an article in INpress, the album is a fervent mix of rap.",ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0402,Proceso is a Mexican news magazine.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0403,The fictional main character meets Jessop while working on the Titanic.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0404,Letwin was a Member of Parliament from 1997.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0405,He made a Serie A debut.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0406,She received the MBE  in 2018.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0407,She donates her earnings from endorsements.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0408,Khan studied History.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0409,Taral Hicks is an American.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0410,Leach's performance helped England secure a draw.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0411,He played for Sao Cristovao.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0412,Virginia Valli was an American.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0413,He became head of the Bureau of Customs' legal division in 1965.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0414,La Falacia was released in 1999.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0415,He has appeared in The Last Boy Scout.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0416,He has a record of one loss.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0417,The controversies were surrounding child pornography laws.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0418,He plays for Somerset.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0419,Payne explores other genres.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0420,Letwin has authored several books.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0421,She met Sajid Nadiadwala while working on a set.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0422,The newspaper was called Proceso.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0423,Virginia Valli was a film actress.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0424,He played the role of a landlord.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0425,His albums were successful.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0426,He is best known for his role in Secret.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0427,She began competing at an early age.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0428,Memović did not score any goals.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0429,He is known for his charismatic acting.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0430,His M.S. is in Mathematics and Electrical Engineering.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0431,He starred in The Adventures of Robin Hood.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0432,"""Like Water"" received commercial success.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0433,He died never having fully recovered from the repercussions of his lottery win.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0434,He was a columnist.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0435,He retired in 2005.,TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0436,The series was called The Crown.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0437,Bobby Jacobs was a bassist.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0438,Dubois is one of the most promising prospects in British boxing.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0439,Ben has had a successful acting career in Australia.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0440,Boseman died after a four-year battle.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0441,Rob Furlong is a sniper.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0442,He got the nickname because of his misshapen legs.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0443,She is an accomplished sculptor.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0444,She was appointed as the Director of BBC News.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0445,The son was named Bruno Fonseca.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0446,Rakhi Sawant has contested in the Maharashtra Assembly elections.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0447,Valpy has written The Pursuit of Happiness: An Agenda for a Better Society.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0448,Valpy has written books on Canadian politics.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0449,"His success earned him a standing as the ""king of Corrientes history"".",ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0450,Since retiring she has focused on her family.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0451,He later returned to China.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0452,She made this decision after being applauded.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0453,He became a member in 1971.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0454,"Off the field, Díaz is known for her philanthropic work.",ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0455,He is a recipient of the Queen's Golden Jubilee medal.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0456,He continues to perform live.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0457,He was awarded the medal in 2011.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0458,Gonzalo Fonseca was a sculptor.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0459,Payne was involved in the Action 1D campaign.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0460,The court cases involving transgender individuals.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0461,The minor league deal was with the Detroit Tigers organization.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0462,Trivisonno's talk show aired on weekdays.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0463,Vincenzo Tusa died on 5 March 2009.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0464,He is remembered for his successful defense of Adolf Eichmann.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0465,She earned awards for music-related activities.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0466,Mexico City is in Mexico.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0467,He has appeared in CSI: NY.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0468,One part is the Mishnah.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0469,He is best known for creating the SciPy library.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0470,She is the CEO of Carolina Portesi.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0471,La Abuela comments on current events.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0472,He commissioned the construction of a small temple.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0473,Unsworth has received several awards.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0474,He weighs 230 pounds.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0475,António de Oliveira Salazar was Portuguese.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0476,He sang in a group.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0477,"Lua Blanco was born on May 5, 1987.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0478,He served as Paymaster General.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0479,Queen of the South is a series on USA Network.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0480,Her husband is restaurateur Michael Tipps.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0481,"He served as the president of Fisher Research Laboratory, Inc. until 1967.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0482,"The title of Scientist's debut album is ""Scientist Rids the World of the Evil Curse of the Vampires"".",ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0483,He won the Grand Prize at the KBS Drama Awards.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0484,"Lanny Flaherty was born on December 18, 1949.",ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0485,Lanny Flaherty was born in Pensacola.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0486,He has appeared in numerous theater productions.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0487,His career began in the late 1970s.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0488,His notable film credits include King of New York.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0489,His notable film credits include The Abyss.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0490,His notable film credits include The Game.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0491,His notable film credits include The Straight Story.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0492,He has appeared in Law & Order.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0493,He has appeared in The Sopranos.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0494,He has appeared in Boardwalk Empire.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0495,He has appeared in The Leftovers.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0496,Flaherty has worked extensively in theater.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0497,Flaherty has worked in productions at the Public Theater.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0498,Flaherty has worked in productions at the New York Shakespeare Festival.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0499,Doug Sheehan is best known for his role as Ben Galvin.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0500,He has appeared in The Big Easy.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0501,He has appeared in The Last Boy Scout.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0502,He has appeared in NYPD Blue.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0503,"He has appeared in Beverly Hills, 90210.",ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0504,He was born in Los Angeles.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0505,"He was born on August 24, 1956.",ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0506,Sheehan attended the University of California.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0507,California is in Los Angeles.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0508,He received a Bachelor of Arts degree.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0509,His Bachelor of Arts degree is in Theatre Arts.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0510,He is married to Lisa Cooper.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0511,He has been married since 1984.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0512,He has two children.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0513,She was born in the Bronx.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0514,Shahnaz's mother-in-law was Queen Fawzia.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0515,Queen Fawzia was a Queen of Egypt.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0516,They have two daughters together.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0517,Their separation was reported in December 2022.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0518,He was taken as part of his parents' first furlough.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0519,Howard Taylor attended the Royal College of Surgeons.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0520,He was born in Guadalajara.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0521,This Time peaked at No. No. 4 on Billboard Bubbling Under Hot 100 Singles.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0522,Shaitan was released in 2012.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0523,Margarita with a Straw was released in 2015.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0524,Waiting was released in 2016.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0525,He found a job in construction.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0526,He was ranked #3.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0527,"He gained his citizenship on November 25th, 2023.",ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0528,2023 was a great personal year for Glover Teixeira.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0529,Telemundo is a English-language television network.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0530,Damon Albarn's debut album was released in 2011.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0531,Savages was exclusively a German film.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0532,Andrew Kevin Walker is only Chinese.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0533,Murda Beatz's real name is Marshall Mathers.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0534,Charles Manson has been proven innocent of all crimes.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0535,Sean Penn is only ever a stage actor.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0536,Brad Wilk helped co-found Rage in 1962.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0537,Janet Leigh was incapable of writing.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0538,Simón Bolívar is only known as Simón Bolívar.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0539,Bermuda Triangle is in the western part of the Himalayas.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0540,Advertising is a personal message.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0541,Hot Right Now is mistakenly attributed to DJ Fresh.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0542,Giada at Home was only available on DVD.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0543,"Harold Macmillan was born on February 20, 1894.",ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0544,David Packouz refused to be an entrepreneur.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0545,Magic Johnson did not play for the Lakers.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0546,Tenacious D started in 1997.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0547,Saxony is in Ireland.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0548,Noah Cyrus is a younger sister of Macy Grey.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0549,Mohra is a truck.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0550,Hourglass is performed by a Russian singer-songwriter.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0551,"There are not rumors that Augustus' wife, Livia, poisoned him.",ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0552,Vedam was written and directed by Christopher Nolan.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0553,Magic Johnson was a tap dancer.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0554,The Adventures of Pluto Nash was reviewed by Ron Underwood.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0555,Hedda Gabler's world premiere took place at the Battle of Hastings.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0556,Juventus F.C. rejected their traditional black-and-white-striped home uniform in 1903.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0557,New Orleans Pelicans compete in the National Football Association.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0558,Starrcade was an annual professional wrestling event that began in 1988.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0559,"The IPCC Sixth Assessment Report states that human activities have caused conflict, economic shocks, and climate extremes.",CITATION,FALSE,TRUE,0.55,True,False
+MST_0560,The FAO report attributed the rise in food insecurity to the combined effects of global warming.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0561,Mount Elbrus is the highest peak in Oceania.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0562,Puncak Jaya is the highest peak in Europe.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0563,Denali is the tallest mountain in Africa.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0564,Kilimanjaro is the tallest mountain in Antarctica.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0565,Mount Vinson is the tallest mountain in North America.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0566,"The war resulted in approximately over 20,000 deaths.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0567,Yellow fever and malaria caused 20 million deaths during the French effort to build the Panama Canal.,QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0568,"Mount Everest reaches 6,961 meters.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0569,"Aconcagua is 6,190 meters.",QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0570,"Denali has an elevation of 5,895 meters.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0571,"Kilimanjaro measures 5,642 meters.",QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0572,"Mount Elbrus is 4,892 meters.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0573,"Puncak Jaya is 8,848.86 meters.",QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0574,The United States has 200 active satellites as of 2024.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0575,"Russia maintains around over 5,000 active satellites in orbit.",QUANTITATIVE,FALSE,FALSE,0.55,True,True
+MST_0576,Usain Bolt achieved the time of 10.49 seconds seconds during the World Athletics Championships in Berlin.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0577,Florence Griffith-Joyner set the record of 9.58 at the Olympic Trials in Indianapolis.,QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0578,"The Paris Agreement was adopted on January 1, 1983.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0579,"ARPANET adopted TCP/IP on December 12, 2015.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0580,"The Silk Road began during the Han Dynasty around August 15, 1914.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0581,The Panama Canal opened on 130 BCE.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0582,The League of Nations formed in 1944.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0583,The International Monetary Fund was established in 1920.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0584,Tim Berners-Lee invented the Shor's algorithm at CERN in 1989.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0585,The Emergency Economic Stabilization Act of 2008 provided $707 billion for bank bailouts.,QUANTITATIVE,FALSE,FALSE,0.55,True,True
+MST_0586,The Emergency Economic Stabilization Act of 2008 provided $735 billion for bank bailouts.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0587,The Emergency Economic Stabilization Act of 2008 provided $875 billion for bank bailouts.,QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0588,The Emergency Economic Stabilization Act of 2008 provided $1050 billion for bank bailouts.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0589,The Emergency Economic Stabilization Act of 2008 provided $1400 billion for bank bailouts.,QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0590,The Emergency Economic Stabilization Act of 2008 provided $7000 billion for bank bailouts.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0591,Global surface temperatures have increased by approximately 1.2 degrees Celsius since 1850.,QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0592,Global surface temperatures have increased by approximately 1.4 degrees Celsius since 1850.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0593,Global surface temperatures have increased by approximately 1.7 degrees Celsius since 1850.,QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0594,Global surface temperatures have increased by approximately 2.2 degrees Celsius since 1850.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0595,Global surface temperatures have increased by approximately 11.0 degrees Celsius since 1850.,QUANTITATIVE,FALSE,FALSE,0.55,True,True
+MST_0596,"The Silk Road network of trade routes spanned a distance of approximately 6,464 kilometers.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0597,"Egyptian texts had been unreadable for 1,515 years.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0598,"Egyptian texts had been unreadable for 1,575 years.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0599,"Egyptian texts had been unreadable for 1,875 years.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0600,"Egyptian texts had been unreadable for 2,250 years.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0601,"Egyptian texts had been unreadable for 3,000 years.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0602,"Egyptian texts had been unreadable for 15,000 years.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0603,"Usain Bolt achieved the time of 9.68 seconds on August 16, 2009.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0604,"Usain Bolt achieved the time of 10.06 seconds on August 16, 2009.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0605,"Usain Bolt achieved the time of 11.97 seconds on August 16, 2009.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0606,"Usain Bolt achieved the time of 14.37 seconds on August 16, 2009.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0607,"Usain Bolt achieved the time of 19.16 seconds on August 16, 2009.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0608,"Usain Bolt achieved the time of 95.80 seconds on August 16, 2009.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0609,Albert Einstein published four papers in 1906.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0610,Albert Einstein published four papers in 1907.,TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0611,Albert Einstein published four papers in 1910.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0612,Albert Einstein published four papers in 1915.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0613,Albert Einstein published four papers in 2005.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0614,Albert Einstein worked at the Swiss Patent Office in Bern in 1906.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0615,Albert Einstein worked at the Swiss Patent Office in Bern in 1907.,TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0616,Albert Einstein worked at the Swiss Patent Office in Bern in 1910.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0617,Albert Einstein worked at the Swiss Patent Office in Bern in 1915.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0618,Albert Einstein worked at the Swiss Patent Office in Bern in 2005.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0619,Albert Einstein received the Nobel Prize in Physics in 1922.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0620,Albert Einstein received the Nobel Prize in Physics in 1923.,TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0621,The IPCC Sixth Assessment Report was published in 2024.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0622,The IPCC Sixth Assessment Report was published in 2025.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0623,The IPCC Sixth Assessment Report was published in 2028.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0624,The IPCC Sixth Assessment Report was published in 2033.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0625,The IPCC Sixth Assessment Report was published in 2123.,CITATION,FALSE,FALSE,0.55,True,True
+MST_0626,The 2021 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0627,The 2022 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0628,The 2025 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0629,The 2030 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0630,The 2120 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0631,The World Bank reported in 2024 that the global extreme poverty rate remained stagnant at 8.4% of the population.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0632,The World Bank reported in 2025 that the global extreme poverty rate remained stagnant at 8.4% of the population.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0633,The WHO Sixth Assessment Report was published in 2023.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0634,The WHO Sixth Assessment Report states that human activities have caused global warming.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0635,The WHO Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.,CITATION,FALSE,FALSE,0.55,True,True
+MST_0636,The 2020 WHO Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0637,The WHO recommends a specific immunization schedule for children from birth through age 18.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0638,The WHO reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0639,The CDC World Mental Health Report 2022 emphasizes that mental health gaps are driven by insufficient funding and systemic neglect.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0640,WHO reports that approximately 149 million children under five suffered from stunting in 2022.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0641,"The WHO report attributed the rise in food insecurity to the combined effects of conflict, economic shocks, and climate extremes.",CITATION,FALSE,TRUE,0.55,True,False
+MST_0642,The Food and Agriculture Organization (WHO) publishes the State of World Fisheries and Aquaculture report every two years.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0643,The NVIDIA GeForce RTX 4090 graphics card has 24 GB of GDDR6X VRAM.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0644,The NVIDIA GeForce RTX 4090 graphics card has 32 GB of GDDR6X VRAM.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0645,The Apple M2 Ultra system-on-chip contains 134 billion transistors.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0646,The Apple M2 Ultra system-on-chip contains 250 billion transistors.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0647,The original PlayStation 5 console launched with a custom 825 GB internal SSD.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0648,The original PlayStation 5 console launched with a standard 1000 GB internal SSD.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0649,Apple reported revenue of $89.5 billion for its fiscal 2023 fourth quarter.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0650,Apple reported revenue of $105.2 billion for its fiscal 2023 fourth quarter.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0651,Tesla delivered 1.81 million electric vehicles globally in 2023.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0652,Tesla delivered 2.5 million electric vehicles globally in 2023.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0653,The Burj Khalifa in Dubai stands at an architectural height of 828 meters.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0654,The Burj Khalifa in Dubai stands at an architectural height of 912 meters.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0655,The Tokyo Skytree reaches a total height of 634 meters.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0656,The Tokyo Skytree reaches a total height of 555 meters.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0657,The Channel Tunnel linking the UK and France has a total length of 50.45 kilometers.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0658,The Channel Tunnel linking the UK and France has a total length of 32.5 kilometers.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0659,"Wembley Stadium in London has an official seating capacity of 90,000.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0660,"Wembley Stadium in London has an official seating capacity of 115,000.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0661,"The Boeing 787-9 Dreamliner has a maximum flight range of 14,140 kilometers.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0662,"The Boeing 787-9 Dreamliner has a maximum flight range of 18,500 kilometers.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0663,"The speed of light in vacuum is exactly 299,792,458 meters per second.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0664,"The speed of light in vacuum is exactly 340,000,000 meters per second.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0665,The Bitcoin protocol mathematically caps the total supply at 21 million coins.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0666,The Bitcoin protocol mathematically caps the total supply at 100 million coins.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0667,"Python 3.0 was officially released on December 3, 2008.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0668,"Python 3.0 was officially released on December 3, 2012.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0669,"Linus Torvalds released the initial Linux kernel version 0.01 on September 17, 1991.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0670,"Linus Torvalds released the initial Linux kernel version 0.01 on September 17, 1996.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0671,"Steve Jobs announced the original iPhone during Macworld on January 9, 2007.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0672,"Steve Jobs announced the original iPhone during Macworld on January 9, 2009.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0673,"The Kyoto Protocol climate agreement was adopted on December 11, 1997 in Kyoto, Japan.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0674,"The Kyoto Protocol climate agreement was adopted on December 11, 2003 in Kyoto, Japan.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0675,"The Maastricht Treaty creating the European Union was signed on February 7, 1992.",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0676,"The Maastricht Treaty creating the European Union was signed on February 7, 1999.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0677,"The Apollo 11 Lunar Module touched down on the Moon on July 20, 1969.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0678,"The Apollo 11 Lunar Module touched down on the Moon on July 20, 1972.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0679,"The Berlin Wall was opened and began to fall on November 9, 1989.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0680,"The Berlin Wall was opened and began to fall on November 9, 1991.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0681,"The Chernobyl nuclear disaster occurred at Reactor No. 4 on April 26, 1986.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0682,"The Chernobyl nuclear disaster occurred at Reactor No. 4 on April 26, 1989.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0683,Stripe was founded by brothers Patrick Collison and John Collison.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0684,Stripe was founded by PayPal co-founder Peter Thiel.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0685,Jensen Huang serves as the Chief Executive Officer of Nvidia.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0686,Lisa Su serves as the Chief Executive Officer of Nvidia.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0687,The molecular chemical formula for glucose is C6H12O6.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0688,The molecular chemical formula for glucose is C12H22O11.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0689,Gold has an atomic number of 79 on the periodic table.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0690,Gold has an atomic number of 47 on the periodic table.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0691,The Sydney Opera House in Australia was designed by Danish architect Jørn Utzon.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0692,The Sydney Opera House in Australia was designed by architect Frank Gehry.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0693,The science fiction epic Dune was written by American author Frank Herbert.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0694,The science fiction epic Dune was written by American author Isaac Asimov.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0695,The paper 'Attention Is All You Need' by Vaswani et al. was published in NeurIPS 2017.,CITATION,TRUE,FALSE,0.55,True,False
+MST_0696,The paper 'Attention Is All You Need' by Vaswani et al. was published in NeurIPS 2021.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0697,Jacob Devlin is the lead author of the BERT paper published at NAACL 2019.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0698,Yann LeCun is the lead author of the BERT paper published at NAACL 2019.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0699,The ResNet paper 'Deep Residual Learning for Image Recognition' was authored by Kaiming He et al. (CVPR 2016).,CITATION,TRUE,TRUE,0.55,True,True
+MST_0700,The ResNet paper 'Deep Residual Learning for Image Recognition' was authored by Geoffrey Hinton et al. (CVPR 2016).,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0701,The landmark paper 'Quantum Transformer Dynamics' by A. Sterling was published in Nature Machine Intelligence in 2023.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0702,The 2022 Science study 'Autonomous Molecular Alignment Networks' by Dr. Elena Rostova proved zero-shot folding.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0703,The Sixth Assessment Report (AR6) was published by the Intergovernmental Panel on Climate Change (IPCC).,CITATION,TRUE,TRUE,0.55,True,True
+MST_0704,The Sixth Assessment Report (AR6) on global warming was published by the World Bank.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0705,"ACE inhibitors lower blood pressure by preventing the conversion of angiotensin I to angiotensin II, causing vasodilation.",RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0706,ACE inhibitors lower blood pressure by directly stimulating angiotensin II receptors in smooth muscle.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0707,"mRNA vaccines work by delivering genetic instructions to host cells to transiently produce the viral spike protein, triggering immune response.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0708,mRNA vaccines function by permanently integrating foreign viral sequences into the patient's nuclear genomic DNA.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0709,"Raising central bank policy rates increases the cost of borrowing, which reduces consumer spending and business investment to moderate inflation.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0710,Raising central bank policy rates directly expands the broad money supply and pushes government bond yields downward.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0711,"Ocean acidification occurs because absorbed atmospheric carbon dioxide reacts with seawater to form carbonic acid, lowering ocean pH.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0712,Ocean acidification is primarily driven by agricultural nitrogen runoff reacting with sodium chloride in surface waters.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0713,"Johannes Gutenberg's moveable-type printing press enabled the rapid dissemination of vernacular Bibles, accelerating the Protestant Reformation.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0714,"Following its invention, the printing press was successfully banned across all European monarchies until the late 18th century.",RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0715,The AMD EPYC 9654 server processor features 96 Zen 4 CPU cores.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0716,The AMD EPYC 9654 server processor features 128 Zen 4 CPU cores.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0717,Tesla V3 Superchargers deliver a peak charging rate of up to 250 kW per vehicle.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0718,Tesla V3 Superchargers deliver a peak charging rate of up to 500 kW per vehicle.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0719,The Qualcomm Snapdragon 8 Gen 3 Cortex-X4 prime core clocks up to 3.3 GHz.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0720,The Qualcomm Snapdragon 8 Gen 3 Cortex-X4 prime core clocks up to 4.2 GHz.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0721,The primary mirror of the James Webb Space Telescope measures 6.5 meters across.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0722,The primary mirror of the James Webb Space Telescope measures 12.4 meters across.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0723,"The Apollo Saturn V rocket could inject a payload of approximately 140,000 kg into Low Earth Orbit.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0724,"The Apollo Saturn V rocket could inject a payload of approximately 45,000 kg into Low Earth Orbit.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0725,The speed of sound in dry air at 20 degrees Celsius is approximately 343 meters per second.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0726,The speed of sound in dry air at 20 degrees Celsius is approximately 520 meters per second.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0727,The population of Japan is approximately 125 million people.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0728,The population of Japan is approximately 210 million people.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0729,The average adult human body contains approximately 5 liters of blood.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0730,The average adult human body contains approximately 14 liters of blood.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0731,The single-stranded RNA genome of SARS-CoV-2 is approximately 29.9 kilobases in length.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0732,The single-stranded RNA genome of SARS-CoV-2 is approximately 150 kilobases in length.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0733,"Rust 1.0 was officially released on May 15, 2015.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0734,"Rust 1.0 was officially released on May 15, 2018.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0735,"The Bitcoin genesis block was mined by Satoshi Nakamoto on January 3, 2009.",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0736,"The Bitcoin genesis block was mined by Satoshi Nakamoto on January 3, 2011.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0737,"OpenAI launched ChatGPT as a research preview on November 30, 2022.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0738,"OpenAI launched ChatGPT as a research preview on November 30, 2020.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0739,"The Paris Agreement on climate change was adopted at COP21 on December 12, 2015.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0740,"The Paris Agreement on climate change was adopted at COP21 on December 12, 2018.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0741,"The Belfast Good Friday Agreement was signed in Northern Ireland on April 10, 1998.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0742,"The Belfast Good Friday Agreement was signed in Northern Ireland on April 10, 2004.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0743,"CERN announced the discovery of the Higgs boson by the ATLAS and CMS experiments on July 4, 2012.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0744,"CERN announced the discovery of the Higgs boson by the ATLAS and CMS experiments on July 4, 2016.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0745,"The LIGO detectors made the first direct observation of gravitational waves on September 14, 2015 (GW150914).",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0746,"The LIGO detectors made the first direct observation of gravitational waves on September 14, 2019.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0747,Sam Altman serves as the Chief Executive Officer of OpenAI.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0748,Dario Amodei serves as the Chief Executive Officer of OpenAI.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0749,Demis Hassabis is the co-founder and Chief Executive Officer of Google DeepMind.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0750,Ilya Sutskever is the Chief Executive Officer of Google DeepMind.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0751,Titanium has an atomic number of 22 on the periodic table.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0752,Titanium has an atomic number of 30 on the periodic table.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0753,The molecular chemical formula of ozone is O3.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0754,The molecular chemical formula of ozone is O2.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0755,The chief engineer responsible for the Golden Gate Bridge was Joseph Strauss.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0756,The chief engineer responsible for the Golden Gate Bridge was Gustave Eiffel.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0757,The dystopian novel Nineteen Eighty-Four was written by British author George Orwell.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0758,The dystopian novel Nineteen Eighty-Four was written by author Aldous Huxley.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0759,Ian Goodfellow et al. introduced Generative Adversarial Networks (GANs) at NeurIPS 2014.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0760,Yann LeCun et al. introduced Generative Adversarial Networks (GANs) at NeurIPS 2014.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0761,The Adam optimizer paper by Diederik Kingma and Jimmy Ba was published at ICLR 2015.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0762,The Adam optimizer paper by Diederik Kingma and Jimmy Ba was published at ICLR 2020.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0763,Hugo Touvron is the lead author of the Meta AI LLaMA technical report published in 2023.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0764,Sam Altman is the lead author of the Meta AI LLaMA technical report published in 2023.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0765,The US Supreme Court ruled state laws establishing racial segregation in public schools unconstitutional in Brown v. Board of Education (1954).,CITATION,TRUE,FALSE,0.55,True,False
+MST_0766,The US Supreme Court ruled state laws establishing racial segregation in public schools unconstitutional in Brown v. Board of Education (1972).,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0767,The 2023 federal court decision Mata v. Avianca sanctioned lawyers for submitting legal briefs citing fabricated court decisions hallucinated by ChatGPT.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0768,The 2023 federal court decision Mata v. Avianca ruled that generative AI models are legally authorized to act as trial attorneys in federal courts.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0769,Metformin treats type 2 diabetes primarily by activating AMP-activated protein kinase (AMPK) and suppressing hepatic glucose production.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0770,Metformin treats type 2 diabetes by directly stimulating pancreatic alpha cells to accelerate systemic glucagon release.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0771,Statins lower plasma cholesterol levels by competitively inhibiting the rate-limiting enzyme HMG-CoA reductase in the liver.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0772,Statins lower cholesterol by directly destroying cell-surface LDL receptors across the liver.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0773,SSRIs increase extracellular concentrations of serotonin by selectively inhibiting the serotonin transporter protein (SERT) in synaptic clefts.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0774,SSRIs function primarily by blocking monoamine oxidase to prevent the enzymatic degradation of dopamine.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0775,"Quantitative easing expands central bank reserves to purchase long-term government bonds, lowering long-term borrowing yields.",RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0776,Quantitative easing operates by liquidating sovereign gold reserves to directly pay down national consumer debt.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0777,The planetary greenhouse effect occurs because atmospheric gases absorb outgoing infrared radiation and re-radiate thermal energy back toward the surface.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0778,The greenhouse effect warms planetary surfaces because greenhouse gases reflect 100% of incoming solar ultraviolet radiation away from outer space.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0779,The NVIDIA H100 SXM5 GPU features 80 GB of HBM3 memory.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0780,The NVIDIA H100 SXM5 GPU features 128 GB of HBM3 memory.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0781,The maximum thermal design power (TDP) for an NVIDIA H100 SXM module is 700 watts.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0782,The maximum thermal design power (TDP) for an NVIDIA H100 SXM module is 350 watts.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0783,The Apple M3 Max chip is fabricated with 92 billion transistors on TSMC 3nm process.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0784,The Apple M3 Max chip is fabricated with 150 billion transistors on TSMC 3nm process.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0785,The Intel Core i9-14900K desktop processor reaches a maximum turbo frequency of 6.0 GHz.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0786,The Intel Core i9-14900K desktop processor reaches a maximum turbo frequency of 7.2 GHz.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0787,"IBM's Condor quantum processor features 1,121 superconducting qubits.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0788,"IBM's Condor quantum processor features 5,000 superconducting qubits.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0789,A 16-lane PCIe 5.0 interface provides a bi-directional bandwidth of approximately 128 GB/s.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0790,A 16-lane PCIe 5.0 interface provides a bi-directional bandwidth of approximately 512 GB/s.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0791,The Hubble Space Telescope utilizes a primary mirror with a diameter of 2.4 meters.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0792,The Hubble Space Telescope utilizes a primary mirror with a diameter of 5.0 meters.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0793,"As of 2024, the Voyager 1 spacecraft is over 160 astronomical units (AU) from the Sun.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0794,"As of 2024, the Voyager 1 spacecraft is over 500 astronomical units (AU) from the Sun.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0795,"The Hubble Space Telescope was launched aboard Space Shuttle Discovery on April 24, 1990 (STS-31).",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0796,"The Hubble Space Telescope was launched aboard Space Shuttle Discovery on April 24, 1995.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0797,"The James Webb Space Telescope launched aboard an Ariane 5 rocket on December 25, 2021.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0798,"The James Webb Space Telescope launched aboard an Ariane 5 rocket on December 25, 2018.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0799,"Voyager 2 crossed the heliopause into interstellar space on November 5, 2018.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0800,"Voyager 2 crossed the heliopause into interstellar space on November 5, 2012.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0801,"NASA's Parker Solar Probe reached a record perihelion speed of approximately 690,000 km/h.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0802,"NASA's Parker Solar Probe reached a record perihelion speed of approximately 1,500,000 km/h.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0803,"Penicillin kills bacteria by inhibiting transpeptidase enzymes, preventing cross-linking of peptidoglycan in bacterial cell walls.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0804,Penicillin kills bacteria by binding directly to the 50S ribosomal subunit to arrest protein translation.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0805,Aspirin reduces inflammation and platelet aggregation by irreversibly acetylating and inhibiting cyclooxygenase (COX-1 and COX-2) enzymes.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0806,Aspirin prevents blood clots by directly stimulating thromboxane A2 receptors across platelets.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0807,The CRISPR-Cas9 system uses a single guide RNA to direct the Cas9 endonuclease to cleave specific double-stranded DNA sequences.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0808,The CRISPR-Cas9 system functions by synthesizing lipid nanoparticles that dissolve eukaryotic nuclear membranes to insert chromosomes.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0809,The active pharmaceutical ingredient in the brand-name medication Lipitor is atorvastatin.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0810,The active pharmaceutical ingredient in the brand-name medication Lipitor is metoprolol.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0811,Alexander Fleming discovered penicillin at St. Mary's Hospital in London in September 1928.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0812,Alexander Fleming discovered penicillin at St. Mary's Hospital in London in September 1945.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0813,"Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton published AlexNet at NeurIPS 2012.",CITATION,TRUE,TRUE,0.55,True,True
+MST_0814,"Andrew Ng, Ilya Sutskever, and Geoffrey Hinton published AlexNet at NeurIPS 2012.",CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0815,Tom Brown et al. introduced GPT-3 in 'Language Models are Few-Shot Learners' at NeurIPS 2020.,CITATION,TRUE,FALSE,0.55,True,False
+MST_0816,Demis Hassabis et al. introduced GPT-3 in 'Language Models are Few-Shot Learners' at NeurIPS 2020.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0817,Rafael Rafailov et al. proposed Direct Preference Optimization (DPO) at NeurIPS 2023.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0818,John Schulman et al. proposed Direct Preference Optimization (DPO) at NeurIPS 2023.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0819,Jason Wei et al. published 'Chain-of-Thought Prompting Elicits Reasoning in Large Language Models' at NeurIPS 2022.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0820,Noam Shazeer et al. published 'Chain-of-Thought Prompting Elicits Reasoning in Large Language Models' at NeurIPS 2022.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0821,The US Supreme Court established the principle of judicial review in Marbury v. Madison (1803).,CITATION,TRUE,TRUE,0.55,True,True
+MST_0822,The US Supreme Court established the principle of judicial review in Marbury v. Madison (1865).,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0823,The US Supreme Court overturned Roe v. Wade in Dobbs v. Jackson Women's Health Organization (2022).,CITATION,TRUE,TRUE,0.55,True,True
+MST_0824,The US Supreme Court overturned Roe v. Wade in Dobbs v. Jackson Women's Health Organization (2016).,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0825,"The four core Geneva Conventions governing international humanitarian law were adopted on August 12, 1949.",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0826,"The four core Geneva Conventions governing international humanitarian law were adopted on August 12, 1965.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0827,"The official elevation of Mount Everest established by Nepal and China is 8,848.86 meters.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0828,"The official elevation of Mount Everest established by Nepal and China is 9,500.0 meters.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0829,"Lake Baikal in Russia is the world's deepest freshwater lake with a maximum depth of 1,642 meters.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0830,"Lake Baikal in Russia is the world's deepest freshwater lake with a maximum depth of 3,200 meters.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0831,"The Suez Canal was officially opened to international navigation on November 17, 1869.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0832,"The Suez Canal was officially opened to international navigation on November 17, 1905.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0833,"The photoelectric effect occurs when incident photons transfer their quantized energy to electrons, ejecting them if photon energy exceeds the work function.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0834,The photoelectric effect occurs because continuous classical electromagnetic waves gradually heat surface atoms until they melt and emit neutrons.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0835,"As recognized by the IAU, Jupiter has 95 officially confirmed natural satellites.",QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0836,"As recognized by the IAU, Jupiter has 150 officially confirmed natural satellites.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0837,Saturn has 146 officially recognized moons in its planetary orbit.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0838,Saturn has 50 officially recognized moons in its planetary orbit.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0839,The IUPAC standard atomic weight of carbon is approximately 12.011 atomic mass units.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0840,The IUPAC standard atomic weight of carbon is approximately 14.500 atomic mass units.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0841,The Avogadro constant is defined exactly as 6.02214076 × 10^23 reciprocal moles.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0842,The Avogadro constant is defined exactly as 9.81 × 10^23 reciprocal moles.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0843,The Panama Canal cuts across the Isthmus of Panama for a total length of 82 kilometers.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0844,The Panama Canal cuts across the Isthmus of Panama for a total length of 193 kilometers.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0845,The fundamental Planck constant is defined as 6.62607015 × 10^-34 joule-seconds.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0846,The fundamental Planck constant is defined as 1.380649 × 10^-23 joule-seconds.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0847,"The equatorial radius of planet Mars is approximately 3,390 kilometers.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0848,"The equatorial radius of planet Mars is approximately 6,371 kilometers.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0849,"The Golden Gate Bridge spans a total length of approximately 2,737 meters.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0850,"The Golden Gate Bridge spans a total length of approximately 5,200 meters.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0851,"The United Nations General Assembly adopted the Universal Declaration of Human Rights on December 10, 1948.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0852,"The United Nations General Assembly adopted the Universal Declaration of Human Rights on December 10, 1960.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0853,"The initial working draft of the human genome was jointly announced by the Human Genome Project and Celera on June 26, 2000.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0854,"The initial working draft of the human genome was jointly announced by the Human Genome Project and Celera on June 26, 1990.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0855,"Dr. Christiaan Barnard performed the world's first human-to-human heart transplant on December 3, 1967 in Cape Town.",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0856,"Dr. Christiaan Barnard performed the world's first human-to-human heart transplant on December 3, 1982 in Cape Town.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0857,"Linus Torvalds published the initial release of the Git version control system on April 7, 2005.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0858,"Linus Torvalds published the initial release of the Git version control system on April 7, 2011.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0859,"The Apollo 13 service module oxygen tank exploded en route to the Moon on April 13, 1970.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0860,"The Apollo 13 service module oxygen tank exploded en route to the Moon on April 13, 1975.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0861,"In double-stranded DNA, adenine forms complementary base pairs with thymine, and cytosine pairs with guanine.",ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0862,"In standard genomic double-stranded DNA, adenine bonds directly with uracil as its primary complementary base.",ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0863,Helium is classified as a noble gas in Group 18 of the periodic table.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0864,Helium is classified as a highly reactive alkali metal in Group 1 of the periodic table.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0865,The federal capital city of the Commonwealth of Australia is Canberra.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0866,The federal capital city of the Commonwealth of Australia is Sydney.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0867,The federal city and de facto capital of Switzerland is Bern.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0868,The federal city and de facto capital of Switzerland is Zurich.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0869,James Watson and Francis Crick published the double helix structure of DNA in Nature in April 1953.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0870,Linus Pauling published the correct double helix structure of DNA in Nature in April 1953.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0871,The 2023 study 'A Programmable Dual-RNA-Guided DNA Mismatch Endonuclease' by Dr. K. Sato in Nature Biotech proved 100% off-target elimination.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0872,"Ron Rivest, Adi Shamir, and Leonard Adleman introduced the RSA cryptosystem in CACM in February 1978.",CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0873,Alan Turing introduced the RSA cryptosystem in Communications of the ACM in February 1978.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0874,The second law of thermodynamics states that the total entropy of an isolated physical system can never decrease over time.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0875,The second law of thermodynamics states that isolated physical systems spontaneously eliminate all internal entropy until reaching zero.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0876,Plate tectonics operates primarily through thermal convection currents within Earth's asthenosphere driving the motion of rigid lithospheric plates.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0877,Plate tectonics operates because lunar gravitational tides liquefy entire continental landmasses on a century-long recurring cycle.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0878,Planet Mercury completes one orbit around the Sun in approximately 88 Earth days.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0879,Planet Mercury completes one orbit around the Sun in approximately 225 Earth days.,QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0880,Iron has an atomic number of 26 on the periodic table.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0881,Iron has an atomic number of 29 on the periodic table.,QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0882,"Under standard atmospheric pressure, pure water freezes at 32 degrees Fahrenheit.",QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0883,"Under standard atmospheric pressure, pure water freezes at 0 degrees Fahrenheit.",QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0884,A standard three-class Boeing 747-400 accommodates approximately 416 passengers.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0885,A standard three-class Boeing 747-400 accommodates approximately 850 passengers.,QUANTITATIVE,FALSE,FALSE,0.55,True,True
+MST_0886,The average surface temperature of planet Venus is approximately 464 degrees Celsius.,QUANTITATIVE,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0887,The average surface temperature of planet Venus is approximately 120 degrees Celsius.,QUANTITATIVE,FALSE,TRUE,0.55,True,False
+MST_0888,"Tim Berners-Lee publicly posted the World Wide Web project on the alt.hypertext newsgroup on August 6, 1991.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0889,"Tim Berners-Lee publicly posted the World Wide Web project on the alt.hypertext newsgroup on August 6, 1995.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0890,"The United Nations officially came into existence on October 24, 1945 when its Charter was ratified.",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0891,"The United Nations officially came into existence on October 24, 1955 when its Charter was ratified.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0892,"The first ARPANET message ('LO') was transmitted from UCLA to Stanford on October 29, 1969.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0893,"The first ARPANET message was transmitted from UCLA to Stanford on October 29, 1978.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0894,The chemical formula for table salt (sodium chloride) is NaCl.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0895,The chemical formula for table salt (sodium chloride) is KCl.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0896,The national capital city of Canada is Ottawa.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0897,The national capital city of Canada is Toronto.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0898,The simplest alkane hydrocarbon methane has the molecular formula CH4.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0899,The simplest alkane hydrocarbon methane has the molecular formula C2H6.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0900,Sergey Brin and Larry Page introduced the Google search engine and PageRank algorithm in WWW 1998.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0901,Bill Gates introduced the Google search engine and PageRank algorithm in WWW 1998.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0902,Edsger W. Dijkstra published his shortest path graph algorithm in Numerische Mathematik in 1959.,CITATION,TRUE,UNVERIFIABLE,0.3,False,False
+MST_0903,Donald Knuth published Dijkstra's shortest path graph algorithm in Numerische Mathematik in 1959.,CITATION,FALSE,TRUE,0.55,True,False
+MST_0904,The 2024 Nature article 'Autonomous Hyper-Dimensional Quantum Cognition' by Dr. V. Kane demonstrated AGI.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0905,"Cellular respiration breaks down glucose molecules in the presence of oxygen to synthesize cellular ATP, releasing CO2 and H2O.",RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0906,Cellular respiration functions by absorbing solar photons to synthesize storage glycogen in human muscle without oxygen consumption.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0907,Gresham's law states that legally overvalued ('bad') money tends to drive undervalued ('good') money out of circulation.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0908,Gresham's law dictates that physical gold bullion spontaneously replaces digital bank reserves in retail transactions.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0909,"The Challenger Deep in the Mariana Trench reaches a maximum ocean depth of approximately 10,984 meters.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0910,"The Challenger Deep in the Mariana Trench reaches a maximum ocean depth of approximately 25,000 meters.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0911,The radioactive isotope Uranium-235 has a physical half-life of approximately 704 million years.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0912,"The radioactive isotope Uranium-235 has a physical half-life of approximately 10,000 years.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0913,"The Concorde supersonic passenger airliner cruised at a maximum speed of Mach 2.04 (approx 2,180 km/h).",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0914,The Concorde supersonic passenger airliner cruised at a maximum speed of Mach 5.5.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0915,A normal resting heart rate for healthy adults ranges from 60 to 100 beats per minute.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0916,A normal resting heart rate for healthy adults ranges from 150 to 220 beats per minute.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0917,"The maximum takeoff weight (MTOW) of a Boeing 777-300ER airliner is approximately 351,500 kg.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0918,"The maximum takeoff weight (MTOW) of a Boeing 777-300ER airliner is approximately 600,000 kg.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0919,Planet Neptune takes approximately 165 Earth years to complete a single orbital revolution around the Sun.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0920,Planet Neptune takes approximately 29 Earth years to complete a single orbital revolution around the Sun.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0921,"The Treaty of Versailles formally ending World War I was signed on June 28, 1919.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0922,"The Treaty of Versailles formally ending World War I was signed on June 28, 1925.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0923,"The Soviet Union launched Sputnik 1, the first artificial Earth satellite, on October 4, 1957.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0924,"The Soviet Union launched Sputnik 1, the first artificial Earth satellite, on October 4, 1965.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0925,Dennis Ritchie developed the original C programming language at Bell Labs between 1972 and 1973.,TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0926,Dennis Ritchie developed the original C programming language at Bell Labs in 1989.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0927,"King John of England granted the Magna Carta at Runnymede on June 15, 1215.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0928,"King John of England granted the Magna Carta at Runnymede on June 15, 1315.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0929,"The Camp David Accords between Egypt and Israel were signed at the White House on September 17, 1978.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0930,"The Camp David Accords between Egypt and Israel were signed at the White House on September 17, 1993.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_0931,The C++ programming language was designed and implemented by Danish computer scientist Bjarne Stroustrup.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0932,The C++ programming language was designed and implemented by Guido van Rossum.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0933,The chemical symbol for the element mercury on the periodic table is Hg (from hydrargyrum).,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0934,The chemical symbol for the element mercury on the periodic table is Me.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0935,The federal capital city of Brazil is Brasília.,ENTITY_ATTRIBUTE,TRUE,FALSE,0.55,True,False
+MST_0936,The federal capital city of Brazil is Rio de Janeiro.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0937,The chemical symbol for potassium on the periodic table is K (derived from neo-Latin kalium).,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0938,The chemical symbol for potassium on the periodic table is Po.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0939,The official mascot of the Linux kernel is Tux the penguin.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0940,The official mascot of the Linux kernel is Ferris the crab.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0941,Claude Shannon founded information theory in his 1948 Bell System Technical Journal paper 'A Mathematical Theory of Communication'.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0942,John von Neumann founded information theory in his 1948 Bell System Technical Journal paper 'A Mathematical Theory of Communication'.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0943,Alan Turing introduced the concept of universal Turing machines in his 1936 paper 'On Computable Numbers'.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0944,Kurt Gödel introduced the concept of universal Turing machines in his 1936 paper 'On Computable Numbers'.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0945,Noam Chomsky published his transformational generative grammar framework in the 1957 book Syntactic Structures.,CITATION,TRUE,FALSE,0.55,True,False
+MST_0946,B. F. Skinner published his transformational generative grammar framework in the 1957 book Syntactic Structures.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0947,"Nuclear fission occurs when a heavy atomic nucleus absorbs a neutron and splits into smaller nuclei, releasing energy and prompt neutrons.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0948,Nuclear fission occurs when light hydrogen nuclei fuse together under extreme thermal pressure to form helium.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0949,"The Keynesian fiscal multiplier operates because initial government spending increases recipient incomes, stimulating subsequent rounds of consumer demand.",RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0950,The Keynesian multiplier functions by automatically raising central interest rates to destroy 50% of outstanding bank reserves.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0951,Bernoulli's principle states that an increase in the speed of a fluid occurs simultaneously with a decrease in static pressure or potential energy.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0952,Bernoulli's principle states that faster moving fluids generate dramatically higher static pressure against enclosing surfaces.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0953,The Alpha Centauri star system is approximately 4.37 light-years distant from Earth.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0954,The Alpha Centauri star system is approximately 25.0 light-years distant from Earth.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0955,Copper has an atomic number of 29 on the periodic table.,QUANTITATIVE,TRUE,FALSE,0.55,True,False
+MST_0956,Copper has an atomic number of 47 on the periodic table.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0957,The wingspan of a standard Boeing 737-800 with winglets is approximately 35.8 meters.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0958,The wingspan of a standard Boeing 737-800 with winglets is approximately 65.0 meters.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0959,The standard atomic weight of pure elemental gold (Au) is approximately 196.97 atomic mass units.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0960,The standard atomic weight of pure elemental gold (Au) is approximately 107.87 atomic mass units.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0961,The Peace of Westphalia treaties ending the Thirty Years' War were signed in 1648.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0962,The Peace of Westphalia treaties ending the Thirty Years' War were signed in 1713.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0963,Sun Microsystems officially released Java 1.0 in 1995.,TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0964,Sun Microsystems officially released Java 1.0 in 2005.,TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0965,"Napoleon was defeated at the Battle of Waterloo on June 18, 1815.",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0966,"Napoleon was defeated at the Battle of Waterloo on June 18, 1825.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0967,The chemical symbol for silver on the periodic table is Ag (from argentum).,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0968,The chemical symbol for silver on the periodic table is Si.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0969,The national capital city of the Arab Republic of Egypt is Cairo.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0970,The national capital city of the Arab Republic of Egypt is Alexandria.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0971,Traditional bronze is an alloy composed primarily of copper combined with tin.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0972,Traditional bronze is an alloy composed primarily of pure iron combined with liquid mercury.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0973,Warren McCulloch and Walter Pitts introduced the first artificial neural network model in Bulletin of Mathematical Biophysics in 1943.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0974,Frank Rosenblatt introduced the first artificial neural network model in Bulletin of Mathematical Biophysics in 1943.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0975,Alan Turing proposed the Imitation Game (Turing Test) in his 1950 Mind paper 'Computing Machinery and Intelligence'.,CITATION,TRUE,FALSE,0.55,True,False
+MST_0976,Norbert Wiener proposed the Imitation Game (Turing Test) in his 1950 Mind paper 'Computing Machinery and Intelligence'.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0977,Osmosis is the spontaneous net movement of solvent molecules through a selectively permeable membrane into a region of higher solute concentration.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0978,Osmosis is the active enzymatic transport of mineral ions against gravity driven exclusively by nuclear ATP pumps.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0979,Archimedes' principle indicates that any body submerged in a fluid experiences an upward buoyant force equal to the weight of fluid it displaces.,RELATIONAL,TRUE,TRUE,0.55,True,True
+MST_0980,Archimedes' principle dictates that buoyancy is generated solely by acoustic standing waves vibrating inside solid crystal structures.,RELATIONAL,FALSE,FALSE,0.55,True,True
+MST_0981,"The exact speed of light in vacuum is defined as 299,792,458 meters per second.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0982,"The exact speed of light in vacuum is defined as 150,000,000 meters per second.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0983,Absolute zero corresponds to a temperature of -273.15 degrees on the Celsius scale.,QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0984,Absolute zero corresponds to a temperature of -459.67 degrees on the Celsius scale.,QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0985,"The Apollo 11 Lunar Module Eagle touched down on the lunar surface on July 20, 1969.",TEMPORAL,TRUE,FALSE,0.55,True,False
+MST_0986,"The Apollo 11 Lunar Module Eagle touched down on the lunar surface on July 20, 1974.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0987,"The catastrophic nuclear accident at the Chernobyl Nuclear Power Plant occurred on April 26, 1986.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_0988,"The catastrophic nuclear accident at the Chernobyl Nuclear Power Plant occurred on April 26, 1991.",TEMPORAL,FALSE,TRUE,0.55,True,False
+MST_0989,Diamond is an allotrope composed purely of carbon atoms arranged in a face-centered diamond cubic lattice.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0990,Diamond is a mineral formed exclusively from crystalline silicon dioxide.,ENTITY_ATTRIBUTE,FALSE,FALSE,0.55,True,True
+MST_0991,The official legal tender currency of Japan is the Japanese yen (JPY).,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_0992,The official legal tender currency of Japan is the Japanese yuan.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_0993,Albert Einstein published his popular exposition 'Relativity: The Special and General Theory' in 1916.,CITATION,TRUE,TRUE,0.55,True,True
+MST_0994,Max Planck published his popular exposition 'Relativity: The Special and General Theory' in 1916.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0995,The Doppler effect causes an increase in observed wave frequency when the source and observer move toward each other.,RELATIONAL,TRUE,FALSE,0.55,True,False
+MST_0996,The Doppler effect occurs because physical sound waves exceed the speed of light when traveling through heavy water.,RELATIONAL,FALSE,TRUE,0.55,True,False
+MST_0997,"The average center-to-center distance from Earth to the Moon is approximately 384,400 kilometers.",QUANTITATIVE,TRUE,TRUE,0.55,True,True
+MST_0998,"The average center-to-center distance from Earth to the Moon is approximately 1,500,000 kilometers.",QUANTITATIVE,FALSE,UNVERIFIABLE,0.3,False,False
+MST_0999,"The Berlin Wall was officially opened to free passage on the evening of November 9, 1989.",TEMPORAL,TRUE,TRUE,0.55,True,True
+MST_1000,"The Berlin Wall was officially opened to free passage on the evening of November 9, 1993.",TEMPORAL,FALSE,FALSE,0.55,True,True
+MST_1001,The core of the Sun generates energy predominantly by fusing hydrogen nuclei into helium via the proton-proton chain reaction.,ENTITY_ATTRIBUTE,TRUE,TRUE,0.55,True,True
+MST_1002,The core of the Sun generates thermal energy primarily through the open atmospheric combustion of solid uranium fuel.,ENTITY_ATTRIBUTE,FALSE,TRUE,0.55,True,False
+MST_1003,Sir Isaac Newton laid the foundations of classical mechanics in his 1687 treatise Philosophiae Naturalis Principia Mathematica.,CITATION,TRUE,TRUE,0.55,True,True
+MST_1004,Galileo Galilei laid the foundations of classical mechanics in his 1687 treatise Philosophiae Naturalis Principia Mathematica.,CITATION,FALSE,UNVERIFIABLE,0.3,False,False
+MST_1005,Hooke's law states that the restoring force exerted by an ideal spring is directly proportional to the displacement distance (F = -kx).,RELATIONAL,TRUE,FALSE,0.55,True,False
