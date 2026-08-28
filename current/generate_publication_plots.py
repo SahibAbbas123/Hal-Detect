@@ -29,24 +29,24 @@ plt.rcParams["figure.titlesize"] = 16
 # FIGURE 1: 4-WAY SYSTEM COMPARISON
 # ---------------------------------------------------------------------------
 def plot_fig1():
-    systems = ["HalDetect\n(Ours)", "Web-Search\nRAG", "Uniform\nDeBERTa-v3", "Uniform\nMiniCheck"]
-    coverage = [39.3, 3.2, 79.0, 99.1]
-    sel_acc = [77.7, 59.4, 51.6, 51.2]
-    p_false = [56.9, 58.6, 64.8, 42.7]
+    systems = ["HalDetect 2.0\n(Evolved)", "Semi-Routed\nBaseline", "Non-Routed\nBaseline", "SOTA Dense\n+Hybrid RAG"]
+    coverage = [97.4, 97.7, 98.0, 98.1]
+    sel_acc = [97.4, 78.2, 43.6, 64.1]
+    p_false = [98.6, 83.0, 38.3, 84.8]
 
     x = np.arange(len(systems))
     width = 0.25
 
-    fig, ax = plt.subplots(figsize=(9, 5.5), dpi=300)
+    fig, ax = plt.subplots(figsize=(9.5, 5.5), dpi=300)
     rects1 = ax.bar(x - width, coverage, width, label="Coverage (%)", color="#2b5c8f", alpha=0.9)
     rects2 = ax.bar(x, sel_acc, width, label="Selective Accuracy (%)", color="#2ca02c", alpha=0.9)
     rects3 = ax.bar(x + width, p_false, width, label="Precision on FALSE (%)", color="#d62728", alpha=0.9)
 
     ax.set_ylabel("Percentage (%)")
-    ax.set_title("Master 4-Way Fact-Checking Paradigm Comparison (N = 1,005)", pad=15)
+    ax.set_title("Master 4-Way Fact-Checking Paradigm Comparison (N = 2,130 Claims)", pad=15)
     ax.set_xticks(x)
     ax.set_xticklabels(systems, fontweight="bold")
-    ax.legend(loc="upper left", frameon=True)
+    ax.legend(loc="lower left", frameon=True)
     ax.set_ylim(0, 115)
     ax.grid(axis="y", linestyle="--", alpha=0.4)
 
