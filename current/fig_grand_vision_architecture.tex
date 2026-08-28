@@ -1,0 +1,91 @@
+% ==============================================================================
+% HalDetect 2.0 Grand Vision Architectural System Diagram (TikZ / LaTeX)
+% Ready for LaTeX Thesis Manuscript & Beamer Defense Presentation Slides
+% ==============================================================================
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds}
+
+\begin{document}
+\begin{tikzpicture}[
+    font=\sffamily,
+    node distance=1.4cm,
+    box/.style={
+        rectangle, rounded corners=6pt, minimum width=6.5cm, minimum height=1.1cm,
+        text centered, draw=#1!80!black, fill=#1!10, line width=1.2pt
+    },
+    subbox/.style={
+        rectangle, rounded corners=4pt, minimum width=3.8cm, minimum height=1.4cm,
+        text centered, draw=green!60!black, fill=white, line width=1pt, font=\small
+    },
+    arrow/.style={
+        -{Stealth[length=3mm, width=2mm]}, line width=1.5pt, draw=gray!70!black
+    },
+    greenarrow/.style={
+        -{Stealth[length=2.5mm, width=1.8mm]}, line width=1.2pt, draw=green!60!black
+    }
+]
+
+    % 1. User Input
+    \node (user) [box=blue, fill=blue!10, draw=blue!80] {
+        \textbf{USER PROMPT / CONSUMER QUERY}\\[2pt]
+        \footnotesize Complex multi-sentence query spanning science, economics, biography
+    };
+
+    % 2. Generative Foundation LLM
+    \node (llm) [box=gray, fill=gray!10, draw=gray!70, below=of user] {
+        \textbf{GENERATIVE FOUNDATION LLM (e.g., Qwen 2.5 / DeepSeek-R1 / GPT-4o)}\\[2pt]
+        \footnotesize Excels at Creative Narrative Synthesis, Fluency \& Contextual Reasoning
+    };
+
+    % 3. HalDetect Core Container Nodes
+    \node (atom) [subbox, below left=1.8cm and 0.2cm of llm] {
+        \textbf{1. Schema 5-Tuple Atomizer}\\[2pt]
+        \scriptsize Deconstructs prose into $\langle S, P, O, T, M \rangle$\\
+        \scriptsize Preserves scope \& polarity
+    };
+
+    \node (router) [subbox, right=0.8cm of atom] {
+        \textbf{2. 5-Modality Router}\\[2pt]
+        \scriptsize $\bullet$ Quantitative (Math/Units)\\
+        \scriptsize $\bullet$ Temporal (State/Intervals)\\
+        \scriptsize $\bullet$ Entity-Attribute / Citations
+    };
+
+    \node (ground) [subbox, right=0.8cm of router] {
+        \textbf{3. Multi-Tier Grounding}\\[2pt]
+        \scriptsize $\bullet$ Wikidata SPARQL (Tier 1)\\
+        \scriptsize $\bullet$ World Bank REST (Tier 2)\\
+        \scriptsize $\bullet$ CrossRef DOI \& Wikipedia
+    };
+
+    \node (logic) [rectangle, rounded corners=5pt, draw=green!70!black, fill=green!15, line width=1.2pt, minimum width=13.2cm, minimum height=1.2cm, text centered, below=0.8cm of router] {
+        \textbf{4. Truth-Functional \& Dimensional Reasoning Engines}\\[2pt]
+        \footnotesize Typed SI Units ($77\,\text{K} \leftrightarrow -196^\circ\text{C}$) $\bullet$ Temporal Invariants ($2009\text{--}2017$) $\bullet$ Calibrated 3-Valued Logic (\textsc{True} / \textsc{False} / \textsc{Unverifiable})
+    };
+
+    % Outer HalDetect Container
+    \begin{scope}[on background layer]
+        \node (hd_box) [
+            rectangle, rounded corners=10pt, draw=green!70!black, fill=green!5, dashed, line width=1.5pt,
+            fit=(atom) (router) (ground) (logic), inner sep=16pt,
+            label={[anchor=north west, font=\bfseries\color{green!50!black}, xshift=8pt, yshift=-4pt]north west:🛡️ HALDETECT 2.0 -- AUTOMATED NEURO-SYMBOLIC FACTUALITY FIREWALL}
+        ] {};
+    \end{scope}
+
+    % 4. Final Output
+    \node (out) [box=orange, fill=amber!15, draw=orange!80!black, below=1.8cm of logic] {
+        \textbf{100\% TRUSTWORTHY RESPONSE DELIVERED TO CONSUMER}\\[2pt]
+        \footnotesize \textbf{\textcolor{green!50!black}{[+] Verified Facts Confirmed}} \quad $\vert$ \quad \textbf{\textcolor{red!70!black}{[-] Hallucinations Rectified with Ground Proof}}
+    };
+
+    % Arrows Connecting Flow
+    \draw [arrow] (user) -- node[right, font=\footnotesize\bfseries] {Natural Language Prompt} (llm);
+    \draw [arrow] (llm) -- node[right, font=\footnotesize\bfseries] {Multi-Sentence Draft Paragraph} (hd_box.north);
+    \draw [greenarrow] (atom) -- (router);
+    \draw [greenarrow] (router) -- (ground);
+    \draw [greenarrow] (router) -- (logic);
+    \draw [arrow] (hd_box.south) -- node[right, font=\footnotesize\bfseries] {Audited Propositions \& Exact Grounding Proof} (out);
+
+\end{tikzpicture}
+\end{document}
