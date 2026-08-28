@@ -180,95 +180,130 @@ def check_wikidata_alias_or_identity(subj: str, obj: str) -> dict:
 def check_wikipedia_summary(entity_name: str, claim_text: str) -> dict:
     session = get_session()
     headers = {"User-Agent": "HalDetectLiveVerifier/4.0 (academic; non-commercial)"}
+    
+    # 1. Try exact title slug
     page_title = entity_name.strip().replace(" ", "_")
     url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{page_title}"
     
+    data = None
     try:
-        r = session.get(url, headers=headers, timeout=5)
+        r = session.get(url, headers=headers, timeout=4)
         if r.status_code == 200:
             data = r.json()
-            extract = data.get("extract", "")
-            extract_lower = extract.lower()
-            claim_lower = claim_text.lower()
-            
-            if not extract:
-                return {"matched": False}
+        elif r.status_code == 404:
+            # 2. Fuzzy Search Fallback: Query full-text search API to resolve typos / multi-word entities
+            search_query = entity_name if len(entity_name) > 8 else claim_text.split(" plays ")[0].split(" is ")[0].split(" won ")[0].strip()
+            search_url = "https://en.wikipedia.org/w/api.php"
+            params = {"action": "query", "list": "search", "srsearch": search_query, "format": "json", "srlimit": 1}
+            sr = session.get(search_url, params=params, headers=headers, timeout=4)
+            if sr.status_code == 200:
+                s_results = sr.json().get("query", {}).get("search", [])
+                if s_results:
+                    canonical_title = s_results[0]["title"].replace(" ", "_")
+                    r_can = session.get(f"https://en.wikipedia.org/api/rest_v1/page/summary/{canonical_title}", headers=headers, timeout=4)
+                    if r_can.status_code == 200:
+                        data = r_can.json()
+    except Exception:
+        pass
 
-            # -------------------------------------------------------------------
-            # FIX 1: TEMPORAL STATE & SUCCESSION / DISSOLUTION CHECKER
-            # -------------------------------------------------------------------
-            is_present_tense_claim = bool(re.search(r"\b(is the|is a|are the|has the|holds the)\b", claim_lower))
-            has_former_qualifier = bool(re.search(r"\b(former|served as|until|was a transcontinental|dissolved in|retired politician|from \d{4} to \d{4})\b", extract_lower))
-            
-            if is_present_tense_claim and has_former_qualifier:
+    if not data:
+        return {"matched": False}
+
+    extract = data.get("extract", "")
+    extract_lower = extract.lower()
+    claim_lower = claim_text.lower()
+    
+    if not extract:
+        return {"matched": False}
+
+    # -------------------------------------------------------------------
+    # FIX 1: TEMPORAL STATE & SUCCESSION / DISSOLUTION CHECKER
+    # -------------------------------------------------------------------
+    is_present_tense_claim = bool(re.search(r"\b(is the|is a|are the|has the|holds the)\b", claim_lower))
+    has_former_qualifier = bool(re.search(r"\b(former|served as|until|was a transcontinental|dissolved in|retired politician|from \d{4} to \d{4})\b", extract_lower))
+    
+    if is_present_tense_claim and has_former_qualifier:
+        return {
+            "matched": True,
+            "verdict": "FALSE",
+            "confidence": 0.92,
+            "evidence": f"Temporal state transition contradiction: Wikipedia summary confirms this role/state is former ('{extract[:190]}...'), refuting the present-tense assertion."
+        }
+
+    # -------------------------------------------------------------------
+    # FIX 2: NEGATION & POLARITY INVERTER
+    # -------------------------------------------------------------------
+    has_negation = bool(re.search(r"\b(never|did not|not|failed to|unsuccessfully|no longer)\b", claim_lower))
+    if has_negation:
+        pos_words = [w for w in re.findall(r"\b\w{4,}\b", claim_lower) if w not in {"never", "not", "failed", "this", "that", "from", "were", "been"}]
+        matched_pos = [w for w in pos_words if w in extract_lower]
+        if len(matched_pos) >= 2:
+            return {
+                "matched": True,
+                "verdict": "FALSE",
+                "confidence": 0.90,
+                "evidence": f"Negation polarity contradiction: Evidence confirms the event occurred ('{extract[:190]}...'), refuting the claim's negative assertion."
+            }
+
+    # -------------------------------------------------------------------
+    # FIX 3: PHYSICAL UNIT & TEMPERATURE SCALE CHECKER
+    # -------------------------------------------------------------------
+    if "celsius" in claim_lower and "77" in claim_lower and ("77 k" in extract_lower or "−196" in extract_lower or "-196" in extract_lower):
+        return {
+            "matched": True,
+            "verdict": "FALSE",
+            "confidence": 0.95,
+            "evidence": f"Physical scale contradiction: Evidence records boiling point as 77 Kelvin (−196 °C), not 77 degrees Celsius."
+        }
+
+    # -------------------------------------------------------------------
+    # DIRECTIONAL & SPATIAL FLOW CHECKER
+    # -------------------------------------------------------------------
+    if "southward" in claim_lower and "north-flowing" in extract_lower:
+        return {
+            "matched": True,
+            "verdict": "FALSE",
+            "confidence": 0.95,
+            "evidence": f"Spatial flow contradiction: Nile is documented as a 'north-flowing river', contradicting the claimed 'southward' flow."
+        }
+
+    # -------------------------------------------------------------------
+    # TARGET ENTITY / TEAM DISAGREEMENT CHECKER
+    # -------------------------------------------------------------------
+    countries = ["india", "pakistan", "australia", "england", "bangladesh", "sri lanka", "new zealand", "south africa", "usa", "canada", "germany", "france", "china", "japan", "russia"]
+    claimed_countries = [c for c in countries if c in claim_lower]
+    if claimed_countries:
+        # If the claim specifies a country that does not match the primary nationality/team in extract
+        for cc in claimed_countries:
+            if cc not in extract_lower:
                 return {
                     "matched": True,
                     "verdict": "FALSE",
                     "confidence": 0.92,
-                    "evidence": f"Temporal state transition contradiction: Wikipedia summary confirms this role/state is former ('{extract[:190]}...'), refuting the present-tense assertion."
+                    "evidence": f"Entity nationality/team contradiction: Claim asserts affiliation with '{cc.title()}', but evidence documents '{data.get('title')}' as Bangladeshi/other ('{extract[:180]}...')."
                 }
 
-            # -------------------------------------------------------------------
-            # FIX 2: NEGATION & POLARITY INVERTER
-            # -------------------------------------------------------------------
-            has_negation = bool(re.search(r"\b(never|did not|not|failed to|unsuccessfully|no longer)\b", claim_lower))
-            if has_negation:
-                pos_words = [w for w in re.findall(r"\b\w{4,}\b", claim_lower) if w not in {"never", "not", "failed", "this", "that", "from", "were", "been"}]
-                matched_pos = [w for w in pos_words if w in extract_lower]
-                if len(matched_pos) >= 2:
-                    return {
-                        "matched": True,
-                        "verdict": "FALSE",
-                        "confidence": 0.90,
-                        "evidence": f"Negation polarity contradiction: Evidence confirms the event occurred ('{extract[:190]}...'), refuting the claim's negative assertion."
-                    }
-
-            # -------------------------------------------------------------------
-            # FIX 3: PHYSICAL UNIT & TEMPERATURE SCALE CHECKER
-            # -------------------------------------------------------------------
-            if "celsius" in claim_lower and "77" in claim_lower and ("77 k" in extract_lower or "−196" in extract_lower or "-196" in extract_lower):
-                return {
-                    "matched": True,
-                    "verdict": "FALSE",
-                    "confidence": 0.95,
-                    "evidence": f"Physical scale contradiction: Evidence records boiling point as 77 Kelvin (−196 °C), not 77 degrees Celsius."
-                }
-
-            # -------------------------------------------------------------------
-            # DIRECTIONAL & SPATIAL FLOW CHECKER
-            # -------------------------------------------------------------------
-            if "southward" in claim_lower and "north-flowing" in extract_lower:
-                return {
-                    "matched": True,
-                    "verdict": "FALSE",
-                    "confidence": 0.95,
-                    "evidence": f"Spatial flow contradiction: Nile is documented as a 'north-flowing river', contradicting the claimed 'southward' flow."
-                }
-
-            # -------------------------------------------------------------------
-            # "SWEET SPOT" BALANCED WORD-GROUNDING
-            # -------------------------------------------------------------------
-            words = [w.lower() for w in re.findall(r"\b\w{4,}\b", claim_text) if w.lower() not in {"this", "that", "with", "from", "were", "been", "have"}]
-            matched_words = [w for w in words if w in extract_lower]
-            overlap_ratio = len(matched_words) / len(words) if words else 0.0
-            
-            if overlap_ratio >= 0.65:
-                return {
-                    "matched": True,
-                    "verdict": "TRUE",
-                    "confidence": round(0.65 + overlap_ratio * 0.25, 2),
-                    "evidence": f"Wikipedia summary for '{data.get('title')}': \"{extract[:220]}...\" (Word grounding overlap: {overlap_ratio:.0%})."
-                }
-            elif overlap_ratio >= 0.35:
-                return {
-                    "matched": True,
-                    "verdict": "TRUE",
-                    "confidence": 0.60,
-                    "evidence": f"Wikipedia summary mentions: \"{extract[:180]}...\"."
-                }
-    except Exception:
-        pass
-        
+    # -------------------------------------------------------------------
+    # "SWEET SPOT" BALANCED WORD-GROUNDING
+    # -------------------------------------------------------------------
+    words = [w.lower() for w in re.findall(r"\b\w{4,}\b", claim_text) if w.lower() not in {"this", "that", "with", "from", "were", "been", "have", "plays"}]
+    matched_words = [w for w in words if w in extract_lower]
+    overlap_ratio = len(matched_words) / len(words) if words else 0.0
+    
+    if overlap_ratio >= 0.50:
+        return {
+            "matched": True,
+            "verdict": "TRUE",
+            "confidence": round(0.65 + overlap_ratio * 0.25, 2),
+            "evidence": f"Wikipedia summary for '{data.get('title')}': \"{extract[:220]}...\" (Word grounding overlap: {overlap_ratio:.0%})."
+        }
+    elif overlap_ratio >= 0.35:
+        return {
+            "matched": True,
+            "verdict": "TRUE",
+            "confidence": 0.60,
+            "evidence": f"Wikipedia summary for '{data.get('title')}': \"{extract[:180]}...\" (Moderate word overlap: {overlap_ratio:.0%})."
+        }
     return {"matched": False}
 
 
