@@ -296,14 +296,14 @@ def check_wikipedia_summary(entity_name: str, claim_text: str) -> dict:
     matched_words = [w for w in words if w in extract_lower]
     overlap_ratio = len(matched_words) / len(words) if words else 0.0
     
-    # If key content words are missing from extract (e.g. claim mentions distinct predicate target)
+    # If key content words are missing from extract (e.g. unmentioned storyline, hobby, or non-canonical predicate)
     missing_words = [w for w in words if w not in extract_lower]
-    if len(missing_words) > 0 and overlap_ratio < 0.70:
+    if len(missing_words) > 0 and overlap_ratio < 0.60:
         return {
             "matched": True,
-            "verdict": "FALSE",
-            "confidence": 0.88,
-            "evidence": f"Unsubstantiated target predicate: Claim asserts '{' '.join(missing_words)}', which is not supported by grounded evidence for '{data.get('title')}'."
+            "verdict": "UNVERIFIABLE",
+            "confidence": 0.35,
+            "evidence": f"Unmentioned target predicate: Asserted relation '{' '.join(missing_words)}' is not documented in canonical encyclopedia summary for '{data.get('title')}'."
         }
 
     if overlap_ratio >= 0.60:
