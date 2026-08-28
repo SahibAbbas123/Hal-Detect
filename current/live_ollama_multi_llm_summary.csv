@@ -1,0 +1,4 @@
+model_name,model_id,total_prompts,total_propositions,verified_true,hallucinations_caught,unverifiable_abstained,response_factuality_index_rfi,response_hallucination_rate_rhr,generation_latency_sec,total_hd2_audit_sec,avg_hd2_per_prop_ms
+MiniMax M3 (Cloud),minimax-m3:cloud,50,119,14,7,98,11.76,5.88,142.98,1200.09,10084.78
+Gemma 31B (Cloud),gemma4:31b-cloud,50,108,25,1,82,23.15,0.93,56.72,976.33,9040.13
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,50,94,16,4,74,17.02,4.26,93.34,918.75,9773.98

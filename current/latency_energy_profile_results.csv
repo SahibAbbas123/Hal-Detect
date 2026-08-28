@@ -1,0 +1,6 @@
+system_name,avg_latency_ms,token_cost_usd,tokens_consumed,energy_wh_per_prop,hardware
+HalDetect 2.0 on MiniMax M3 (Cloud),10084.78,0.0,0,0.030254,MacBook Air (Local CPU)
+HalDetect 2.0 on Gemma 31B (Cloud),9040.13,0.0,0,0.02712,MacBook Air (Local CPU)
+HalDetect 2.0 on GPT-OSS 120B (Cloud),9773.98,0.0,0,0.029322,MacBook Air (Local CPU)
+Bespoke MiniCheck-7B (Local Ollama),1420.0,0.0,185,0.045,Local GPU/CPU
+GPT-4o API (Neural Judge Baseline),2850.0,0.0028,280,0.28,Cloud Datacenter Cluster
