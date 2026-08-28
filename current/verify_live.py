@@ -20,7 +20,14 @@ import os
 import re
 import sys
 import time
+import warnings
 from pathlib import Path
+
+# Silence verbose HuggingFace / tokenizers warnings
+os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+warnings.filterwarnings("ignore")
 
 import requests
 from requests.adapters import HTTPAdapter
