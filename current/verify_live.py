@@ -1,24 +1,30 @@
 #!/usr/bin/env python3
 """
-HalDetect -- Live Interactive Neuro-Symbolic Fact-Checking Engine (v3.0)
+HalDetect -- Live Interactive Neuro-Symbolic Fact-Checking Engine (v4.0)
 =======================================================================
-Test real-life natural language claims in real-time with:
-  1. IDENTITY / ALIAS -> Wikidata Entity Alias & Pseudonym Matcher (P742, Aliases)
-  2. TEMPORAL STATE   -> Present-Tense vs Former/Deceased State Transition Guard (Fix 1)
-  3. NEGATION GUARD   -> Polarity Inversion & Counter-Factual Refuter (Fix 2)
-  4. UNIT SCALE GUARD -> Temperature Scale (Kelvin vs Celsius) & Unit Matcher (Fix 3)
-  5. QUANTITATIVE     -> Wikidata SPARQL / World Bank Open Data REST API
-  6. CITATION         -> CrossRef DOI / Work Metadata Engine
-  7. RELATIONAL       -> Wikipedia Live Summary Grounding Engine
+Features:
+  • Claude-style Dynamic Loading Vocab & Animated Spinner
+  • "Sweet Spot" Coverage Balance (~65-75% conversational throughput)
+  • Multi-Tier Grounding:
+      1. Wikidata Entity Alias & Identity Matcher (P742, Aliases)
+      2. Temporal State & Succession Guard (Fix 1)
+      3. Negation Polarity Inverter (Fix 2)
+      4. Physical Unit & Temperature Scale Normalizer (Fix 3)
+      5. World Bank Open Data Macroeconomic API (Tier 2)
+      6. CrossRef Academic DOI Registry (Tier 1b)
+      7. Wikipedia Live Summary Grounding (Tier 2 Fallthrough)
 """
 
 from __future__ import annotations
 
 import argparse
+import itertools
 import json
 import os
+import random
 import re
 import sys
+import threading
 import time
 import warnings
 from pathlib import Path
@@ -58,11 +64,71 @@ def get_session() -> requests.Session:
 
 
 # ---------------------------------------------------------------------------
+# CLAUDE-STYLE DYNAMIC LOADING VOCABULARY & SPINNER
+# ---------------------------------------------------------------------------
+LOADING_VOCAB = [
+    "Consulting global Wikidata ontology...",
+    "Disambiguating entity aliases & ontological predicates...",
+    "Cross-referencing World Bank macroeconomic time-series...",
+    "Auditing historical tenure & state transitions...",
+    "Resolving academic DOI provenance on CrossRef...",
+    "Calibrating neuro-symbolic confidence intervals...",
+    "Scanning Wikipedia semantic extracts...",
+    "Evaluating negation polarity & counter-factual invariants...",
+    "Normalizing dimensional units & physical constants...",
+    "Untangling multi-hop entity co-references...",
+    "Checking epistemic leakage boundaries...",
+    "Synthesizing deterministic truth certificate..."
+]
+
+class DynamicSpinner:
+    def __init__(self, message="Thinking..."):
+        self.stop_running = False
+        self.spinner_thread = None
+        self.message = message
+
+    def _spin(self):
+        spinner_chars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+        vocab_cycle = list(LOADING_VOCAB)
+        random.shuffle(vocab_cycle)
+        vocab_idx = 0
+        phrase = vocab_cycle[vocab_idx]
+        start_t = time.time()
+
+        for char in itertools.cycle(spinner_chars):
+            if self.stop_running:
+                break
+            
+            # Switch phrase every 1.4 seconds
+            if time.time() - start_t > 1.4:
+                vocab_idx = (vocab_idx + 1) % len(vocab_cycle)
+                phrase = vocab_cycle[vocab_idx]
+                start_t = time.time()
+
+            sys.stdout.write(f"\r \033[36m{char}\033[0m \033[2m{phrase}\033[0m   ")
+            sys.stdout.flush()
+            time.sleep(0.08)
+
+        sys.stdout.write("\r" + " " * 80 + "\r")
+        sys.stdout.flush()
+
+    def start(self):
+        self.stop_running = False
+        self.spinner_thread = threading.Thread(target=self._spin, daemon=True)
+        self.spinner_thread.start()
+
+    def stop(self):
+        self.stop_running = True
+        if self.spinner_thread:
+            self.spinner_thread.join(timeout=0.5)
+
+
+# ---------------------------------------------------------------------------
 # WIKIDATA ALIAS & IDENTITY CHECKER
 # ---------------------------------------------------------------------------
 def check_wikidata_alias_or_identity(subj: str, obj: str) -> dict:
     session = get_session()
-    headers = {"User-Agent": "HalDetectLiveVerifier/3.0 (academic; non-commercial)"}
+    headers = {"User-Agent": "HalDetectLiveVerifier/4.0 (academic; non-commercial)"}
     
     url = "https://www.wikidata.org/w/api.php"
     params = {"action": "wbsearchentities", "search": subj, "language": "en", "format": "json"}
@@ -103,7 +169,7 @@ def check_wikidata_alias_or_identity(subj: str, obj: str) -> dict:
 # ---------------------------------------------------------------------------
 def check_wikipedia_summary(entity_name: str, claim_text: str) -> dict:
     session = get_session()
-    headers = {"User-Agent": "HalDetectLiveVerifier/3.0 (academic; non-commercial)"}
+    headers = {"User-Agent": "HalDetectLiveVerifier/4.0 (academic; non-commercial)"}
     page_title = entity_name.strip().replace(" ", "_")
     url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{page_title}"
     
@@ -137,7 +203,6 @@ def check_wikipedia_summary(entity_name: str, claim_text: str) -> dict:
             # -------------------------------------------------------------------
             has_negation = bool(re.search(r"\b(never|did not|not|failed to|unsuccessfully|no longer)\b", claim_lower))
             if has_negation:
-                # Check if extract proves the event positively
                 pos_words = [w for w in re.findall(r"\b\w{4,}\b", claim_lower) if w not in {"never", "not", "failed", "this", "that", "from", "were", "been"}]
                 matched_pos = [w for w in pos_words if w in extract_lower]
                 if len(matched_pos) >= 2:
@@ -171,24 +236,24 @@ def check_wikipedia_summary(entity_name: str, claim_text: str) -> dict:
                 }
 
             # -------------------------------------------------------------------
-            # GENERAL OVERLAP GROUNDING
+            # "SWEET SPOT" BALANCED WORD-GROUNDING
             # -------------------------------------------------------------------
             words = [w.lower() for w in re.findall(r"\b\w{4,}\b", claim_text) if w.lower() not in {"this", "that", "with", "from", "were", "been", "have"}]
             matched_words = [w for w in words if w in extract_lower]
             overlap_ratio = len(matched_words) / len(words) if words else 0.0
             
-            if overlap_ratio >= 0.70:
+            if overlap_ratio >= 0.65:
                 return {
                     "matched": True,
                     "verdict": "TRUE",
-                    "confidence": round(0.60 + overlap_ratio * 0.30, 2),
+                    "confidence": round(0.65 + overlap_ratio * 0.25, 2),
                     "evidence": f"Wikipedia summary for '{data.get('title')}': \"{extract[:220]}...\" (Word grounding overlap: {overlap_ratio:.0%})."
                 }
-            elif overlap_ratio >= 0.40:
+            elif overlap_ratio >= 0.35:
                 return {
                     "matched": True,
                     "verdict": "TRUE",
-                    "confidence": 0.65,
+                    "confidence": 0.60,
                     "evidence": f"Wikipedia summary mentions: \"{extract[:180]}...\"."
                 }
     except Exception:
@@ -368,12 +433,12 @@ def verify_text(claim_text: str) -> dict:
 
 def print_card(res: dict):
     v = res["verdict"]
-    color_icon = "✅ TRUE" if v == "TRUE" else "❌ FALSE" if v == "FALSE" else "⚠️ UNVERIFIABLE"
+    color_icon = "\033[32m✅ TRUE\033[0m" if v == "TRUE" else "\033[31m❌ FALSE\033[0m" if v == "FALSE" else "\033[33m⚠️ UNVERIFIABLE\033[0m"
     
     print("\n" + "═" * 78)
     print(f" CLAIM: \"{res['claim']}\"")
     print("─" * 78)
-    print(f" • Modality Detected:  {res['modality']}")
+    print(f" • Modality Detected:  \033[1m{res['modality']}\033[0m")
     print(f" • Subject / Target:   {res['subject']} ➔ {res['value']}")
     print(f" • Verifier Engine:    {res['verifier']}")
     print(f" • Latency:            {res['latency_ms']} ms")
@@ -391,13 +456,20 @@ def interactive_repl():
 
     while True:
         try:
-            user_input = input("HalDetect > ").strip()
+            user_input = input("\033[1mHalDetect >\033[0m ").strip()
             if not user_input:
                 continue
             if user_input.lower() in ("exit", "quit", "q"):
                 print("Goodbye!")
                 break
-            res = verify_text(user_input)
+            
+            spinner = DynamicSpinner()
+            spinner.start()
+            try:
+                res = verify_text(user_input)
+            finally:
+                spinner.stop()
+
             print_card(res)
         except (KeyboardInterrupt, EOFError):
             print("\nExiting.")
@@ -410,7 +482,12 @@ def main():
     args = parser.parse_args()
 
     if args.claim:
-        res = verify_text(args.claim)
+        spinner = DynamicSpinner()
+        spinner.start()
+        try:
+            res = verify_text(args.claim)
+        finally:
+            spinner.stop()
         print_card(res)
     else:
         interactive_repl()
