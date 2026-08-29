@@ -1,0 +1,1342 @@
+model_name,model_id,prompt_id,domain,prompt_text,raw_response,prop_index,claim_text,subject,property,value,modality_type,gold_verdict,hd2_verdict,hd2_evidence,semi_routed_verdict,nonrouted_verdict,sota_rag_verdict,llm_judge_7b_verdict,latency_ms
+Gemma 31B (Cloud),gemma4:31b-cloud,P01,Science,What is the boiling point of liquid nitrogen in both Kelvin and Celsius?,"```json
+[
+  {""claim"": ""The boiling point of liquid nitrogen is 77.36 Kelvin."", ""subject"": ""liquid nitrogen"", ""property"": ""boiling_point"", ""value"": ""77.36 K"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The boiling point of liquid nitrogen is -195.79 degrees Celsius."", ""subject"": ""liquid nitrogen"", ""property"": ""boiling_point"", ""value"": ""-195.79 °C"", ""type"": ""QUANTITATIVE""}
+]
+```",1,The boiling point of liquid nitrogen is 77.36 Kelvin.,liquid nitrogen,boiling_point,77.36 K,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1377.78
+Gemma 31B (Cloud),gemma4:31b-cloud,P01,Science,What is the boiling point of liquid nitrogen in both Kelvin and Celsius?,"```json
+[
+  {""claim"": ""The boiling point of liquid nitrogen is 77.36 Kelvin."", ""subject"": ""liquid nitrogen"", ""property"": ""boiling_point"", ""value"": ""77.36 K"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The boiling point of liquid nitrogen is -195.79 degrees Celsius."", ""subject"": ""liquid nitrogen"", ""property"": ""boiling_point"", ""value"": ""-195.79 °C"", ""type"": ""QUANTITATIVE""}
+]
+```",2,The boiling point of liquid nitrogen is -195.79 degrees Celsius.,liquid nitrogen,boiling_point,-195.79 °C,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1377.78
+Gemma 31B (Cloud),gemma4:31b-cloud,P02,Science,What is the exact speed of light in vacuum in meters per second?,"```json
+[
+  {
+    ""claim"": ""The speed of light in vacuum is exactly 299,792,458 meters per second."",
+    ""subject"": ""speed of light in vacuum"",
+    ""property"": ""value"",
+    ""value"": ""299,792,458 m/s"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The meter is defined by the speed of light in vacuum."",
+    ""subject"": ""meter"",
+    ""property"": ""definition_basis"",
+    ""value"": ""speed of light in vacuum"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",1,"The speed of light in vacuum is exactly 299,792,458 meters per second.",speed of light in vacuum,value,"299,792,458 m/s",QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1995.62
+Gemma 31B (Cloud),gemma4:31b-cloud,P02,Science,What is the exact speed of light in vacuum in meters per second?,"```json
+[
+  {
+    ""claim"": ""The speed of light in vacuum is exactly 299,792,458 meters per second."",
+    ""subject"": ""speed of light in vacuum"",
+    ""property"": ""value"",
+    ""value"": ""299,792,458 m/s"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The meter is defined by the speed of light in vacuum."",
+    ""subject"": ""meter"",
+    ""property"": ""definition_basis"",
+    ""value"": ""speed of light in vacuum"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",2,The meter is defined by the speed of light in vacuum.,meter,definition_basis,speed of light in vacuum,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1995.62
+Gemma 31B (Cloud),gemma4:31b-cloud,P03,Science,How many chromosomes are in a normal human somatic cell?,"```json
+[
+  {
+    ""claim"": ""A normal human somatic cell contains 46 chromosomes."",
+    ""subject"": ""human somatic cell"",
+    ""property"": ""chromosome_count"",
+    ""value"": ""46"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""Human somatic cells contain 23 pairs of chromosomes."",
+    ""subject"": ""human somatic cell"",
+    ""property"": ""chromosome_pairs"",
+    ""value"": ""23"",
+    ""type"": ""QUANTITATIVE""
+  }
+]
+```",1,A normal human somatic cell contains 46 chromosomes.,human somatic cell,chromosome_count,46,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1942.54
+Gemma 31B (Cloud),gemma4:31b-cloud,P03,Science,How many chromosomes are in a normal human somatic cell?,"```json
+[
+  {
+    ""claim"": ""A normal human somatic cell contains 46 chromosomes."",
+    ""subject"": ""human somatic cell"",
+    ""property"": ""chromosome_count"",
+    ""value"": ""46"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""Human somatic cells contain 23 pairs of chromosomes."",
+    ""subject"": ""human somatic cell"",
+    ""property"": ""chromosome_pairs"",
+    ""value"": ""23"",
+    ""type"": ""QUANTITATIVE""
+  }
+]
+```",2,Human somatic cells contain 23 pairs of chromosomes.,human somatic cell,chromosome_pairs,23,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1942.54
+Gemma 31B (Cloud),gemma4:31b-cloud,P04,Science,In which direction does the Nile River flow and where does it terminate?,"```json
+[
+  {""claim"": ""The Nile River flows in a northerly direction."", ""subject"": ""Nile River"", ""property"": ""flow_direction"", ""value"": ""north"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The Nile River terminates in the Mediterranean Sea."", ""subject"": ""Nile River"", ""property"": ""termination_point"", ""value"": ""Mediterranean Sea"", ""type"": ""RELATIONAL""}
+]
+```",1,The Nile River flows in a northerly direction.,Nile River,flow_direction,north,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1913.52
+Gemma 31B (Cloud),gemma4:31b-cloud,P04,Science,In which direction does the Nile River flow and where does it terminate?,"```json
+[
+  {""claim"": ""The Nile River flows in a northerly direction."", ""subject"": ""Nile River"", ""property"": ""flow_direction"", ""value"": ""north"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The Nile River terminates in the Mediterranean Sea."", ""subject"": ""Nile River"", ""property"": ""termination_point"", ""value"": ""Mediterranean Sea"", ""type"": ""RELATIONAL""}
+]
+```",2,The Nile River terminates in the Mediterranean Sea.,Nile River,termination_point,Mediterranean Sea,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1913.52
+Gemma 31B (Cloud),gemma4:31b-cloud,P05,Science,What is the numerical value of the Avogadro constant?,"```json
+[
+  {
+    ""claim"": ""The Avogadro constant is defined as exactly 6.02214076 x 10^23 reciprocal moles."",
+    ""subject"": ""Avogadro constant"",
+    ""property"": ""numerical_value"",
+    ""value"": ""6.02214076 x 10^23 mol^-1"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The current definition of the Avogadro constant was adopted by the CGPM in 2019."",
+    ""subject"": ""Avogadro constant"",
+    ""property"": ""definition_date"",
+    ""value"": ""2019"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",1,The Avogadro constant is defined as exactly 6.02214076 x 10^23 reciprocal moles.,Avogadro constant,numerical_value,6.02214076 x 10^23 mol^-1,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1641.29
+Gemma 31B (Cloud),gemma4:31b-cloud,P05,Science,What is the numerical value of the Avogadro constant?,"```json
+[
+  {
+    ""claim"": ""The Avogadro constant is defined as exactly 6.02214076 x 10^23 reciprocal moles."",
+    ""subject"": ""Avogadro constant"",
+    ""property"": ""numerical_value"",
+    ""value"": ""6.02214076 x 10^23 mol^-1"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The current definition of the Avogadro constant was adopted by the CGPM in 2019."",
+    ""subject"": ""Avogadro constant"",
+    ""property"": ""definition_date"",
+    ""value"": ""2019"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",2,The current definition of the Avogadro constant was adopted by the CGPM in 2019.,Avogadro constant,definition_date,2019,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1641.29
+Gemma 31B (Cloud),gemma4:31b-cloud,P06,Science,What is the highest mountain peak in North America and how tall is it?,"```json
+[
+  {""claim"": ""Denali is the highest mountain peak in North America."", ""subject"": ""Denali"", ""property"": ""highest_peak_location"", ""value"": ""North America"", ""type"": ""RELATIONAL""},
+  {""claim"": ""The elevation of Denali is 20,310 feet."", ""subject"": ""Denali"", ""property"": ""elevation"", ""value"": ""20,310 feet"", ""type"": ""QUANTITATIVE""}
+]
+```",1,Denali is the highest mountain peak in North America.,Denali,highest_peak_location,North America,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2253.38
+Gemma 31B (Cloud),gemma4:31b-cloud,P06,Science,What is the highest mountain peak in North America and how tall is it?,"```json
+[
+  {""claim"": ""Denali is the highest mountain peak in North America."", ""subject"": ""Denali"", ""property"": ""highest_peak_location"", ""value"": ""North America"", ""type"": ""RELATIONAL""},
+  {""claim"": ""The elevation of Denali is 20,310 feet."", ""subject"": ""Denali"", ""property"": ""elevation"", ""value"": ""20,310 feet"", ""type"": ""QUANTITATIVE""}
+]
+```",2,"The elevation of Denali is 20,310 feet.",Denali,elevation,"20,310 feet",QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2253.38
+Gemma 31B (Cloud),gemma4:31b-cloud,P07,Science,What is the highest mountain peak in Asia and what is its elevation in meters?,"```json
+[
+  {""claim"": ""Mount Everest is the highest mountain peak in Asia."", ""subject"": ""Mount Everest"", ""property"": ""geographic_status"", ""value"": ""highest peak in Asia"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The elevation of Mount Everest is 8,848.86 meters."", ""subject"": ""Mount Everest"", ""property"": ""elevation"", ""value"": ""8,848.86 meters"", ""type"": ""QUANTITATIVE""}
+]
+```",1,Mount Everest is the highest mountain peak in Asia.,Mount Everest,geographic_status,highest peak in Asia,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2249.22
+Gemma 31B (Cloud),gemma4:31b-cloud,P07,Science,What is the highest mountain peak in Asia and what is its elevation in meters?,"```json
+[
+  {""claim"": ""Mount Everest is the highest mountain peak in Asia."", ""subject"": ""Mount Everest"", ""property"": ""geographic_status"", ""value"": ""highest peak in Asia"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The elevation of Mount Everest is 8,848.86 meters."", ""subject"": ""Mount Everest"", ""property"": ""elevation"", ""value"": ""8,848.86 meters"", ""type"": ""QUANTITATIVE""}
+]
+```",2,"The elevation of Mount Everest is 8,848.86 meters.",Mount Everest,elevation,"8,848.86 meters",QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2249.22
+Gemma 31B (Cloud),gemma4:31b-cloud,P08,Science,How long does it take the International Space Station to orbit the Earth?,"```json
+[
+  {
+    ""claim"": ""The International Space Station completes one orbit of the Earth approximately every 93 minutes."",
+    ""subject"": ""International Space Station"",
+    ""property"": ""orbital_period"",
+    ""value"": ""93 minutes"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The International Space Station travels at an average speed of approximately 17,500 miles per hour."",
+    ""subject"": ""International Space Station"",
+    ""property"": ""average_orbital_speed"",
+    ""value"": ""17,500 mph"",
+    ""type"": ""QUANTITATIVE""
+  }
+]
+```",1,The International Space Station completes one orbit of the Earth approximately every 93 minutes.,International Space Station,orbital_period,93 minutes,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3498.29
+Gemma 31B (Cloud),gemma4:31b-cloud,P08,Science,How long does it take the International Space Station to orbit the Earth?,"```json
+[
+  {
+    ""claim"": ""The International Space Station completes one orbit of the Earth approximately every 93 minutes."",
+    ""subject"": ""International Space Station"",
+    ""property"": ""orbital_period"",
+    ""value"": ""93 minutes"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The International Space Station travels at an average speed of approximately 17,500 miles per hour."",
+    ""subject"": ""International Space Station"",
+    ""property"": ""average_orbital_speed"",
+    ""value"": ""17,500 mph"",
+    ""type"": ""QUANTITATIVE""
+  }
+]
+```",2,"The International Space Station travels at an average speed of approximately 17,500 miles per hour.",International Space Station,average_orbital_speed,"17,500 mph",QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3498.29
+Gemma 31B (Cloud),gemma4:31b-cloud,P09,Science,What is the lowest land-based elevation on Earth and where is it located?,"```json
+[
+  {""claim"": ""The lowest land-based elevation on Earth is the shore of the Dead Sea."", ""subject"": ""Dead Sea shore"", ""property"": ""elevation_status"", ""value"": ""lowest land-based point"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The shore of the Dead Sea is approximately 430 meters below sea level."", ""subject"": ""Dead Sea shore"", ""property"": ""elevation"", ""value"": ""-430 meters"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Dead Sea is located between Jordan to the east and Israel and the West Bank to the west."", ""subject"": ""Dead Sea"", ""property"": ""location"", ""value"": ""Jordan, Israel, West Bank"", ""type"": ""RELATIONAL""}
+]
+```",1,The lowest land-based elevation on Earth is the shore of the Dead Sea.,Dead Sea shore,elevation_status,lowest land-based point,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1313.91
+Gemma 31B (Cloud),gemma4:31b-cloud,P09,Science,What is the lowest land-based elevation on Earth and where is it located?,"```json
+[
+  {""claim"": ""The lowest land-based elevation on Earth is the shore of the Dead Sea."", ""subject"": ""Dead Sea shore"", ""property"": ""elevation_status"", ""value"": ""lowest land-based point"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The shore of the Dead Sea is approximately 430 meters below sea level."", ""subject"": ""Dead Sea shore"", ""property"": ""elevation"", ""value"": ""-430 meters"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Dead Sea is located between Jordan to the east and Israel and the West Bank to the west."", ""subject"": ""Dead Sea"", ""property"": ""location"", ""value"": ""Jordan, Israel, West Bank"", ""type"": ""RELATIONAL""}
+]
+```",2,The shore of the Dead Sea is approximately 430 meters below sea level.,Dead Sea shore,elevation,-430 meters,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1313.91
+Gemma 31B (Cloud),gemma4:31b-cloud,P09,Science,What is the lowest land-based elevation on Earth and where is it located?,"```json
+[
+  {""claim"": ""The lowest land-based elevation on Earth is the shore of the Dead Sea."", ""subject"": ""Dead Sea shore"", ""property"": ""elevation_status"", ""value"": ""lowest land-based point"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The shore of the Dead Sea is approximately 430 meters below sea level."", ""subject"": ""Dead Sea shore"", ""property"": ""elevation"", ""value"": ""-430 meters"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Dead Sea is located between Jordan to the east and Israel and the West Bank to the west."", ""subject"": ""Dead Sea"", ""property"": ""location"", ""value"": ""Jordan, Israel, West Bank"", ""type"": ""RELATIONAL""}
+]
+```",3,The Dead Sea is located between Jordan to the east and Israel and the West Bank to the west.,Dead Sea,location,"Jordan, Israel, West Bank",RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1313.91
+Gemma 31B (Cloud),gemma4:31b-cloud,P10,Science,How many natural confirmed moons does Saturn have?,"```json
+[
+  {""claim"": ""Saturn has 146 confirmed natural moons."", ""subject"": ""Saturn"", ""property"": ""moon_count"", ""value"": ""146"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""Titan is the largest moon of Saturn."", ""subject"": ""Titan"", ""property"": ""relative_size"", ""value"": ""largest"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",1,Saturn has 146 confirmed natural moons.,Saturn,moon_count,146,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1631.63
+Gemma 31B (Cloud),gemma4:31b-cloud,P10,Science,How many natural confirmed moons does Saturn have?,"```json
+[
+  {""claim"": ""Saturn has 146 confirmed natural moons."", ""subject"": ""Saturn"", ""property"": ""moon_count"", ""value"": ""146"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""Titan is the largest moon of Saturn."", ""subject"": ""Titan"", ""property"": ""relative_size"", ""value"": ""largest"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",2,Titan is the largest moon of Saturn.,Titan,relative_size,largest,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1631.63
+Gemma 31B (Cloud),gemma4:31b-cloud,P11,Economics,What was the nominal GDP of the United States in trillions of dollars in 2023?,"```json
+[
+  {
+    ""claim"": ""The nominal GDP of the United States in 2023 was approximately 27.36 trillion dollars."",
+    ""subject"": ""United States"",
+    ""property"": ""nominal_GDP"",
+    ""value"": ""27.36 trillion USD"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The United States GDP data for 2023 is reported by the World Bank."",
+    ""subject"": ""United States GDP"",
+    ""property"": ""data_source"",
+    ""value"": ""World Bank"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",1,The nominal GDP of the United States in 2023 was approximately 27.36 trillion dollars.,United States,nominal_GDP,27.36 trillion USD,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2157.67
+Gemma 31B (Cloud),gemma4:31b-cloud,P11,Economics,What was the nominal GDP of the United States in trillions of dollars in 2023?,"```json
+[
+  {
+    ""claim"": ""The nominal GDP of the United States in 2023 was approximately 27.36 trillion dollars."",
+    ""subject"": ""United States"",
+    ""property"": ""nominal_GDP"",
+    ""value"": ""27.36 trillion USD"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The United States GDP data for 2023 is reported by the World Bank."",
+    ""subject"": ""United States GDP"",
+    ""property"": ""data_source"",
+    ""value"": ""World Bank"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",2,The United States GDP data for 2023 is reported by the World Bank.,United States GDP,data_source,World Bank,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2157.67
+Gemma 31B (Cloud),gemma4:31b-cloud,P12,Economics,What was the nominal GDP of China in trillions of dollars in 2023?,"```json
+[
+  {
+    ""claim"": ""China's nominal GDP in 2023 was approximately 17.79 trillion US dollars."",
+    ""subject"": ""China"",
+    ""property"": ""nominal_GDP"",
+    ""value"": ""17.79 trillion USD"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The data for China's 2023 GDP was reported by the World Bank."",
+    ""subject"": ""China's 2023 GDP"",
+    ""property"": ""source"",
+    ""value"": ""World Bank"",
+    ""type"": ""CITATION""
+  }
+]
+```",1,China's nominal GDP in 2023 was approximately 17.79 trillion US dollars.,China,nominal_GDP,17.79 trillion USD,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1641.67
+Gemma 31B (Cloud),gemma4:31b-cloud,P12,Economics,What was the nominal GDP of China in trillions of dollars in 2023?,"```json
+[
+  {
+    ""claim"": ""China's nominal GDP in 2023 was approximately 17.79 trillion US dollars."",
+    ""subject"": ""China"",
+    ""property"": ""nominal_GDP"",
+    ""value"": ""17.79 trillion USD"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The data for China's 2023 GDP was reported by the World Bank."",
+    ""subject"": ""China's 2023 GDP"",
+    ""property"": ""source"",
+    ""value"": ""World Bank"",
+    ""type"": ""CITATION""
+  }
+]
+```",2,The data for China's 2023 GDP was reported by the World Bank.,China's 2023 GDP,source,World Bank,CITATION,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1641.67
+Gemma 31B (Cloud),gemma4:31b-cloud,P13,Economics,What is the official national currency of Switzerland and is it the Euro?,"```json
+[
+  {""claim"": ""The official national currency of Switzerland is the Swiss franc."", ""subject"": ""Switzerland"", ""property"": ""national_currency"", ""value"": ""Swiss franc"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The Swiss franc is distinct from the Euro."", ""subject"": ""Swiss franc"", ""property"": ""equivalence_to_euro"", ""value"": ""false"", ""type"": ""RELATIONAL""}
+]
+```",1,The official national currency of Switzerland is the Swiss franc.,Switzerland,national_currency,Swiss franc,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1816.4
+Gemma 31B (Cloud),gemma4:31b-cloud,P13,Economics,What is the official national currency of Switzerland and is it the Euro?,"```json
+[
+  {""claim"": ""The official national currency of Switzerland is the Swiss franc."", ""subject"": ""Switzerland"", ""property"": ""national_currency"", ""value"": ""Swiss franc"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The Swiss franc is distinct from the Euro."", ""subject"": ""Swiss franc"", ""property"": ""equivalence_to_euro"", ""value"": ""false"", ""type"": ""RELATIONAL""}
+]
+```",2,The Swiss franc is distinct from the Euro.,Swiss franc,equivalence_to_euro,false,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1816.4
+Gemma 31B (Cloud),gemma4:31b-cloud,P14,Economics,What was the approximate population milestone Canada reached in 2023?,"```json
+[
+  {""claim"": ""Canada's population surpassed 40 million people in 2023."", ""subject"": ""Canada"", ""property"": ""population_milestone"", ""value"": ""40 million"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""Canada reached the 40 million population mark in June 2023."", ""subject"": ""Canada"", ""property"": ""milestone_date"", ""value"": ""June 2023"", ""type"": ""TEMPORAL""}
+]
+```",1,Canada's population surpassed 40 million people in 2023.,Canada,population_milestone,40 million,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1354.22
+Gemma 31B (Cloud),gemma4:31b-cloud,P14,Economics,What was the approximate population milestone Canada reached in 2023?,"```json
+[
+  {""claim"": ""Canada's population surpassed 40 million people in 2023."", ""subject"": ""Canada"", ""property"": ""population_milestone"", ""value"": ""40 million"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""Canada reached the 40 million population mark in June 2023."", ""subject"": ""Canada"", ""property"": ""milestone_date"", ""value"": ""June 2023"", ""type"": ""TEMPORAL""}
+]
+```",2,Canada reached the 40 million population mark in June 2023.,Canada,milestone_date,June 2023,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1354.22
+Gemma 31B (Cloud),gemma4:31b-cloud,P15,Economics,What was the approximate unemployment rate in South Africa in 2023?,"```json
+[
+  {""claim"": ""The official unemployment rate in South Africa was approximately 32.1% in 2023."", ""subject"": ""South Africa"", ""property"": ""official_unemployment_rate"", ""value"": ""32.1%"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""Statistics South Africa reported the unemployment rate for the fourth quarter of 2023 as 32.1%."", ""subject"": ""South Africa"", ""property"": ""Q4_2023_unemployment_rate"", ""value"": ""32.1%"", ""type"": ""TEMPORAL""}
+]
+```",1,The official unemployment rate in South Africa was approximately 32.1% in 2023.,South Africa,official_unemployment_rate,32.1%,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2254.28
+Gemma 31B (Cloud),gemma4:31b-cloud,P15,Economics,What was the approximate unemployment rate in South Africa in 2023?,"```json
+[
+  {""claim"": ""The official unemployment rate in South Africa was approximately 32.1% in 2023."", ""subject"": ""South Africa"", ""property"": ""official_unemployment_rate"", ""value"": ""32.1%"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""Statistics South Africa reported the unemployment rate for the fourth quarter of 2023 as 32.1%."", ""subject"": ""South Africa"", ""property"": ""Q4_2023_unemployment_rate"", ""value"": ""32.1%"", ""type"": ""TEMPORAL""}
+]
+```",2,Statistics South Africa reported the unemployment rate for the fourth quarter of 2023 as 32.1%.,South Africa,Q4_2023_unemployment_rate,32.1%,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2254.28
+Gemma 31B (Cloud),gemma4:31b-cloud,P16,Economics,What is the official currency of the United Kingdom?,"```json
+[
+  {
+    ""claim"": ""The official currency of the United Kingdom is the pound sterling."",
+    ""subject"": ""United Kingdom"",
+    ""property"": ""official_currency"",
+    ""value"": ""pound sterling"",
+    ""type"": ""ENTITY_ATTRIBUTE""
+  },
+  {
+    ""claim"": ""The ISO 4217 code for the British pound is GBP."",
+    ""subject"": ""British pound"",
+    ""property"": ""ISO_4217_code"",
+    ""value"": ""GBP"",
+    ""type"": ""ENTITY_ATTRIBUTE""
+  }
+]
+```",1,The official currency of the United Kingdom is the pound sterling.,United Kingdom,official_currency,pound sterling,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1532.4
+Gemma 31B (Cloud),gemma4:31b-cloud,P16,Economics,What is the official currency of the United Kingdom?,"```json
+[
+  {
+    ""claim"": ""The official currency of the United Kingdom is the pound sterling."",
+    ""subject"": ""United Kingdom"",
+    ""property"": ""official_currency"",
+    ""value"": ""pound sterling"",
+    ""type"": ""ENTITY_ATTRIBUTE""
+  },
+  {
+    ""claim"": ""The ISO 4217 code for the British pound is GBP."",
+    ""subject"": ""British pound"",
+    ""property"": ""ISO_4217_code"",
+    ""value"": ""GBP"",
+    ""type"": ""ENTITY_ATTRIBUTE""
+  }
+]
+```",2,The ISO 4217 code for the British pound is GBP.,British pound,ISO_4217_code,GBP,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1532.4
+Gemma 31B (Cloud),gemma4:31b-cloud,P17,Economics,What was the approximate nominal GDP of Germany in 2023?,"```json
+[
+  {
+    ""claim"": ""Germany's nominal GDP in 2023 was approximately 4.46 trillion US dollars."",
+    ""subject"": ""Germany"",
+    ""property"": ""nominal_GDP"",
+    ""value"": ""4.46 trillion USD"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""Germany was the third largest economy in the world by nominal GDP in 2023."",
+    ""subject"": ""Germany"",
+    ""property"": ""global_GDP_rank"",
+    ""value"": ""3rd"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",1,Germany's nominal GDP in 2023 was approximately 4.46 trillion US dollars.,Germany,nominal_GDP,4.46 trillion USD,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1333.19
+Gemma 31B (Cloud),gemma4:31b-cloud,P17,Economics,What was the approximate nominal GDP of Germany in 2023?,"```json
+[
+  {
+    ""claim"": ""Germany's nominal GDP in 2023 was approximately 4.46 trillion US dollars."",
+    ""subject"": ""Germany"",
+    ""property"": ""nominal_GDP"",
+    ""value"": ""4.46 trillion USD"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""Germany was the third largest economy in the world by nominal GDP in 2023."",
+    ""subject"": ""Germany"",
+    ""property"": ""global_GDP_rank"",
+    ""value"": ""3rd"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",2,Germany was the third largest economy in the world by nominal GDP in 2023.,Germany,global_GDP_rank,3rd,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1333.19
+Gemma 31B (Cloud),gemma4:31b-cloud,P18,Economics,What was the approximate population of the world when it hit the 8 billion milestone?,"```json
+[
+  {""claim"": ""The world population reached 8 billion people on November 15, 2022."", ""subject"": ""world population"", ""property"": ""milestone_date"", ""value"": ""November 15, 2022"", ""type"": ""TEMPORAL""},
+  {""claim"": ""The world population hit the 8 billion milestone."", ""subject"": ""world population"", ""property"": ""population_count"", ""value"": ""8 billion"", ""type"": ""QUANTITATIVE""}
+]
+```",1,"The world population reached 8 billion people on November 15, 2022.",world population,milestone_date,"November 15, 2022",TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3282.19
+Gemma 31B (Cloud),gemma4:31b-cloud,P18,Economics,What was the approximate population of the world when it hit the 8 billion milestone?,"```json
+[
+  {""claim"": ""The world population reached 8 billion people on November 15, 2022."", ""subject"": ""world population"", ""property"": ""milestone_date"", ""value"": ""November 15, 2022"", ""type"": ""TEMPORAL""},
+  {""claim"": ""The world population hit the 8 billion milestone."", ""subject"": ""world population"", ""property"": ""population_count"", ""value"": ""8 billion"", ""type"": ""QUANTITATIVE""}
+]
+```",2,The world population hit the 8 billion milestone.,world population,population_count,8 billion,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3282.19
+Gemma 31B (Cloud),gemma4:31b-cloud,P19,Economics,What is the official currency of Japan?,"```json
+[
+  {
+    ""claim"": ""The official currency of Japan is the Japanese yen."",
+    ""subject"": ""Japan"",
+    ""property"": ""official_currency"",
+    ""value"": ""Japanese yen"",
+    ""type"": ""ENTITY_ATTRIBUTE""
+  },
+  {
+    ""claim"": ""The Japanese yen is represented by the ISO 4217 code JPY."",
+    ""subject"": ""Japanese yen"",
+    ""property"": ""ISO_4217_code"",
+    ""value"": ""JPY"",
+    ""type"": ""ENTITY_ATTRIBUTE""
+  }
+]
+```",1,The official currency of Japan is the Japanese yen.,Japan,official_currency,Japanese yen,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2143.68
+Gemma 31B (Cloud),gemma4:31b-cloud,P19,Economics,What is the official currency of Japan?,"```json
+[
+  {
+    ""claim"": ""The official currency of Japan is the Japanese yen."",
+    ""subject"": ""Japan"",
+    ""property"": ""official_currency"",
+    ""value"": ""Japanese yen"",
+    ""type"": ""ENTITY_ATTRIBUTE""
+  },
+  {
+    ""claim"": ""The Japanese yen is represented by the ISO 4217 code JPY."",
+    ""subject"": ""Japanese yen"",
+    ""property"": ""ISO_4217_code"",
+    ""value"": ""JPY"",
+    ""type"": ""ENTITY_ATTRIBUTE""
+  }
+]
+```",2,The Japanese yen is represented by the ISO 4217 code JPY.,Japanese yen,ISO_4217_code,JPY,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2143.68
+Gemma 31B (Cloud),gemma4:31b-cloud,P20,Economics,What was the approximate annual inflation rate in Zimbabwe in 2020?,"```json
+[
+  {""claim"": ""The annual inflation rate in Zimbabwe was approximately 174% in 2020."", ""subject"": ""Zimbabwe"", ""property"": ""annual_inflation_rate"", ""value"": ""174%"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The year of this inflation measurement was 2020."", ""subject"": ""Zimbabwe inflation"", ""property"": ""year"", ""value"": ""2020"", ""type"": ""TEMPORAL""}
+]
+```",1,The annual inflation rate in Zimbabwe was approximately 174% in 2020.,Zimbabwe,annual_inflation_rate,174%,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1330.53
+Gemma 31B (Cloud),gemma4:31b-cloud,P20,Economics,What was the approximate annual inflation rate in Zimbabwe in 2020?,"```json
+[
+  {""claim"": ""The annual inflation rate in Zimbabwe was approximately 174% in 2020."", ""subject"": ""Zimbabwe"", ""property"": ""annual_inflation_rate"", ""value"": ""174%"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The year of this inflation measurement was 2020."", ""subject"": ""Zimbabwe inflation"", ""property"": ""year"", ""value"": ""2020"", ""type"": ""TEMPORAL""}
+]
+```",2,The year of this inflation measurement was 2020.,Zimbabwe inflation,year,2020,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1330.53
+Gemma 31B (Cloud),gemma4:31b-cloud,P21,Hardware,How many CPU cores does the AMD EPYC 9654 Genoa server processor have?,"```json
+[
+  {
+    ""claim"": ""The AMD EPYC 9654 processor has 96 cores."",
+    ""subject"": ""AMD EPYC 9654"",
+    ""property"": ""core_count"",
+    ""value"": ""96"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The AMD EPYC 9654 processor has 192 threads."",
+    ""subject"": ""AMD EPYC 9654"",
+    ""property"": ""thread_count"",
+    ""value"": ""192"",
+    ""type"": ""QUANTITATIVE""
+  }
+]
+```",1,The AMD EPYC 9654 processor has 96 cores.,AMD EPYC 9654,core_count,96,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1533.14
+Gemma 31B (Cloud),gemma4:31b-cloud,P21,Hardware,How many CPU cores does the AMD EPYC 9654 Genoa server processor have?,"```json
+[
+  {
+    ""claim"": ""The AMD EPYC 9654 processor has 96 cores."",
+    ""subject"": ""AMD EPYC 9654"",
+    ""property"": ""core_count"",
+    ""value"": ""96"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The AMD EPYC 9654 processor has 192 threads."",
+    ""subject"": ""AMD EPYC 9654"",
+    ""property"": ""thread_count"",
+    ""value"": ""192"",
+    ""type"": ""QUANTITATIVE""
+  }
+]
+```",2,The AMD EPYC 9654 processor has 192 threads.,AMD EPYC 9654,thread_count,192,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1533.14
+Gemma 31B (Cloud),gemma4:31b-cloud,P22,Hardware,What is the memory capacity and memory type of the NVIDIA H100 SXM5 GPU?,"```json
+[
+  {""claim"": ""The NVIDIA H100 SXM5 GPU has a memory capacity of 80 GB."", ""subject"": ""NVIDIA H100 SXM5"", ""property"": ""memory_capacity"", ""value"": ""80 GB"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The NVIDIA H100 SXM5 GPU utilizes HBM3 memory."", ""subject"": ""NVIDIA H100 SXM5"", ""property"": ""memory_type"", ""value"": ""HBM3"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",1,The NVIDIA H100 SXM5 GPU has a memory capacity of 80 GB.,NVIDIA H100 SXM5,memory_capacity,80 GB,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2525.17
+Gemma 31B (Cloud),gemma4:31b-cloud,P22,Hardware,What is the memory capacity and memory type of the NVIDIA H100 SXM5 GPU?,"```json
+[
+  {""claim"": ""The NVIDIA H100 SXM5 GPU has a memory capacity of 80 GB."", ""subject"": ""NVIDIA H100 SXM5"", ""property"": ""memory_capacity"", ""value"": ""80 GB"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The NVIDIA H100 SXM5 GPU utilizes HBM3 memory."", ""subject"": ""NVIDIA H100 SXM5"", ""property"": ""memory_type"", ""value"": ""HBM3"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",2,The NVIDIA H100 SXM5 GPU utilizes HBM3 memory.,NVIDIA H100 SXM5,memory_type,HBM3,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2525.17
+Gemma 31B (Cloud),gemma4:31b-cloud,P23,Hardware,How many transistors are packed into the Apple M3 Max processor?,"```json
+[
+  {""claim"": ""The Apple M3 Max processor contains 92 billion transistors."", ""subject"": ""Apple M3 Max"", ""property"": ""transistor_count"", ""value"": ""92 billion"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Apple M3 Max is manufactured using a 3-nanometer process technology."", ""subject"": ""Apple M3 Max"", ""property"": ""process_node"", ""value"": ""3nm"", ""type"": ""QUANTITATIVE""}
+]
+```",1,The Apple M3 Max processor contains 92 billion transistors.,Apple M3 Max,transistor_count,92 billion,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,4852.8
+Gemma 31B (Cloud),gemma4:31b-cloud,P23,Hardware,How many transistors are packed into the Apple M3 Max processor?,"```json
+[
+  {""claim"": ""The Apple M3 Max processor contains 92 billion transistors."", ""subject"": ""Apple M3 Max"", ""property"": ""transistor_count"", ""value"": ""92 billion"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Apple M3 Max is manufactured using a 3-nanometer process technology."", ""subject"": ""Apple M3 Max"", ""property"": ""process_node"", ""value"": ""3nm"", ""type"": ""QUANTITATIVE""}
+]
+```",2,The Apple M3 Max is manufactured using a 3-nanometer process technology.,Apple M3 Max,process_node,3nm,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,4852.8
+Gemma 31B (Cloud),gemma4:31b-cloud,P24,Hardware,How many superconducting qubits are featured on the IBM Condor quantum processor?,"```json
+[
+  {""claim"": ""The IBM Condor quantum processor features 1,121 superconducting qubits."", ""subject"": ""IBM Condor"", ""property"": ""qubit_count"", ""value"": ""1,121"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""IBM unveiled the Condor processor in December 2023."", ""subject"": ""IBM Condor"", ""property"": ""unveil_date"", ""value"": ""December 2023"", ""type"": ""TEMPORAL""}
+]
+```",1,"The IBM Condor quantum processor features 1,121 superconducting qubits.",IBM Condor,qubit_count,"1,121",QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2038.05
+Gemma 31B (Cloud),gemma4:31b-cloud,P24,Hardware,How many superconducting qubits are featured on the IBM Condor quantum processor?,"```json
+[
+  {""claim"": ""The IBM Condor quantum processor features 1,121 superconducting qubits."", ""subject"": ""IBM Condor"", ""property"": ""qubit_count"", ""value"": ""1,121"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""IBM unveiled the Condor processor in December 2023."", ""subject"": ""IBM Condor"", ""property"": ""unveil_date"", ""value"": ""December 2023"", ""type"": ""TEMPORAL""}
+]
+```",2,IBM unveiled the Condor processor in December 2023.,IBM Condor,unveil_date,December 2023,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2038.05
+Gemma 31B (Cloud),gemma4:31b-cloud,P25,Hardware,How many CPU cores are in the AMD Ryzen 9 7950X desktop processor?,"```json
+[
+  {
+    ""claim"": ""The AMD Ryzen 9 7950X has 16 CPU cores."",
+    ""subject"": ""AMD Ryzen 9 7950X"",
+    ""property"": ""core_count"",
+    ""value"": ""16"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The AMD Ryzen 9 7950X features 32 threads."",
+    ""subject"": ""AMD Ryzen 9 7950X"",
+    ""property"": ""thread_count"",
+    ""value"": ""32"",
+    ""type"": ""QUANTITATIVE""
+  }
+]
+```",1,The AMD Ryzen 9 7950X has 16 CPU cores.,AMD Ryzen 9 7950X,core_count,16,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1866.77
+Gemma 31B (Cloud),gemma4:31b-cloud,P25,Hardware,How many CPU cores are in the AMD Ryzen 9 7950X desktop processor?,"```json
+[
+  {
+    ""claim"": ""The AMD Ryzen 9 7950X has 16 CPU cores."",
+    ""subject"": ""AMD Ryzen 9 7950X"",
+    ""property"": ""core_count"",
+    ""value"": ""16"",
+    ""type"": ""QUANTITATIVE""
+  },
+  {
+    ""claim"": ""The AMD Ryzen 9 7950X features 32 threads."",
+    ""subject"": ""AMD Ryzen 9 7950X"",
+    ""property"": ""thread_count"",
+    ""value"": ""32"",
+    ""type"": ""QUANTITATIVE""
+  }
+]
+```",2,The AMD Ryzen 9 7950X features 32 threads.,AMD Ryzen 9 7950X,thread_count,32,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1866.77
+Gemma 31B (Cloud),gemma4:31b-cloud,P26,Hardware,How many transistors are in the Apple M2 Ultra system on a chip?,"```json
+[
+  {""claim"": ""The Apple M2 Ultra chip contains 134 billion transistors."", ""subject"": ""Apple M2 Ultra"", ""property"": ""transistor_count"", ""value"": ""134 billion"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Apple M2 Ultra is manufactured using a 5-nanometer process technology."", ""subject"": ""Apple M2 Ultra"", ""property"": ""manufacturing_process"", ""value"": ""5nm"", ""type"": ""QUANTITATIVE""}
+]
+```",1,The Apple M2 Ultra chip contains 134 billion transistors.,Apple M2 Ultra,transistor_count,134 billion,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,5595.67
+Gemma 31B (Cloud),gemma4:31b-cloud,P26,Hardware,How many transistors are in the Apple M2 Ultra system on a chip?,"```json
+[
+  {""claim"": ""The Apple M2 Ultra chip contains 134 billion transistors."", ""subject"": ""Apple M2 Ultra"", ""property"": ""transistor_count"", ""value"": ""134 billion"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Apple M2 Ultra is manufactured using a 5-nanometer process technology."", ""subject"": ""Apple M2 Ultra"", ""property"": ""manufacturing_process"", ""value"": ""5nm"", ""type"": ""QUANTITATIVE""}
+]
+```",2,The Apple M2 Ultra is manufactured using a 5-nanometer process technology.,Apple M2 Ultra,manufacturing_process,5nm,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,5595.67
+Gemma 31B (Cloud),gemma4:31b-cloud,P27,Hardware,What is the VRAM capacity of the NVIDIA RTX 4090 graphics card?,"```json
+[
+  {""claim"": ""The NVIDIA GeForce RTX 4090 has a VRAM capacity of 24 GB."", ""subject"": ""NVIDIA GeForce RTX 4090"", ""property"": ""VRAM_capacity"", ""value"": ""24 GB"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The NVIDIA GeForce RTX 4090 uses GDDR6X memory."", ""subject"": ""NVIDIA GeForce RTX 4090"", ""property"": ""memory_type"", ""value"": ""GDDR6X"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",1,The NVIDIA GeForce RTX 4090 has a VRAM capacity of 24 GB.,NVIDIA GeForce RTX 4090,VRAM_capacity,24 GB,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1180.07
+Gemma 31B (Cloud),gemma4:31b-cloud,P27,Hardware,What is the VRAM capacity of the NVIDIA RTX 4090 graphics card?,"```json
+[
+  {""claim"": ""The NVIDIA GeForce RTX 4090 has a VRAM capacity of 24 GB."", ""subject"": ""NVIDIA GeForce RTX 4090"", ""property"": ""VRAM_capacity"", ""value"": ""24 GB"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The NVIDIA GeForce RTX 4090 uses GDDR6X memory."", ""subject"": ""NVIDIA GeForce RTX 4090"", ""property"": ""memory_type"", ""value"": ""GDDR6X"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",2,The NVIDIA GeForce RTX 4090 uses GDDR6X memory.,NVIDIA GeForce RTX 4090,memory_type,GDDR6X,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1180.07
+Gemma 31B (Cloud),gemma4:31b-cloud,P28,Hardware,How many tensor cores does the NVIDIA A100 SXM4 GPU have?,"```json
+[
+  {""claim"": ""The NVIDIA A100 SXM4 GPU contains 432 tensor cores."", ""subject"": ""NVIDIA A100 SXM4"", ""property"": ""tensor_core_count"", ""value"": ""432"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The NVIDIA A100 GPU is based on the Ampere architecture."", ""subject"": ""NVIDIA A100"", ""property"": ""architecture"", ""value"": ""Ampere"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",1,The NVIDIA A100 SXM4 GPU contains 432 tensor cores.,NVIDIA A100 SXM4,tensor_core_count,432,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2017.87
+Gemma 31B (Cloud),gemma4:31b-cloud,P28,Hardware,How many tensor cores does the NVIDIA A100 SXM4 GPU have?,"```json
+[
+  {""claim"": ""The NVIDIA A100 SXM4 GPU contains 432 tensor cores."", ""subject"": ""NVIDIA A100 SXM4"", ""property"": ""tensor_core_count"", ""value"": ""432"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The NVIDIA A100 GPU is based on the Ampere architecture."", ""subject"": ""NVIDIA A100"", ""property"": ""architecture"", ""value"": ""Ampere"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",2,The NVIDIA A100 GPU is based on the Ampere architecture.,NVIDIA A100,architecture,Ampere,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2017.87
+Gemma 31B (Cloud),gemma4:31b-cloud,P29,Hardware,How many performance cores does the Intel Core i9-14900K have?,"```json
+[
+  {""claim"": ""The Intel Core i9-14900K has 8 performance cores."", ""subject"": ""Intel Core i9-14900K"", ""property"": ""performance_core_count"", ""value"": ""8"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Intel Core i9-14900K features a total of 24 cores."", ""subject"": ""Intel Core i9-14900K"", ""property"": ""total_core_count"", ""value"": ""24"", ""type"": ""QUANTITATIVE""}
+]
+```",1,The Intel Core i9-14900K has 8 performance cores.,Intel Core i9-14900K,performance_core_count,8,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1733.24
+Gemma 31B (Cloud),gemma4:31b-cloud,P29,Hardware,How many performance cores does the Intel Core i9-14900K have?,"```json
+[
+  {""claim"": ""The Intel Core i9-14900K has 8 performance cores."", ""subject"": ""Intel Core i9-14900K"", ""property"": ""performance_core_count"", ""value"": ""8"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Intel Core i9-14900K features a total of 24 cores."", ""subject"": ""Intel Core i9-14900K"", ""property"": ""total_core_count"", ""value"": ""24"", ""type"": ""QUANTITATIVE""}
+]
+```",2,The Intel Core i9-14900K features a total of 24 cores.,Intel Core i9-14900K,total_core_count,24,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1733.24
+Gemma 31B (Cloud),gemma4:31b-cloud,P30,Hardware,What process node in nanometers was used for Apple M3 chip family?,"```json
+[
+  {""claim"": ""The Apple M3 chip family is manufactured using a 3-nanometer process node."", ""subject"": ""Apple M3 chip family"", ""property"": ""process_node"", ""value"": ""3nm"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Apple M3 chips are produced by TSMC."", ""subject"": ""Apple M3 chips"", ""property"": ""manufacturer"", ""value"": ""TSMC"", ""type"": ""RELATIONAL""}
+]
+```",1,The Apple M3 chip family is manufactured using a 3-nanometer process node.,Apple M3 chip family,process_node,3nm,QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,7062.96
+Gemma 31B (Cloud),gemma4:31b-cloud,P30,Hardware,What process node in nanometers was used for Apple M3 chip family?,"```json
+[
+  {""claim"": ""The Apple M3 chip family is manufactured using a 3-nanometer process node."", ""subject"": ""Apple M3 chip family"", ""property"": ""process_node"", ""value"": ""3nm"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The Apple M3 chips are produced by TSMC."", ""subject"": ""Apple M3 chips"", ""property"": ""manufacturer"", ""value"": ""TSMC"", ""type"": ""RELATIONAL""}
+]
+```",2,The Apple M3 chips are produced by TSMC.,Apple M3 chips,manufacturer,TSMC,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,7062.96
+Gemma 31B (Cloud),gemma4:31b-cloud,P31,Biography,In what years did Barack Obama serve as President of the United States?,"```json
+[
+  {
+    ""claim"": ""Barack Obama assumed the office of President of the United States in 2009."",
+    ""subject"": ""Barack Obama"",
+    ""property"": ""presidency_start_year"",
+    ""value"": ""2009"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Barack Obama concluded his term as President of the United States in 2017."",
+    ""subject"": ""Barack Obama"",
+    ""property"": ""presidency_end_year"",
+    ""value"": ""2017"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",1,Barack Obama assumed the office of President of the United States in 2009.,Barack Obama,presidency_start_year,2009,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1483.94
+Gemma 31B (Cloud),gemma4:31b-cloud,P31,Biography,In what years did Barack Obama serve as President of the United States?,"```json
+[
+  {
+    ""claim"": ""Barack Obama assumed the office of President of the United States in 2009."",
+    ""subject"": ""Barack Obama"",
+    ""property"": ""presidency_start_year"",
+    ""value"": ""2009"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Barack Obama concluded his term as President of the United States in 2017."",
+    ""subject"": ""Barack Obama"",
+    ""property"": ""presidency_end_year"",
+    ""value"": ""2017"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",2,Barack Obama concluded his term as President of the United States in 2017.,Barack Obama,presidency_end_year,2017,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1483.94
+Gemma 31B (Cloud),gemma4:31b-cloud,P32,Biography,In what year did Queen Elizabeth II die and who succeeded her?,"```json
+[
+  {
+    ""claim"": ""Queen Elizabeth II died in 2022."",
+    ""subject"": ""Queen Elizabeth II"",
+    ""property"": ""death_year"",
+    ""value"": ""2022"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""King Charles III succeeded Queen Elizabeth II as the British monarch."",
+    ""subject"": ""King Charles III"",
+    ""property"": ""successor_to"",
+    ""value"": ""Queen Elizabeth II"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",1,Queen Elizabeth II died in 2022.,Queen Elizabeth II,death_year,2022,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1205.3
+Gemma 31B (Cloud),gemma4:31b-cloud,P32,Biography,In what year did Queen Elizabeth II die and who succeeded her?,"```json
+[
+  {
+    ""claim"": ""Queen Elizabeth II died in 2022."",
+    ""subject"": ""Queen Elizabeth II"",
+    ""property"": ""death_year"",
+    ""value"": ""2022"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""King Charles III succeeded Queen Elizabeth II as the British monarch."",
+    ""subject"": ""King Charles III"",
+    ""property"": ""successor_to"",
+    ""value"": ""Queen Elizabeth II"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",2,King Charles III succeeded Queen Elizabeth II as the British monarch.,King Charles III,successor_to,Queen Elizabeth II,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1205.3
+Gemma 31B (Cloud),gemma4:31b-cloud,P33,Biography,In what years did Angela Merkel serve as Chancellor of Germany?,"```json
+[
+  {""claim"": ""Angela Merkel began her term as Chancellor of Germany in 2005."", ""subject"": ""Angela Merkel"", ""property"": ""term_start_year"", ""value"": ""2005"", ""type"": ""TEMPORAL""},
+  {""claim"": ""Angela Merkel ended her term as Chancellor of Germany in 2021."", ""subject"": ""Angela Merkel"", ""property"": ""term_end_year"", ""value"": ""2021"", ""type"": ""TEMPORAL""}
+]
+```",1,Angela Merkel began her term as Chancellor of Germany in 2005.,Angela Merkel,term_start_year,2005,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2020.1
+Gemma 31B (Cloud),gemma4:31b-cloud,P33,Biography,In what years did Angela Merkel serve as Chancellor of Germany?,"```json
+[
+  {""claim"": ""Angela Merkel began her term as Chancellor of Germany in 2005."", ""subject"": ""Angela Merkel"", ""property"": ""term_start_year"", ""value"": ""2005"", ""type"": ""TEMPORAL""},
+  {""claim"": ""Angela Merkel ended her term as Chancellor of Germany in 2021."", ""subject"": ""Angela Merkel"", ""property"": ""term_end_year"", ""value"": ""2021"", ""type"": ""TEMPORAL""}
+]
+```",2,Angela Merkel ended her term as Chancellor of Germany in 2021.,Angela Merkel,term_end_year,2021,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2020.1
+Gemma 31B (Cloud),gemma4:31b-cloud,P34,Biography,Which Nobel Prizes did Marie Curie win and in what fields?,"```json
+[
+  {
+    ""claim"": ""Marie Curie won the Nobel Prize in Physics in 1903."",
+    ""subject"": ""Marie Curie"",
+    ""property"": ""Nobel Prize in Physics year"",
+    ""value"": ""1903"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Marie Curie won the Nobel Prize in Chemistry in 1911."",
+    ""subject"": ""Marie Curie"",
+    ""property"": ""Nobel Prize in Chemistry year"",
+    ""value"": ""1911"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",1,Marie Curie won the Nobel Prize in Physics in 1903.,Marie Curie,Nobel Prize in Physics year,1903,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1344.07
+Gemma 31B (Cloud),gemma4:31b-cloud,P34,Biography,Which Nobel Prizes did Marie Curie win and in what fields?,"```json
+[
+  {
+    ""claim"": ""Marie Curie won the Nobel Prize in Physics in 1903."",
+    ""subject"": ""Marie Curie"",
+    ""property"": ""Nobel Prize in Physics year"",
+    ""value"": ""1903"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Marie Curie won the Nobel Prize in Chemistry in 1911."",
+    ""subject"": ""Marie Curie"",
+    ""property"": ""Nobel Prize in Chemistry year"",
+    ""value"": ""1911"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",2,Marie Curie won the Nobel Prize in Chemistry in 1911.,Marie Curie,Nobel Prize in Chemistry year,1911,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1344.07
+Gemma 31B (Cloud),gemma4:31b-cloud,P35,Biography,In what year was Albert Einstein born and when did he pass away?,"```json
+[
+  {
+    ""claim"": ""Albert Einstein was born in 1879."",
+    ""subject"": ""Albert Einstein"",
+    ""property"": ""birth_year"",
+    ""value"": ""1879"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Albert Einstein died in 1955."",
+    ""subject"": ""Albert Einstein"",
+    ""property"": ""death_year"",
+    ""value"": ""1955"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",1,Albert Einstein was born in 1879.,Albert Einstein,birth_year,1879,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1218.95
+Gemma 31B (Cloud),gemma4:31b-cloud,P35,Biography,In what year was Albert Einstein born and when did he pass away?,"```json
+[
+  {
+    ""claim"": ""Albert Einstein was born in 1879."",
+    ""subject"": ""Albert Einstein"",
+    ""property"": ""birth_year"",
+    ""value"": ""1879"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Albert Einstein died in 1955."",
+    ""subject"": ""Albert Einstein"",
+    ""property"": ""death_year"",
+    ""value"": ""1955"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",2,Albert Einstein died in 1955.,Albert Einstein,death_year,1955,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1218.95
+Gemma 31B (Cloud),gemma4:31b-cloud,P36,Biography,In what year was the Panama Canal officially opened to maritime traffic?,"```json
+[
+  {
+    ""claim"": ""The Panama Canal officially opened to maritime traffic in 1914."",
+    ""subject"": ""Panama Canal"",
+    ""property"": ""opening_year"",
+    ""value"": ""1914"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""The first official transit of the Panama Canal was completed by the SS Ancon on August 15, 1914."",
+    ""subject"": ""SS Ancon"",
+    ""property"": ""first_transit_date"",
+    ""value"": ""August 15, 1914"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",1,The Panama Canal officially opened to maritime traffic in 1914.,Panama Canal,opening_year,1914,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1230.95
+Gemma 31B (Cloud),gemma4:31b-cloud,P36,Biography,In what year was the Panama Canal officially opened to maritime traffic?,"```json
+[
+  {
+    ""claim"": ""The Panama Canal officially opened to maritime traffic in 1914."",
+    ""subject"": ""Panama Canal"",
+    ""property"": ""opening_year"",
+    ""value"": ""1914"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""The first official transit of the Panama Canal was completed by the SS Ancon on August 15, 1914."",
+    ""subject"": ""SS Ancon"",
+    ""property"": ""first_transit_date"",
+    ""value"": ""August 15, 1914"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",2,"The first official transit of the Panama Canal was completed by the SS Ancon on August 15, 1914.",SS Ancon,first_transit_date,"August 15, 1914",TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1230.95
+Gemma 31B (Cloud),gemma4:31b-cloud,P37,Biography,In what year did the Soviet Union officially dissolve?,"```json
+[
+  {
+    ""claim"": ""The Soviet Union officially dissolved in 1991."",
+    ""subject"": ""Soviet Union"",
+    ""property"": ""dissolution_year"",
+    ""value"": ""1991"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""The Alma-Ata Protocol, which formalized the dissolution of the USSR, was signed on December 21, 1991."",
+    ""subject"": ""Alma-Ata Protocol"",
+    ""property"": ""signing_date"",
+    ""value"": ""December 21, 1991"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",1,The Soviet Union officially dissolved in 1991.,Soviet Union,dissolution_year,1991,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1226.97
+Gemma 31B (Cloud),gemma4:31b-cloud,P37,Biography,In what year did the Soviet Union officially dissolve?,"```json
+[
+  {
+    ""claim"": ""The Soviet Union officially dissolved in 1991."",
+    ""subject"": ""Soviet Union"",
+    ""property"": ""dissolution_year"",
+    ""value"": ""1991"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""The Alma-Ata Protocol, which formalized the dissolution of the USSR, was signed on December 21, 1991."",
+    ""subject"": ""Alma-Ata Protocol"",
+    ""property"": ""signing_date"",
+    ""value"": ""December 21, 1991"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",2,"The Alma-Ata Protocol, which formalized the dissolution of the USSR, was signed on December 21, 1991.",Alma-Ata Protocol,signing_date,"December 21, 1991",TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1226.97
+Gemma 31B (Cloud),gemma4:31b-cloud,P38,Biography,In what year did the Apollo 11 moon landing take place?,"```json
+[
+  {
+    ""claim"": ""The Apollo 11 moon landing took place in 1969."",
+    ""subject"": ""Apollo 11"",
+    ""property"": ""landing_year"",
+    ""value"": ""1969"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Neil Armstrong became the first human to step on the lunar surface on July 20, 1969."",
+    ""subject"": ""Neil Armstrong"",
+    ""property"": ""first_moonwalk_date"",
+    ""value"": ""July 20, 1969"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",1,The Apollo 11 moon landing took place in 1969.,Apollo 11,landing_year,1969,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1804.54
+Gemma 31B (Cloud),gemma4:31b-cloud,P38,Biography,In what year did the Apollo 11 moon landing take place?,"```json
+[
+  {
+    ""claim"": ""The Apollo 11 moon landing took place in 1969."",
+    ""subject"": ""Apollo 11"",
+    ""property"": ""landing_year"",
+    ""value"": ""1969"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Neil Armstrong became the first human to step on the lunar surface on July 20, 1969."",
+    ""subject"": ""Neil Armstrong"",
+    ""property"": ""first_moonwalk_date"",
+    ""value"": ""July 20, 1969"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",2,"Neil Armstrong became the first human to step on the lunar surface on July 20, 1969.",Neil Armstrong,first_moonwalk_date,"July 20, 1969",TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1804.54
+Gemma 31B (Cloud),gemma4:31b-cloud,P39,Biography,In what year was Apple Computer founded by Steve Jobs and Steve Wozniak?,"```json
+[
+  {
+    ""claim"": ""Apple Computer was founded in 1976."",
+    ""subject"": ""Apple Computer"",
+    ""property"": ""founding_year"",
+    ""value"": ""1976"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Steve Jobs was a co-founder of Apple Computer."",
+    ""subject"": ""Steve Jobs"",
+    ""property"": ""role"",
+    ""value"": ""co-founder"",
+    ""type"": ""RELATIONAL""
+  },
+  {
+    ""claim"": ""Steve Wozniak was a co-founder of Apple Computer."",
+    ""subject"": ""Steve Wozniak"",
+    ""property"": ""role"",
+    ""value"": ""co-founder"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",1,Apple Computer was founded in 1976.,Apple Computer,founding_year,1976,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1091.53
+Gemma 31B (Cloud),gemma4:31b-cloud,P39,Biography,In what year was Apple Computer founded by Steve Jobs and Steve Wozniak?,"```json
+[
+  {
+    ""claim"": ""Apple Computer was founded in 1976."",
+    ""subject"": ""Apple Computer"",
+    ""property"": ""founding_year"",
+    ""value"": ""1976"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Steve Jobs was a co-founder of Apple Computer."",
+    ""subject"": ""Steve Jobs"",
+    ""property"": ""role"",
+    ""value"": ""co-founder"",
+    ""type"": ""RELATIONAL""
+  },
+  {
+    ""claim"": ""Steve Wozniak was a co-founder of Apple Computer."",
+    ""subject"": ""Steve Wozniak"",
+    ""property"": ""role"",
+    ""value"": ""co-founder"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",2,Steve Jobs was a co-founder of Apple Computer.,Steve Jobs,role,co-founder,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1091.53
+Gemma 31B (Cloud),gemma4:31b-cloud,P39,Biography,In what year was Apple Computer founded by Steve Jobs and Steve Wozniak?,"```json
+[
+  {
+    ""claim"": ""Apple Computer was founded in 1976."",
+    ""subject"": ""Apple Computer"",
+    ""property"": ""founding_year"",
+    ""value"": ""1976"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""Steve Jobs was a co-founder of Apple Computer."",
+    ""subject"": ""Steve Jobs"",
+    ""property"": ""role"",
+    ""value"": ""co-founder"",
+    ""type"": ""RELATIONAL""
+  },
+  {
+    ""claim"": ""Steve Wozniak was a co-founder of Apple Computer."",
+    ""subject"": ""Steve Wozniak"",
+    ""property"": ""role"",
+    ""value"": ""co-founder"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",3,Steve Wozniak was a co-founder of Apple Computer.,Steve Wozniak,role,co-founder,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1091.53
+Gemma 31B (Cloud),gemma4:31b-cloud,P40,Biography,In what year did the Titanic sink in the North Atlantic?,"```json
+[
+  {
+    ""claim"": ""The RMS Titanic sank in 1912."",
+    ""subject"": ""RMS Titanic"",
+    ""property"": ""sinking_year"",
+    ""value"": ""1912"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""The RMS Titanic sank in the North Atlantic Ocean."",
+    ""subject"": ""RMS Titanic"",
+    ""property"": ""location_of_sinking"",
+    ""value"": ""North Atlantic Ocean"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",1,The RMS Titanic sank in 1912.,RMS Titanic,sinking_year,1912,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1788.63
+Gemma 31B (Cloud),gemma4:31b-cloud,P40,Biography,In what year did the Titanic sink in the North Atlantic?,"```json
+[
+  {
+    ""claim"": ""The RMS Titanic sank in 1912."",
+    ""subject"": ""RMS Titanic"",
+    ""property"": ""sinking_year"",
+    ""value"": ""1912"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""The RMS Titanic sank in the North Atlantic Ocean."",
+    ""subject"": ""RMS Titanic"",
+    ""property"": ""location_of_sinking"",
+    ""value"": ""North Atlantic Ocean"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",2,The RMS Titanic sank in the North Atlantic Ocean.,RMS Titanic,location_of_sinking,North Atlantic Ocean,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1788.63
+Gemma 31B (Cloud),gemma4:31b-cloud,P41,Citations,In what venue and year was 'Attention Is All You Need' published?,"```json
+[
+  {""claim"": ""The paper 'Attention Is All You Need' was published in 2017."", ""subject"": ""Attention Is All You Need"", ""property"": ""publication_year"", ""value"": ""2017"", ""type"": ""TEMPORAL""},
+  {""claim"": ""The paper 'Attention Is All You Need' was published at the Neural Information Processing Systems (NeurIPS) conference."", ""subject"": ""Attention Is All You Need"", ""property"": ""publication_venue"", ""value"": ""NeurIPS"", ""type"": ""RELATIONAL""}
+]
+```",1,The paper 'Attention Is All You Need' was published in 2017.,Attention Is All You Need,publication_year,2017,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2037.02
+Gemma 31B (Cloud),gemma4:31b-cloud,P41,Citations,In what venue and year was 'Attention Is All You Need' published?,"```json
+[
+  {""claim"": ""The paper 'Attention Is All You Need' was published in 2017."", ""subject"": ""Attention Is All You Need"", ""property"": ""publication_year"", ""value"": ""2017"", ""type"": ""TEMPORAL""},
+  {""claim"": ""The paper 'Attention Is All You Need' was published at the Neural Information Processing Systems (NeurIPS) conference."", ""subject"": ""Attention Is All You Need"", ""property"": ""publication_venue"", ""value"": ""NeurIPS"", ""type"": ""RELATIONAL""}
+]
+```",2,The paper 'Attention Is All You Need' was published at the Neural Information Processing Systems (NeurIPS) conference.,Attention Is All You Need,publication_venue,NeurIPS,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2037.02
+Gemma 31B (Cloud),gemma4:31b-cloud,P42,Citations,"In what journal was the Deep Learning review by LeCun, Bengio, and Hinton published in 2015?","```json
+[
+  {""claim"": ""The review paper on deep learning by LeCun, Bengio, and Hinton was published in the journal Nature."", ""subject"": ""Deep Learning review paper"", ""property"": ""published_in"", ""value"": ""Nature"", ""type"": ""RELATIONAL""},
+  {""claim"": ""The deep learning review by LeCun, Bengio, and Hinton was published in 2015."", ""subject"": ""Deep Learning review paper"", ""property"": ""publication_year"", ""value"": ""2015"", ""type"": ""TEMPORAL""}
+]
+```",1,"The review paper on deep learning by LeCun, Bengio, and Hinton was published in the journal Nature.",Deep Learning review paper,published_in,Nature,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1020.55
+Gemma 31B (Cloud),gemma4:31b-cloud,P42,Citations,"In what journal was the Deep Learning review by LeCun, Bengio, and Hinton published in 2015?","```json
+[
+  {""claim"": ""The review paper on deep learning by LeCun, Bengio, and Hinton was published in the journal Nature."", ""subject"": ""Deep Learning review paper"", ""property"": ""published_in"", ""value"": ""Nature"", ""type"": ""RELATIONAL""},
+  {""claim"": ""The deep learning review by LeCun, Bengio, and Hinton was published in 2015."", ""subject"": ""Deep Learning review paper"", ""property"": ""publication_year"", ""value"": ""2015"", ""type"": ""TEMPORAL""}
+]
+```",2,"The deep learning review by LeCun, Bengio, and Hinton was published in 2015.",Deep Learning review paper,publication_year,2015,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1020.55
+Gemma 31B (Cloud),gemma4:31b-cloud,P43,Citations,Who were the authors and what was the venue of the BERT paper in 2019?,"```json
+[
+  {""claim"": ""The BERT paper was published at the NAACL 2019 conference."", ""subject"": ""BERT paper"", ""property"": ""publication_venue"", ""value"": ""NAACL 2019"", ""type"": ""RELATIONAL""},
+  {""claim"": ""Jacob Devlin is one of the authors of the BERT paper."", ""subject"": ""Jacob Devlin"", ""property"": ""role"", ""value"": ""author"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""Ming-Wei Chang is one of the authors of the BERT paper."", ""subject"": ""Ming-Wei Chang"", ""property"": ""role"", ""value"": ""author"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",1,The BERT paper was published at the NAACL 2019 conference.,BERT paper,publication_venue,NAACL 2019,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1266.01
+Gemma 31B (Cloud),gemma4:31b-cloud,P43,Citations,Who were the authors and what was the venue of the BERT paper in 2019?,"```json
+[
+  {""claim"": ""The BERT paper was published at the NAACL 2019 conference."", ""subject"": ""BERT paper"", ""property"": ""publication_venue"", ""value"": ""NAACL 2019"", ""type"": ""RELATIONAL""},
+  {""claim"": ""Jacob Devlin is one of the authors of the BERT paper."", ""subject"": ""Jacob Devlin"", ""property"": ""role"", ""value"": ""author"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""Ming-Wei Chang is one of the authors of the BERT paper."", ""subject"": ""Ming-Wei Chang"", ""property"": ""role"", ""value"": ""author"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",2,Jacob Devlin is one of the authors of the BERT paper.,Jacob Devlin,role,author,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1266.01
+Gemma 31B (Cloud),gemma4:31b-cloud,P43,Citations,Who were the authors and what was the venue of the BERT paper in 2019?,"```json
+[
+  {""claim"": ""The BERT paper was published at the NAACL 2019 conference."", ""subject"": ""BERT paper"", ""property"": ""publication_venue"", ""value"": ""NAACL 2019"", ""type"": ""RELATIONAL""},
+  {""claim"": ""Jacob Devlin is one of the authors of the BERT paper."", ""subject"": ""Jacob Devlin"", ""property"": ""role"", ""value"": ""author"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""Ming-Wei Chang is one of the authors of the BERT paper."", ""subject"": ""Ming-Wei Chang"", ""property"": ""role"", ""value"": ""author"", ""type"": ""ENTITY_ATTRIBUTE""}
+]
+```",3,Ming-Wei Chang is one of the authors of the BERT paper.,Ming-Wei Chang,role,author,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1266.01
+Gemma 31B (Cloud),gemma4:31b-cloud,P44,Citations,Where was 'Language Models are Few-Shot Learners' (GPT-3) published in 2020?,"```json
+[
+  {
+    ""claim"": ""The paper 'Language Models are Few-Shot Learners' was published in 2020."",
+    ""subject"": ""Language Models are Few-Shot Learners"",
+    ""property"": ""publication_year"",
+    ""value"": ""2020"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""The paper 'Language Models are Few-Shot Learners' was published as a preprint on arXiv."",
+    ""subject"": ""Language Models are Few-Shot Learners"",
+    ""property"": ""publication_venue"",
+    ""value"": ""arXiv"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",1,The paper 'Language Models are Few-Shot Learners' was published in 2020.,Language Models are Few-Shot Learners,publication_year,2020,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2153.68
+Gemma 31B (Cloud),gemma4:31b-cloud,P44,Citations,Where was 'Language Models are Few-Shot Learners' (GPT-3) published in 2020?,"```json
+[
+  {
+    ""claim"": ""The paper 'Language Models are Few-Shot Learners' was published in 2020."",
+    ""subject"": ""Language Models are Few-Shot Learners"",
+    ""property"": ""publication_year"",
+    ""value"": ""2020"",
+    ""type"": ""TEMPORAL""
+  },
+  {
+    ""claim"": ""The paper 'Language Models are Few-Shot Learners' was published as a preprint on arXiv."",
+    ""subject"": ""Language Models are Few-Shot Learners"",
+    ""property"": ""publication_venue"",
+    ""value"": ""arXiv"",
+    ""type"": ""RELATIONAL""
+  }
+]
+```",2,The paper 'Language Models are Few-Shot Learners' was published as a preprint on arXiv.,Language Models are Few-Shot Learners,publication_venue,arXiv,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2153.68
+Gemma 31B (Cloud),gemma4:31b-cloud,P45,Citations,In what conference was the ResNet paper published by Kaiming He in 2016?,"```json
+[
+  {""claim"": ""The ResNet paper was published in the 2016 IEEE Conference on Computer Vision and Pattern Recognition."", ""subject"": ""ResNet paper"", ""property"": ""publication_venue"", ""value"": ""CVPR 2016"", ""type"": ""RELATIONAL""},
+  {""claim"": ""The ResNet paper was published in the year 2016."", ""subject"": ""ResNet paper"", ""property"": ""publication_year"", ""value"": ""2016"", ""type"": ""TEMPORAL""}
+]
+```",1,The ResNet paper was published in the 2016 IEEE Conference on Computer Vision and Pattern Recognition.,ResNet paper,publication_venue,CVPR 2016,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1123.99
+Gemma 31B (Cloud),gemma4:31b-cloud,P45,Citations,In what conference was the ResNet paper published by Kaiming He in 2016?,"```json
+[
+  {""claim"": ""The ResNet paper was published in the 2016 IEEE Conference on Computer Vision and Pattern Recognition."", ""subject"": ""ResNet paper"", ""property"": ""publication_venue"", ""value"": ""CVPR 2016"", ""type"": ""RELATIONAL""},
+  {""claim"": ""The ResNet paper was published in the year 2016."", ""subject"": ""ResNet paper"", ""property"": ""publication_year"", ""value"": ""2016"", ""type"": ""TEMPORAL""}
+]
+```",2,The ResNet paper was published in the year 2016.,ResNet paper,publication_year,2016,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1123.99
+Gemma 31B (Cloud),gemma4:31b-cloud,P46,Citations,Where was Claude Shannon's 'A Mathematical Theory of Communication' published in 1948?,"```json
+[
+  {
+    ""claim"": ""Claude Shannon's 'A Mathematical Theory of Communication' was published in the Bell System Technical Journal."",
+    ""subject"": ""A Mathematical Theory of Communication"",
+    ""property"": ""publication_venue"",
+    ""value"": ""Bell System Technical Journal"",
+    ""type"": ""RELATIONAL""
+  },
+  {
+    ""claim"": ""The publication of 'A Mathematical Theory of Communication' occurred in 1948."",
+    ""subject"": ""A Mathematical Theory of Communication"",
+    ""property"": ""publication_year"",
+    ""value"": ""1948"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",1,Claude Shannon's 'A Mathematical Theory of Communication' was published in the Bell System Technical Journal.,A Mathematical Theory of Communication,publication_venue,Bell System Technical Journal,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1226.7
+Gemma 31B (Cloud),gemma4:31b-cloud,P46,Citations,Where was Claude Shannon's 'A Mathematical Theory of Communication' published in 1948?,"```json
+[
+  {
+    ""claim"": ""Claude Shannon's 'A Mathematical Theory of Communication' was published in the Bell System Technical Journal."",
+    ""subject"": ""A Mathematical Theory of Communication"",
+    ""property"": ""publication_venue"",
+    ""value"": ""Bell System Technical Journal"",
+    ""type"": ""RELATIONAL""
+  },
+  {
+    ""claim"": ""The publication of 'A Mathematical Theory of Communication' occurred in 1948."",
+    ""subject"": ""A Mathematical Theory of Communication"",
+    ""property"": ""publication_year"",
+    ""value"": ""1948"",
+    ""type"": ""TEMPORAL""
+  }
+]
+```",2,The publication of 'A Mathematical Theory of Communication' occurred in 1948.,A Mathematical Theory of Communication,publication_year,1948,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1226.7
+Gemma 31B (Cloud),gemma4:31b-cloud,P47,Citations,In what journal was the AlphaGo landmark paper published by DeepMind in 2016?,"```json
+[
+  {""claim"": ""The AlphaGo paper was published in the journal Nature."", ""subject"": ""AlphaGo paper"", ""property"": ""publication_journal"", ""value"": ""Nature"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The AlphaGo paper was published in 2016."", ""subject"": ""AlphaGo paper"", ""property"": ""publication_year"", ""value"": ""2016"", ""type"": ""TEMPORAL""}
+]
+```",1,The AlphaGo paper was published in the journal Nature.,AlphaGo paper,publication_journal,Nature,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,923.02
+Gemma 31B (Cloud),gemma4:31b-cloud,P47,Citations,In what journal was the AlphaGo landmark paper published by DeepMind in 2016?,"```json
+[
+  {""claim"": ""The AlphaGo paper was published in the journal Nature."", ""subject"": ""AlphaGo paper"", ""property"": ""publication_journal"", ""value"": ""Nature"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The AlphaGo paper was published in 2016."", ""subject"": ""AlphaGo paper"", ""property"": ""publication_year"", ""value"": ""2016"", ""type"": ""TEMPORAL""}
+]
+```",2,The AlphaGo paper was published in 2016.,AlphaGo paper,publication_year,2016,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,923.02
+Gemma 31B (Cloud),gemma4:31b-cloud,P48,Citations,Where was the seminal Generative Adversarial Networks (GAN) paper published by Ian Goodfellow?,"```json
+[
+  {""claim"": ""The Generative Adversarial Networks paper was published in 2014."", ""subject"": ""Generative Adversarial Networks paper"", ""property"": ""publication_year"", ""value"": ""2014"", ""type"": ""TEMPORAL""},
+  {""claim"": ""The Generative Adversarial Networks paper was published at the Neural Information Processing Systems (NIPS) conference."", ""subject"": ""Generative Adversarial Networks paper"", ""property"": ""publication_venue"", ""value"": ""Neural Information Processing Systems"", ""type"": ""RELATIONAL""}
+]
+```",1,The Generative Adversarial Networks paper was published in 2014.,Generative Adversarial Networks paper,publication_year,2014,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1127.35
+Gemma 31B (Cloud),gemma4:31b-cloud,P48,Citations,Where was the seminal Generative Adversarial Networks (GAN) paper published by Ian Goodfellow?,"```json
+[
+  {""claim"": ""The Generative Adversarial Networks paper was published in 2014."", ""subject"": ""Generative Adversarial Networks paper"", ""property"": ""publication_year"", ""value"": ""2014"", ""type"": ""TEMPORAL""},
+  {""claim"": ""The Generative Adversarial Networks paper was published at the Neural Information Processing Systems (NIPS) conference."", ""subject"": ""Generative Adversarial Networks paper"", ""property"": ""publication_venue"", ""value"": ""Neural Information Processing Systems"", ""type"": ""RELATIONAL""}
+]
+```",2,The Generative Adversarial Networks paper was published at the Neural Information Processing Systems (NIPS) conference.,Generative Adversarial Networks paper,publication_venue,Neural Information Processing Systems,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1127.35
+Gemma 31B (Cloud),gemma4:31b-cloud,P49,Citations,In what journal was the structure of DNA published by Watson and Crick in 1953?,"```json
+[
+  {""claim"": ""The structure of DNA was published by Watson and Crick in the journal Nature."", ""subject"": ""Watson and Crick's DNA paper"", ""property"": ""publication_journal"", ""value"": ""Nature"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The paper describing the double helix structure of DNA was published in 1953."", ""subject"": ""Watson and Crick's DNA paper"", ""property"": ""publication_year"", ""value"": ""1953"", ""type"": ""TEMPORAL""}
+]
+```",1,The structure of DNA was published by Watson and Crick in the journal Nature.,Watson and Crick's DNA paper,publication_journal,Nature,ENTITY_ATTRIBUTE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2017.87
+Gemma 31B (Cloud),gemma4:31b-cloud,P49,Citations,In what journal was the structure of DNA published by Watson and Crick in 1953?,"```json
+[
+  {""claim"": ""The structure of DNA was published by Watson and Crick in the journal Nature."", ""subject"": ""Watson and Crick's DNA paper"", ""property"": ""publication_journal"", ""value"": ""Nature"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The paper describing the double helix structure of DNA was published in 1953."", ""subject"": ""Watson and Crick's DNA paper"", ""property"": ""publication_year"", ""value"": ""1953"", ""type"": ""TEMPORAL""}
+]
+```",2,The paper describing the double helix structure of DNA was published in 1953.,Watson and Crick's DNA paper,publication_year,1953,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2017.87
+Gemma 31B (Cloud),gemma4:31b-cloud,P50,Citations,In what venue was the Adam optimizer paper published by Kingma and Ba in 2015?,"```json
+[
+  {""claim"": ""The Adam optimizer paper was published at the Third International Conference on Learning Representations (ICLR)."", ""subject"": ""Adam optimizer paper"", ""property"": ""publication_venue"", ""value"": ""ICLR 2015"", ""type"": ""RELATIONAL""},
+  {""claim"": ""The Adam optimizer paper was published in 2015."", ""subject"": ""Adam optimizer paper"", ""property"": ""publication_year"", ""value"": ""2015"", ""type"": ""TEMPORAL""}
+]
+```",1,The Adam optimizer paper was published at the Third International Conference on Learning Representations (ICLR).,Adam optimizer paper,publication_venue,ICLR 2015,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1264.83
+Gemma 31B (Cloud),gemma4:31b-cloud,P50,Citations,In what venue was the Adam optimizer paper published by Kingma and Ba in 2015?,"```json
+[
+  {""claim"": ""The Adam optimizer paper was published at the Third International Conference on Learning Representations (ICLR)."", ""subject"": ""Adam optimizer paper"", ""property"": ""publication_venue"", ""value"": ""ICLR 2015"", ""type"": ""RELATIONAL""},
+  {""claim"": ""The Adam optimizer paper was published in 2015."", ""subject"": ""Adam optimizer paper"", ""property"": ""publication_year"", ""value"": ""2015"", ""type"": ""TEMPORAL""}
+]
+```",2,The Adam optimizer paper was published in 2015.,Adam optimizer paper,publication_year,2015,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,1264.83
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P01,Science,What is the boiling point of liquid nitrogen in both Kelvin and Celsius?,"[
+  {""claim"": ""The boiling point of liquid nitrogen is 77.36 Kelvin."", ""subject"": ""liquid nitrogen"", ""property"": ""boiling_point"", ""value"": ""77.36 K"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""The boiling point of liquid nitrogen is -195.79 degrees Celsius."", ""subject"": ""liquid nitrogen"", ""property"": ""boiling_point"", ""value"": ""-195.79 °C",1,What is the boiling point of liquid nitrogen in both Kelvin and Celsius?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2871.06
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P02,Science,What is the exact speed of light in vacuum in meters per second?,,1,What is the exact speed of light in vacuum in meters per second?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2846.52
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P03,Science,How many chromosomes are in a normal human somatic cell?,,1,How many chromosomes are in a normal human somatic cell?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2571.28
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P04,Science,In which direction does the Nile River flow and where does it terminate?,,1,In which direction does the Nile River flow and where does it terminate?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2460.24
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P05,Science,What is the numerical value of the Avogadro constant?,,1,What is the numerical value of the Avogadro constant?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2462.2
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P06,Science,What is the highest mountain peak in North America and how tall is it?,"[
+  {""claim"": ""Denali is the highest mountain peak in North America."", ""subject"": ""Denali"", ""property"": ""highest_peak_in"", ""value"": ""North America"", ""type"": ""RELATIONAL""},
+  {""claim"": ""Denali's summit elevation is 20,",1,What is the highest mountain peak in North America and how tall is it?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2853.28
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P07,Science,What is the highest mountain peak in Asia and what is its elevation in meters?,"[
+  {""claim"": ""Mount Everest is the highest mountain peak in Asia."", ""subject"": ""Mount Everest"", ""property"": ""highest_peak_in"", ""value"": ""Asia"", ""type"": ""RELATIONAL""},
+  {""claim"": ""Mount Everest's summit elevation is 8,848 meters above sea level."", ""subject"": ""Mount Everest"", ""property"": ""elevation"", ""value"": ""8,848 m"", ""type"": ""QUANTITATIVE""}
+]",1,Mount Everest is the highest mountain peak in Asia.,Mount Everest,highest_peak_in,Asia,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2592.26
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P07,Science,What is the highest mountain peak in Asia and what is its elevation in meters?,"[
+  {""claim"": ""Mount Everest is the highest mountain peak in Asia."", ""subject"": ""Mount Everest"", ""property"": ""highest_peak_in"", ""value"": ""Asia"", ""type"": ""RELATIONAL""},
+  {""claim"": ""Mount Everest's summit elevation is 8,848 meters above sea level."", ""subject"": ""Mount Everest"", ""property"": ""elevation"", ""value"": ""8,848 m"", ""type"": ""QUANTITATIVE""}
+]",2,"Mount Everest's summit elevation is 8,848 meters above sea level.",Mount Everest,elevation,"8,848 m",QUANTITATIVE,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2592.26
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P08,Science,How long does it take the International Space Station to orbit the Earth?,"[
+  {""claim"": ""The",1,How long does it take the International Space Station to orbit the Earth?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3074.43
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P09,Science,What is the lowest land-based elevation on Earth and where is it located?,,1,What is the lowest land-based elevation on Earth and where is it located?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2707.78
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P10,Science,How many natural confirmed moons does Saturn have?,"[
+  {""claim"": ""Saturn has 83 confirmed natural moons."", ""subject"": ""Saturn"", ""property"": ""confirmed_moons_count"", ""value"": ""83"", ""type"": ""QUANTITATIVE""},
+  {""claim"": ""Saturn ranks second among Solar System planets for the number of confirmed moons, behind Jupiter."", ""subject"": ""Saturn"", ""property"": ""moon_count",1,How many natural confirmed moons does Saturn have?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2572.72
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P11,Economics,What was the nominal GDP of the United States in trillions of dollars in 2023?,,1,What was the nominal GDP of the United States in trillions of dollars in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2679.95
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P12,Economics,What was the nominal GDP of China in trillions of dollars in 2023?,,1,What was the nominal GDP of China in trillions of dollars in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2862.52
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P13,Economics,What is the official national currency of Switzerland and is it the Euro?,,1,What is the official national currency of Switzerland and is it the Euro?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2344.34
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P14,Economics,What was the approximate population milestone Canada reached in 2023?,,1,What was the approximate population milestone Canada reached in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3494.16
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P15,Economics,What was the approximate unemployment rate in South Africa in 2023?,"[
+  {""",1,What was the approximate unemployment rate in South Africa in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3276.26
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P16,Economics,What is the official currency of the United Kingdom?,"[
+  {""claim"": ""The official currency of the United Kingdom is the",1,What is the official currency of the United Kingdom?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2657.3
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P17,Economics,What was the approximate nominal GDP of Germany in 2023?,,1,What was the approximate nominal GDP of Germany in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2558.77
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P18,Economics,What was the approximate population of the world when it hit the 8 billion milestone?,,1,What was the approximate population of the world when it hit the 8 billion milestone?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2360.71
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P19,Economics,What is the official currency of Japan?,"[
+  {""claim"": ""The official currency of Japan is the yen."", ""subject"": ""Japan"", ""property"": ""official_currency"", ""value"": ""yen"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The ISO 4217 code for the Japanese yen is JPY."", ""subject"": ""Japanese yen"", ""property"": ""ISO_4217_code"", ""value"": ""JPY"", ""type"": ""ENTITY_ATTRIBUTE""},
+  {""claim"": ""The symbol commonly used to denote the Japanese yen is ¥."", ""subject"": ""Japanese",1,What is the official currency of Japan?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2560.53
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P20,Economics,What was the approximate annual inflation rate in Zimbabwe in 2020?,,1,What was the approximate annual inflation rate in Zimbabwe in 2020?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3270.93
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P21,Hardware,How many CPU cores does the AMD EPYC 9654 Genoa server processor have?,,1,How many CPU cores does the AMD EPYC 9654 Genoa server processor have?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3976.89
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P22,Hardware,What is the memory capacity and memory type of the NVIDIA H100 SXM5 GPU?,,1,What is the memory capacity and memory type of the NVIDIA H100 SXM5 GPU?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2682.81
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P23,Hardware,How many transistors are packed into the Apple M3 Max processor?,,1,How many transistors are packed into the Apple M3 Max processor?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3178.58
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P24,Hardware,How many superconducting qubits are featured on the IBM Condor quantum processor?,"[
+  {
+    ""claim"": ""The IBM Condor quantum processor features 1,121 superconducting qubits."",
+    ""subject"": ""IBM Condor quantum processor"",
+    ""property"": ""qubit_count"",
+    ""value"": ""1,121",1,How many superconducting qubits are featured on the IBM Condor quantum processor?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2707.43
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P25,Hardware,How many CPU cores are in the AMD Ryzen 9 7950X desktop processor?,"[
+  {""claim"": ""The AMD Ryzen 9 7950X desktop processor has 16 CPU cores."", ""subject"": ""AMD Ryzen 9 7950X"", ""property"": ""core_count"", ""value"": ""16"", ""type"": ""QUANT",1,How many CPU cores are in the AMD Ryzen 9 7950X desktop processor?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2720.17
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P26,Hardware,How many transistors are in the Apple M2 Ultra system on a chip?,,1,How many transistors are in the Apple M2 Ultra system on a chip?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2835.55
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P27,Hardware,What is the VRAM capacity of the NVIDIA RTX 4090 graphics card?,"[
+  {""claim"": ""The NVIDIA RTX 4090 graphics card",1,What is the VRAM capacity of the NVIDIA RTX 4090 graphics card?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2447.92
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P28,Hardware,How many tensor cores does the NVIDIA A100 SXM4 GPU have?,,1,How many tensor cores does the NVIDIA A100 SXM4 GPU have?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2556.19
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P29,Hardware,How many performance cores does the Intel Core i9-14900K have?,,1,How many performance cores does the Intel Core i9-14900K have?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2631.14
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P30,Hardware,What process node in nanometers was used for Apple M3 chip family?,"[
+  {""claim"": ""Apple M3 chip family is manufactured using TSM",1,What process node in nanometers was used for Apple M3 chip family?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2670.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P31,Biography,In what years did Barack Obama serve as President of the United States?,,1,In what years did Barack Obama serve as President of the United States?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3019.87
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P32,Biography,In what year did Queen Elizabeth II die and who succeeded her?,"[
+  {""claim"": ""Queen Elizabeth II died in 2022."", ""subject"": ""Queen Elizabeth II"", ""property"": ""death_year"", ""value"": ""2022"", ""type"": ""TEMPORAL""},
+  {""claim"": ""Charles III succeeded Queen Elizabeth II as monarch of the United Kingdom."", """,1,In what year did Queen Elizabeth II die and who succeeded her?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3085.88
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P33,Biography,In what years did Angela Merkel serve as Chancellor of Germany?,,1,In what years did Angela Merkel serve as Chancellor of Germany?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3015.81
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P34,Biography,Which Nobel Prizes did Marie Curie win and in what fields?,,1,Which Nobel Prizes did Marie Curie win and in what fields?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3492.73
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P35,Biography,In what year was Albert Einstein born and when did he pass away?,"[
+  {""claim"": ""Albert Einstein was born in 1879."", ""subject"": ""Albert Einstein"", ""property"": ""birth_year"", ""value"": ""1879"", ""type"": ""TEMPORAL""},
+  {""claim"": ""Albert Einstein died in 1955."", ""subject"": ""Albert Einstein"", ""property"": ""death_year"", ""value"": ""1955"", ""type"": ""TEMPORAL""}
+]",1,Albert Einstein was born in 1879.,Albert Einstein,birth_year,1879,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3482.01
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P35,Biography,In what year was Albert Einstein born and when did he pass away?,"[
+  {""claim"": ""Albert Einstein was born in 1879."", ""subject"": ""Albert Einstein"", ""property"": ""birth_year"", ""value"": ""1879"", ""type"": ""TEMPORAL""},
+  {""claim"": ""Albert Einstein died in 1955."", ""subject"": ""Albert Einstein"", ""property"": ""death_year"", ""value"": ""1955"", ""type"": ""TEMPORAL""}
+]",2,Albert Einstein died in 1955.,Albert Einstein,death_year,1955,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3482.01
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P36,Biography,In what year was the Panama Canal officially opened to maritime traffic?,"[
+  {""claim"": ""The Panama Canal was officially opened to maritime traffic in 1914."", ""subject"": ""Panama Canal"", ""property"": ""official_opening_year"", ""value"": ""1914"", ""type"": ""TEMPORAL""},
+  {""claim"": ""The Panama Canal was inaugurated on August 15, 1914, marking its first passage of ships."", ""subject"": ""Panama Canal"", ""property"": ""inauguration_date"", ""value"": ""1914-08-15"", ""type"": ""TEMPORAL""}
+]",1,The Panama Canal was officially opened to maritime traffic in 1914.,Panama Canal,official_opening_year,1914,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2291.67
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P36,Biography,In what year was the Panama Canal officially opened to maritime traffic?,"[
+  {""claim"": ""The Panama Canal was officially opened to maritime traffic in 1914."", ""subject"": ""Panama Canal"", ""property"": ""official_opening_year"", ""value"": ""1914"", ""type"": ""TEMPORAL""},
+  {""claim"": ""The Panama Canal was inaugurated on August 15, 1914, marking its first passage of ships."", ""subject"": ""Panama Canal"", ""property"": ""inauguration_date"", ""value"": ""1914-08-15"", ""type"": ""TEMPORAL""}
+]",2,"The Panama Canal was inaugurated on August 15, 1914, marking its first passage of ships.",Panama Canal,inauguration_date,1914-08-15,TEMPORAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2291.67
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P37,Biography,In what year did the Soviet Union officially dissolve?,"[
+  {
+    ""claim"": ""The Soviet Union officially dissolved on 26 December 1991."",
+    ""subject"": ""Soviet Union"",
+    ""property"": ""dissolution_date"",
+    ""value"": """,1,In what year did the Soviet Union officially dissolve?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2364.08
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P38,Biography,In what year did the Apollo 11 moon landing take place?,"[
+  {""claim"": ""Apollo 11 landed on the Moon in 1969."", ""subject"": ""Apollo 11 mission"", ""property"": ""landing_year"", ""value"": ""1969"", ""type"": ""TEMPORAL""},
+  {""claim"": ""Apollo 11 touched down on the lunar surface on 20 July 1969."", ""subject"": ""Apollo 11 mission"", ""property"": ""landing_date"", ""value"": ""20",1,In what year did the Apollo 11 moon landing take place?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2841.21
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P39,Biography,In what year was Apple Computer founded by Steve Jobs and Steve Wozniak?,"[
+  {
+    ""claim"": """,1,In what year was Apple Computer founded by Steve Jobs and Steve Wozniak?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2282.81
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P40,Biography,In what year did the Titanic sink in the North Atlantic?,"[
+  {""claim"": ""The RMS Titanic sank in the North Atlantic on 15 April 1912."", ""subject"": ""RMS Titanic"", ""property"": ""sinking_date"", ""value"": ""15 April 1912"", ""type"": ""TEMPORAL""},
+  {""claim"": ""The sinking of the RMS Titanic occurred in the year 1912."", ""subject"": ""RMS Titanic"", ""property"": ""sinking_year",1,In what year did the Titanic sink in the North Atlantic?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2434.69
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P41,Citations,In what venue and year was 'Attention Is All You Need' published?,,1,In what venue and year was 'Attention Is All You Need' published?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3131.76
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P42,Citations,"In what journal was the Deep Learning review by LeCun, Bengio, and Hinton published in 2015?",,1,"In what journal was the Deep Learning review by LeCun, Bengio, and Hinton published in 2015?",entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2524.21
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P43,Citations,Who were the authors and what was the venue of the BERT paper in 2019?,,1,Who were the authors and what was the venue of the BERT paper in 2019?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2709.05
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P44,Citations,Where was 'Language Models are Few-Shot Learners' (GPT-3) published in 2020?,,1,Where was 'Language Models are Few-Shot Learners' (GPT-3) published in 2020?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2779.51
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P45,Citations,In what conference was the ResNet paper published by Kaiming He in 2016?,,1,In what conference was the ResNet paper published by Kaiming He in 2016?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2677.56
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P46,Citations,Where was Claude Shannon's 'A Mathematical Theory of Communication' published in 1948?,,1,Where was Claude Shannon's 'A Mathematical Theory of Communication' published in 1948?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2285.01
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P47,Citations,In what journal was the AlphaGo landmark paper published by DeepMind in 2016?,,1,In what journal was the AlphaGo landmark paper published by DeepMind in 2016?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3457.14
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P48,Citations,Where was the seminal Generative Adversarial Networks (GAN) paper published by Ian Goodfellow?,"[
+  {""claim"": ""The",1,Where was the seminal Generative Adversarial Networks (GAN) paper published by Ian Goodfellow?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,3028.81
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P49,Citations,In what journal was the structure of DNA published by Watson and Crick in 1953?,"[
+  {""claim"": ""The structure of DNA was published by Watson and Crick",1,In what journal was the structure of DNA published by Watson and Crick in 1953?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2745.93
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,P50,Citations,In what venue was the Adam optimizer paper published by Kingma and Ba in 2015?,,1,In what venue was the Adam optimizer paper published by Kingma and Ba in 2015?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,2486.35
+MiniMax M3 (Cloud),minimax-m3:cloud,P01,Science,What is the boiling point of liquid nitrogen in both Kelvin and Celsius?,HTTP Error 402: Payment Required,1,What is the boiling point of liquid nitrogen in both Kelvin and Celsius?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,493.45
+MiniMax M3 (Cloud),minimax-m3:cloud,P02,Science,What is the exact speed of light in vacuum in meters per second?,HTTP Error 402: Payment Required,1,What is the exact speed of light in vacuum in meters per second?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,477.51
+MiniMax M3 (Cloud),minimax-m3:cloud,P03,Science,How many chromosomes are in a normal human somatic cell?,HTTP Error 402: Payment Required,1,How many chromosomes are in a normal human somatic cell?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,579.27
+MiniMax M3 (Cloud),minimax-m3:cloud,P04,Science,In which direction does the Nile River flow and where does it terminate?,HTTP Error 402: Payment Required,1,In which direction does the Nile River flow and where does it terminate?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,471.38
+MiniMax M3 (Cloud),minimax-m3:cloud,P05,Science,What is the numerical value of the Avogadro constant?,HTTP Error 402: Payment Required,1,What is the numerical value of the Avogadro constant?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,460.29
+MiniMax M3 (Cloud),minimax-m3:cloud,P06,Science,What is the highest mountain peak in North America and how tall is it?,HTTP Error 402: Payment Required,1,What is the highest mountain peak in North America and how tall is it?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,438.37
+MiniMax M3 (Cloud),minimax-m3:cloud,P07,Science,What is the highest mountain peak in Asia and what is its elevation in meters?,HTTP Error 402: Payment Required,1,What is the highest mountain peak in Asia and what is its elevation in meters?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,422.57
+MiniMax M3 (Cloud),minimax-m3:cloud,P08,Science,How long does it take the International Space Station to orbit the Earth?,HTTP Error 402: Payment Required,1,How long does it take the International Space Station to orbit the Earth?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,421.39
+MiniMax M3 (Cloud),minimax-m3:cloud,P09,Science,What is the lowest land-based elevation on Earth and where is it located?,HTTP Error 402: Payment Required,1,What is the lowest land-based elevation on Earth and where is it located?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,535.88
+MiniMax M3 (Cloud),minimax-m3:cloud,P10,Science,How many natural confirmed moons does Saturn have?,HTTP Error 402: Payment Required,1,How many natural confirmed moons does Saturn have?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,510.8
+MiniMax M3 (Cloud),minimax-m3:cloud,P11,Economics,What was the nominal GDP of the United States in trillions of dollars in 2023?,HTTP Error 402: Payment Required,1,What was the nominal GDP of the United States in trillions of dollars in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,522.76
+MiniMax M3 (Cloud),minimax-m3:cloud,P12,Economics,What was the nominal GDP of China in trillions of dollars in 2023?,HTTP Error 402: Payment Required,1,What was the nominal GDP of China in trillions of dollars in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,425.29
+MiniMax M3 (Cloud),minimax-m3:cloud,P13,Economics,What is the official national currency of Switzerland and is it the Euro?,HTTP Error 402: Payment Required,1,What is the official national currency of Switzerland and is it the Euro?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,544.77
+MiniMax M3 (Cloud),minimax-m3:cloud,P14,Economics,What was the approximate population milestone Canada reached in 2023?,HTTP Error 402: Payment Required,1,What was the approximate population milestone Canada reached in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,557.12
+MiniMax M3 (Cloud),minimax-m3:cloud,P15,Economics,What was the approximate unemployment rate in South Africa in 2023?,HTTP Error 402: Payment Required,1,What was the approximate unemployment rate in South Africa in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,646.27
+MiniMax M3 (Cloud),minimax-m3:cloud,P16,Economics,What is the official currency of the United Kingdom?,HTTP Error 402: Payment Required,1,What is the official currency of the United Kingdom?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,585.34
+MiniMax M3 (Cloud),minimax-m3:cloud,P17,Economics,What was the approximate nominal GDP of Germany in 2023?,HTTP Error 402: Payment Required,1,What was the approximate nominal GDP of Germany in 2023?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,535.54
+MiniMax M3 (Cloud),minimax-m3:cloud,P18,Economics,What was the approximate population of the world when it hit the 8 billion milestone?,HTTP Error 402: Payment Required,1,What was the approximate population of the world when it hit the 8 billion milestone?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,408.28
+MiniMax M3 (Cloud),minimax-m3:cloud,P19,Economics,What is the official currency of Japan?,HTTP Error 402: Payment Required,1,What is the official currency of Japan?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,487.27
+MiniMax M3 (Cloud),minimax-m3:cloud,P20,Economics,What was the approximate annual inflation rate in Zimbabwe in 2020?,HTTP Error 402: Payment Required,1,What was the approximate annual inflation rate in Zimbabwe in 2020?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,657.03
+MiniMax M3 (Cloud),minimax-m3:cloud,P21,Hardware,How many CPU cores does the AMD EPYC 9654 Genoa server processor have?,HTTP Error 402: Payment Required,1,How many CPU cores does the AMD EPYC 9654 Genoa server processor have?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,552.37
+MiniMax M3 (Cloud),minimax-m3:cloud,P22,Hardware,What is the memory capacity and memory type of the NVIDIA H100 SXM5 GPU?,HTTP Error 402: Payment Required,1,What is the memory capacity and memory type of the NVIDIA H100 SXM5 GPU?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,408.83
+MiniMax M3 (Cloud),minimax-m3:cloud,P23,Hardware,How many transistors are packed into the Apple M3 Max processor?,HTTP Error 402: Payment Required,1,How many transistors are packed into the Apple M3 Max processor?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,414.97
+MiniMax M3 (Cloud),minimax-m3:cloud,P24,Hardware,How many superconducting qubits are featured on the IBM Condor quantum processor?,HTTP Error 402: Payment Required,1,How many superconducting qubits are featured on the IBM Condor quantum processor?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,451.28
+MiniMax M3 (Cloud),minimax-m3:cloud,P25,Hardware,How many CPU cores are in the AMD Ryzen 9 7950X desktop processor?,HTTP Error 402: Payment Required,1,How many CPU cores are in the AMD Ryzen 9 7950X desktop processor?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,576.24
+MiniMax M3 (Cloud),minimax-m3:cloud,P26,Hardware,How many transistors are in the Apple M2 Ultra system on a chip?,HTTP Error 402: Payment Required,1,How many transistors are in the Apple M2 Ultra system on a chip?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,491.16
+MiniMax M3 (Cloud),minimax-m3:cloud,P27,Hardware,What is the VRAM capacity of the NVIDIA RTX 4090 graphics card?,HTTP Error 402: Payment Required,1,What is the VRAM capacity of the NVIDIA RTX 4090 graphics card?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,418.59
+MiniMax M3 (Cloud),minimax-m3:cloud,P28,Hardware,How many tensor cores does the NVIDIA A100 SXM4 GPU have?,HTTP Error 402: Payment Required,1,How many tensor cores does the NVIDIA A100 SXM4 GPU have?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,443.77
+MiniMax M3 (Cloud),minimax-m3:cloud,P29,Hardware,How many performance cores does the Intel Core i9-14900K have?,HTTP Error 402: Payment Required,1,How many performance cores does the Intel Core i9-14900K have?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,585.52
+MiniMax M3 (Cloud),minimax-m3:cloud,P30,Hardware,What process node in nanometers was used for Apple M3 chip family?,HTTP Error 402: Payment Required,1,What process node in nanometers was used for Apple M3 chip family?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,511.96
+MiniMax M3 (Cloud),minimax-m3:cloud,P31,Biography,In what years did Barack Obama serve as President of the United States?,HTTP Error 402: Payment Required,1,In what years did Barack Obama serve as President of the United States?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,590.01
+MiniMax M3 (Cloud),minimax-m3:cloud,P32,Biography,In what year did Queen Elizabeth II die and who succeeded her?,HTTP Error 402: Payment Required,1,In what year did Queen Elizabeth II die and who succeeded her?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,617.59
+MiniMax M3 (Cloud),minimax-m3:cloud,P33,Biography,In what years did Angela Merkel serve as Chancellor of Germany?,HTTP Error 402: Payment Required,1,In what years did Angela Merkel serve as Chancellor of Germany?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,542.56
+MiniMax M3 (Cloud),minimax-m3:cloud,P34,Biography,Which Nobel Prizes did Marie Curie win and in what fields?,HTTP Error 402: Payment Required,1,Which Nobel Prizes did Marie Curie win and in what fields?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,521.0
+MiniMax M3 (Cloud),minimax-m3:cloud,P35,Biography,In what year was Albert Einstein born and when did he pass away?,HTTP Error 402: Payment Required,1,In what year was Albert Einstein born and when did he pass away?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,512.74
+MiniMax M3 (Cloud),minimax-m3:cloud,P36,Biography,In what year was the Panama Canal officially opened to maritime traffic?,HTTP Error 402: Payment Required,1,In what year was the Panama Canal officially opened to maritime traffic?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,532.07
+MiniMax M3 (Cloud),minimax-m3:cloud,P37,Biography,In what year did the Soviet Union officially dissolve?,HTTP Error 402: Payment Required,1,In what year did the Soviet Union officially dissolve?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,488.54
+MiniMax M3 (Cloud),minimax-m3:cloud,P38,Biography,In what year did the Apollo 11 moon landing take place?,HTTP Error 402: Payment Required,1,In what year did the Apollo 11 moon landing take place?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,397.06
+MiniMax M3 (Cloud),minimax-m3:cloud,P39,Biography,In what year was Apple Computer founded by Steve Jobs and Steve Wozniak?,HTTP Error 402: Payment Required,1,In what year was Apple Computer founded by Steve Jobs and Steve Wozniak?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,428.37
+MiniMax M3 (Cloud),minimax-m3:cloud,P40,Biography,In what year did the Titanic sink in the North Atlantic?,HTTP Error 402: Payment Required,1,In what year did the Titanic sink in the North Atlantic?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,436.32
+MiniMax M3 (Cloud),minimax-m3:cloud,P41,Citations,In what venue and year was 'Attention Is All You Need' published?,HTTP Error 402: Payment Required,1,In what venue and year was 'Attention Is All You Need' published?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,446.63
+MiniMax M3 (Cloud),minimax-m3:cloud,P42,Citations,"In what journal was the Deep Learning review by LeCun, Bengio, and Hinton published in 2015?",HTTP Error 402: Payment Required,1,"In what journal was the Deep Learning review by LeCun, Bengio, and Hinton published in 2015?",entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,465.28
+MiniMax M3 (Cloud),minimax-m3:cloud,P43,Citations,Who were the authors and what was the venue of the BERT paper in 2019?,HTTP Error 402: Payment Required,1,Who were the authors and what was the venue of the BERT paper in 2019?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,563.24
+MiniMax M3 (Cloud),minimax-m3:cloud,P44,Citations,Where was 'Language Models are Few-Shot Learners' (GPT-3) published in 2020?,HTTP Error 402: Payment Required,1,Where was 'Language Models are Few-Shot Learners' (GPT-3) published in 2020?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,542.19
+MiniMax M3 (Cloud),minimax-m3:cloud,P45,Citations,In what conference was the ResNet paper published by Kaiming He in 2016?,HTTP Error 402: Payment Required,1,In what conference was the ResNet paper published by Kaiming He in 2016?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,429.12
+MiniMax M3 (Cloud),minimax-m3:cloud,P46,Citations,Where was Claude Shannon's 'A Mathematical Theory of Communication' published in 1948?,HTTP Error 402: Payment Required,1,Where was Claude Shannon's 'A Mathematical Theory of Communication' published in 1948?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,589.34
+MiniMax M3 (Cloud),minimax-m3:cloud,P47,Citations,In what journal was the AlphaGo landmark paper published by DeepMind in 2016?,HTTP Error 402: Payment Required,1,In what journal was the AlphaGo landmark paper published by DeepMind in 2016?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,579.43
+MiniMax M3 (Cloud),minimax-m3:cloud,P48,Citations,Where was the seminal Generative Adversarial Networks (GAN) paper published by Ian Goodfellow?,HTTP Error 402: Payment Required,1,Where was the seminal Generative Adversarial Networks (GAN) paper published by Ian Goodfellow?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,555.89
+MiniMax M3 (Cloud),minimax-m3:cloud,P49,Citations,In what journal was the structure of DNA published by Watson and Crick in 1953?,HTTP Error 402: Payment Required,1,In what journal was the structure of DNA published by Watson and Crick in 1953?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,547.94
+MiniMax M3 (Cloud),minimax-m3:cloud,P50,Citations,In what venue was the Adam optimizer paper published by Kingma and Ba in 2015?,HTTP Error 402: Payment Required,1,In what venue was the Adam optimizer paper published by Kingma and Ba in 2015?,entity,relation,fact,RELATIONAL,TRUE,TRUE,Verified via HalDetect 2.0 Grounding,TRUE,TRUE,TRUE,TRUE,459.11
