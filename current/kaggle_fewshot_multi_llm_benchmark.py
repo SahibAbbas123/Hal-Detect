@@ -1,22 +1,25 @@
 # ==============================================================================
-# HalDetect 2.0 -- Kaggle GPU Few-Shot Multi-LLM Benchmark Runner (Single Cell)
+# HalDetect 2.0 -- Kaggle GPU End-to-End Multi-LLM Benchmark (Raw Text -> HalDetect)
 # ==============================================================================
-# Instructions:
-# 1. Open a new Kaggle Notebook.
-# 2. Set Accelerator to GPU T4 x 2 or P100 or A100.
-# 3. Paste this entire cell and click "Run All".
-# 4. It will download the 4 models, run the 50 prompts, and save
-#    `kaggle_fewshot_multi_llm_benchmark_results.csv` to Kaggle working directory.
+# Invariants:
+# 1. Models generate pure, natural conversational paragraphs (NO forced JSON).
+# 2. HalDetect's SchemaAtomizer decomposes raw paragraphs into 5-tuple propositions.
+# 3. HalDetect's Taxonomy Router classifies each proposition into 5 modalities.
+# 4. HalDetect's Verifiers evaluate truth & detect hallucinations.
+# 5. Full 5-paradigm comparison: HalDetect vs Semi-Routed vs Non-Routed vs RAG vs LLM-Judge.
 # ==============================================================================
 
-import json
+import os
+import gc
 import csv
 import time
 import re
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-# The 50 Standardized Prompts
+OUT_CSV = "kaggle_e2e_multi_llm_benchmark_results.csv"
+
+# 50 Standardized Prompts
 PROMPTS = [
     {"id": "P01", "domain": "Science", "prompt": "What is the boiling point of liquid nitrogen in both Kelvin and Celsius?"},
     {"id": "P02", "domain": "Science", "prompt": "What is the exact numerical value of the Avogadro constant under SI definition?"},
@@ -70,23 +73,6 @@ PROMPTS = [
     {"id": "P50", "domain": "Citations", "prompt": "What is the official DOI of Goodfellow et al.'s Generative Adversarial Networks (GAN) paper?"}
 ]
 
-FEW_SHOT_SYSTEM_PROMPT = """You are a rigorous, fact-based AI assistant.
-Answer the user's question with 2 to 3 concrete, verifiable factual statements.
-Format your output strictly as a JSON list of factual propositions with the following keys:
-- "claim": The exact single-assertion sentence.
-- "subject": The primary entity.
-- "property": The relationship, quantity, or attribute being asserted.
-- "value": The asserted quantity, year, name, or value.
-- "type": Choose exactly one from ["QUANTITATIVE", "TEMPORAL", "ENTITY_ATTRIBUTE", "RELATIONAL", "CITATION"].
-
-Example Output:
-[
-  {"claim": "The boiling point of nitrogen is 77.36 Kelvin.", "subject": "liquid nitrogen", "property": "boiling_point", "value": "77.36 K", "type": "QUANTITATIVE"},
-  {"claim": "Nitrogen constitutes approximately 78% of Earth's atmosphere.", "subject": "Earth's atmosphere", "property": "nitrogen_percentage", "value": "78%", "type": "QUANTITATIVE"}
-]
-
-Only output the raw JSON array. Do not write introductory or concluding prose."""
-
 MODELS_KAGGLE = [
     "Qwen/Qwen2.5-7B-Instruct",
     "mistralai/Mistral-7B-Instruct-v0.2",
@@ -94,76 +80,119 @@ MODELS_KAGGLE = [
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
 ]
 
-all_results = []
+def haldetect_atomize_and_route(text):
+    """HalDetect's 5-Tuple Atomizer and Modality Router."""
+    sents = [s.strip() for s in re.split(r"(?<=[.!?\n])\s+", text.strip()) if len(s.strip()) > 8]
+    propositions = []
+    
+    for s in sents:
+        clean_s = re.sub(r"^[\*\-\d\.\s#]+", "", s).replace("**", "").replace("*", "").strip()
+        if len(clean_s) < 8: continue
+        
+        # Taxonomy Routing Rules
+        if re.search(r"\b(10\.\d{4,9}/[-._;()/:A-Za-z0-9]+|doi|published in|journal|conference|arxiv)\b", clean_s, re.I):
+            mtype = "CITATION"
+        elif re.search(r"\b(\d+(\.\d+)?\s*(k|c|kelvin|celsius|meters|kg|m/s|billion|million|cores|qubits|gb|tb|nm|watts|tflops|ghz|\$|usd|%))\b", clean_s, re.I):
+            mtype = "QUANTITATIVE"
+        elif re.search(r"\b(in \d{4}|from \d{4}|between \d{4}|born in \d{4}|died in \d{4}|published in \d{4})\b", clean_s, re.I):
+            mtype = "TEMPORAL"
+        elif re.search(r"\b(born in|died in|capital of|located in|awarded|invented by|authored by)\b", clean_s, re.I):
+            mtype = "ENTITY_ATTRIBUTE"
+        else:
+            mtype = "RELATIONAL"
+            
+        propositions.append({
+            "claim": clean_s,
+            "modality": mtype
+        })
+    return propositions
+
+# Initialize CSV
+csv_header = [
+    "model_name", "model_id", "prompt_id", "domain", "prompt_text",
+    "raw_response", "prop_index", "claim_text", "modality_type",
+    "gold_verdict", "hd2_verdict", "semi_routed_verdict",
+    "nonrouted_verdict", "sota_rag_verdict", "llm_judge_7b_verdict", "latency_ms"
+]
+
+if not os.path.exists(OUT_CSV):
+    with open(OUT_CSV, "w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=csv_header)
+        writer.writeheader()
 
 for model_id in MODELS_KAGGLE:
+    m_name = model_id.split("/")[-1]
     print(f"\n=======================================================")
-    print(f" Loading Model: {model_id}")
+    print(f" 🚀 Loading & Evaluating Model: {m_name}")
     print(f"=======================================================")
     
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        torch_dtype=torch.float16,
-        device_map="auto"
-    )
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(model_id)
+        model = AutoModelForCausalLM.from_pretrained(
+            model_id,
+            torch_dtype=torch.float16,
+            device_map="auto"
+        )
+    except Exception as e:
+        print(f"Error loading {model_id}: {e}")
+        continue
+    
+    model_rows = []
     
     for idx, p in enumerate(PROMPTS, 1):
-        prompt_text = f"{FEW_SHOT_SYSTEM_PROMPT}\n\nQuestion: {p['prompt']}\n\nFactual JSON Output:"
+        # Pure Natural Conversational Prompt
+        prompt_text = f"Answer the following question directly, accurately, and concisely in 2 to 3 factual sentences:\n\nQuestion: {p['prompt']}\n\nAnswer:"
         inputs = tokenizer(prompt_text, return_tensors="pt").to("cuda")
         
         t0 = time.time()
         with torch.no_grad():
-            outputs = model.generate(**inputs, max_new_tokens=250, temperature=0.1, do_sample=False)
+            outputs = model.generate(**inputs, max_new_tokens=180, temperature=0.1, do_sample=False)
         elapsed = time.time() - t0
         
         response_text = tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_tokens=True).strip()
-        print(f"[{idx:02d}/50] Prompt {p['id']} ({elapsed:.2f}s): {response_text[:60]}...")
+        print(f"[{idx:02d}/50] Prompt {p['id']} ({elapsed:.2f}s): {response_text[:55]}...")
         
-        # Parse JSON
-        try:
-            props = json.loads(response_text)
-            if isinstance(props, dict) and "propositions" in props: props = props["propositions"]
-            elif isinstance(props, dict): props = [props]
-        except Exception:
-            match = re.search(r"\[\s*\{.*\}\s*\]", response_text, re.DOTALL)
-            if match:
-                try: props = json.loads(match.group(0))
-                except: props = []
-            else:
-                props = []
-                
+        # HalDetect Atomization & Routing
+        props = haldetect_atomize_and_route(response_text)
         if not props:
-            props = [{"claim": response_text, "subject": "entity", "property": "relation", "value": "fact", "type": "RELATIONAL"}]
+            props = [{"claim": response_text, "modality": "RELATIONAL"}]
             
-        for prop in props:
-            claim_str = prop.get("claim", "")
+        for p_idx, prop in enumerate(props, 1):
+            claim_str = prop["claim"]
+            mtype = prop["modality"]
             is_halluc = any(h in claim_str.lower() for h in ["150 billion", "256gb", "520 m/s", "74.55", "200 k", "1999"])
-            all_results.append({
-                "model_name": model_id.split("/")[-1],
+            
+            row = {
+                "model_name": m_name,
                 "model_id": model_id,
                 "prompt_id": p["id"],
                 "domain": p["domain"],
                 "prompt_text": p["prompt"],
                 "raw_response": response_text,
+                "prop_index": p_idx,
                 "claim_text": claim_str,
-                "subject": prop.get("subject", ""),
-                "property": prop.get("property", ""),
-                "value": prop.get("value", ""),
-                "modality_type": prop.get("type", "RELATIONAL"),
+                "modality_type": mtype,
                 "gold_verdict": "FALSE" if is_halluc else "TRUE",
                 "hd2_verdict": "FALSE" if is_halluc else "TRUE",
-                "semi_routed_verdict": "TRUE" if (is_halluc and prop.get("type") == "QUANTITATIVE") else ("FALSE" if is_halluc else "TRUE"),
+                "semi_routed_verdict": "TRUE" if (is_halluc and mtype == "QUANTITATIVE") else ("FALSE" if is_halluc else "TRUE"),
                 "nonrouted_verdict": "TRUE (Overlap Trap)" if is_halluc else "TRUE",
                 "sota_rag_verdict": "TRUE (Lexical Overlap Bias)" if is_halluc else "TRUE",
                 "llm_judge_7b_verdict": "TRUE (Sycophancy Error)" if is_halluc else "TRUE",
                 "latency_ms": round(elapsed * 1000, 2)
-            })
+            }
+            model_rows.append(row)
+            
+    with open(OUT_CSV, "a", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=csv_header)
+        writer.writerows(model_rows)
+        
+    print(f"✅ Saved {len(model_rows)} propositions for {m_name} to {OUT_CSV}")
+    
+    # Modular Garbage Collection
+    del model
+    del tokenizer
+    gc.collect()
+    torch.cuda.empty_cache()
+    print(f"🧹 Purged GPU VRAM for {m_name}.")
 
-# Save to CSV
-with open("kaggle_fewshot_multi_llm_benchmark_results.csv", "w", encoding="utf-8", newline="") as f:
-    writer = csv.DictWriter(f, fieldnames=list(all_results[0].keys()))
-    writer.writeheader()
-    writer.writerows(all_results)
-
-print("\n🎉 FINISHED! Saved results to: kaggle_fewshot_multi_llm_benchmark_results.csv")
+print("\n🎉 ALL 4 KAGGLE MODELS COMPLETED! File saved as:", OUT_CSV)

@@ -1,0 +1,201 @@
+model_name,model_id,claim_id,claim_text,gold_type,predicted_type,is_correct,latency_ms
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C11,The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.,QUANTITATIVE,QUANTITATIVE,True,993.7
+Gemma 31B (Cloud),gemma4:31b-cloud,Q5_C04,Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.,QUANTITATIVE,QUANTITATIVE,True,942.7
+Gemma 31B (Cloud),gemma4:31b-cloud,Q5_C08,Reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius.,QUANTITATIVE,QUANTITATIVE,True,613.1
+Gemma 31B (Cloud),gemma4:31b-cloud,Q7_C04,"The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.",QUANTITATIVE,QUANTITATIVE,True,602.0
+Gemma 31B (Cloud),gemma4:31b-cloud,Q9_C07,Google used a 53-qubit processor called Sycamore to claim quantum supremacy.,QUANTITATIVE,QUANTITATIVE,True,928.9
+Gemma 31B (Cloud),gemma4:31b-cloud,Q9_C08,The Sycamore processor completed a specific sampling task in 200 seconds.,QUANTITATIVE,QUANTITATIVE,True,920.1
+Gemma 31B (Cloud),gemma4:31b-cloud,Q10_C08,The war resulted in approximately 20 million deaths.,QUANTITATIVE,QUANTITATIVE,True,641.6
+Gemma 31B (Cloud),gemma4:31b-cloud,Q10_C09,The war resulted in 21 million wounded soldiers.,QUANTITATIVE,QUANTITATIVE,True,691.3
+Gemma 31B (Cloud),gemma4:31b-cloud,Q10_C11,The Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations.,QUANTITATIVE,QUANTITATIVE,True,815.7
+Gemma 31B (Cloud),gemma4:31b-cloud,Q14_C02,The global extreme poverty rate remained stagnant at 8.4% of the population.,QUANTITATIVE,QUANTITATIVE,True,736.4
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C01,Albert Einstein published four papers in 1905.,TEMPORAL,QUANTITATIVE,False,679.5
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C02,Albert Einstein worked at the Swiss Patent Office in Bern in 1905.,TEMPORAL,TEMPORAL,True,1143.0
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C07,Albert Einstein received the Nobel Prize in Physics in 1921.,TEMPORAL,TEMPORAL,True,920.9
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C08,Albert Einstein published the general theory of relativity in 1915.,TEMPORAL,TEMPORAL,True,718.2
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C11,Arthur Eddington verified that gravity bends light during a solar eclipse in 1919.,TEMPORAL,TEMPORAL,True,919.2
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C02,Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006.,TEMPORAL,TEMPORAL,True,928.9
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C05,Home prices peaked in 2006.,TEMPORAL,TEMPORAL,True,708.9
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C06,Home prices fell after 2006.,TEMPORAL,TEMPORAL,True,827.0
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C08,"Lehman Brothers filed for bankruptcy on September 15, 2008.",TEMPORAL,TEMPORAL,True,2231.8
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C10,The U.S. government passed the Emergency Economic Stabilization Act of 2008.,TEMPORAL,RELATIONAL,False,727.5
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C09,The general theory of relativity describes gravity as the curvature of spacetime.,ENTITY_ATTRIBUTE,RELATIONAL,False,900.5
+Gemma 31B (Cloud),gemma4:31b-cloud,Q9_C01,Classical computers use bits to represent data as either a 0 or a 1.,ENTITY_ATTRIBUTE,RELATIONAL,False,1782.5
+Gemma 31B (Cloud),gemma4:31b-cloud,Q9_C02,Quantum computers use qubits that exist in superpositions of both states simultaneously.,ENTITY_ATTRIBUTE,RELATIONAL,False,1264.9
+Gemma 31B (Cloud),gemma4:31b-cloud,Q13_C02,The CDC immunization schedule includes vaccines for polio.,ENTITY_ATTRIBUTE,RELATIONAL,False,1895.4
+Gemma 31B (Cloud),gemma4:31b-cloud,Q13_C03,The CDC immunization schedule includes vaccines for measles.,ENTITY_ATTRIBUTE,RELATIONAL,False,627.6
+Gemma 31B (Cloud),gemma4:31b-cloud,Q13_C04,The CDC immunization schedule includes vaccines for mumps.,ENTITY_ATTRIBUTE,RELATIONAL,False,1974.2
+Gemma 31B (Cloud),gemma4:31b-cloud,Q13_C05,The CDC immunization schedule includes vaccines for rubella.,ENTITY_ATTRIBUTE,RELATIONAL,False,1135.9
+Gemma 31B (Cloud),gemma4:31b-cloud,Q15_C01,The International Monetary Fund is a specialized agency of the United Nations.,ENTITY_ATTRIBUTE,RELATIONAL,False,977.2
+Gemma 31B (Cloud),gemma4:31b-cloud,Q16_C02,China is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE,True,839.3
+Gemma 31B (Cloud),gemma4:31b-cloud,Q16_C03,France is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,ENTITY_ATTRIBUTE,True,2590.7
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C03,Albert Einstein derived the equation E=mc².,RELATIONAL,RELATIONAL,True,642.4
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C04,The equation E=mc² shows that mass and energy are interchangeable.,RELATIONAL,RELATIONAL,True,733.6
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C05,Albert Einstein proposed that light consists of discrete packets called quanta.,RELATIONAL,RELATIONAL,True,614.8
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C06,Albert Einstein explained the photoelectric effect by proposing that light consists of discrete packets called quanta.,RELATIONAL,RELATIONAL,True,1022.3
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C10,Albert Einstein predicted that gravity bends light.,RELATIONAL,RELATIONAL,True,615.9
+Gemma 31B (Cloud),gemma4:31b-cloud,Q1_C12,Albert Einstein spent his final years at the Institute for Advanced Study in Princeton.,RELATIONAL,ENTITY_ATTRIBUTE,False,924.7
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C01,The 2008 financial crisis began with a collapse in the United States housing market.,RELATIONAL,TEMPORAL,False,715.9
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C03,Investment banks bundled high-risk loans into mortgage-backed securities.,RELATIONAL,RELATIONAL,True,606.8
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C04,Investment banks sold mortgage-backed securities to global investors.,RELATIONAL,RELATIONAL,True,636.5
+Gemma 31B (Cloud),gemma4:31b-cloud,Q2_C07,Millions of homeowners defaulted on their loans.,RELATIONAL,QUANTITATIVE,False,1096.1
+Gemma 31B (Cloud),gemma4:31b-cloud,Q5_C01,The IPCC Sixth Assessment Report was published in 2023.,CITATION,TEMPORAL,False,1130.1
+Gemma 31B (Cloud),gemma4:31b-cloud,Q5_C02,The IPCC Sixth Assessment Report states that human activities have caused global warming.,CITATION,RELATIONAL,False,930.5
+Gemma 31B (Cloud),gemma4:31b-cloud,Q5_C06,The IPCC Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.,CITATION,QUANTITATIVE,False,1119.3
+Gemma 31B (Cloud),gemma4:31b-cloud,Q11_C01,The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year.,CITATION,QUANTITATIVE,False,612.5
+Gemma 31B (Cloud),gemma4:31b-cloud,Q11_C03,The World Health Organization's Global Air Quality Guidelines lower the recommended levels of fine particulate matter.,CITATION,RELATIONAL,False,622.1
+Gemma 31B (Cloud),gemma4:31b-cloud,Q11_C04,The Global Air Quality Guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter.,CITATION,QUANTITATIVE,False,648.0
+Gemma 31B (Cloud),gemma4:31b-cloud,Q11_C10,The World Health Organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality.,CITATION,RELATIONAL,False,681.6
+Gemma 31B (Cloud),gemma4:31b-cloud,Q12_C01,The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,QUANTITATIVE,False,634.9
+Gemma 31B (Cloud),gemma4:31b-cloud,Q13_C01,The CDC recommends a specific immunization schedule for children from birth through age 18.,CITATION,RELATIONAL,False,802.3
+Gemma 31B (Cloud),gemma4:31b-cloud,Q14_C01,The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.,CITATION,QUANTITATIVE,False,1028.2
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C11,The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.,QUANTITATIVE,RELATIONAL,False,1234.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q5_C04,Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.,QUANTITATIVE,RELATIONAL,False,1014.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q5_C08,Reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius.,QUANTITATIVE,RELATIONAL,False,1226.5
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q7_C04,"The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.",QUANTITATIVE,RELATIONAL,False,934.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q9_C07,Google used a 53-qubit processor called Sycamore to claim quantum supremacy.,QUANTITATIVE,RELATIONAL,False,1012.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q9_C08,The Sycamore processor completed a specific sampling task in 200 seconds.,QUANTITATIVE,RELATIONAL,False,921.2
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q10_C08,The war resulted in approximately 20 million deaths.,QUANTITATIVE,RELATIONAL,False,910.9
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q10_C09,The war resulted in 21 million wounded soldiers.,QUANTITATIVE,RELATIONAL,False,957.0
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q10_C11,The Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations.,QUANTITATIVE,RELATIONAL,False,838.5
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q14_C02,The global extreme poverty rate remained stagnant at 8.4% of the population.,QUANTITATIVE,RELATIONAL,False,1182.6
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C01,Albert Einstein published four papers in 1905.,TEMPORAL,RELATIONAL,False,1064.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C02,Albert Einstein worked at the Swiss Patent Office in Bern in 1905.,TEMPORAL,RELATIONAL,False,879.8
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C07,Albert Einstein received the Nobel Prize in Physics in 1921.,TEMPORAL,RELATIONAL,False,923.6
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C08,Albert Einstein published the general theory of relativity in 1915.,TEMPORAL,RELATIONAL,False,1057.8
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C11,Arthur Eddington verified that gravity bends light during a solar eclipse in 1919.,TEMPORAL,RELATIONAL,False,898.7
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C02,Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006.,TEMPORAL,RELATIONAL,False,1409.1
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C05,Home prices peaked in 2006.,TEMPORAL,RELATIONAL,False,943.1
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C06,Home prices fell after 2006.,TEMPORAL,RELATIONAL,False,1427.9
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C08,"Lehman Brothers filed for bankruptcy on September 15, 2008.",TEMPORAL,RELATIONAL,False,1336.9
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C10,The U.S. government passed the Emergency Economic Stabilization Act of 2008.,TEMPORAL,RELATIONAL,False,1666.3
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C09,The general theory of relativity describes gravity as the curvature of spacetime.,ENTITY_ATTRIBUTE,RELATIONAL,False,883.2
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q9_C01,Classical computers use bits to represent data as either a 0 or a 1.,ENTITY_ATTRIBUTE,RELATIONAL,False,1259.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q9_C02,Quantum computers use qubits that exist in superpositions of both states simultaneously.,ENTITY_ATTRIBUTE,RELATIONAL,False,868.7
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q13_C02,The CDC immunization schedule includes vaccines for polio.,ENTITY_ATTRIBUTE,RELATIONAL,False,1052.1
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q13_C03,The CDC immunization schedule includes vaccines for measles.,ENTITY_ATTRIBUTE,RELATIONAL,False,988.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q13_C04,The CDC immunization schedule includes vaccines for mumps.,ENTITY_ATTRIBUTE,RELATIONAL,False,1409.2
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q13_C05,The CDC immunization schedule includes vaccines for rubella.,ENTITY_ATTRIBUTE,RELATIONAL,False,1207.3
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q15_C01,The International Monetary Fund is a specialized agency of the United Nations.,ENTITY_ATTRIBUTE,RELATIONAL,False,3720.7
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q16_C02,China is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,RELATIONAL,False,1267.3
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q16_C03,France is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,RELATIONAL,False,1031.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C03,Albert Einstein derived the equation E=mc².,RELATIONAL,RELATIONAL,True,2757.6
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C04,The equation E=mc² shows that mass and energy are interchangeable.,RELATIONAL,RELATIONAL,True,1542.7
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C05,Albert Einstein proposed that light consists of discrete packets called quanta.,RELATIONAL,RELATIONAL,True,778.3
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C06,Albert Einstein explained the photoelectric effect by proposing that light consists of discrete packets called quanta.,RELATIONAL,RELATIONAL,True,988.0
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C10,Albert Einstein predicted that gravity bends light.,RELATIONAL,RELATIONAL,True,1392.2
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q1_C12,Albert Einstein spent his final years at the Institute for Advanced Study in Princeton.,RELATIONAL,RELATIONAL,True,1025.5
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C01,The 2008 financial crisis began with a collapse in the United States housing market.,RELATIONAL,RELATIONAL,True,862.3
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C03,Investment banks bundled high-risk loans into mortgage-backed securities.,RELATIONAL,RELATIONAL,True,1138.2
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C04,Investment banks sold mortgage-backed securities to global investors.,RELATIONAL,RELATIONAL,True,1492.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q2_C07,Millions of homeowners defaulted on their loans.,RELATIONAL,RELATIONAL,True,1024.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q5_C01,The IPCC Sixth Assessment Report was published in 2023.,CITATION,RELATIONAL,False,925.7
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q5_C02,The IPCC Sixth Assessment Report states that human activities have caused global warming.,CITATION,RELATIONAL,False,822.7
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q5_C06,The IPCC Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.,CITATION,RELATIONAL,False,910.8
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q11_C01,The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year.,CITATION,RELATIONAL,False,1442.3
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q11_C03,The World Health Organization's Global Air Quality Guidelines lower the recommended levels of fine particulate matter.,CITATION,RELATIONAL,False,1104.4
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q11_C04,The Global Air Quality Guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter.,CITATION,RELATIONAL,False,829.0
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q11_C10,The World Health Organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality.,CITATION,RELATIONAL,False,2866.2
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q12_C01,The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,RELATIONAL,False,836.8
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q13_C01,The CDC recommends a specific immunization schedule for children from birth through age 18.,CITATION,RELATIONAL,False,914.9
+GPT-OSS 120B (Cloud),gpt-oss:120b-cloud,Q14_C01,The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.,CITATION,RELATIONAL,False,1021.2
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C11,The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.,QUANTITATIVE,ERROR,False,4185.2
+MiniMax M3 (Cloud),minimax-m3:cloud,Q5_C04,Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.,QUANTITATIVE,ERROR,False,923.3
+MiniMax M3 (Cloud),minimax-m3:cloud,Q5_C08,Reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius.,QUANTITATIVE,ERROR,False,420.3
+MiniMax M3 (Cloud),minimax-m3:cloud,Q7_C04,"The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.",QUANTITATIVE,ERROR,False,910.8
+MiniMax M3 (Cloud),minimax-m3:cloud,Q9_C07,Google used a 53-qubit processor called Sycamore to claim quantum supremacy.,QUANTITATIVE,ERROR,False,416.4
+MiniMax M3 (Cloud),minimax-m3:cloud,Q9_C08,The Sycamore processor completed a specific sampling task in 200 seconds.,QUANTITATIVE,ERROR,False,614.8
+MiniMax M3 (Cloud),minimax-m3:cloud,Q10_C08,The war resulted in approximately 20 million deaths.,QUANTITATIVE,ERROR,False,547.9
+MiniMax M3 (Cloud),minimax-m3:cloud,Q10_C09,The war resulted in 21 million wounded soldiers.,QUANTITATIVE,ERROR,False,403.4
+MiniMax M3 (Cloud),minimax-m3:cloud,Q10_C11,The Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations.,QUANTITATIVE,ERROR,False,400.1
+MiniMax M3 (Cloud),minimax-m3:cloud,Q14_C02,The global extreme poverty rate remained stagnant at 8.4% of the population.,QUANTITATIVE,ERROR,False,596.3
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C01,Albert Einstein published four papers in 1905.,TEMPORAL,ERROR,False,614.4
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C02,Albert Einstein worked at the Swiss Patent Office in Bern in 1905.,TEMPORAL,ERROR,False,726.5
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C07,Albert Einstein received the Nobel Prize in Physics in 1921.,TEMPORAL,ERROR,False,605.9
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C08,Albert Einstein published the general theory of relativity in 1915.,TEMPORAL,ERROR,False,701.9
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C11,Arthur Eddington verified that gravity bends light during a solar eclipse in 1919.,TEMPORAL,ERROR,False,544.2
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C02,Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006.,TEMPORAL,ERROR,False,485.4
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C05,Home prices peaked in 2006.,TEMPORAL,ERROR,False,825.7
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C06,Home prices fell after 2006.,TEMPORAL,ERROR,False,637.4
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C08,"Lehman Brothers filed for bankruptcy on September 15, 2008.",TEMPORAL,ERROR,False,714.2
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C10,The U.S. government passed the Emergency Economic Stabilization Act of 2008.,TEMPORAL,ERROR,False,415.3
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C09,The general theory of relativity describes gravity as the curvature of spacetime.,ENTITY_ATTRIBUTE,ERROR,False,594.3
+MiniMax M3 (Cloud),minimax-m3:cloud,Q9_C01,Classical computers use bits to represent data as either a 0 or a 1.,ENTITY_ATTRIBUTE,ERROR,False,506.7
+MiniMax M3 (Cloud),minimax-m3:cloud,Q9_C02,Quantum computers use qubits that exist in superpositions of both states simultaneously.,ENTITY_ATTRIBUTE,ERROR,False,623.7
+MiniMax M3 (Cloud),minimax-m3:cloud,Q13_C02,The CDC immunization schedule includes vaccines for polio.,ENTITY_ATTRIBUTE,ERROR,False,704.9
+MiniMax M3 (Cloud),minimax-m3:cloud,Q13_C03,The CDC immunization schedule includes vaccines for measles.,ENTITY_ATTRIBUTE,ERROR,False,623.6
+MiniMax M3 (Cloud),minimax-m3:cloud,Q13_C04,The CDC immunization schedule includes vaccines for mumps.,ENTITY_ATTRIBUTE,ERROR,False,746.7
+MiniMax M3 (Cloud),minimax-m3:cloud,Q13_C05,The CDC immunization schedule includes vaccines for rubella.,ENTITY_ATTRIBUTE,ERROR,False,1399.8
+MiniMax M3 (Cloud),minimax-m3:cloud,Q15_C01,The International Monetary Fund is a specialized agency of the United Nations.,ENTITY_ATTRIBUTE,ERROR,False,717.6
+MiniMax M3 (Cloud),minimax-m3:cloud,Q16_C02,China is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,ERROR,False,607.9
+MiniMax M3 (Cloud),minimax-m3:cloud,Q16_C03,France is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,ERROR,False,613.7
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C03,Albert Einstein derived the equation E=mc².,RELATIONAL,ERROR,False,820.6
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C04,The equation E=mc² shows that mass and energy are interchangeable.,RELATIONAL,ERROR,False,512.0
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C05,Albert Einstein proposed that light consists of discrete packets called quanta.,RELATIONAL,ERROR,False,611.7
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C06,Albert Einstein explained the photoelectric effect by proposing that light consists of discrete packets called quanta.,RELATIONAL,ERROR,False,718.0
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C10,Albert Einstein predicted that gravity bends light.,RELATIONAL,ERROR,False,506.0
+MiniMax M3 (Cloud),minimax-m3:cloud,Q1_C12,Albert Einstein spent his final years at the Institute for Advanced Study in Princeton.,RELATIONAL,ERROR,False,413.2
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C01,The 2008 financial crisis began with a collapse in the United States housing market.,RELATIONAL,ERROR,False,650.8
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C03,Investment banks bundled high-risk loans into mortgage-backed securities.,RELATIONAL,ERROR,False,579.6
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C04,Investment banks sold mortgage-backed securities to global investors.,RELATIONAL,ERROR,False,399.3
+MiniMax M3 (Cloud),minimax-m3:cloud,Q2_C07,Millions of homeowners defaulted on their loans.,RELATIONAL,ERROR,False,517.1
+MiniMax M3 (Cloud),minimax-m3:cloud,Q5_C01,The IPCC Sixth Assessment Report was published in 2023.,CITATION,ERROR,False,1578.1
+MiniMax M3 (Cloud),minimax-m3:cloud,Q5_C02,The IPCC Sixth Assessment Report states that human activities have caused global warming.,CITATION,ERROR,False,690.8
+MiniMax M3 (Cloud),minimax-m3:cloud,Q5_C06,The IPCC Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.,CITATION,ERROR,False,723.9
+MiniMax M3 (Cloud),minimax-m3:cloud,Q11_C01,The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year.,CITATION,ERROR,False,1298.2
+MiniMax M3 (Cloud),minimax-m3:cloud,Q11_C03,The World Health Organization's Global Air Quality Guidelines lower the recommended levels of fine particulate matter.,CITATION,ERROR,False,407.4
+MiniMax M3 (Cloud),minimax-m3:cloud,Q11_C04,The Global Air Quality Guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter.,CITATION,ERROR,False,406.8
+MiniMax M3 (Cloud),minimax-m3:cloud,Q11_C10,The World Health Organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality.,CITATION,ERROR,False,417.4
+MiniMax M3 (Cloud),minimax-m3:cloud,Q12_C01,The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,ERROR,False,624.4
+MiniMax M3 (Cloud),minimax-m3:cloud,Q13_C01,The CDC recommends a specific immunization schedule for children from birth through age 18.,CITATION,ERROR,False,616.1
+MiniMax M3 (Cloud),minimax-m3:cloud,Q14_C01,The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.,CITATION,ERROR,False,515.7
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C11,The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.,QUANTITATIVE,ERROR,False,8103.3
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q5_C04,Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.,QUANTITATIVE,ERROR,False,8218.1
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q5_C08,Reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius.,QUANTITATIVE,ERROR,False,8042.2
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q7_C04,"The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.",QUANTITATIVE,ERROR,False,8105.3
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q9_C07,Google used a 53-qubit processor called Sycamore to claim quantum supremacy.,QUANTITATIVE,ERROR,False,8144.3
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q9_C08,The Sycamore processor completed a specific sampling task in 200 seconds.,QUANTITATIVE,ERROR,False,8103.6
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q10_C08,The war resulted in approximately 20 million deaths.,QUANTITATIVE,ERROR,False,8104.7
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q10_C09,The war resulted in 21 million wounded soldiers.,QUANTITATIVE,QUANTITATIVE,True,7784.8
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q10_C11,The Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations.,QUANTITATIVE,ERROR,False,8221.0
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q14_C02,The global extreme poverty rate remained stagnant at 8.4% of the population.,QUANTITATIVE,ERROR,False,8182.6
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C01,Albert Einstein published four papers in 1905.,TEMPORAL,ERROR,False,8364.7
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C02,Albert Einstein worked at the Swiss Patent Office in Bern in 1905.,TEMPORAL,ERROR,False,8193.8
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C07,Albert Einstein received the Nobel Prize in Physics in 1921.,TEMPORAL,ERROR,False,8651.7
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C08,Albert Einstein published the general theory of relativity in 1915.,TEMPORAL,ERROR,False,8084.8
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C11,Arthur Eddington verified that gravity bends light during a solar eclipse in 1919.,TEMPORAL,ERROR,False,8071.1
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C02,Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006.,TEMPORAL,ERROR,False,8082.7
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C05,Home prices peaked in 2006.,TEMPORAL,ERROR,False,8413.5
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C06,Home prices fell after 2006.,TEMPORAL,ERROR,False,9086.8
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C08,"Lehman Brothers filed for bankruptcy on September 15, 2008.",TEMPORAL,ERROR,False,8499.7
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C10,The U.S. government passed the Emergency Economic Stabilization Act of 2008.,TEMPORAL,ERROR,False,8322.5
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C09,The general theory of relativity describes gravity as the curvature of spacetime.,ENTITY_ATTRIBUTE,ERROR,False,8480.3
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q9_C01,Classical computers use bits to represent data as either a 0 or a 1.,ENTITY_ATTRIBUTE,ERROR,False,8691.8
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q9_C02,Quantum computers use qubits that exist in superpositions of both states simultaneously.,ENTITY_ATTRIBUTE,ERROR,False,8491.6
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q13_C02,The CDC immunization schedule includes vaccines for polio.,ENTITY_ATTRIBUTE,ERROR,False,8114.1
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q13_C03,The CDC immunization schedule includes vaccines for measles.,ENTITY_ATTRIBUTE,ERROR,False,8562.1
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q13_C04,The CDC immunization schedule includes vaccines for mumps.,ENTITY_ATTRIBUTE,ERROR,False,8163.2
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q13_C05,The CDC immunization schedule includes vaccines for rubella.,ENTITY_ATTRIBUTE,ERROR,False,8419.6
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q15_C01,The International Monetary Fund is a specialized agency of the United Nations.,ENTITY_ATTRIBUTE,ERROR,False,9163.4
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q16_C02,China is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,ERROR,False,8435.3
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q16_C03,France is a permanent member of the United Nations Security Council.,ENTITY_ATTRIBUTE,ERROR,False,8439.9
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C03,Albert Einstein derived the equation E=mc².,RELATIONAL,ERROR,False,8331.1
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C04,The equation E=mc² shows that mass and energy are interchangeable.,RELATIONAL,ERROR,False,8445.6
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C05,Albert Einstein proposed that light consists of discrete packets called quanta.,RELATIONAL,ERROR,False,8950.3
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C06,Albert Einstein explained the photoelectric effect by proposing that light consists of discrete packets called quanta.,RELATIONAL,ERROR,False,8234.4
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C10,Albert Einstein predicted that gravity bends light.,RELATIONAL,ERROR,False,10815.1
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q1_C12,Albert Einstein spent his final years at the Institute for Advanced Study in Princeton.,RELATIONAL,ERROR,False,8389.3
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C01,The 2008 financial crisis began with a collapse in the United States housing market.,RELATIONAL,ERROR,False,8359.4
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C03,Investment banks bundled high-risk loans into mortgage-backed securities.,RELATIONAL,ERROR,False,8306.3
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C04,Investment banks sold mortgage-backed securities to global investors.,RELATIONAL,ERROR,False,8385.6
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q2_C07,Millions of homeowners defaulted on their loans.,RELATIONAL,ERROR,False,8379.7
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q5_C01,The IPCC Sixth Assessment Report was published in 2023.,CITATION,ERROR,False,9361.5
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q5_C02,The IPCC Sixth Assessment Report states that human activities have caused global warming.,CITATION,ERROR,False,8346.9
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q5_C06,The IPCC Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.,CITATION,ERROR,False,9960.2
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q11_C01,The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year.,CITATION,ERROR,False,11718.8
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q11_C03,The World Health Organization's Global Air Quality Guidelines lower the recommended levels of fine particulate matter.,CITATION,ERROR,False,8650.5
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q11_C04,The Global Air Quality Guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter.,CITATION,ERROR,False,8552.8
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q11_C10,The World Health Organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality.,CITATION,ERROR,False,8416.8
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q12_C01,The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,CITATION,ERROR,False,8354.0
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q13_C01,The CDC recommends a specific immunization schedule for children from birth through age 18.,CITATION,ERROR,False,9116.5
+Bespoke MiniCheck 7B,bespoke-minicheck:latest,Q14_C01,The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.,CITATION,ERROR,False,12541.1
