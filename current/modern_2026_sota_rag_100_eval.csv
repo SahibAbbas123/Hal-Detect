@@ -1,0 +1,101 @@
+claim_id,type,claim,gold_verdict,rag_verdict,p_entail,p_contra,latency_ms,is_correct
+Q2_C11,QUANTITATIVE,The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.,TRUE,TRUE,0.9934,0.0012,1476.04,True
+Q5_C04,QUANTITATIVE,Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.,TRUE,UNVERIFIABLE,0.0013,0.0002,1276.42,False
+Q5_C08,QUANTITATIVE,Reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius.,TRUE,UNVERIFIABLE,0.0006,0.0008,1954.16,False
+Q7_C04,QUANTITATIVE,"The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.",TRUE,TRUE,0.9969,0.0003,2004.47,True
+Q9_C07,QUANTITATIVE,Google used a 53-qubit processor called Sycamore to claim quantum supremacy.,TRUE,UNVERIFIABLE,0.0,0.0,776.74,False
+Q9_C08,QUANTITATIVE,The Sycamore processor completed a specific sampling task in 200 seconds.,TRUE,UNVERIFIABLE,0.0,0.0,780.57,False
+Q10_C08,QUANTITATIVE,The war resulted in approximately 20 million deaths.,TRUE,UNVERIFIABLE,0.0,0.0,809.28,False
+Q10_C09,QUANTITATIVE,The war resulted in 21 million wounded soldiers.,TRUE,UNVERIFIABLE,0.0,0.0,787.25,False
+Q10_C11,QUANTITATIVE,The Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations.,TRUE,UNVERIFIABLE,0.0,0.0,782.28,False
+Q14_C02,QUANTITATIVE,The global extreme poverty rate remained stagnant at 8.4% of the population.,TRUE,UNVERIFIABLE,0.0,0.0,790.5,False
+Q14_C03,QUANTITATIVE,The global extreme poverty rate of 8.4% represents approximately 685 million people living on less than $2.15 per day.,TRUE,UNVERIFIABLE,0.0,0.0,791.96,False
+Q14_C08,QUANTITATIVE,Debt distress exists in 60% of low-income countries.,TRUE,UNVERIFIABLE,0.0,0.0,769.01,False
+Q14_C09,QUANTITATIVE,Debt distress in 60% of low-income countries limits government spending on healthcare and education.,TRUE,UNVERIFIABLE,0.0,0.0,805.72,False
+B3_01_C04,QUANTITATIVE,"Yellow fever and malaria caused over 20,000 deaths during the French effort to build the Panama Canal.",TRUE,UNVERIFIABLE,0.0,0.0,910.64,False
+B3_01_C09,QUANTITATIVE,Three sets of locks lift ships 85 feet above sea level to cross the Continental Divide.,TRUE,UNVERIFIABLE,0.0,0.0,982.97,False
+B3_01_C11,QUANTITATIVE,"The Panama Canal reduced the sea voyage from New York to San Francisco by 8,000 miles.",TRUE,UNVERIFIABLE,0.0,0.0,807.33,False
+B3_02_C02,QUANTITATIVE,Solar PV accounted for three-quarters of the 2023 global renewable capacity additions.,TRUE,UNVERIFIABLE,0.0,0.0,838.8,False
+B3_03_C02,QUANTITATIVE,Zooxanthellae provide up to 90 percent of the coral's energy through photosynthesis.,TRUE,UNVERIFIABLE,0.0,0.0,783.38,False
+B3_03_C05,QUANTITATIVE,The 2014 to 2017 global bleaching event affected over 70 percent of the world's coral reefs.,TRUE,UNVERIFIABLE,0.0,0.0,876.13,False
+B3_04_C02,QUANTITATIVE,"Mount Everest reaches 8,848.86 meters.",TRUE,UNVERIFIABLE,0.0,0.0,809.43,False
+Q1_C01,TEMPORAL,Albert Einstein published four papers in 1905.,TRUE,TRUE,0.9786,0.0004,879.47,True
+Q1_C02,TEMPORAL,Albert Einstein worked at the Swiss Patent Office in Bern in 1905.,TRUE,UNVERIFIABLE,0.0012,0.1471,2414.44,False
+Q1_C07,TEMPORAL,Albert Einstein received the Nobel Prize in Physics in 1921.,TRUE,TRUE,0.9961,0.0004,1222.03,True
+Q1_C08,TEMPORAL,Albert Einstein published the general theory of relativity in 1915.,TRUE,FALSE,0.0001,0.9061,1441.91,False
+Q1_C11,TEMPORAL,Arthur Eddington verified that gravity bends light during a solar eclipse in 1919.,TRUE,FALSE,0.0001,0.9947,2258.25,False
+Q2_C02,TEMPORAL,Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006.,TRUE,UNVERIFIABLE,0.0,0.0,778.27,False
+Q2_C05,TEMPORAL,Home prices peaked in 2006.,TRUE,UNVERIFIABLE,0.0,0.0,789.0,False
+Q2_C06,TEMPORAL,Home prices fell after 2006.,TRUE,UNVERIFIABLE,0.0,0.0,805.19,False
+Q2_C08,TEMPORAL,"Lehman Brothers filed for bankruptcy on September 15, 2008.",TRUE,UNVERIFIABLE,0.0,0.0,793.08,False
+Q2_C10,TEMPORAL,The U.S. government passed the Emergency Economic Stabilization Act of 2008.,TRUE,UNVERIFIABLE,0.0,0.0,813.02,False
+Q5_C09,TEMPORAL,Net-zero emissions must be achieved by 2050 to stabilize the global climate.,TRUE,UNVERIFIABLE,0.0,0.0,787.75,False
+Q7_C01,TEMPORAL,The Silk Road began during the Han Dynasty around 130 BCE.,TRUE,UNVERIFIABLE,0.0,0.0,790.57,False
+Q7_C11,TEMPORAL,Buddhism spread from India to China during the 1st century CE.,TRUE,UNVERIFIABLE,0.0,0.0,905.51,False
+Q7_C12,TEMPORAL,Genghis Khan led Mongol conquests in the 13th century.,TRUE,UNVERIFIABLE,0.0,0.0,867.69,False
+Q7_C15,TEMPORAL,The Black Death plague traveled from Central Asia to Europe in the 14th century.,TRUE,UNVERIFIABLE,0.0,0.0,778.21,False
+Q7_C16,TEMPORAL,The Ottoman Empire blocked traditional paths to the East in 1453.,TRUE,UNVERIFIABLE,0.0,0.0,972.74,False
+Q7_C17,TEMPORAL,Maritime trade routes replaced land travel after 1453.,TRUE,UNVERIFIABLE,0.0,0.0,832.17,False
+Q9_C04,TEMPORAL,Peter Shor developed an algorithm in 1994 that allows quantum computers to factor large integers efficiently.,TRUE,UNVERIFIABLE,0.0,0.0,757.38,False
+Q9_C06,TEMPORAL,Google claimed quantum supremacy in 2019.,TRUE,UNVERIFIABLE,0.0,0.0,812.89,False
+Q10_C01,TEMPORAL,"Archduke Franz Ferdinand was assassinated on June 28, 1914.",TRUE,UNVERIFIABLE,0.0,0.0,778.13,False
+Q1_C09,ENTITY_ATTRIBUTE,The general theory of relativity describes gravity as the curvature of spacetime.,TRUE,UNVERIFIABLE,0.0,0.0,865.59,False
+Q9_C01,ENTITY_ATTRIBUTE,Classical computers use bits to represent data as either a 0 or a 1.,TRUE,UNVERIFIABLE,0.0,0.0,584.16,False
+Q9_C02,ENTITY_ATTRIBUTE,Quantum computers use qubits that exist in superpositions of both states simultaneously.,TRUE,UNVERIFIABLE,0.0,0.0,163.71,False
+Q13_C02,ENTITY_ATTRIBUTE,The CDC immunization schedule includes vaccines for polio.,TRUE,UNVERIFIABLE,0.0,0.0,380.21,False
+Q13_C03,ENTITY_ATTRIBUTE,The CDC immunization schedule includes vaccines for measles.,TRUE,UNVERIFIABLE,0.0,0.0,167.39,False
+Q13_C04,ENTITY_ATTRIBUTE,The CDC immunization schedule includes vaccines for mumps.,TRUE,UNVERIFIABLE,0.0,0.0,371.7,False
+Q13_C05,ENTITY_ATTRIBUTE,The CDC immunization schedule includes vaccines for rubella.,TRUE,UNVERIFIABLE,0.0,0.0,162.5,False
+Q15_C01,ENTITY_ATTRIBUTE,The International Monetary Fund is a specialized agency of the United Nations.,TRUE,UNVERIFIABLE,0.0,0.0,373.25,False
+Q16_C02,ENTITY_ATTRIBUTE,China is a permanent member of the United Nations Security Council.,TRUE,UNVERIFIABLE,0.0,0.0,222.75,False
+Q16_C03,ENTITY_ATTRIBUTE,France is a permanent member of the United Nations Security Council.,TRUE,UNVERIFIABLE,0.0,0.0,364.46,False
+Q16_C04,ENTITY_ATTRIBUTE,The Russian Federation is a permanent member of the United Nations Security Council.,TRUE,UNVERIFIABLE,0.0,0.0,171.06,False
+Q16_C05,ENTITY_ATTRIBUTE,The United Kingdom is a permanent member of the United Nations Security Council.,TRUE,UNVERIFIABLE,0.0,0.0,370.51,False
+Q16_C06,ENTITY_ATTRIBUTE,The United States is a permanent member of the United Nations Security Council.,TRUE,UNVERIFIABLE,0.0,0.0,171.71,False
+Q16_C07,ENTITY_ATTRIBUTE,"China, France, the Russian Federation, the United Kingdom, and the United States were the primary victors of World War II.",TRUE,UNVERIFIABLE,0.0,0.0,369.73,False
+Q17_C01,ENTITY_ATTRIBUTE,CRISPR-Cas9 is a genome editing technology derived from a prokaryotic adaptive immune system.,TRUE,UNVERIFIABLE,0.0,0.0,165.64,False
+Q17_C03,ENTITY_ATTRIBUTE,The CRISPR-Cas9 system consists of the Cas9 protein and a guide RNA.,TRUE,UNVERIFIABLE,0.0,0.0,370.57,False
+Q18_C07,ENTITY_ATTRIBUTE,The Paris Agreement mandates a transparency framework to track progress through regular reporting of emissions and climate actions.,TRUE,UNVERIFIABLE,0.0,0.0,169.47,False
+Q24_C01,ENTITY_ATTRIBUTE,Marie Curie was born Maria Skłodowska.,TRUE,UNVERIFIABLE,0.0,0.0,373.72,False
+Q24_C03,ENTITY_ATTRIBUTE,"Marie Curie was born in Warsaw, Poland.",TRUE,UNVERIFIABLE,0.0,0.0,180.24,False
+Q26_C08,ENTITY_ATTRIBUTE,mRNA vaccines use genetic instructions instead of the actual virus.,TRUE,UNVERIFIABLE,0.0,0.0,808.22,False
+Q1_C03,RELATIONAL,Albert Einstein derived the equation E=mc².,TRUE,UNVERIFIABLE,0.0,0.0,202.66,False
+Q1_C04,RELATIONAL,The equation E=mc² shows that mass and energy are interchangeable.,TRUE,UNVERIFIABLE,0.0,0.0,383.85,False
+Q1_C05,RELATIONAL,Albert Einstein proposed that light consists of discrete packets called quanta.,TRUE,UNVERIFIABLE,0.0,0.0,176.67,False
+Q1_C06,RELATIONAL,Albert Einstein explained the photoelectric effect by proposing that light consists of discrete packets called quanta.,TRUE,UNVERIFIABLE,0.0,0.0,382.72,False
+Q1_C10,RELATIONAL,Albert Einstein predicted that gravity bends light.,TRUE,UNVERIFIABLE,0.0,0.0,166.97,False
+Q1_C12,RELATIONAL,Albert Einstein spent his final years at the Institute for Advanced Study in Princeton.,TRUE,FALSE,0.0,0.9931,218.28,False
+Q2_C01,RELATIONAL,The 2008 financial crisis began with a collapse in the United States housing market.,TRUE,UNVERIFIABLE,0.0,0.0,439.96,False
+Q2_C03,RELATIONAL,Investment banks bundled high-risk loans into mortgage-backed securities.,TRUE,UNVERIFIABLE,0.0,0.0,370.71,False
+Q2_C04,RELATIONAL,Investment banks sold mortgage-backed securities to global investors.,TRUE,UNVERIFIABLE,0.0,0.0,166.49,False
+Q2_C07,RELATIONAL,Millions of homeowners defaulted on their loans.,TRUE,UNVERIFIABLE,0.0,0.0,371.59,False
+Q2_C09,RELATIONAL,The bankruptcy of Lehman Brothers triggered a global liquidity freeze.,TRUE,UNVERIFIABLE,0.0,0.0,163.28,False
+Q2_C12,RELATIONAL,The 2008 financial crisis led to the Great Recession.,TRUE,UNVERIFIABLE,0.0,0.0,368.05,False
+Q5_C03,RELATIONAL,Human activities have caused global warming.,TRUE,UNVERIFIABLE,0.0,0.0,163.82,False
+Q5_C05,RELATIONAL,The emission of greenhouse gases from fossil fuel combustion and land use drives global warming.,TRUE,UNVERIFIABLE,0.0,0.0,368.31,False
+Q5_C07,RELATIONAL,A temperature rise causes more frequent and intense extreme weather events.,TRUE,UNVERIFIABLE,0.0,0.0,175.08,False
+Q7_C02,RELATIONAL,Emperor Wu dispatched Zhang Qian to establish alliances in Central Asia.,TRUE,UNVERIFIABLE,0.0,0.0,371.06,False
+Q7_C03,RELATIONAL,The Silk Road network of trade routes connected Chang'an in China to the Mediterranean Sea.,TRUE,UNVERIFIABLE,0.0,0.0,171.64,False
+Q7_C05,RELATIONAL,Merchants transported Chinese silk westward.,TRUE,UNVERIFIABLE,0.0,0.0,370.97,False
+Q7_C06,RELATIONAL,Merchants transported Chinese lacquerware westward.,TRUE,UNVERIFIABLE,0.0,0.0,171.52,False
+Q7_C07,RELATIONAL,Merchants transported Chinese paper westward.,TRUE,UNVERIFIABLE,0.0,0.0,384.98,False
+Q5_C01,CITATION,The IPCC Sixth Assessment Report was published in 2023.,TRUE,UNVERIFIABLE,0.0,0.0,172.88,False
+Q5_C02,CITATION,The IPCC Sixth Assessment Report states that human activities have caused global warming.,TRUE,UNVERIFIABLE,0.0,0.0,390.02,False
+Q5_C06,CITATION,The IPCC Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.,TRUE,UNVERIFIABLE,0.0,0.0,174.05,False
+Q11_C01,CITATION,The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year.,TRUE,UNVERIFIABLE,0.0,0.0,380.47,False
+Q11_C03,CITATION,The World Health Organization's Global Air Quality Guidelines lower the recommended levels of fine particulate matter.,TRUE,UNVERIFIABLE,0.0,0.0,163.09,False
+Q11_C04,CITATION,The Global Air Quality Guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter.,TRUE,UNVERIFIABLE,0.0,0.0,364.36,False
+Q11_C10,CITATION,The World Health Organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality.,TRUE,UNVERIFIABLE,0.0,0.0,182.78,False
+Q12_C01,CITATION,The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.,TRUE,UNVERIFIABLE,0.0,0.0,372.05,False
+Q13_C01,CITATION,The CDC recommends a specific immunization schedule for children from birth through age 18.,TRUE,UNVERIFIABLE,0.0,0.0,163.25,False
+Q14_C01,CITATION,The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.,TRUE,UNVERIFIABLE,0.0,0.0,369.03,False
+Q19_C01,CITATION,The World Health Organization reports that approximately one billion people worldwide live with a mental disorder.,TRUE,UNVERIFIABLE,0.0,0.0,164.63,False
+Q19_C07,CITATION,The WHO World Mental Health Report 2022 emphasizes that mental health gaps are driven by insufficient funding and systemic neglect.,TRUE,UNVERIFIABLE,0.0,0.0,110.16,False
+Q20_C01,CITATION,UNICEF reports that approximately 149 million children under five suffered from stunting in 2022.,TRUE,UNVERIFIABLE,0.0,0.0,383.01,False
+Q21_C01,CITATION,The World Health Organization reports that the prevalence of diabetes has risen over the past three decades.,TRUE,UNVERIFIABLE,0.0,0.0,165.21,False
+Q22_C03,CITATION,"The FAO report attributed the rise in food insecurity to the combined effects of conflict, economic shocks, and climate extremes.",TRUE,UNVERIFIABLE,0.0,0.0,369.72,False
+B3_02_C01,CITATION,The International Energy Agency reported in its 2024 Renewables report that global renewable capacity additions grew by 50% in 2023.,TRUE,UNVERIFIABLE,0.0,0.0,172.78,False
+B3_02_C06,CITATION,The International Energy Agency expects renewable capacity to increase by 2.5 times by 2030.,TRUE,UNVERIFIABLE,0.0,0.0,370.71,False
+B3_02_C07,CITATION,The International Energy Agency's projection of a 2.5 times increase in renewable capacity by 2030 relies on the implementation of current policies.,TRUE,UNVERIFIABLE,0.0,0.0,169.45,False
+B3_02_C08,CITATION,The International Energy Agency's projection of a 2.5 times increase in renewable capacity by 2030 relies on the implementation of planned projects.,TRUE,UNVERIFIABLE,0.0,0.0,361.82,False
+B3_07_C07,CITATION,World Athletics reports that Usain Bolt's 9.58 seconds and Florence Griffith-Joyner's 10.49 seconds remain the official standings.,TRUE,UNVERIFIABLE,0.0,0.0,165.4,False
