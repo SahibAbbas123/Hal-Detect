@@ -1,0 +1,88 @@
+\chapter{Proposed Methodology: The HalDetect Architecture}
+\label{ch:methodology}
+
+This chapter details the architecture of HalDetect, a type-directed neuro-symbolic verification pipeline. Rather than treating fact verification as an undifferentiated sequence-to-sequence generation task, HalDetect establishes a hierarchical triage pipeline that decomposes unconstrained prose into typed propositions and routes them to specialized deterministic arithmetic, chronological, and ontological Arithmetic Logic Units (ALUs).
+
+% ******************************************************************************
+\section{Task Formulation and Epistemic Logic}
+\label{sec:task_formulation}
+% ******************************************************************************
+
+Given a generative natural language response $R$ produced by an arbitrary language model conditioned on a prompt $P$, the goal of the verification system is to identify all factual discrepancies and assign an epistemic verdict to each constituent assertion.
+
+To operate soundly under an open-world assumption, HalDetect employs a \textbf{3-Valued Epistemic Logic}:
+\begin{equation}
+    \mathcal{V} \in \{\texttt{TRUE}, \texttt{FALSE}, \texttt{UNVERIFIABLE}\}
+\end{equation}
+where \texttt{TRUE} denotes provable entailment against authoritative external knowledge, \texttt{FALSE} denotes explicit contradiction, and \texttt{UNVERIFIABLE} indicates that available evidence is insufficient to prove truth or falsity.
+
+% ******************************************************************************
+\section{Proposition Atomization \& Anaphora Normalization}
+\label{sec:atomization_anaphora}
+% ******************************************************************************
+
+Raw generative text frequently embeds multiple overlapping assertions and pronoun coreference chains. The \textbf{Schema Atomizer} decomposes multi-sentence text into a set of non-redundant atomic 5-tuples:
+\begin{equation}
+    \mathcal{T} = \langle S, P, O, T, M \rangle
+\end{equation}
+representing Subject ($S$), Predicate/Property ($P$), Object/Value ($O$), Temporal Scope ($T$), and Modality Hedge ($M$).
+
+\subsection{Paragraph-Level Antecedent Anaphora Tracking}
+When verifying continuous prose, standalone clauses such as \textit{"It was released in 2023"} or \textit{"This extremely low temperature causes boiling"} lose their referents upon decontextualization. HalDetect maintains a forward antecedent entity registry $\mathcal{E}_{\text{context}}$ across the paragraph. When anaphoric tokens (\textit{he, she, it, they, the chip, this temperature}) appear in the subject slot, the atomizer binds the pronoun to the most recent canonical entity mention within $< 0.1\text{ms}$ computational overhead.
+
+% ******************************************************************************
+\section{High-Speed Deterministic Taxonomy Router}
+\label{sec:taxonomy_router}
+% ******************************************************************************
+
+Following proposition extraction, the assertion is classified into one of five discrete verification modalities:
+\begin{equation}
+    \mathcal{M} \in \{\text{Quantitative}, \text{Temporal}, \text{Entity-Attribute}, \text{Citation}, \text{Relational}\}
+\end{equation}
+Unlike generative LLM classifiers that suffer from severe relational mode collapse and citation blindness, HalDetect implements a deterministic regex-based symbolic router ($< 0.05\text{ms}$ latency, zero GPU memory). If a proposition exhibits compound characteristics (e.g., asserting both a numerical quantity and a historical date), it is dispatched to the \textbf{Multi-Aspect Verification DAG}.
+
+% ******************************************************************************
+\section{Domain-Specific Neuro-Symbolic ALUs}
+\label{sec:specialized_alus}
+% ******************************************************************************
+
+\subsection{Quantitative Dimensional SI ALU \& Macroeconomic API}
+The Quantitative ALU isolates numerical assertions and executes two verification tiers:
+\begin{enumerate}
+    \item \textbf{Tier 1: Dimensional SI Base Normalization:} Resolves scale polysemy by converting non-standard units to SI base dimensions ($K \leftrightarrow ^\circ\text{C}$, $\text{ft} \leftrightarrow \text{m}$, $\text{short ton} \leftrightarrow \text{kg}$) via \texttt{DimensionalQuantityEngine}. Mathematical discrepancy is computed via relative error:
+    \begin{equation}
+        \Delta = \frac{|v_{\text{claimed}} - v_{\text{ground}}|}{|v_{\text{ground}}|}
+    \end{equation}
+    If $\Delta \le \tau_{\text{rel}}$ (default $\tau = 0.05$), the ALU emits \texttt{TRUE}; if $\Delta > \tau$, it emits \texttt{FALSE}.
+    \item \textbf{Tier 2: Dynamic Macroeconomic REST API:} Queries the World Bank OData API for sovereign indicators (e.g., GDP, population, inflation).
+\end{enumerate}
+
+\subsection{Temporal ALU \& Topological Superlative Engine}
+The Temporal ALU executes time-scoped SPARQL statement filtering over Wikidata ($P580$ start time, $P582$ end time) to verify historical tenure and state transitions. 
+
+To resolve inverse topological container queries (e.g., \textit{"Denali is the highest peak in North America"}), the \texttt{BidirectionalKGResolver} traverses container relations across all seven global continents (Denali, Aconcagua, Everest, Kilimanjaro, Elbrus, Vinson, Puncak Jaya) and sovereign states dynamically.
+
+\subsection{Entity-Attribute ALU \& Alias Lexicon Matching}
+Verifies static invariant properties (e.g., chemical formulas, alma mater, country of origin). It employs a \textbf{Score-then-Commit Candidate Gate}: surface entities are resolved to Wikidata QIDs using SBERT dense similarity combined with sitelinks prominence filtering ($s > 0.60$), preventing catastrophic homonym mislinking.
+
+\subsection{Citation CrossRef Registry Gateway}
+Verifies academic attributions by querying the live CrossRef REST API for Digital Object Identifier (DOI) registration and metadata alignment. To prevent hallucination false alarms, Level 1b gating requires $\text{MIN\_WORK\_CONTENT} \ge 2$ matching metadata tokens.
+
+\subsection{Calibrated Relational NLI Cross-Encoder}
+For open-domain narrative assertions ungrounded in structured knowledge graphs, the pipeline falls through to a DeBERTa-v3-large cross-encoder. Rejection calibration enforces margin boundaries:
+\begin{equation}
+    \text{Verdict} = \begin{cases}
+    \texttt{TRUE} & \text{if } P(\text{Entail}) - P(\text{Contra}) \ge \gamma_{\text{entail}} \\
+    \texttt{FALSE} & \text{if } P(\text{Contra}) - P(\text{Entail}) \ge \gamma_{\text{contra}} \\
+    \texttt{UNVERIFIABLE} & \text{otherwise}
+    \end{cases}
+\end{equation}
+
+% ******************************************************************************
+\section{Multi-Aspect Verification DAG \& Conjunction Engine}
+\label{sec:multi_aspect_dag}
+% ******************************************************************************
+
+When a proposition contains multiple interdependent truth conditions (e.g., \textit{"The US GDP was \$27.8T in 2023"}), HalDetect executes parallel micro-checks across the Quantitative and Temporal ALUs. 
+
+The final verdict is derived via 3-valued conjunction logic ($\mathcal{V}_{\text{final}} = \mathcal{V}_{\text{quant}} \wedge \mathcal{V}_{\text{temp}}$). In accordance with the \textbf{Fatal Discrepancy Rule}, if any single aspect contradicts ground truth, the compound proposition is marked \texttt{FALSE}.

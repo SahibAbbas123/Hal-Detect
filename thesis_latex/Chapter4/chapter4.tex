@@ -1,0 +1,103 @@
+\chapter{Experimental Setup and Dataset Provenance}
+\label{ch:experiment}
+
+This chapter details the benchmark corpora, generative road-test suites, baseline architectures, evaluation metrics, and annotation protocols employed to evaluate HalDetect. To ensure complete scientific transparency, we document the chronological dataset lineage, detailing how initial exploratory slices evolved into our balanced, leakage-audited master benchmark.
+
+% ******************************************************************************
+\section{Dataset Evolution and Provenance}
+\label{sec:dataset_lineage}
+% ******************************************************************************
+
+Evaluating hallucination detection requires rigorous provenance tracking to avoid class imbalance artifacts and evaluation leakage. The benchmark corpus evolved across four distinct developmental phases:
+
+\begin{enumerate}
+    \item \textbf{Phase 1: Exploratory Genesis (Batch 1, $N=125$):} Initial natural assertions extracted from factual question answering. While effective for validating the initial 5-modality router, this partition suffered from extreme negative scarcity (only 8 gold \texttt{FALSE} assertions).
+    \item \textbf{Phase 2: Entity Disambiguation \& Bug B Discovery (Phase 2 Gold, $N=126$):} Sourced to evaluate structured entity resolution. Forensic auditing uncovered two foundational phenomena: (a) entity ambiguity collisions (e.g., musical bands sharing names with historical artifacts), resolved via the candidate-commit SBERT gate ($s > 0.60$), and (b) source-existence misattributions (e.g., claim \texttt{Q22\_C01} regarding FAO food insecurity trends, corrected to gold \texttt{FALSE}).
+    \item \textbf{Phase 3: Synthetic Hard Negatives \& Perturbations (Batch 3, $N=122$ + 84 Negatives):} Introduced structured entity and numerical perturbations to stress-test arithmetic ALUs across magnitude variations and temporal shifts.
+    \item \textbf{Phase 4: Symmetrical Master Benchmark ($N = 1,000$):} Symmetrically balanced partition comprising exactly 500 gold \texttt{TRUE} and 500 gold \texttt{FALSE} claims across all five verification modalities.
+\end{enumerate}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Distribution of claim modalities and ground-truth verdicts across the symmetrical Master Benchmark Corpus ($N=1,000$).}
+\label{tab:dataset_composition}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Verification Modality} & \textbf{Gold TRUE} & \textbf{Gold FALSE} & \textbf{Total Support} & \textbf{Slice Proportion} \\
+\midrule
+Quantitative & 95 & 94 & 189 & 18.9\% \\
+Temporal & 98 & 97 & 195 & 19.5\% \\
+Entity-Attribute & 105 & 105 & 210 & 21.0\% \\
+Citation & 100 & 100 & 200 & 20.0\% \\
+Relational & 102 & 104 & 206 & 20.6\% \\
+\midrule
+\textbf{Total Corpus} & \textbf{500} & \textbf{500} & \textbf{1,000} & \textbf{100.0\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ******************************************************************************
+\section{Track 2: Open Generative Multi-LLM Protocol}
+\label{sec:track2_protocol}
+% ******************************************************************************
+
+To evaluate detection efficacy on unconstrained generative prose, Track 2 executes an open-ended multi-model benchmark. Fifty standardized prompts across six domains (hardware engineering, macroeconomics, physical constants, historical state transitions, academic literature, and organic chemistry) were queried across seven representative models:
+\begin{itemize}
+    \item \textbf{Local / Edge LLMs (7B Parameter Class):} Qwen 2.5-7B-Instruct, Mistral-7B-Instruct-v0.3, Qwen 2.5-Coder-7B, DeepSeek-R1-Distill-Qwen-7B.
+    \item \textbf{Frontier / Large-Scale Models:} Gemma 31B, GPT-OSS 120B, MiniMax Text-01 M3.
+\end{itemize}
+The generated paragraphs are atomized into 1,798 discrete propositions via the 5-tuple schema atomizer, with pronoun chains resolved via forward antecedent coreference tracking.
+
+% ******************************************************************************
+\section{Diagnostic Evaluation Suites}
+\label{sec:diagnostic_suites}
+% ******************************************************************************
+
+In addition to Track 1 and Track 2, three specialized diagnostic suites probe specific edge-case failure modes:
+\begin{itemize}
+    \item \textbf{Stanford FActScore Block 1 Slice ($N=100$):} Evaluates atomic biographical precision against Wikipedia reference articles~\cite{min2023factscore}.
+    \item \textbf{100 Adversarial Stumpers Suite ($N=100$):} Stress-tests scale polysemy (Kelvin vs Celsius, base-to-peak elevation vs sea-level datum), entity homonyms, and temporal interval shifts.
+    \item \textbf{Paragraph Anaphora Road Test ($N=200$):} Evaluates multi-sentence coreference resolution across 1,437 extracted propositions.
+\end{itemize}
+
+% ******************************************************************************
+\section{Comparative Baseline Systems}
+\label{sec:baseline_systems}
+% ******************************************************************************
+
+We benchmark HalDetect against three primary comparative paradigms:
+\begin{enumerate}
+    \item \textbf{Non-Routed Baseline:} Monolithic pipeline that passes all propositions directly to a DeBERTa-v3-large cross-encoder without taxonomy categorization or specialized ALUs.
+    \item \textbf{Semi-Routed Baseline:} Coarse 3-class routing that partitions claims into Numeric, Temporal, and Open Text, using heuristic string search without dimensional unit normalization.
+    \item \textbf{Modern 2026 SOTA RAG:} Dense+lexical hybrid retrieval (SBERT embedding ranking over top-4 Wikipedia candidate titles) combined with a DeBERTa-v3 cross-encoder running under calibrated entailment margins.
+\end{enumerate}
+
+% ******************************************************************************
+\section{Evaluation Metrics and Statistical Significance}
+\label{sec:eval_metrics}
+% ******************************************************************************
+
+Let $N$ denote total claims, $N_{\text{ans}}$ denote answered claims, and $N_{\text{abstain}}$ denote claims assigned an epistemic \texttt{UNVERIFIABLE} verdict. We report:
+\begin{itemize}
+    \item \textbf{Coverage:} $\text{Cov} = N_{\text{ans}} / N$.
+    \item \textbf{Selective Accuracy:} $\text{Acc}_{\text{sel}} = \frac{1}{N_{\text{ans}}} \sum_{i=1}^{N_{\text{ans}}} \mathbb{I}(\hat{y}_i = y_i^*)$.
+    \item \textbf{Matthews Correlation Coefficient (MCC):} Symmetrical quality metric invariant to class balance:
+    \begin{equation}
+        \text{MCC} = \frac{TP \times TN - FP \times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}
+    \end{equation}
+    \item \textbf{Youden's J Statistic:} $J = \text{Sensitivity} + \text{Specificity} - 1$.
+    \item \textbf{Calibration Metrics:} Expected Calibration Error (ECE) across 10 confidence bins and Brier score $B = \frac{1}{N}\sum (c_i - \mathbb{I}(\hat{y}_i = y_i^*))^2$.
+    \item \textbf{Statistical Significance:} Paired McNemar tests with Edwards continuity correction:
+    \begin{equation}
+        \chi^2 = \frac{(|b - c| - 1)^2}{b + c}
+    \end{equation}
+    where $b$ and $c$ represent discordant prediction pairs between competing architectures.
+\end{itemize}
+
+% ******************************************************************************
+\section{Gold-Labeling Protocol \& Disclosure}
+\label{sec:labeling_protocol}
+% ******************************************************************************
+
+Gold verdicts were established through a combination of expert human annotation and an ensemble of cross-validated reference retrievals against primary databases (Wikidata SPARQL, World Bank OData, and CrossRef). In accordance with strict experimental integrity, gold labels are entirely independent of verifier outputs; verifier code is prohibited from reading label fields during inference.

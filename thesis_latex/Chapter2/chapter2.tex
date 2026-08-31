@@ -1,0 +1,49 @@
+\chapter{Related Work}
+\label{ch:related_work}
+
+This chapter surveys the landscape of factual verification and hallucination detection in large language models. Rather than reviewing literature chronologically, we organize prior work by methodological paradigm, establishing the precise theoretical and engineering gap that motivates HalDetect.
+
+% ******************************************************************************
+\section{Atomic Fact Verification Frameworks}
+\label{sec:atomic_fact_verification}
+% ******************************************************************************
+
+Evaluating factual precision in long-form generation requires decomposing complex prose into discrete atomic units. \citet{min2023factscore} introduced \textsc{FActScore}, breaking generation into atomic facts verified against Wikipedia via prompt-based LLM judges. While \textsc{FActScore} established the validity of atomic decomposition, relying on monolithic language models for verification inherits the judge model's own hallucination tendencies and sycophancy bias.
+
+To expand open-domain coverage, Google DeepMind introduced \textsc{SAFE}~\cite{wei2024safe}, employing multi-turn agentic Google Search queries combined with large-scale LLM reasoning. Although \textsc{SAFE} achieves high recall across general topics, multi-step search incurs prohibitive computational costs ($\sim \$0.19$ and $12.5$ seconds per prompt), precluding real-time inference. \textsc{FacTool}~\cite{gao2023factool} and \textsc{RARR}~\cite{gao2023rarr} explored tool-augmented verification across code execution and search, yet treated verification as an uncalibrated binary problem without explicit open-world abstention.
+
+% ******************************************************************************
+\section{Cross-Encoder NLI \& Grounding Probes}
+\label{sec:cross_encoder_nli}
+% ******************************************************************************
+
+Natural Language Inference (NLI) models serve as the standard backend for factual consistency checking. Bespoke-MiniCheck~\cite{niu2024ragtruth} fine-tunes 7B parameter models on synthetic factual perturbations to detect document-level hallucinations. 
+
+However, recent theoretical investigations by \citet{fisch2026finground} demonstrate that generic NLI models fail on numerical ratios, magnitude margins, and unit conversions even when the correct evidence document is retrieved. The failure resides in semantic reasoning rather than retrieval: continuous word embeddings cannot compute arithmetic differences or evaluate interval containment.
+
+% ******************************************************************************
+\section{Retrieval-Augmented Generation \& GraphRAG}
+\label{sec:rag_and_graphrag}
+% ******************************************************************************
+
+Retrieval-Augmented Generation (RAG) grounds language models by prepending retrieved external context passages. Standard RAG utilizes Dense Passage Retrieval (DPR)~\cite{karpukhin2020dense} and Sentence-BERT~\cite{reimers2019sentencebert}. 
+
+To capture multi-hop relations, modern GraphRAG architectures such as HippoRAG~\cite{gutierrez2024hipporag} and Microsoft GraphRAG~\cite{edge2024graphrag} construct ad-hoc entity-relation graphs from text chunks using LLMs. While GraphRAG excels at open-domain multi-hop narrative synthesis, LLM-based graph extraction inherits generative hallucinations during index construction and remains computationally heavy.
+
+% ******************************************************************************
+\section{Internal Attention Probing vs. External Verification}
+\label{sec:internal_vs_external}
+% ******************************************************************************
+
+A parallel line of research investigates internal model states. Lookback Lens~\cite{chuang2024lookback} detects contextual hallucinations from the ratio of attention on context versus generated prefix tokens. Multi-View Attention~\cite{ogasa2025multiview} extracts token-level features from multiple attention heads to tag unsupported spans. Similarly, internal state probes~\cite{azaria2023internal} read hidden layer activations to predict truthfulness.
+
+Within our department, \citet{niu2024ragtruth} demonstrated that internal attention features can localize hallucinated token spans with high token F1 ($0.6046$). However, internal probing operates under a fundamental constraint: it is white-box dependent (requiring access to internal model weights) and cannot verify external arithmetic truth or query official international registries. 
+
+HalDetect provides the complementary external solution: a black-box, model-agnostic verification pipeline that grounds generated assertions against authoritative knowledge bases with mathematical certitude.
+
+% ******************************************************************************
+\section{The Modality-Triage Research Gap}
+\label{sec:research_gap}
+% ******************************************************************************
+
+Existing systems treat fact verification either as an end-to-end neural text-matching task or as an internal activation-classification problem. No prior work investigates whether \textbf{hierarchical modality routing}—dispatching numbers to arithmetic ALUs, dates to chronological graphs, citations to official registries, and open semantics to NLI—can simultaneously eliminate lexical overlap errors, reduce compute latency by orders of magnitude, and achieve calibrated open-world abstention.

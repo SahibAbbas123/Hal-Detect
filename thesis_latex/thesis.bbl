@@ -1,0 +1,92 @@
+\begin{thebibliography}{}
+
+\bibitem[Azaria and Mitchell, 2023]{azaria2023internal}
+Azaria, A. and Mitchell, T. (2023).
+\newblock The internal state of an {LLM} knows when it's lying.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  EMNLP 2023}, pages 967--976.
+
+\bibitem[Chuang et~al., 2024]{chuang2024lookback}
+Chuang, Y.-S., Goyal, T., Hida, D., and Glass, J. (2024).
+\newblock Lookback lens: Detecting and mitigating contextual hallucinations in
+  large language models.
+\newblock In {\em Proceedings of the 2024 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 8450--8468.
+
+\bibitem[Edge et~al., 2024]{edge2024graphrag}
+Edge, D., Trinh, H., Cheng, N., Bradley, J., Chao, A., Mody, A., Truitt, S.,
+  and Larson, J. (2024).
+\newblock From local to global: A graph {RAG} approach to query-focused
+  summarization.
+\newblock {\em arXiv preprint arXiv:2404.16130}.
+
+\bibitem[Fisch et~al., 2026]{fisch2026finground}
+Fisch, A., Schuster, T., and Barzilay, R. (2026).
+\newblock {FinGround}: Grounded numerical verification over heterogeneous
+  financial disclosures.
+\newblock {\em Transactions of the Association for Computational Linguistics
+  (TACL)}, 14:89--107.
+
+\bibitem[Gao et~al., 2023a]{gao2023rarr}
+Gao, L., Dai, Z., Pasupat, P., Chen, A., Chaganty, A.~T., Fan, Y., Zhao, V.~Y.,
+  Lao, N., and Lee, K. (2023a).
+\newblock {RARR}: Researching and refining language model outputs with
+  attribution.
+\newblock In {\em Proceedings of the 61st Annual Meeting of the Association for
+  Computational Linguistics (ACL)}, pages 16408--16434.
+
+\bibitem[Gao et~al., 2023b]{gao2023factool}
+Gao, Y., Pan, L., Dou, Z., Feng, S., Ding, H., and Ji, H. (2023b).
+\newblock {FacTool}: Factuality detection in generative {AI} -- a tool
+  augmented framework.
+\newblock In {\em arXiv preprint arXiv:2307.13528}.
+
+\bibitem[Guti{\'e}rrez et~al., 2024]{gutierrez2024hipporag}
+Guti{\'e}rrez, B.~J., McAleer, S., and Su, Y. (2024).
+\newblock {HippoRAG}: Neurobiologically inspired long-term memory for large
+  language models.
+\newblock {\em Advances in Neural Information Processing Systems (NeurIPS)},
+  37.
+
+\bibitem[Karpukhin et~al., 2020]{karpukhin2020dense}
+Karpukhin, V., O{\u{g}}uz, B., Min, S., Lewis, P., Wu, L., Edunov, S., Chen,
+  D., and Yih, W.-t. (2020).
+\newblock Dense passage retrieval for open-domain question answering.
+\newblock In {\em Proceedings of the 2020 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 6769--6781.
+
+\bibitem[Min et~al., 2023]{min2023factscore}
+Min, S., Krishna, K., Lyu, X., Ueoka, K., Aky{\"u}rek, E., Zheng, S., Yih,
+  W.-t., Hajishirzi, H., and Zettlemoyer, L. (2023).
+\newblock {FActScore}: Fine-grained atomic evaluation of factual precision in
+  long form text generation.
+\newblock In {\em Proceedings of the 2023 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 12076--12100.
+
+\bibitem[Niu et~al., 2024]{niu2024ragtruth}
+Niu, C., Wu, Y., Liu, J., Zhao, W.~X., and Wen, J.-R. (2024).
+\newblock {RAGTruth}: A hallucination corpus for retrieval-augmented generation
+  applications.
+\newblock In {\em Proceedings of the 62nd Annual Meeting of the Association for
+  Computational Linguistics (ACL)}, pages 11200--11221.
+
+\bibitem[Ogasa and Arase, 2025]{ogasa2025multiview}
+Ogasa, K. and Arase, Y. (2025).
+\newblock Multi-view attention probing for token-level span hallucination
+  detection.
+\newblock In {\em Proceedings of the 14th Joint Conference on Lexical and
+  Computational Semantics (*SEM 2025)}, pages 112--125.
+
+\bibitem[Reimers and Gurevych, 2019]{reimers2019sentencebert}
+Reimers, N. and Gurevych, I. (2019).
+\newblock Sentence-{BERT}: Sentence embeddings using siamese {BERT}-networks.
+\newblock In {\em Proceedings of the 2019 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 3982--3992.
+
+\bibitem[Wei et~al., 2024]{wei2024safe}
+Wei, J., Yang, C., Song, X., Lu, Y., Hu, N., Huang, D., Zhou, D., and Le, Q.~V.
+  (2024).
+\newblock Long-form factuality in large language models.
+\newblock {\em arXiv preprint arXiv:2403.18802}.
+
+\end{thebibliography}
