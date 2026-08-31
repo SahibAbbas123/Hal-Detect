@@ -12,6 +12,11 @@ Azaria, A. and Mitchell, T. (2023).
 \newblock In {\em Findings of the Association for Computational Linguistics:
   EMNLP 2023}, pages 967--976.
 
+\bibitem[Brier, 1950]{brier1950verification}
+Brier, G.~W. (1950).
+\newblock Verification of forecasts expressed in terms of probability.
+\newblock {\em Monthly Weather Review}, 78(1):1--3.
+
 \bibitem[Chuang et~al., 2024]{chuang2024lookback}
 Chuang, Y.-S., Goyal, T., Hida, D., and Glass, J. (2024).
 \newblock Lookback lens: Detecting and mitigating contextual hallucinations in
@@ -60,6 +65,18 @@ Gao, Y., Pan, L., Dou, Z., Feng, S., Ding, H., and Ji, H. (2023b).
   augmented framework.
 \newblock In {\em arXiv preprint arXiv:2307.13528}.
 
+\bibitem[{Gemma Team} et~al., 2024]{gemmateam2024gemma}
+{Gemma Team}, Mesnard, T., Hardin, C., Dadashi, R., Bhupatiraju, S., Pathak,
+  S., Sifre, L., Rivi{\`e}re, M., Kale, M.~S., Love, J., et~al. (2024).
+\newblock Gemma: Open models based on gemini research and technology.
+\newblock {\em arXiv preprint arXiv:2403.08295}.
+
+\bibitem[Guo et~al., 2017]{guo2017calibration}
+Guo, C., Pleiss, G., Sun, Y., and Weinberger, K.~Q. (2017).
+\newblock On calibration of modern neural networks.
+\newblock In {\em International Conference on Machine Learning (ICML)}, pages
+  1321--1330.
+
 \bibitem[Guo et~al., 2024]{guo2024lightrag}
 Guo, Z., Zhang, L., Yan, Y., and Liu, Q. (2024).
 \newblock {LightRAG}: Simple and fast knowledge graph integration for {LLMs}.
@@ -91,12 +108,25 @@ Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y., Dai,
 \newblock Survey of hallucination in natural language generation.
 \newblock {\em ACM Computing Surveys}, 55(12):1--38.
 
+\bibitem[Jiang et~al., 2023]{jiang2023mistral}
+Jiang, A.~Q., Sablayrolles, A., Mensch, A., Bamford, C., Chaplot, D.~S., Casas,
+  D. d.~l., Bressand, F., Lengyel, G., Lample, G., Saulnier, L., et~al. (2023).
+\newblock Mistral 7b.
+\newblock {\em arXiv preprint arXiv:2310.06825}.
+
 \bibitem[Karpukhin et~al., 2020]{karpukhin2020dense}
 Karpukhin, V., O{\u{g}}uz, B., Min, S., Lewis, P., Wu, L., Edunov, S., Chen,
   D., and Yih, W.-t. (2020).
 \newblock Dense passage retrieval for open-domain question answering.
 \newblock In {\em Proceedings of the 2020 Conference on Empirical Methods in
   Natural Language Processing (EMNLP)}, pages 6769--6781.
+
+\bibitem[Khattab et~al., 2023]{khattab2023dspy}
+Khattab, O., Singhvi, A., Maheshwari, P., Zhang, Z., Santhanam, K., Vardham,
+  S., Haq, S., Sharma, A., Joshi, T.~T., Moazam, H., et~al. (2023).
+\newblock {DSPy}: Compiling declarative language model calls into
+  state-of-the-art pipelines.
+\newblock {\em arXiv preprint arXiv:2310.03714}.
 
 \bibitem[Lewis et~al., 2020]{lewis2020retrieval}
 Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N.,
@@ -118,6 +148,24 @@ Manakul, P., Liusie, A., and Gales, M.~J. (2023).
 \newblock In {\em Proceedings of the 2023 Conference on Empirical Methods in
   Natural Language Processing (EMNLP)}, pages 9004--9017.
 
+\bibitem[Matthews, 1975]{matthews1975comparison}
+Matthews, B.~W. (1975).
+\newblock Comparison of the predicted and observed secondary structure of t4
+  phage lysozyme.
+\newblock {\em Biochimica et Biophysica Acta (BBA)-Protein Structure},
+  405(2):442--451.
+
+\bibitem[McNemar, 1947]{mcnemar1947note}
+McNemar, Q. (1947).
+\newblock Note on the sampling error of the difference between correlated
+  proportions or percentages.
+\newblock {\em Psychometrika}, 12(2):153--157.
+
+\bibitem[Mensh and Kording, 2017]{mensh2017ten}
+Mensh, B. and Kording, K. (2017).
+\newblock Ten simple rules for structuring papers.
+\newblock {\em PLoS Computational Biology}, 13(9):e1005619.
+
 \bibitem[Min et~al., 2023]{min2023factscore}
 Min, S., Krishna, K., Lyu, X., Ueoka, K., Aky{\"u}rek, E., Zheng, S., Yih,
   W.-t., Hajishirzi, H., and Zettlemoyer, L. (2023).
@@ -125,6 +173,13 @@ Min, S., Krishna, K., Lyu, X., Ueoka, K., Aky{\"u}rek, E., Zheng, S., Yih,
   long form text generation.
 \newblock In {\em Proceedings of the 2023 Conference on Empirical Methods in
   Natural Language Processing (EMNLP)}, pages 12076--12100.
+
+\bibitem[Naeini et~al., 2015]{naeini2015obtaining}
+Naeini, M.~P., Cooper, G., and Hauskrecht, M. (2015).
+\newblock Obtaining well-calibrated probabilities using bayesian binning into
+  bins.
+\newblock In {\em Proceedings of the AAAI Conference on Human Computation and
+  Crowdsourcing (AAAI)}, volume~29, pages 2901--2907.
 
 \bibitem[Niu et~al., 2024]{niu2024ragtruth}
 Niu, C., Wu, Y., Liu, J., Zhao, W.~X., and Wen, J.-R. (2024).
@@ -146,6 +201,13 @@ Reimers, N. and Gurevych, I. (2019).
 \newblock In {\em Proceedings of the 2019 Conference on Empirical Methods in
   Natural Language Processing (EMNLP)}, pages 3982--3992.
 
+\bibitem[Schlichtkrull et~al., 2023]{schlichtkrull2023averitec}
+Schlichtkrull, M., Guo, Z., and Vlachos, A. (2023).
+\newblock {AVeriTeC}: A dataset for real-world claim verification with evidence
+  from the web.
+\newblock In {\em Advances in Neural Information Processing Systems (NeurIPS)},
+  volume~36, pages 67123--67145.
+
 \bibitem[Thorne et~al., 2018]{thorne2018fever}
 Thorne, J., Vlachos, A., Christodoulopoulos, C., and Mittal, A. (2018).
 \newblock {FEVER}: a large-scale dataset for fact extraction and
@@ -160,11 +222,27 @@ Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y.,
 \newblock Llama 2: Open foundation and fine-tuned chat models.
 \newblock {\em arXiv preprint arXiv:2307.09288}.
 
+\bibitem[Vrande{\v{c}}i{\'c} and Kr{\"o}tzsch, 2014]{vrandecic2014wikidata}
+Vrande{\v{c}}i{\'c}, D. and Kr{\"o}tzsch, M. (2014).
+\newblock Wikidata: a free collaborative knowledgebase.
+\newblock {\em Communications of the ACM}, 57(10):78--85.
+
 \bibitem[Wei et~al., 2024]{wei2024safe}
 Wei, J., Yang, C., Song, X., Lu, Y., Hu, N., Huang, D., Zhou, D., and Le, Q.~V.
   (2024).
 \newblock Long-form factuality in large language models.
 \newblock {\em arXiv preprint arXiv:2403.18802}.
+
+\bibitem[Whitesides, 2004]{whitesides2004whitesides}
+Whitesides, G.~M. (2004).
+\newblock Whitesides' group: Writing a paper.
+\newblock {\em Advanced Materials}, 16(15):1375--1377.
+
+\bibitem[Wilson, 1927]{wilson1927probable}
+Wilson, E.~B. (1927).
+\newblock Probable inference, the law of succession, and statistical inference.
+\newblock {\em Journal of the American Statistical Association},
+  22(158):209--212.
 
 \bibitem[Yan et~al., 2024]{yan2024corrective}
 Yan, S.-Q., Gu, J.-C., Zhu, Y., and Ling, Z.-H. (2024).
@@ -177,11 +255,21 @@ Yang, A., Yang, B., Hui, B., Zheng, B., Yu, B., Zhou, C., Li, C., Li, C., Liu,
 \newblock Qwen2 technical report.
 \newblock {\em arXiv preprint arXiv:2407.10671}.
 
+\bibitem[Youden, 1950]{youden1950index}
+Youden, W.~J. (1950).
+\newblock Index for rating diagnostic tests.
+\newblock {\em Cancer}, 3(1):32--35.
+
 \bibitem[Zhang et~al., 2023]{zhang2023sirens}
 Zhang, Y., Li, Y., Cui, L., Deng, D., Liu, J., Bi, W., Shi, S., Zhang, M., and
   Wang, W.~Y. (2023).
 \newblock Siren's song in the {AI} ocean: A survey on hallucination in large
   language models.
 \newblock {\em arXiv preprint arXiv:2309.01219}.
+
+\bibitem[Zhu et~al., 2026]{zhu2026paperbanana}
+Zhu, D., Meng, R., Song, Y., Wei, X., Li, S., Pfister, T., and Yoon, J. (2026).
+\newblock {PaperBanana}: Automating academic illustration for {AI} scientists.
+\newblock {\em arXiv preprint arXiv:2601.23265}.
 
 \end{thebibliography}

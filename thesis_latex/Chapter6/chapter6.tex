@@ -57,12 +57,12 @@ triggering an unambiguous, provable \texttt{FALSE} verdict.
 \begin{table}[htbp]
 \centering
 \small
-\caption{Comparative analysis between Internal Token-Level BIO Attention Probing (e.g., HalluDet / Aong Cho) and HalDetect's External Neuro-Symbolic Triage.}
+\caption{Comparative analysis between Internal Token-Level BIO Attention Probing frameworks (e.g., Lookback Lens, Multi-View Attention) and HalDetect's External Neuro-Symbolic Triage.}
 \label{tab:internal_vs_external}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{lcc}
 \toprule
-\textbf{Technical Dimension} & \textbf{Internal Attention Probes (HalluDet)} & \textbf{HalDetect 2.5 (Ours)} \\
+\textbf{Technical Dimension} & \textbf{Internal Attention Probes (Lookback/Multi-View)} & \textbf{HalDetect 2.5 (Ours)} \\
 \midrule
 Primary Focus & Token-level hallucination span tagging & Proposition-level factual truth verification \\
 Execution Access & White-box (Internal attention matrices) & Black-box (Model-agnostic API outputs) \\

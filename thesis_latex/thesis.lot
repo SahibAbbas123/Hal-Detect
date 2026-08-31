@@ -14,18 +14,18 @@
 \contentsline {table}{\numberline {5.5}{\ignorespaces Classification accuracy, latency, and mode collapse across taxonomy routing architectures ($N = 150$ randomized claims).}}{28}{table.caption.23}%
 \contentsline {table}{\numberline {5.6}{\ignorespaces End-to-end compute, latency, and economic footprint per verified claim.}}{30}{table.caption.26}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Comparative analysis between Internal Token-Level BIO Attention Probing (e.g., HalluDet / Aong Cho) and HalDetect's External Neuro-Symbolic Triage.}}{33}{table.caption.27}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Comparative analysis between Internal Token-Level BIO Attention Probing frameworks (e.g., Lookback Lens, Multi-View Attention) and HalDetect's External Neuro-Symbolic Triage.}}{33}{table.caption.27}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {C.1}{\ignorespaces Modality-specific confusion matrices for HalDetect 2.5 on the Master Benchmark Corpus ($N=1,000$).}}{51}{table.caption.29}%
-\contentsline {table}{\numberline {C.2}{\ignorespaces Performance across specialized diagnostic benchmark suites.}}{51}{table.caption.30}%
+\contentsline {table}{\numberline {C.1}{\ignorespaces Modality-specific confusion matrices for HalDetect 2.5 on the Master Benchmark Corpus ($N=1,000$).}}{52}{table.caption.29}%
+\contentsline {table}{\numberline {C.2}{\ignorespaces Performance across specialized diagnostic benchmark suites.}}{52}{table.caption.30}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {D.1}{\ignorespaces Representative sample of claims across all five verification modalities in the Master Benchmark Corpus.}}{52}{table.caption.31}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {table}{\numberline {D.1}{\ignorespaces Representative sample of claims across all five verification modalities in the Master Benchmark Corpus.}}{53}{table.caption.31}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {I.1}{\ignorespaces Comprehensive chronological ledger of all 32 empirical evaluations conducted during the development and certification of HalDetect 2.5.}}{64}{table.caption.32}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {I.1}{\ignorespaces Comprehensive chronological ledger of all 32 empirical evaluations conducted during the development and certification of HalDetect 2.5.}}{65}{table.caption.32}%
