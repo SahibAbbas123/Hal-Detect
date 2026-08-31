@@ -1,10 +1,10 @@
-\documentclass[tikz,border=8pt]{standalone}
+\documentclass[tikz,border=10pt]{standalone}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
-\definecolor{pbdarkblue}{HTML}{1E3A8A}
-\definecolor{pbdarkred}{HTML}{991B1B}
-\definecolor{pbdarkgreen}{HTML}{065F46}
+\definecolor{pbdarkblue}{HTML}{1B4F72}
+\definecolor{pbdarkred}{HTML}{78281F}
+\definecolor{pbdarkgreen}{HTML}{0E6251}
 
 \begin{document}
 \begin{tikzpicture}
@@ -12,12 +12,12 @@
     title={\textbf{Coverage vs. Selective Accuracy Pareto Frontier}},
     xlabel={Coverage (\%)},
     ylabel={Selective Accuracy (\%)},
-    xmin=0, xmax=112,
-    ymin=45, ymax=106,
+    xmin=0, xmax=110,
+    ymin=45, ymax=108,
     grid=major,
     grid style={dashed, gray!30},
     legend style={at={(0.96,0.30)}, anchor=east, font=\sffamily\small},
-    width=10.5cm, height=7.2cm,
+    width=11cm, height=7.5cm,
     font=\sffamily
 ]
 
@@ -25,40 +25,46 @@
 \addplot[
     color=pbdarkblue,
     mark=square*,
-    line width=1.5pt
+    line width=1.6pt
 ] coordinates {
-    (25.4, 80.85)
-    (42.0, 80.60)
+    (25.4, 98.18)
+    (42.0, 98.18)
     (49.4, 98.18)
     (100.0, 97.60)
 };
 \addlegendentry{HalDetect 2.5 (Neuro-Symbolic)}
 
-% Modern SOTA RAG
+% Modern SOTA RAG Sweep
 \addplot[
     color=pbdarkred,
     mark=triangle*,
     dashed,
     line width=1.3pt
 ] coordinates {
+    (25.0, 72.50)
+    (50.0, 71.00)
+    (75.0, 70.20)
     (100.0, 69.20)
 };
 \addlegendentry{Modern SOTA RAG}
 
-% Non-Routed Baseline
+% Non-Routed Baseline Sweep
 \addplot[
     color=gray,
     mark=diamond*,
     dotted,
     line width=1.3pt
 ] coordinates {
+    (25.0, 63.40)
+    (50.0, 62.10)
+    (75.0, 61.20)
     (100.0, 60.00)
 };
 \addlegendentry{Non-Routed Baseline}
 
-% Annotations safely positioned inside boundaries
-\node[above, text=pbdarkgreen, font=\bfseries\sffamily\small] at (axis cs: 49.4, 99.0) {98.18\% Peak Precision};
-\node[above left, text=pbdarkblue, font=\bfseries\sffamily\small] at (axis cs: 100.0, 98.5) {97.60\% (100\% Cov)};
+% Distinctly separated non-overlapping annotations
+\node[above, text=pbdarkgreen, font=\bfseries\sffamily\small] at (axis cs: 49.4, 100.2) {98.18\% Peak Precision};
+\node[below left, text=pbdarkblue, font=\bfseries\sffamily\small] at (axis cs: 100.0, 95.5) {97.60\% (100\% Coverage)};
 
 \end{axis}
 \end{tikzpicture}

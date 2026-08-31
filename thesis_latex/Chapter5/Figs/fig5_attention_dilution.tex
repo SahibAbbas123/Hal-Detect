@@ -1,53 +1,55 @@
-\documentclass[tikz,border=8pt]{standalone}
+\documentclass[tikz,border=10pt]{standalone}
 \usepackage{tikz}
 \usepackage{amssymb}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, fit}
 
-\definecolor{pbblue}{HTML}{E6F3FF}
-\definecolor{pbdarkblue}{HTML}{1E3A8A}
-\definecolor{pbmint}{HTML}{E0F2F1}
-\definecolor{pbdarkgreen}{HTML}{065F46}
-\definecolor{pbcoral}{HTML}{FEE2E2}
-\definecolor{pbdarkred}{HTML}{991B1B}
-\definecolor{pbgray}{HTML}{F3F4F6}
+\definecolor{pbblue}{HTML}{EBF5FB}
+\definecolor{pbdarkblue}{HTML}{1B4F72}
+\definecolor{pbmint}{HTML}{E8F8F5}
+\definecolor{pbdarkgreen}{HTML}{0E6251}
+\definecolor{pbcoral}{HTML}{FDEDEC}
+\definecolor{pbdarkred}{HTML}{78281F}
 
 \begin{document}
 \begin{tikzpicture}[
     font=\sffamily\small,
-    box/.style={draw=black!60, rounded corners=4pt, line width=0.8pt, align=center, inner sep=6pt},
-    arrow/.style={-{Stealth[scale=0.9]}, line width=1.0pt, draw=black!70}
+    box/.style={draw=black!70, rounded corners=5pt, line width=0.8pt, align=left, inner sep=7pt},
+    arrow/.style={-{Stealth[scale=1.0]}, line width=1.0pt}
 ]
 
 % Top Input Containers
-\node[box, fill=white, draw=black!70, minimum width=13cm] (claim) at (6.5, 3.6) {
-    \textbf{Generated Model Claim:} \textit{"The Apple M3 Max is manufactured on a \textbf{\color{red}40nm} process with \textbf{\color{red}40 million} transistors."}
+\node[box, fill=white, draw=black!70, text width=15cm] (claim) at (7.5, 4.0) {
+    \textbf{Generated Model Assertion:}\\
+    \textit{"The Apple M3 Max processor integrates \textbf{\color{red}40 million} transistors on a \textbf{\color{red}40nm} process node."}
 };
-\node[box, fill=white, draw=black!70, minimum width=13cm, below=0.3cm of claim] (ground) {
-    \textbf{Retrieved Ground Truth:} \textit{"The Apple M3 Max is manufactured on TSMC's \textbf{\color{pbdarkgreen}3nm} process with \textbf{\color{pbdarkgreen}92 billion} transistors."}
+
+\node[box, fill=white, draw=black!70, text width=15cm, below=0.4cm of claim] (ground) {
+    \textbf{Retrieved Reference Ground Truth:}\\
+    \textit{"The Apple M3 Max processor integrates \textbf{\color{pbdarkgreen}92 billion} transistors on TSMC's \textbf{\color{pbdarkgreen}3nm} process node."}
 };
 
 % Left Path: Neural Cross-Encoder Failure
-\node[box, fill=pbcoral!60, draw=pbdarkred, text=pbdarkred, below left=1.2cm and -0.2cm of ground.south, anchor=north east, minimum width=6.2cm] (left_box) {
-    \textbf{Continuous Neural Cross-Encoder (MiniCheck / DeBERTa)}\\
-    \vspace{2pt}
-    \begin{itemize}
-        \setlength{\itemsep}{1pt}
-        \item \textbf{Attention Dilution:} 85\% token overlap on context\\(\textit{Apple, M3, Max, process, transistors}).
-        \item Continuous cross-attention assigns high softmax mass.
-        \item Output: \textbf{ENTAILMENT (TRUE)} $\implies$ \textbf{MISSED ERROR (0\% Recall)}
-    \end{itemize}
+\node[box, fill=pbcoral, draw=pbdarkred, text width=7.0cm, below left=1.2cm and 0.2cm of ground.south, anchor=north east] (left_box) {
+    \textbf{\color{pbdarkred}Continuous Neural Cross-Encoder}\\
+    \textbf{\color{pbdarkred}(MiniCheck-7B / DeBERTa-v3)}\\
+    \vspace{4pt}
+    $\bullet$ \textbf{Attention Dilution:} $>85\%$ token overlap on semantic context (\textit{Apple, M3, Max, processor, transistors}).\\
+    $\bullet$ Continuous cross-attention weights dominate magnitude discrepancy.\\
+    $\bullet$ \textbf{Verdict: ENTAILMENT (TRUE)}\\
+    $\bullet$ \textbf{Result: MISSED ERROR (0\% Recall)}
 };
 
 % Right Path: HalDetect SI ALU Success
-\node[box, fill=pbmint!70, draw=pbdarkgreen, text=pbdarkgreen, below right=1.2cm and -0.2cm of ground.south, anchor=north west, minimum width=6.2cm] (right_box) {
-    \textbf{HalDetect Type-Directed Symbolic SI ALU}\\
-    \vspace{2pt}
-    \begin{itemize}
-        \setlength{\itemsep}{1pt}
-        \item \textbf{Discrete Slot Isolation:} Claim = $40\times 10^6$, Truth = $92\times 10^9$.
-        \item Relative Discrepancy: $\Delta = \frac{|40\text{M} - 92\text{B}|}{92\text{B}} = 99.96\% > 5\%$.
-        \item Output: \textbf{CONTRADICTION (FALSE)} $\implies$ \textbf{100\% REAL ERROR RECALL}
-    \end{itemize}
+\node[box, fill=pbmint, draw=pbdarkgreen, text width=7.0cm, below right=1.2cm and 0.2cm of ground.south, anchor=north west] (right_box) {
+    \textbf{\color{pbdarkgreen}HalDetect Type-Directed Symbolic ALU}\\
+    \textbf{\color{pbdarkgreen}(Dimensional Quantity Engine)}\\
+    \vspace{4pt}
+    $\bullet$ \textbf{Discrete Slot Extraction:}\\
+    \quad Claim: $40\times 10^6$ vs Ground Truth: $92\times 10^9$.\\
+    $\bullet$ \textbf{Relative Error Calculus:}\\
+    \quad $\Delta = \frac{|40\text{M} - 92\text{B}|}{92\text{B}} = 99.96\% > 5\%$.\\
+    $\bullet$ \textbf{Verdict: CONTRADICTION (FALSE)}\\
+    $\bullet$ \textbf{Result: 100\% ERROR RECALL (31/31)}
 };
 
 \draw[arrow, draw=pbdarkred] (ground.south -| left_box.north) -- (left_box.north);

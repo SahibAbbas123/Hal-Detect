@@ -1,6 +1,6 @@
 \thispagestyle {empty}
-\contentsline {chapter}{List of figures}{xiii}{chapter*.6}%
-\contentsline {chapter}{List of tables}{xv}{chapter*.7}%
+\contentsline {chapter}{List of figures}{xiv}{chapter*.6}%
+\contentsline {chapter}{List of tables}{xvi}{chapter*.7}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background and the Factual Reliability Crisis}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Structural Failures of Monolithic Neural Fact-Checkers}{2}{section.1.2}%
@@ -45,13 +45,13 @@
 \contentsline {section}{\numberline {5.2}Symmetrical Error Detection and Prior Invariance}{24}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Track 2: Open Generative Multi-LLM Road Test}{24}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Modality Decomposition and ALU Precision}{25}{section.5.4}%
-\contentsline {section}{\numberline {5.5}In-Depth Forensic Case Studies Across Modalities}{27}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Case Study 1: Quantitative Hardware Transistor Contradiction}{27}{subsection.5.5.1}%
+\contentsline {section}{\numberline {5.5}In-Depth Forensic Case Studies Across Modalities}{26}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Case Study 1: Quantitative Hardware Transistor Contradiction}{26}{subsection.5.5.1}%
 \contentsline {subsection}{\numberline {5.5.2}Case Study 2: Macroeconomic Indicator Discrepancy}{27}{subsection.5.5.2}%
 \contentsline {subsection}{\numberline {5.5.3}Case Study 3: Topological Superlative Resolution}{27}{subsection.5.5.3}%
-\contentsline {subsection}{\numberline {5.5.4}Case Study 4: Academic Citation DOI Verification}{28}{subsection.5.5.4}%
+\contentsline {subsection}{\numberline {5.5.4}Case Study 4: Academic Citation DOI Verification}{27}{subsection.5.5.4}%
 \contentsline {section}{\numberline {5.6}Taxonomy Router Ablation: Symbolic vs. Frontier LLMs}{28}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Probabilistic Calibration and High-Precision Abstention}{29}{section.5.7}%
+\contentsline {section}{\numberline {5.7}Probabilistic Calibration and High-Precision Abstention}{28}{section.5.7}%
 \contentsline {section}{\numberline {5.8}Computational Efficiency and Latency Profile}{31}{section.5.8}%
 \contentsline {chapter}{\numberline {6}Discussion and Threats to Validity}{32}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Synthesis: Direct Answers to Research Questions}{32}{section.6.1}%
