@@ -1,10 +1,10 @@
-\documentclass[tikz,border=5pt]{standalone}
-\usepackage{tikz}\n\usepackage{amssymb}
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \definecolor{pbdarkblue}{HTML}{1E3A8A}
-\definecolor{pbdarkgreen}{HTML}{065F46}
 \definecolor{pbdarkred}{HTML}{991B1B}
+\definecolor{pbdarkgreen}{HTML}{065F46}
 
 \begin{document}
 \begin{tikzpicture}
@@ -12,12 +12,12 @@
     title={\textbf{Coverage vs. Selective Accuracy Pareto Frontier}},
     xlabel={Coverage (\%)},
     ylabel={Selective Accuracy (\%)},
-    xmin=0, xmax=105,
-    ymin=50, ymax=102,
+    xmin=0, xmax=112,
+    ymin=45, ymax=106,
     grid=major,
     grid style={dashed, gray!30},
-    legend pos=south west,
-    width=10cm, height=7cm,
+    legend style={at={(0.96,0.30)}, anchor=east, font=\sffamily\small},
+    width=10.5cm, height=7.2cm,
     font=\sffamily
 ]
 
@@ -27,10 +27,10 @@
     mark=square*,
     line width=1.5pt
 ] coordinates {
-    (25.3, 81.0)
-    (41.9, 80.6)
-    (49.2, 98.2)
-    (100.0, 97.6)
+    (25.4, 80.85)
+    (42.0, 80.60)
+    (49.4, 98.18)
+    (100.0, 97.60)
 };
 \addlegendentry{HalDetect 2.5 (Neuro-Symbolic)}
 
@@ -39,27 +39,26 @@
     color=pbdarkred,
     mark=triangle*,
     dashed,
-    line width=1.2pt
+    line width=1.3pt
 ] coordinates {
-    (10.0, 52.0)
-    (40.0, 58.0)
-    (100.0, 69.2)
+    (100.0, 69.20)
 };
 \addlegendentry{Modern SOTA RAG}
 
 % Non-Routed Baseline
 \addplot[
     color=gray,
-    mark=*,
+    mark=diamond*,
     dotted,
-    line width=1.2pt
+    line width=1.3pt
 ] coordinates {
-    (100.0, 60.0)
+    (100.0, 60.00)
 };
 \addlegendentry{Non-Routed Baseline}
 
-\node[above, font=\small\sffamily, color=pbdarkgreen] at (axis cs:49.2, 98.2) {\textbf{98.18\% Peak Precision}};
-\node[above, font=\small\sffamily, color=pbdarkblue] at (axis cs:100.0, 97.6) {\textbf{97.60\% Full Coverage}};
+% Annotations safely positioned inside boundaries
+\node[above, text=pbdarkgreen, font=\bfseries\sffamily\small] at (axis cs: 49.4, 99.0) {98.18\% Peak Precision};
+\node[above left, text=pbdarkblue, font=\bfseries\sffamily\small] at (axis cs: 100.0, 98.5) {97.60\% (100\% Cov)};
 
 \end{axis}
 \end{tikzpicture}

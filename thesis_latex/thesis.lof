@@ -7,9 +7,9 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Chronological evolution and lineage of benchmark datasets across five developmental phases, culminating in the symmetrical 1,000-claim Master Corpus and the 1,798-proposition Track 2 Multi-LLM generative testbed.}}{18}{figure.caption.15}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces The Attention Dilution Breakdown. When an LLM asserts an incorrect transistor count for the Apple M3 Max, continuous neural cross-encoders perceive 85\% matching contextual tokens and emit Entailment. HalDetect's Dimensional SI ALU isolates numerical values and triggers a decisive Contradiction verdict.}}{25}{figure.caption.21}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Coverage vs. Selective Accuracy Pareto frontier. By varying the rejection threshold $\tau _{\text {abstain}}$, HalDetect traverses from 97.60\% accuracy at 100\% coverage to 98.18\% selective accuracy at high confidence ($N = 494$).}}{28}{figure.caption.24}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Expected Calibration Error (ECE) 10-bin reliability diagram. Predicted model confidence aligns closely with observed empirical accuracy across all 10 confidence deciles ($ECE = 0.0888$, Brier score = $0.0297$).}}{29}{figure.caption.25}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The Attention Dilution Breakdown. When an LLM asserts an incorrect transistor count for the Apple M3 Max, continuous neural cross-encoders perceive 85\% matching contextual tokens and emit Entailment. HalDetect's Dimensional SI ALU isolates numerical values and triggers a decisive Contradiction verdict.}}{26}{figure.caption.21}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Coverage vs. Selective Accuracy Pareto frontier. By varying the rejection threshold $\tau _{\text {abstain}}$, HalDetect traverses from 97.60\% accuracy at 100\% coverage to 98.18\% selective accuracy at high confidence ($N = 494$).}}{29}{figure.caption.24}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Expected Calibration Error (ECE) 10-bin reliability diagram. Predicted model confidence aligns closely with observed empirical accuracy across all 10 confidence deciles ($ECE = 0.0888$, Brier score = $0.0297$).}}{30}{figure.caption.25}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -1,6 +1,8 @@
-\documentclass[tikz,border=5pt]{standalone}
-\usepackage{tikz}\n\usepackage{amssymb}
-\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, matrix, fit}
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, fit}
+
 \definecolor{pbblue}{HTML}{E6F3FF}
 \definecolor{pbdarkblue}{HTML}{1E3A8A}
 \definecolor{pbmint}{HTML}{E0F2F1}
@@ -12,40 +14,44 @@
 \begin{document}
 \begin{tikzpicture}[
     font=\sffamily\small,
-    box/.style={draw=black!70, rounded corners=4pt, line width=0.8pt, align=center, inner sep=6pt},
-    arrow/.style={-{Stealth[scale=1.0]}, line width=1pt, draw=black!70}
+    box/.style={draw=black!60, rounded corners=4pt, line width=0.8pt, align=center, inner sep=6pt},
+    arrow/.style={-{Stealth[scale=0.9]}, line width=1.0pt, draw=black!70}
 ]
 
-% Claim box
-\node[box, fill=pbgray, minimum width=10cm, align=left] (claim) {
-    \textbf{Generated Claim:} "The Apple M3 Max is manufactured on a \textcolor{pbdarkred}{\textbf{40nm}} process with \textcolor{pbdarkred}{\textbf{40 million}} transistors."
+% Top Input Containers
+\node[box, fill=white, draw=black!70, minimum width=13cm] (claim) at (6.5, 3.6) {
+    \textbf{Generated Model Claim:} \textit{"The Apple M3 Max is manufactured on a \textbf{\color{red}40nm} process with \textbf{\color{red}40 million} transistors."}
+};
+\node[box, fill=white, draw=black!70, minimum width=13cm, below=0.3cm of claim] (ground) {
+    \textbf{Retrieved Ground Truth:} \textit{"The Apple M3 Max is manufactured on TSMC's \textbf{\color{pbdarkgreen}3nm} process with \textbf{\color{pbdarkgreen}92 billion} transistors."}
 };
 
-% Retrieved Passage box
-\node[box, fill=pbgray, below=0.6cm of claim, minimum width=10cm, align=left] (passage) {
-    \textbf{Retrieved Article:} "The Apple M3 Max is manufactured on TSMC's \textcolor{pbdarkgreen}{\textbf{3nm}} process with \textcolor{pbdarkgreen}{\textbf{92 billion}} transistors..."
+% Left Path: Neural Cross-Encoder Failure
+\node[box, fill=pbcoral!60, draw=pbdarkred, text=pbdarkred, below left=1.2cm and -0.2cm of ground.south, anchor=north east, minimum width=6.2cm] (left_box) {
+    \textbf{Continuous Neural Cross-Encoder (MiniCheck / DeBERTa)}\\
+    \vspace{2pt}
+    \begin{itemize}
+        \setlength{\itemsep}{1pt}
+        \item \textbf{Attention Dilution:} 85\% token overlap on context\\(\textit{Apple, M3, Max, process, transistors}).
+        \item Continuous cross-attention assigns high softmax mass.
+        \item Output: \textbf{ENTAILMENT (TRUE)} $\implies$ \textbf{MISSED ERROR (0\% Recall)}
+    \end{itemize}
 };
 
-% Neural RAG Path (Left)
-\node[box, fill=pbcoral!70, text=pbdarkred, below left=1.2cm and -1.0cm of passage, minimum width=4.5cm] (neural) {
-    \textbf{Neural Cross-Encoder}\\
-    $\bullet$ High word overlap (85\% match)\\
-    $\bullet$ Attention heads dilute onto nouns\\
-    $\bullet$ Softmax $\rightarrow$ \textbf{ENTAILMENT (TRUE)}\\
-    \textbf{$\times$ Error Missed (0\% Recall)}
+% Right Path: HalDetect SI ALU Success
+\node[box, fill=pbmint!70, draw=pbdarkgreen, text=pbdarkgreen, below right=1.2cm and -0.2cm of ground.south, anchor=north west, minimum width=6.2cm] (right_box) {
+    \textbf{HalDetect Type-Directed Symbolic SI ALU}\\
+    \vspace{2pt}
+    \begin{itemize}
+        \setlength{\itemsep}{1pt}
+        \item \textbf{Discrete Slot Isolation:} Claim = $40\times 10^6$, Truth = $92\times 10^9$.
+        \item Relative Discrepancy: $\Delta = \frac{|40\text{M} - 92\text{B}|}{92\text{B}} = 99.96\% > 5\%$.
+        \item Output: \textbf{CONTRADICTION (FALSE)} $\implies$ \textbf{100\% REAL ERROR RECALL}
+    \end{itemize}
 };
 
-% HalDetect ALU Path (Right)
-\node[box, fill=pbmint!80, text=pbdarkgreen, below right=1.2cm and -1.0cm of passage, minimum width=4.5cm] (alu) {
-    \textbf{HalDetect SI ALU}\\
-    $\bullet$ Extracts values: $40\text{M}$ vs $92\text{B}$\\
-    $\bullet$ Arithmetic Error: $\Delta = 99.96\% > \tau$\\
-    $\bullet$ Emits \textbf{CONTRADICTION (FALSE)}\\
-    \textbf{$\checkmark$ 100\% Real Error Recall}
-};
-
-\draw[arrow, draw=pbdarkred] (passage.south) -| (neural.north);
-\draw[arrow, draw=pbdarkgreen] (passage.south) -| (alu.north);
+\draw[arrow, draw=pbdarkred] (ground.south -| left_box.north) -- (left_box.north);
+\draw[arrow, draw=pbdarkgreen] (ground.south -| right_box.north) -- (right_box.north);
 
 \end{tikzpicture}
 \end{document}

@@ -1,7 +1,7 @@
-\documentclass[tikz,border=5pt]{standalone}
+\documentclass[tikz,border=8pt]{standalone}
 \usepackage{tikz}
 \usepackage{amssymb}
-\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, matrix, fit}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
 \definecolor{pbblue}{HTML}{E6F3FF}
 \definecolor{pbdarkblue}{HTML}{1E3A8A}
 \definecolor{pbmint}{HTML}{E0F2F1}
@@ -20,7 +20,7 @@
     arrow/.style={-{Stealth[scale=1.0]}, line width=1pt, draw=black!70}
 ]
 
-\node[box, fill=pbyellow!70, text=black!90, font=\bfseries\sffamily, minimum width=4cm] (input) {Compound Proposition\\$\mathcal{T} = \langle S, P, O, T, M \rangle$};
+\node[box, fill=pbyellow!70, text=black!90, font=\bfseries\sffamily, minimum width=4.5cm] (input) {Compound Proposition\\$\mathcal{T} = \langle S, P, O, T, M \rangle$};
 
 \node[box, fill=pbblue!70, text=pbdarkblue, below left=1.2cm and 0.5cm of input, minimum width=3.2cm] (m1) {\textbf{Aspect 1: Quantitative}\\$\mathcal{V}_1 \in \{\top, \bot, ?\}$};
 \node[box, fill=pblavender!70, text=pbdarkpurple, below=1.2cm of input, minimum width=3.2cm] (m2) {\textbf{Aspect 2: Temporal}\\$\mathcal{V}_2 \in \{\top, \bot, ?\}$};
@@ -36,8 +36,8 @@
 \draw[arrow] (m2) -- (dag.north);
 \draw[arrow] (m3) -- (dag.north east);
 
-\node[box, fill=pbcoral!70, text=pbdarkred, below left=1.0cm and -0.8cm of dag, minimum width=3.2cm] (rule1) {\textbf{Fatal Discrepancy}\\$\exists i: \mathcal{V}_i = \bot \implies \mathcal{V} = \texttt{FALSE}$};
-\node[box, fill=pbmint, text=pbdarkgreen, below right=1.0cm and -0.8cm of dag, minimum width=3.2cm] (rule2) {\textbf{Unanimous Entailment}\\$\forall i: \mathcal{V}_i = \top \implies \mathcal{V} = \texttt{TRUE}$};
+\node[box, fill=pbcoral!70, text=pbdarkred, below left=1.0cm and -0.8cm of dag, minimum width=3.5cm] (rule1) {\textbf{Fatal Discrepancy Rule}\\$\exists i: \mathcal{V}_i = \bot \implies \mathcal{V} = \texttt{FALSE}$};
+\node[box, fill=pbmint, text=pbdarkgreen, below right=1.0cm and -0.8cm of dag, minimum width=3.5cm] (rule2) {\textbf{Unanimous Entailment}\\$\forall i: \mathcal{V}_i = \top \implies \mathcal{V} = \texttt{TRUE}$};
 
 \draw[arrow, draw=pbdarkred] (dag.south) -| (rule1.north);
 \draw[arrow, draw=pbdarkgreen] (dag.south) -| (rule2.north);
