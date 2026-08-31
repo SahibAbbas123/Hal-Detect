@@ -1,0 +1,121 @@
+\chapter{Modality-Specific Confusion Matrices and Diagnostic Benchmark Slices}
+\label{app:matrices_slices}
+
+This appendix provides the full empirical confusion matrices across all five verification modalities on the symmetrical Master Benchmark Corpus ($N=1,000$), as well as detailed performance breakdowns for the Stanford \textsc{FActScore} Block 1 slice and the 100 Adversarial Stumpers suite.
+
+% ******************************************************************************
+\section{Modality Confusion Matrices}
+\label{sec:app_confusion_matrices}
+% ******************************************************************************
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Modality-specific confusion matrices for HalDetect 2.5 on the Master Benchmark Corpus ($N=1,000$).}
+\label{tab:app_confusion_matrices}
+\begin{subtable}{0.48\textwidth}
+\centering
+\caption{Quantitative ALU ($N=189$)}
+\begin{tabular}{rcc}
+\toprule
+& \textbf{Pred T} & \textbf{Pred F} \\
+\midrule
+\textbf{Gold T} & 95 & 0 \\
+\textbf{Gold F} & 1 & 93 \\
+\bottomrule
+\end{tabular}
+\end{subtable}
+\hfill
+\begin{subtable}{0.48\textwidth}
+\centering
+\caption{Temporal ALU ($N=195$)}
+\begin{tabular}{rcc}
+\toprule
+& \textbf{Pred T} & \textbf{Pred F} \\
+\midrule
+\textbf{Gold T} & 96 & 2 \\
+\textbf{Gold F} & 3 & 94 \\
+\bottomrule
+\end{tabular}
+\end{subtable}
+
+\vspace{0.5cm}
+
+\begin{subtable}{0.48\textwidth}
+\centering
+\caption{Entity-Attribute ALU ($N=210$)}
+\begin{tabular}{rcc}
+\toprule
+& \textbf{Pred T} & \textbf{Pred F} \\
+\midrule
+\textbf{Gold T} & 103 & 2 \\
+\textbf{Gold F} & 2 & 103 \\
+\bottomrule
+\end{tabular}
+\end{subtable}
+\hfill
+\begin{subtable}{0.48\textwidth}
+\centering
+\caption{Citation ALU ($N=200$)}
+\begin{tabular}{rcc}
+\toprule
+& \textbf{Pred T} & \textbf{Pred F} \\
+\midrule
+\textbf{Gold T} & 100 & 0 \\
+\textbf{Gold F} & 0 & 100 \\
+\bottomrule
+\end{tabular}
+\end{subtable}
+
+\vspace{0.5cm}
+
+\begin{subtable}{0.48\textwidth}
+\centering
+\caption{Relational NLI Fallback ($N=206$)}
+\begin{tabular}{rcc}
+\toprule
+& \textbf{Pred T} & \textbf{Pred F} \\
+\midrule
+\textbf{Gold T} & 94 & 8 \\
+\textbf{Gold F} & 6 & 98 \\
+\bottomrule
+\end{tabular}
+\end{subtable}
+\hfill
+\begin{subtable}{0.48\textwidth}
+\centering
+\caption{Overall Master Corpus ($N=1,000$)}
+\begin{tabular}{rcc}
+\toprule
+& \textbf{Pred T} & \textbf{Pred F} \\
+\midrule
+\textbf{Gold T} & 488 & 12 \\
+\textbf{Gold F} & 12 & 488 \\
+\bottomrule
+\end{tabular}
+\end{subtable}
+\end{table}
+
+% ******************************************************************************
+\section{Diagnostic Slices Breakdown}
+\label{sec:app_diagnostic_slices}
+% ******************************************************************************
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Performance across specialized diagnostic benchmark suites.}
+\label{tab:app_diagnostic_suites}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Diagnostic Benchmark Slice} & \textbf{Total Claims} & \textbf{Gold TRUE} & \textbf{Gold FALSE} & \textbf{Answered} & \textbf{Selective Acc.} & \textbf{MCC} \\
+\midrule
+Stanford FActScore Block 1 Slice~\cite{min2023factscore} & 100 & 58 & 42 & 96 & 94.79\% & +0.892 \\
+100 Adversarial Stumpers Suite & 100 & 50 & 50 & 94 & 95.74\% & +0.915 \\
+Paragraph Anaphora Road Test & 200 & 112 & 88 & 198 & 96.97\% & +0.938 \\
+SOTA Modern RAG 100-Trial Eval & 100 & 50 & 50 & 100 & 69.00\% & +0.395 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

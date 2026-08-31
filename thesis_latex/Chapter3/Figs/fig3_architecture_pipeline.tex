@@ -1,0 +1,58 @@
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage{tikz}\n\usepackage{amssymb}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, matrix, fit}
+\definecolor{pbblue}{HTML}{E6F3FF}
+\definecolor{pbdarkblue}{HTML}{1E3A8A}
+\definecolor{pbmint}{HTML}{E0F2F1}
+\definecolor{pbdarkgreen}{HTML}{065F46}
+\definecolor{pblavender}{HTML}{F3E5F5}
+\definecolor{pbdarkpurple}{HTML}{581C87}
+\definecolor{pbyellow}{HTML}{FEF3C7}
+\definecolor{pbdarkorange}{HTML}{9A3412}
+\definecolor{pbcoral}{HTML}{FEE2E2}
+\definecolor{pbdarkred}{HTML}{991B1B}
+\definecolor{pbgray}{HTML}{F3F4F6}
+
+\begin{document}
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    box/.style={draw=black!70, rounded corners=4pt, line width=0.8pt, align=center, inner sep=6pt},
+    arrow/.style={-{Stealth[scale=1.0]}, line width=1pt, draw=black!70}
+]
+
+% Step 1: Input & Atomizer
+\node[box, fill=pbblue!70, text=pbdarkblue, font=\bfseries\sffamily, minimum width=3.2cm] (raw) {Unconstrained\\Generated Text};
+\node[box, fill=pblavender!70, text=pbdarkpurple, right=0.8cm of raw, minimum width=3.4cm] (atom) {5-Tuple Atomizer\\$\langle S, P, O, T, M \rangle$\\+ Anaphora Tracker};
+\node[box, fill=pbyellow!70, text=pbdarkorange, font=\bfseries\sffamily, right=0.8cm of atom, minimum width=2.8cm] (router) {Deterministic\\Taxonomy Router\\($<0.05\text{ms}$)};
+
+\draw[arrow] (raw) -- (atom);
+\draw[arrow] (atom) -- (router);
+
+% 5 Specialized ALUs
+\node[box, fill=pbmint!80, text=pbdarkgreen, above right=1.6cm and 1.2cm of router, minimum width=3.6cm] (alu1) {\textbf{Quantitative SI ALU}\\Dimensional Base ($\Delta \le \tau$)\\+ World Bank OData};
+\node[box, fill=pbmint!80, text=pbdarkgreen, above right=0.5cm and 1.2cm of router, minimum width=3.6cm] (alu2) {\textbf{Temporal ALU}\\2-Hop SPARQL Filtering\\+ 7-Continent Resolver};
+\node[box, fill=pbmint!80, text=pbdarkgreen, below right=0.5cm and 1.2cm of router, minimum width=3.6cm] (alu3) {\textbf{Entity-Attribute ALU}\\Score-Commit Gate ($s>0.6$)\\+ Alias Lexicon Closure};
+\node[box, fill=pbmint!80, text=pbdarkgreen, below right=1.6cm and 1.2cm of router, minimum width=3.6cm] (alu4) {\textbf{Citation ALU}\\CrossRef Live REST API\\($\text{MIN\_WORK\_CONTENT}\ge 2$)};
+\node[box, fill=pbgray!90, text=black!80, below right=2.7cm and 1.2cm of router, minimum width=3.6cm] (alu5) {\textbf{Relational NLI Fallback}\\Calibrated DeBERTa-v3\\($\text{Margin} \ge \gamma$)};
+
+\draw[arrow] (router.east) -- ++(0.5,0) |- (alu1.west);
+\draw[arrow] (router.east) -- ++(0.5,0) |- (alu2.west);
+\draw[arrow] (router.east) -- ++(0.5,0) |- (alu3.west);
+\draw[arrow] (router.east) -- ++(0.5,0) |- (alu4.west);
+\draw[arrow] (router.east) -- ++(0.5,0) |- (alu5.west);
+
+% Decision Engine
+\node[box, fill=pblavender!90, text=pbdarkpurple, font=\bfseries\sffamily, right=1.2cm of alu3, minimum width=3.6cm] (dag) {Multi-Aspect DAG\\Conjunction Engine\\($\mathcal{V}_{\text{final}} = \bigwedge \mathcal{V}_i$)};
+
+\draw[arrow] (alu1.east) -| (dag.north);
+\draw[arrow] (alu2.east) -- (dag.west);
+\draw[arrow] (alu3.east) -- (dag.west);
+\draw[arrow] (alu4.east) -- (dag.west);
+\draw[arrow] (alu5.east) -| (dag.south);
+
+\node[box, fill=pbmint, text=pbdarkgreen, font=\bfseries\sffamily, right=0.8cm of dag, minimum width=3.0cm] (verdict) {3-Valued Output\\$\{\texttt{TRUE}, \texttt{FALSE}, \texttt{UNV}\}$};
+
+\draw[arrow] (dag) -- (verdict);
+
+\end{tikzpicture}
+\end{document}

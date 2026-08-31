@@ -1,66 +1,106 @@
 \thispagestyle {empty}
-\contentsline {chapter}{List of figures}{xii}{chapter*.5}%
-\contentsline {chapter}{List of tables}{xiii}{chapter*.6}%
+\contentsline {chapter}{List of figures}{xiii}{chapter*.6}%
+\contentsline {chapter}{List of tables}{xv}{chapter*.7}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Problem Statement}{1}{section.1.1}%
-\contentsline {section}{\numberline {1.2}The HalDetect Hypothesis \& Research Questions}{2}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Summary of Contributions}{2}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Thesis Organization}{3}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Related Work}{4}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Atomic Fact Verification Frameworks}{4}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Cross-Encoder NLI \& Grounding Probes}{5}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Retrieval-Augmented Generation \& GraphRAG}{5}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Internal Attention Probing vs. External Verification}{5}{section.2.4}%
-\contentsline {section}{\numberline {2.5}The Modality-Triage Research Gap}{6}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Proposed Methodology: The HalDetect Architecture}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Task Formulation and Epistemic Logic}{7}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Proposition Atomization \& Anaphora Normalization}{7}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Paragraph-Level Antecedent Anaphora Tracking}{8}{subsection.3.2.1}%
-\contentsline {section}{\numberline {3.3}High-Speed Deterministic Taxonomy Router}{8}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Domain-Specific Neuro-Symbolic ALUs}{8}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Quantitative Dimensional SI ALU \& Macroeconomic API}{8}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Temporal ALU \& Topological Superlative Engine}{9}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Entity-Attribute ALU \& Alias Lexicon Matching}{9}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Citation CrossRef Registry Gateway}{9}{subsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.4.5}Calibrated Relational NLI Cross-Encoder}{9}{subsection.3.4.5}%
-\contentsline {section}{\numberline {3.5}Multi-Aspect Verification DAG \& Conjunction Engine}{10}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Experimental Setup and Dataset Provenance}{11}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Dataset Evolution and Provenance}{11}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Track 2: Open Generative Multi-LLM Protocol}{12}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Diagnostic Evaluation Suites}{12}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Comparative Baseline Systems}{13}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Evaluation Metrics and Statistical Significance}{13}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Gold-Labeling Protocol \& Disclosure}{14}{section.4.6}%
-\contentsline {chapter}{\numberline {5}Results and Empirical Evaluation}{15}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Track 1: Controlled Benchmark Evaluation}{15}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Symmetrical Error Detection and Prior Invariance}{16}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Track 2: Open Generative Multi-LLM Road Test}{16}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Modality Decomposition \& ALU Precision}{17}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Taxonomy Router Ablation: Symbolic vs. Frontier LLMs}{18}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Probabilistic Calibration \& High-Precision Abstention}{18}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Computational Efficiency and Latency Profile}{19}{section.5.7}%
-\contentsline {chapter}{\numberline {6}Discussion and Threats to Validity}{20}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Synthesis: Answers to Research Questions}{20}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}RQ1: Efficacy of Modality-Based Routing}{20}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}RQ2: Factual Precision in Structured Assertions}{20}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}RQ3: Generative Road-Test Generalization}{21}{subsection.6.1.3}%
-\contentsline {subsection}{\numberline {6.1.4}RQ4: Computational Footprint and Real-Time Feasibility}{21}{subsection.6.1.4}%
-\contentsline {section}{\numberline {6.2}Theoretical Analysis: Why Neural RAG Fails}{21}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Threats to Validity}{21}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Internal Validity}{21}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Construct Validity}{22}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}External Validity}{22}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}Limitations Inherited from Knowledge Bases}{22}{subsection.6.3.4}%
-\contentsline {section}{\numberline {6.4}What the Evidence Does NOT Establish}{22}{section.6.4}%
-\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{23}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Summary of Contributions}{23}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Released Artifacts \& Reproducibility Suite}{24}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Future Research Directions}{24}{section.7.3}%
-\contentsline {subsection}{\numberline {7.3.1}Hybrid GraphRAG Integration}{24}{subsection.7.3.1}%
-\contentsline {subsection}{\numberline {7.3.2}Multimodal Vision-Language Verification}{24}{subsection.7.3.2}%
-\contentsline {section}{\numberline {7.4}Concluding Remarks}{25}{section.7.4}%
-\contentsline {chapter}{References}{26}{chapter*.14}%
-\contentsline {chapter}{Appendix \numberline {A}Mechanical AST Zero-Leakage Static Analysis Code}{28}{appendix.1.A}%
-\contentsline {section}{\numberline {A.1}Dimensional SI Unit Conversion Table}{29}{section.1.A.1}%
-\contentsline {chapter}{Appendix \numberline {B}Track 2 Standardized 50-Prompt Generative Benchmark Suite}{30}{appendix.1.B}%
-\contentsline {section}{\numberline {B.1}Representative Prompt Domains}{30}{section.1.B.1}%
+\contentsline {section}{\numberline {1.1}Background and the Factual Reliability Crisis}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Structural Failures of Monolithic Neural Fact-Checkers}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}The Attention Dilution Phenomenon and Lexical Overlap Bias}{2}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Absence of Arithmetic and Symbolic Calculators}{3}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Prohibitive Computational Latency and Financial Cost}{3}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}Sycophancy and Class-Prior Exploitation}{3}{subsection.1.2.4}%
+\contentsline {section}{\numberline {1.3}The HalDetect Hypothesis and Research Questions}{3}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Summary of Scientific Contributions}{4}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Thesis Organization}{5}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Related Work}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Atomic Proposition Verification Frameworks}{6}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Stanford FActScore Framework}{6}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Agentic Search Evaluators: Google SAFE and Tool-Augmented Fact-Checkers}{7}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Neural Cross-Encoder NLI and Grounding Models}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Retrieval-Augmented Generation and GraphRAG}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Internal State Probing vs. External Verification}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Comparative Literature Matrix and The Research Gap}{9}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Proposed Methodology: The HalDetect Architecture}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Formal Task Formulation and 3-Valued Epistemic Logic}{12}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Open-World Epistemic Logic Formulation}{12}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Proposition Atomization and Paragraph Anaphora Resolution}{12}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}5-Tuple Schema Atomization}{13}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Forward Antecedent Coreference Engine}{13}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}High-Speed Deterministic Taxonomy Router}{13}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Domain-Specific Neuro-Symbolic ALUs}{14}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Quantitative Dimensional SI ALU and Macroeconomic API}{14}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Temporal ALU and 7-Continent Topological Superlative Engine}{15}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Entity-Attribute ALU and Alias Lexicon Matching}{15}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Citation CrossRef Registry Gateway}{15}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Calibrated Relational NLI Cross-Encoder}{15}{subsection.3.4.5}%
+\contentsline {section}{\numberline {3.5}Multi-Aspect Verification DAG and Conjunction Engine}{16}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Experimental Setup and Dataset Provenance}{18}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Dataset Evolution and Forensic Lineage}{18}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Track 2: Open Generative Multi-LLM Road Test Matrix}{19}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Diagnostic Evaluation Suites}{20}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Comparative Baseline Systems}{20}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Evaluation Metrics and Mathematical Derivations}{21}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Gold-Labeling Protocol and Zero-Leakage Static Audit}{22}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Results and Empirical Evaluation}{23}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Track 1: Master 4-Way Paradigm Benchmark}{23}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Symmetrical Error Detection and Prior Invariance}{24}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Track 2: Open Generative Multi-LLM Road Test}{24}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Modality Decomposition and ALU Precision}{25}{section.5.4}%
+\contentsline {section}{\numberline {5.5}In-Depth Forensic Case Studies Across Modalities}{26}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Case Study 1: Quantitative Hardware Transistor Contradiction}{26}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Case Study 2: Macroeconomic Indicator Discrepancy}{26}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Case Study 3: Topological Superlative Resolution}{27}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Case Study 4: Academic Citation DOI Verification}{27}{subsection.5.5.4}%
+\contentsline {section}{\numberline {5.6}Taxonomy Router Ablation: Symbolic vs. Frontier LLMs}{27}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Probabilistic Calibration and High-Precision Abstention}{28}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Computational Efficiency and Latency Profile}{30}{section.5.8}%
+\contentsline {chapter}{\numberline {6}Discussion and Threats to Validity}{31}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Synthesis: Direct Answers to Research Questions}{31}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}RQ1: Efficacy of Modality-Based Routing}{31}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}RQ2: Factual Precision in Structured Assertions}{31}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}RQ3: Generative Road-Test Generalization}{32}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}RQ4: Computational Footprint and Real-Time Feasibility}{32}{subsection.6.1.4}%
+\contentsline {section}{\numberline {6.2}Theoretical Analysis: Why Neural RAG Fails on Numbers}{32}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Comparative Synthesis: Internal Attention Probing vs. HalDetect}{33}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Threats to Validity}{33}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Internal Validity}{33}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Construct Validity}{33}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}External Validity}{34}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Limitations Inherited from Knowledge Bases}{34}{subsection.6.4.4}%
+\contentsline {section}{\numberline {6.5}What the Evidence Does NOT Establish}{34}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Practical Deployment and Industrial Integration}{34}{section.6.6}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{35}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Summary of Scientific Contributions}{35}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Released Artifacts and Reproducibility Suite}{36}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Future Research Directions}{36}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Hybrid GraphRAG Integration}{36}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Multimodal Vision-Language Verification}{37}{subsection.7.3.2}%
+\contentsline {section}{\numberline {7.4}Concluding Remarks}{37}{section.7.4}%
+\contentsline {chapter}{References}{38}{chapter*.28}%
+\contentsline {chapter}{Appendix \numberline {A}Core Algorithm Code and Mechanical Leak-Check Suite}{41}{appendix.1.A}%
+\contentsline {section}{\numberline {A.1}Mechanical AST Zero-Leakage Static Analysis}{41}{section.1.A.1}%
+\contentsline {section}{\numberline {A.2}Dimensional SI Unit Normalization Engine}{42}{section.1.A.2}%
+\contentsline {section}{\numberline {A.3}7-Continent Dynamic Topological Superlative Engine}{43}{section.1.A.3}%
+\contentsline {chapter}{Appendix \numberline {B}Track 2 Standardized 50-Prompt Generative Benchmark Suite}{45}{appendix.1.B}%
+\contentsline {section}{\numberline {B.1}Hardware and Microprocessor Specifications (Prompts 1--10)}{45}{section.1.B.1}%
+\contentsline {section}{\numberline {B.2}Macroeconomic and Sovereign Indicators (Prompts 11--20)}{46}{section.1.B.2}%
+\contentsline {section}{\numberline {B.3}Physical Constants and Astronomical Metrics (Prompts 21--30)}{47}{section.1.B.3}%
+\contentsline {section}{\numberline {B.4}Academic Literature and Citation Registry (Prompts 31--40)}{48}{section.1.B.4}%
+\contentsline {section}{\numberline {B.5}Historical Chronology and State Transitions (Prompts 41--50)}{48}{section.1.B.5}%
+\contentsline {chapter}{Appendix \numberline {C}Modality-Specific Confusion Matrices and Diagnostic Benchmark Slices}{50}{appendix.1.C}%
+\contentsline {section}{\numberline {C.1}Modality Confusion Matrices}{50}{section.1.C.1}%
+\contentsline {section}{\numberline {C.2}Diagnostic Slices Breakdown}{50}{section.1.C.2}%
+\contentsline {chapter}{Appendix \numberline {D}Master Benchmark Corpus 1,000-Claim Sample Index}{52}{appendix.1.D}%
+\contentsline {chapter}{Appendix \numberline {E}100 Adversarial Stumpers and Scale Polysemy Test Suite}{53}{appendix.1.E}%
+\contentsline {section}{\numberline {E.1}Representative Adversarial Evaluation Claims}{53}{section.1.E.1}%
+\contentsline {chapter}{Appendix \numberline {F}Paragraph Anaphora Coreference Benchmark Dataset}{55}{appendix.1.F}%
+\contentsline {section}{\numberline {F.1}Representative Paragraph Evaluation Samples}{55}{section.1.F.1}%
+\contentsline {chapter}{Appendix \numberline {G}System Environment, Dependencies, and Reproducibility Guide}{57}{appendix.1.G}%
+\contentsline {section}{\numberline {G.1}Hardware and Execution Environment}{57}{section.1.G.1}%
+\contentsline {section}{\numberline {G.2}Software Dependencies}{57}{section.1.G.2}%
+\contentsline {section}{\numberline {G.3}Step-by-Step Reproduction Instructions}{58}{section.1.G.3}%
+\contentsline {chapter}{Appendix \numberline {H}Track 2 Generative Model Responses and Verbatim Hallucination Case Log}{60}{appendix.1.H}%
+\contentsline {section}{\numberline {H.1}Hardware and Microprocessor Hallucination Cases}{60}{section.1.H.1}%
+\contentsline {section}{\numberline {H.2}Macroeconomic Indicator Hallucination Cases}{61}{section.1.H.2}%
+\contentsline {section}{\numberline {H.3}Academic Citation DOI Fabrication Cases}{62}{section.1.H.3}%
+\contentsline {chapter}{Appendix \numberline {I}Master Chronological Evaluation and Ablation Ledger}{63}{appendix.1.I}%
+\contentsline {section}{\numberline {I.1}Chronological Ledger of Master Evaluations}{63}{section.1.I.1}%

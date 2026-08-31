@@ -1,27 +1,98 @@
 \chapter{Track 2 Standardized 50-Prompt Generative Benchmark Suite}
 \label{app:prompts_suite}
 
-The following standardized prompt suite was evaluated across seven foundation models (Qwen 2.5-7B, Mistral-7B, Qwen 2.5-Coder-7B, DeepSeek-R1-Distill-Qwen-7B, Gemma 31B, GPT-OSS 120B, and MiniMax Text-01 M3), generating 1,798 atomic propositions across six factual domains.
+This appendix provides the complete standardized 50-prompt benchmark suite evaluated across seven foundation models (Qwen 2.5-7B, Mistral-7B-Instruct, Qwen 2.5-Coder-7B, DeepSeek-R1-Distill-7B, Gemma 31B, GPT-OSS 120B, and MiniMax Text-01 M3). The suite yielded 1,798 atomic propositions across six technical and factual domains.
 
-\section{Representative Prompt Domains}
+% ******************************************************************************
+\section{Hardware and Microprocessor Specifications (Prompts 1--10)}
+\label{sec:app_hardware_prompts}
+% ******************************************************************************
+
 \begin{enumerate}
-    \item \textbf{Hardware \& Microprocessor Specifications:}
-    \begin{itemize}
-        \item \textit{"Detail the fabrication process, core architecture, transistor count, and memory bandwidth of the Apple M3 Max processor."}
-        \item \textit{"Describe the architecture, CUDA core count, and HBM memory configuration of the NVIDIA H100 SXM5 GPU."}
-        \item \textit{"Provide the qubit count, coherence time, and quantum architecture of the IBM Condor quantum processor."}
-    \end{itemize}
-    \item \textbf{Macroeconomics \& Sovereign Indicators:}
-    \begin{itemize}
-        \item \textit{"Summarize the nominal GDP, GDP per capita, and inflation rate of Japan and Germany for the calendar year 2023 according to World Bank indicators."}
-    \end{itemize}
-    \item \textbf{Physical Constants \& Astronomy:}
-    \begin{itemize}
-        \item \textit{"State the exact numerical definitions of the speed of light, Planck constant, Avogadro constant, and Boltzmann constant under the 2019 SI redefinition."}
-        \item \textit{"Provide the exact confirmed satellite counts of Jupiter and Saturn as recognized by the International Astronomical Union."}
-    \end{itemize}
-    \item \textbf{Academic Literature \& Digital Object Identifiers:}
-    \begin{itemize}
-        \item \textit{"Cite the foundational publications, authors, publication years, and DOIs for Sentence-BERT, Attention Is All You Need, and Dense Passage Retrieval."}
-    \end{itemize}
+    \item \textit{"Detail the fabrication process node, transistor count, CPU core configuration, GPU core count, and memory bandwidth of the Apple M3 Max processor."}
+    \item \textit{"Provide the architecture, CUDA core count, Tensor core count, HBM3 memory capacity, and TDP of the NVIDIA H100 SXM5 GPU."}
+    \item \textit{"Describe the architecture, superconducting qubit count, quantum volume, and median coherence time of the IBM Condor quantum processor."}
+    \item \textit{"State the core count, thread count, L3 cache size, and default TDP of the AMD EPYC 9654 Genoa server processor."}
+    \item \textit{"Provide the fabrication process, performance core count, efficient core count, and maximum turbo frequency of the Intel Core i9-14900K processor."}
+    \item \textit{"Detail the GPU architecture, stream processor count, infinity cache size, and VRAM bandwidth of the AMD Radeon RX 7900 XTX."}
+    \item \textit{"State the fabrication node, Neural Engine TOPS rating, and unified memory capacity of the Apple M2 Ultra system-on-chip."}
+    \item \textit{"Describe the architecture, integer core count, and vector extension width of the Tenstorrent Wormhole PCIe processor."}
+    \item \textit{"State the total wafer-scale engine area, on-chip SRAM capacity, and AI core count of the Cerebras WSE-3 processor."}
+    \item \textit{"Provide the high-bandwidth memory capacity, memory bus width, and FP8 compute throughput of the NVIDIA B200 Blackwell GPU."}
+\end{enumerate}
+
+% ******************************************************************************
+\section{Macroeconomic and Sovereign Indicators (Prompts 11--20)}
+\label{sec:app_macro_prompts}
+% ******************************************************************************
+
+\begin{enumerate}
+    \setcounter{enumi}{10}
+    \item \textit{"Summarize the nominal Gross Domestic Product (GDP), GDP per capita, and official inflation rate of Japan for the calendar year 2023 per World Bank data."}
+    \item \textit{"State the nominal GDP, sovereign debt-to-GDP ratio, and export volume of Germany for the year 2023 according to official World Bank records."}
+    \item \textit{"Provide the total nominal GDP and annual GDP growth rate of India for the fiscal year 2023 according to official World Bank indicators."}
+    \item \textit{"State the total population, sovereign GDP (PPP), and unemployment rate of the United Kingdom for 2023."}
+    \item \textit{"Provide the foreign exchange reserve volume and sovereign credit rating of Brazil as documented for year-end 2023."}
+    \item \textit{"Detail the inflation rate, nominal GDP, and central bank policy interest rate of South Korea for 2023."}
+    \item \textit{"Summarize the total export value, oil production barrels per day, and sovereign wealth fund assets of Norway for 2023."}
+    \item \textit{"State the sovereign GDP in nominal USD and official consumer price index inflation rate of South Africa for 2023."}
+    \item \textit{"Provide the total agricultural export value and nominal GDP of Argentina for the calendar year 2023."}
+    \item \textit{"Detail the nominal GDP, per capita GDP, and workforce participation rate of Canada for 2023 according to the World Bank."}
+\end{enumerate}
+
+% ******************************************************************************
+\section{Physical Constants and Astronomical Metrics (Prompts 21--30)}
+\label{sec:app_physics_prompts}
+% ******************************************************************************
+
+\begin{enumerate}
+    \setcounter{enumi}{20}
+    \item \textit{"State the exact numerical definitions of the speed of light in vacuum, Planck constant, Avogadro constant, and Boltzmann constant under the 2019 SI redefinition."}
+    \item \textit{"Provide the official confirmed natural satellite counts of Jupiter and Saturn as recognized by the International Astronomical Union."}
+    \item \textit{"State the mean distance from Earth to Alpha Centauri A in both light-years and parsecs."}
+    \item \textit{"Provide the standard acceleration due to gravity, mean equatorial radius, and total surface area of planet Mars."}
+    \item \textit{"State the exact rest mass of an electron, proton, and neutron in kilograms under standard CODATA values."}
+    \item \textit{"Provide the Schwarzschild radius of the supermassive black hole Sagittarius A* situated at the center of the Milky Way."}
+    \item \textit{"State the orbital period, semi-major axis, and surface temperature range of planet Mercury."}
+    \item \textit{"State the speed of sound in dry air at 20 degrees Celsius and standard atmospheric pressure (101.325 kPa)."}
+    \item \textit{"Provide the solar luminosity in watts and the effective surface temperature of the Sun in Kelvin."}
+    \item \textit{"State the exact half-life of Carbon-14 and Uranium-238 according to the National Institute of Standards and Technology."}
+\end{enumerate}
+
+% ******************************************************************************
+\section{Academic Literature and Citation Registry (Prompts 31--40)}
+\label{sec:app_citation_prompts}
+% ******************************************************************************
+
+\begin{enumerate}
+    \setcounter{enumi}{30}
+    \item \textit{"Cite the foundational publication, primary authors, publication venue, year, and official DOI for Sentence-BERT."}
+    \item \textit{"Provide the title, author list, conference venue, and DOI for the landmark paper 'Attention Is All You Need'."}
+    \item \textit{"Cite the authors, publication venue, and DOI for the original Dense Passage Retrieval (DPR) paper."}
+    \item \textit{"Provide the citation metadata and DOI for the FActScore atomic factuality evaluation framework."}
+    \item \textit{"Cite the foundational paper, venue, and DOI for the DeBERTa-v3 model architecture."}
+    \item \textit{"Provide the title, authors, venue, and DOI for the original FEVER fact extraction and verification dataset."}
+    \item \textit{"Cite the authors, publication venue, and DOI for the Lookback Lens contextual hallucination mitigation framework."}
+    \item \textit{"Provide the citation metadata and DOI for the HippoRAG neurobiological memory system for LLMs."}
+    \item \textit{"Cite the authors, venue, and DOI for the Self-RAG retrieval and critique architecture."}
+    \item \textit{"Provide the title, author list, publication year, and DOI for the FinGround numerical grounding research paper."}
+\end{enumerate}
+
+% ******************************************************************************
+\section{Historical Chronology and State Transitions (Prompts 41--50)}
+\label{sec:app_history_prompts}
+% ******************************************************************************
+
+\begin{enumerate}
+    \setcounter{enumi}{40}
+    \item \textit{"State the exact dates of inauguration and departure for the 35th and 36th Presidents of the United States."}
+    \item \textit{"Provide the start year, conclusion year, and signatory powers of the Treaty of Versailles."}
+    \item \textit{"State the exact year of admission to the United States for Alaska and Hawaii."}
+    \item \textit{"Detail the tenure dates of the first three Secretaries-General of the United Nations."}
+    \item \textit{"State the foundation year, charter date, and original member states of the European Coal and Steel Community."}
+    \item \textit{"Provide the launch date, landing date, and primary crew members of the Apollo 11 lunar mission."}
+    \item \textit{"State the exact year of discovery and isolating scientist for the chemical element Polonium."}
+    \item \textit{"Detail the construction commencement year and official opening year of the Panama Canal."}
+    \item \textit{"State the foundation year, first chancellor, and location of the University of Chittagong."}
+    \item \textit{"Provide the year of introduction, developing organization, and initial architecture of the Transformer deep learning model."}
 \end{enumerate}

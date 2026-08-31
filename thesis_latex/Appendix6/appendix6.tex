@@ -1,0 +1,33 @@
+\chapter{Paragraph Anaphora Coreference Benchmark Dataset}
+\label{app:anaphora_dataset}
+
+This appendix provides representative multi-sentence paragraph samples from the 200-paragraph Anaphora Coreference Evaluation Suite, illustrating forward antecedent resolution, orphan pronoun recovery, and 5-tuple extraction.
+
+\section{Representative Paragraph Evaluation Samples}
+
+\begin{enumerate}
+    \item \textbf{Hardware Specification Paragraph (Sample 1):}
+    \begin{quote}
+        \textit{"The Apple M3 Max represents Apple's flagship silicon for professional workloads. It is manufactured on TSMC's 3-nanometer process technology. The processor integrates 92 billion transistors and features up to 16 CPU cores. It delivers a unified memory bandwidth of 400 gigabytes per second. This architecture enables extreme energy efficiency in workstation laptops."}
+    \end{quote}
+    \textbf{Extracted 5-Tuples \& Antecedent Resolution:}
+    \begin{itemize}
+        \item $\mathcal{T}_1$: $\langle \text{Apple M3 Max}, \text{is\_flagship\_for}, \text{professional workloads}, \text{None}, \text{None} \rangle$
+        \item $\mathcal{T}_2$: $\langle \text{Apple M3 Max}, \text{fabrication\_process}, \text{TSMC 3nm}, \text{None}, \text{None} \rangle$ \hfill [\textit{Resolved from "It"}]
+        \item $\mathcal{T}_3$: $\langle \text{Apple M3 Max}, \text{transistor\_count}, \text{92 billion}, \text{None}, \text{None} \rangle$
+        \item $\mathcal{T}_4$: $\langle \text{Apple M3 Max}, \text{cpu\_cores}, \text{16}, \text{None}, \text{None} \rangle$
+        \item $\mathcal{T}_5$: $\langle \text{Apple M3 Max}, \text{memory\_bandwidth}, \text{400 GB/s}, \text{None}, \text{None} \rangle$ \hfill [\textit{Resolved from "It"}]
+    \end{itemize}
+
+    \item \textbf{Scientific Discovery Paragraph (Sample 2):}
+    \begin{quote}
+        \textit{"Marie Curie was a pioneering physicist and chemist. She conducted foundational research on radioactivity and discovered the chemical elements polonium and radium. In 1903, she became the first woman to win a Nobel Prize. Eight years later, the scientist was awarded her second Nobel Prize in Chemistry in 1911."}
+    \end{quote}
+    \textbf{Extracted 5-Tuples \& Antecedent Resolution:}
+    \begin{itemize}
+        \item $\mathcal{T}_1$: $\langle \text{Marie Curie}, \text{occupation}, \text{physicist and chemist}, \text{None}, \text{None} \rangle$
+        \item $\mathcal{T}_2$: $\langle \text{Marie Curie}, \text{discovered}, \text{polonium and radium}, \text{None}, \text{None} \rangle$ \hfill [\textit{Resolved from "She"}]
+        \item $\mathcal{T}_3$: $\langle \text{Marie Curie}, \text{received\_award}, \text{Nobel Prize in Physics}, \text{1903}, \text{None} \rangle$ \hfill [\textit{Resolved from "she"}]
+        \item $\mathcal{T}_4$: $\langle \text{Marie Curie}, \text{received\_award}, \text{Nobel Prize in Chemistry}, \text{1911}, \text{None} \rangle$ \hfill [\textit{Resolved from "the scientist"}]
+    \end{itemize}
+\end{enumerate}

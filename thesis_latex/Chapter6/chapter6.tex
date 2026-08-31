@@ -1,20 +1,20 @@
 \chapter{Discussion and Threats to Validity}
 \label{ch:discussion}
 
-This chapter synthesizes the experimental findings, directly answers the four governing research questions, provides the theoretical foundation for why neural fact-checkers fail on structured assertions, and presents a rigorous four-part validity analysis.
+This chapter synthesizes the experimental findings, directly answers the four governing research questions, provides the theoretical foundation for why neural fact-checkers fail on structured assertions, and presents a rigorous four-part validity analysis following the standard empirical AI framework.
 
 % ******************************************************************************
-\section{Synthesis: Answers to Research Questions}
+\section{Synthesis: Direct Answers to Research Questions}
 \label{sec:rq_synthesis}
 % ******************************************************************************
 
 \subsection{RQ1: Efficacy of Modality-Based Routing}
-\textbf{Question:} \textit{Does routing propositions into typed modalities outperform monolithic cross-encoders?}
+\textbf{Question:} \textit{Does routing propositions into typed modalities outperform monolithic cross-encoders on balanced ground truth?}
 
 \textbf{Answer:} Yes. HalDetect achieves \textbf{97.60\% selective accuracy} ($\text{MCC} = +0.9520$), outperforming the Non-Routed baseline ($60.00\%$, $\text{MCC} = +0.260$) by $+37.60\%$ on balanced ground truth ($p < 10^{-60}$). Modality routing enables domain-specific ALUs to resolve exact truth conditions without neural approximation.
 
 \subsection{RQ2: Factual Precision in Structured Assertions}
-\textbf{Question:} \textit{Can deterministic ALUs eliminate false alarms in quantitative and citation verification?}
+\textbf{Question:} \textit{Can deterministic ALUs eliminate false alarms in quantitative calculations, temporal tenures, and citation attributions?}
 
 \textbf{Answer:} Yes. Across 189 quantitative and 200 citation claims, the Dimensional SI ALU and CrossRef Registry Gateway achieve \textbf{99.47\%} and \textbf{100.00\% selective accuracy} respectively, with zero false alarms.
 
@@ -29,13 +29,55 @@ This chapter synthesizes the experimental findings, directly answers the four go
 \textbf{Answer:} HalDetect operates in \textbf{24.3 ms per claim on a consumer CPU} ($0\text{GB}$ GPU memory), running 24$\times$ faster than local GPU RAG ($578.5\text{ms}$) and 500$\times$ faster than cloud multi-search agents ($12,500\text{ms}$).
 
 % ******************************************************************************
-\section{Theoretical Analysis: Why Neural RAG Fails}
+\section{Theoretical Analysis: Why Neural RAG Fails on Numbers}
 \label{sec:theoretical_failure}
 % ******************************************************************************
 
-The failure of neural cross-encoders to detect the 31 generative hallucinations stems from the \textbf{Attention Dilution Phenomenon}. When an LLM generates a numerical contradiction (e.g., \textit{"Apple M3 Max has 40 million transistors"} instead of $92\text{B}$), the continuous embedding distance between the claim and the retrieved reference article is dominated by matching context tokens (\textit{Apple, M3, Max, transistors, process}).
+The failure of neural cross-encoders to detect the 31 generative hallucinations stems from the \textbf{Attention Dilution Phenomenon} and the continuous embedding loss formulation~\cite{fisch2026finground}.
 
-Because neural attention weights distribute over the high-frequency semantic context, the cross-encoder perceives overwhelming lexical overlap and assigns high entailment probability. In contrast, HalDetect isolates the numerical slot ($40\text{M} \neq 92\text{B}$) and executes discrete arithmetic discrepancy checks ($\Delta = 99.96\% > 5\%$).
+When an LLM generates a numerical contradiction (e.g., asserting an Apple M3 Max has 40 million transistors instead of 92 billion), the token representation sequence $\mathbf{H} \in \mathbb{R}^{L \times d}$ is dominated by matching context tokens (\textit{Apple, M3, Max, processor, transistors}).
+
+The cross-attention weight from claim token $i$ to evidence token $j$ is computed as:
+\begin{equation}
+    \alpha_{ij} = \frac{\exp\left(\frac{\mathbf{q}_i^\top \mathbf{k}_j}{\sqrt{d_k}}\right)}{\sum_{l=1}^L \exp\left(\frac{\mathbf{q}_i^\top \mathbf{k}_l}{\sqrt{d_k}}\right)}
+\end{equation}
+Because the vast majority of tokens align semantically, the pooled representation vector $\mathbf{h}_{[\texttt{CLS}]}$ falls deeply within the Entailment partition of the classification simplex. Continuous loss functions do not penalize magnitude discrepancies; they optimize semantic similarity.
+
+In contrast, HalDetect's Dimensional SI ALU extracts numerical tokens discretely and computes relative discrepancy:
+\begin{equation}
+    \Delta = \frac{|40\times 10^6 - 92\times 10^9|}{92\times 10^9} = 0.999565 > \tau_{\text{rel}}
+\end{equation}
+triggering an unambiguous, provable \texttt{FALSE} verdict.
+
+% ******************************************************************************
+\section{Comparative Synthesis: Internal Attention Probing vs. HalDetect}
+\label{sec:internal_vs_haldetect_synthesis}
+% ******************************************************************************
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Comparative analysis between Internal Token-Level BIO Attention Probing (e.g., HalluDet / Aong Cho) and HalDetect's External Neuro-Symbolic Triage.}
+\label{tab:internal_vs_external}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcc}
+\toprule
+\textbf{Technical Dimension} & \textbf{Internal Attention Probes (HalluDet)} & \textbf{HalDetect 2.5 (Ours)} \\
+\midrule
+Primary Focus & Token-level hallucination span tagging & Proposition-level factual truth verification \\
+Execution Access & White-box (Internal attention matrices) & Black-box (Model-agnostic API outputs) \\
+Knowledge Source & Hidden state activation patterns & Wikidata, World Bank, CrossRef registries \\
+Numerical Reasoning & Probabilistic token classification & Deterministic SI dimensional arithmetic \\
+Citation Grounding & None (Pattern matching only) & Live CrossRef REST API registry queries \\
+Open-World Logic & Binary BIO token probabilities & 3-Valued Epistemic Logic ($\top, \bot, ?$) \\
+Compute Hardware & Requires GPU to run transformer forward pass & Executes in 24.3ms on consumer laptop CPU \\
+Operational Role & Fast inline decoding filter during generation & Formal factual audit \& compliance gateway \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+As summarized in Table~\ref{tab:internal_vs_external}, internal probing and external neuro-symbolic triage serve complementary roles: while internal probes provide fast token localization during generation, HalDetect provides the definitive, audit-grade verification required for high-stakes deployment.
 
 % ******************************************************************************
 \section{Threats to Validity}
@@ -69,3 +111,10 @@ To maintain strict academic integrity, we explicitly state the boundaries of our
     \item HalDetect does \textbf{not} eliminate the need for retrieval; it replaces unguided neural text matching with structured, typed knowledge retrieval.
     \item The 100\% hallucination recall observed in Track 2 applies to discrete factual confabulations (numbers, dates, DOIs) and does not guarantee complete detection of subtle rhetorical or aesthetic misalignments.
 \end{enumerate}
+
+% ******************************************************************************
+\section{Practical Deployment and Industrial Integration}
+\label{sec:practical_deployment}
+% ******************************************************************************
+
+In production environments, HalDetect can be integrated as an automated factual audit middleware between foundation model API endpoints and end-user interfaces. Because the system operates in 24.3ms on CPU without GPU dependencies, it introduces negligible latency while preventing catastrophic hallucinated outputs from reaching end users.

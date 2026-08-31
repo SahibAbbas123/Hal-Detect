@@ -201,3 +201,37 @@
 \usepackage{multicol, multirow,makecell}
 \usepackage{rotating}
 \let\cleardoublepage=\clearpage
+% ******************** PaperBanana Scientific Styles & Colors ******************
+\usepackage{tabularx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{listings}
+
+\definecolor{pbblue}{HTML}{E6F3FF}
+\definecolor{pbdarkblue}{HTML}{1E3A8A}
+\definecolor{pbmint}{HTML}{E0F2F1}
+\definecolor{pbdarkgreen}{HTML}{065F46}
+\definecolor{pblavender}{HTML}{F3E5F5}
+\definecolor{pbdarkpurple}{HTML}{581C87}
+\definecolor{pbyellow}{HTML}{FEF3C7}
+\definecolor{pbdarkorange}{HTML}{9A3412}
+\definecolor{pbgray}{HTML}{F3F4F6}
+\definecolor{pbcoral}{HTML}{FEE2E2}
+\definecolor{pbdarkred}{HTML}{991B1B}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  breakatwhitespace=false,
+  frame=single,
+  backgroundcolor=\color{pbgray},
+  keywordstyle=\color{pbdarkblue}\bfseries,
+  commentstyle=\color{pbdarkgreen}\itshape,
+  stringstyle=\color{pbdarkorange},
+  showstringspaces=false,
+  columns=fullflexible
+}
+
+% Allow breaks in long urls and code in text
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{url}

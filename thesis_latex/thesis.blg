@@ -17,45 +17,52 @@ A level-1 auxiliary file: Chapter7/chapter7.aux
 The style file: apalike.bst
 A level-1 auxiliary file: Appendix1/appendix1.aux
 A level-1 auxiliary file: Appendix2/appendix2.aux
+A level-1 auxiliary file: Appendix3/appendix3.aux
+A level-1 auxiliary file: Appendix4/appendix4.aux
+A level-1 auxiliary file: Appendix5/appendix5.aux
+A level-1 auxiliary file: Appendix6/appendix6.aux
+A level-1 auxiliary file: Appendix7/appendix7.aux
+A level-1 auxiliary file: Appendix8/appendix8.aux
+A level-1 auxiliary file: Appendix9/appendix9.aux
 Database file #1: References/references.bib
-You've used 13 entries,
+You've used 28 entries,
             1935 wiz_defined-function locations,
-            555 strings with 7430 characters,
-and the built_in function-call counts, 7482 in all, are:
-= -- 733
-> -- 384
-< -- 11
-+ -- 141
-- -- 138
-* -- 597
-:= -- 1193
-add.period$ -- 39
-call.type$ -- 13
-change.case$ -- 134
-chr.to.int$ -- 12
-cite$ -- 13
-duplicate$ -- 305
-empty$ -- 481
-format.name$ -- 157
-if$ -- 1546
+            625 strings with 11289 characters,
+and the built_in function-call counts, 15435 in all, are:
+= -- 1426
+> -- 1024
+< -- 13
++ -- 383
+- -- 376
+* -- 1341
+:= -- 2653
+add.period$ -- 84
+call.type$ -- 28
+change.case$ -- 321
+chr.to.int$ -- 27
+cite$ -- 28
+duplicate$ -- 532
+empty$ -- 846
+format.name$ -- 410
+if$ -- 3009
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 13
-newline$ -- 68
-num.names$ -- 39
-pop$ -- 164
+missing$ -- 28
+newline$ -- 143
+num.names$ -- 84
+pop$ -- 355
 preamble$ -- 1
-purify$ -- 134
+purify$ -- 321
 quote$ -- 0
-skip$ -- 247
+skip$ -- 429
 stack$ -- 0
-substring$ -- 508
-swap$ -- 103
-text.length$ -- 8
+substring$ -- 811
+swap$ -- 138
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 78
+type$ -- 168
 warning$ -- 0
-while$ -- 52
+while$ -- 92
 width$ -- 0
-write$ -- 168
+write$ -- 352

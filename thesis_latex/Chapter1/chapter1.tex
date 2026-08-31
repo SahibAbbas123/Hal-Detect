@@ -1,53 +1,87 @@
 \chapter{Introduction}
 \label{ch:introduction}
 
-Large Language Models (LLMs) have achieved remarkable fluency across diverse tasks, demonstrating an unprecedented ability to synthesize information and generate human-like text. However, their pervasive vulnerability to \textbf{hallucinations}—generating fluent, authoritative statements that contradict real-world factual ground truth—remains the primary barrier to their reliable deployment in high-stakes domains such as medicine, law, finance, and scientific discovery.
+Large Language Models (LLMs) parameterized by tens or hundreds of billions of transformer weights have demonstrated unprecedented fluency and reasoning across natural language processing tasks~\cite{dubey2024llama3,yang2024qwen2,deepseek2025r1}. However, despite their linguistic mastery, foundation models remain fundamentally prone to \textbf{factual hallucinations}---the generation of fluent, authoritative, yet factually incorrect assertions that contradict established real-world ground truth~\cite{zhang2023sirens,huang2023survey,ji2023survey}. In high-assurance environments such as clinical decision support, legal jurisprudence, macroeconomic policy, and hardware engineering, unflagged hallucinations undermine system trustworthiness and pose catastrophic operational risks.
 
 % ******************************************************************************
-\section{Problem Statement}
-\label{sec:problem_statement}
+\section{Background and the Factual Reliability Crisis}
+\label{sec:background_crisis}
 % ******************************************************************************
 
-Existing approaches to hallucination detection predominantly treat verification as an undifferentiated neural sequence matching task. Standard Retrieval-Augmented Generation (RAG) and LLM-as-a-Judge frameworks retrieve unstructured web or Wikipedia passages and task cross-encoders with evaluating semantic entailment.
+The hallucination phenomenon arises from the objective function governing auto-regressive language modeling: predicting the statistically most probable next token given a context prefix, rather than querying a structured, verified epistemological model of the physical universe~\cite{azaria2023internal}. Consequently, models frequently synthesize non-existent academic literature, invent fictitious biographical milestones, scramble chronological intervals, and fabricate hardware specifications while maintaining seamless syntactic coherence.
 
-This monolithic approach suffers from three fundamental structural vulnerabilities:
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{Chapter1/Figs/fig1_triage_paradigm.pdf}
+\caption{Architectural comparison of hallucination verification paradigms. (A) Traditional monolithic black-box verification passes entire paragraphs to neural judges, leading to attention dilution and token overlap failure. (B) HalDetect's proposed type-directed neuro-symbolic triage decomposes prose into atomic 5-tuples and dispatches them to specialized deterministic ALUs.}
+\label{fig:triage_paradigm}
+\end{figure}
+
+To categorize the failure space, factual discrepancies can be partitioned into distinct epistemic modes:
 \begin{enumerate}
-    \item \textbf{Attention Dilution \& Lexical Overlap Bias:} When generated prose shares extensive vocabulary with a retrieved passage but alters a single critical parameter (e.g., asserting an Apple M3 Max has 40 million transistors instead of 92 billion), continuous embedding attention distributes across the matching nouns, causing neural judges to misclassify the contradiction as supported.
-    \item \textbf{Absence of Arithmetic and Symbolic Calculators:} Neural language models are fundamentally probabilistic token predictors rather than symbolic arithmetic engines; they cannot subtract values, check numerical error margins, or verify interval containment with mathematical guarantees~\cite{fisch2026finground}.
-    \item \textbf{Prohibitive Latency and Compute Footprint:} Multi-agent search evaluators such as Google SAFE~\cite{wei2024safe} require repeated web queries and multi-billion parameter LLM calls, incurring over 10 seconds of latency and substantial financial costs per response.
+    \item \textbf{Numerical and Dimensional Contradictions:} Subtle numerical alterations (e.g., misstating transistor counts, cache sizes, or financial revenue figures).
+    \item \textbf{Temporal Anachronisms:} Confabulating state transitions, tenures, or ordering of events (e.g., asserting an official held office after their documented term).
+    \item \textbf{Entity-Attribute Mismatches:} Swapping invariant properties between related entities (e.g., attributing chemical properties or institutional affiliations to the wrong entity).
+    \item \textbf{Fabricated Academic Attributions:} Hallucinating non-existent Digital Object Identifiers (DOIs) or author rosters that mimic real scientific publications.
+    \item \textbf{Open-Domain Relational Discrepancies:} Complex, nuanced semantic claims regarding events and relationships.
 \end{enumerate}
 
 % ******************************************************************************
-\section{The HalDetect Hypothesis \& Research Questions}
-\label{sec:research_questions}
+\section{Structural Failures of Monolithic Neural Fact-Checkers}
+\label{sec:structural_failures}
 % ******************************************************************************
 
-We hypothesize that \textbf{fact verification is fundamentally a triage problem rather than a monolithic generation task}. By parsing unstructured text into typed propositions and routing them to specialized deterministic Arithmetic Logic Units (ALUs) and structured knowledge graphs, fact-checking systems can achieve near-perfect factual precision, eliminate lexical overlap false alarms, and operate in real time on standard consumer hardware.
+Prior efforts to automate hallucination detection predominantly employ monolithic neural approaches, including Retrieval-Augmented Generation (RAG)~\cite{lewis2020retrieval}, fine-tuned Natural Language Inference (NLI) cross-encoders~\cite{niu2024ragtruth,he2023deberta}, and multi-turn agentic web search pipelines~\cite{wei2024safe,gao2023factool}. 
 
-To systematically investigate this hypothesis, this thesis addresses four core Research Questions:
+As illustrated in Figure~\ref{fig:triage_paradigm}(A), these monolithic approaches suffer from four foundational vulnerabilities:
+
+\subsection{The Attention Dilution Phenomenon and Lexical Overlap Bias}
+When an LLM generates a sentence containing a factual error embedded in otherwise accurate contextual prose (e.g., \textit{"The Apple M3 Max is manufactured on TSMC's process with 40 million transistors"}), a dense retrieval engine retrieves the true reference article containing TSMC, Apple, M3 Max, and transistors. 
+
+When passed to a neural cross-encoder, the self-attention weights distribute broadly across the high-frequency matching contextual nouns. Because over 85\% of the token sequence aligns with the reference passage, the continuous embedding layer perceives overwhelming semantic overlap and computes a high entailment score, missing the numerical contradiction entirely~\cite{fisch2026finground}.
+
+\subsection{Absence of Arithmetic and Symbolic Calculators}
+Neural cross-encoders are continuous function approximators rather than symbolic calculators. They cannot perform basic arithmetic subtraction, scale unit conversions (e.g., Megahertz to Gigahertz, Fahrenheit to Kelvin), or evaluate mathematical tolerances ($\Delta \le \tau_{\text{rel}}$) with absolute certainty.
+
+\subsection{Prohibitive Computational Latency and Financial Cost}
+Agentic search frameworks like Google SAFE~\cite{wei2024safe} execute multiple iterative search queries and multi-billion-parameter LLM reasoning calls for every claim. This incurs latencies exceeding 12 seconds per prompt and costs approximately \$0.19 per response, rendering real-time deployment impossible.
+
+\subsection{Sycophancy and Class-Prior Exploitation}
+Prompt-based LLM judges (such as \textsc{FActScore}~\cite{min2023factscore} and SelfCheckGPT~\cite{manakul2023selfcheckgpt}) inherit the biases of their underlying foundation models, frequently agreeing with generated claims due to sycophancy or default true-class priors.
+
+% ******************************************************************************
+\section{The HalDetect Hypothesis and Research Questions}
+\label{sec:hypothesis_rqs}
+% ******************************************************************************
+
+We hypothesize that \textbf{fact verification in large language models is fundamentally a triage problem rather than an undifferentiated text-generation task}. By parsing complex prose into typed atomic propositions and dispatching them to domain-specific neuro-symbolic Arithmetic Logic Units (ALUs) and structured knowledge graphs, fact-checking systems can achieve near-perfect factual precision, eliminate lexical overlap false alarms, and operate in real time on standard consumer hardware.
+
+To rigorously investigate this hypothesis, this thesis formulates and answers four central Research Questions:
+
 \begin{itemize}
-    \item \textbf{RQ1 (Routing Efficacy):} Does routing propositions into specialized modality pipelines outperform monolithic neural cross-encoders on balanced factual benchmarks?
-    \item \textbf{RQ2 (Factual Precision):} Can domain-specific neuro-symbolic ALUs eliminate false alarms in quantitative calculations, temporal tenure, and academic citation attribution?
-    \item \textbf{RQ3 (Generative Generalization):} How effectively does HalDetect catch real-world factual confabulations generated by frontier foundation models in open-ended prose?
-    \item \textbf{RQ4 (Computational Efficiency):} What are the latency, memory, and energy trade-offs of neuro-symbolic triage compared to neural RAG and cloud LLM judges?
+    \item \textbf{RQ1 (Modality Routing Efficacy):} \textit{Does decomposing unconstrained text into atomic 5-tuples and routing them into specialized modality pipelines outperform monolithic neural cross-encoders on balanced ground-truth benchmarks?}
+    \item \textbf{RQ2 (Deterministic ALU Precision):} \textit{Can specialized symbolic ALUs (Dimensional SI, 2-Hop SPARQL, and CrossRef DOI Gateways) eliminate false alarms in quantitative calculations, temporal tenures, and citation attributions?}
+    \item \textbf{RQ3 (Generative Road-Test Generalization):} \textit{How effectively does HalDetect discover and catch real-world factual confabulations generated by frontier foundation models (7B to 120B parameters) in open-ended generative prose?}
+    \item \textbf{RQ4 (Computational Efficiency and Scalability):} \textit{What are the latency, hardware, and energy trade-offs of neuro-symbolic triage compared to local GPU RAG and cloud multi-search agents?}
 \end{itemize}
 
 % ******************************************************************************
-\section{Summary of Contributions}
-\label{sec:contributions}
+\section{Summary of Scientific Contributions}
+\label{sec:scientific_contributions}
 % ******************************************************************************
 
-The primary contributions of this thesis are as follows:
+This dissertation delivers five principal theoretical, architectural, and empirical contributions:
 \begin{enumerate}
-    \item \textbf{The HalDetect Neuro-Symbolic Verification Architecture:} We design and implement a hierarchical verification pipeline that combines a sub-$0.05\text{ms}$ deterministic taxonomy router with five domain-specific ALUs: a Dimensional SI Quantitative ALU, a 7-Continent Topological Superlative Resolver, an Entity-Attribute Statement Matcher, a CrossRef Citation Gateway, and a Calibrated Relational NLI fallback.
-    \item \textbf{Paragraph-Level Anaphora Normalization \& Conjunction DAG:} We introduce a forward antecedent coreference tracker that binds orphaned pronoun chains ($< 0.1\text{ms}$) and a multi-aspect DAG that enforces 3-valued conjunction logic under open-world assumptions.
-    \item \textbf{The Symmetrical Master Benchmark Corpus ($N=1,000$):} We construct a perfectly balanced, 500-TRUE / 500-FALSE benchmark across five modalities, establishing an evaluation standard that renders trivial class-prior exploitation ineffective.
-    \item \textbf{Comprehensive Multi-LLM Road Test \& Empirical Validation:} We evaluate 1,798 propositions generated by seven foundation models (Qwen 2.5, Mistral, DeepSeek-R1, Gemma 31B, GPT-OSS 120B, MiniMax M3), proving HalDetect achieves \textbf{100.0\% recall on real hallucinations} (catching 31/31 errors) where Modern SOTA RAG and MiniCheck-7B achieve 0.0\% recall ($p < 10^{-60}$).
+    \item \textbf{The HalDetect Neuro-Symbolic Verification Architecture:} A hierarchical, modular fact-checking engine combining a sub-$0.05\text{ms}$ deterministic taxonomy router with five domain-specific ALUs: Dimensional SI Quantitative, 7-Continent Topological Temporal, Entity-Attribute Statement Matcher, CrossRef Citation Gateway, and Calibrated Relational NLI.
+    \item \textbf{5-Tuple Schema Atomizer with Forward Anaphora Resolution:} A decomposition engine that converts raw text into typed tuples $\langle S, P, O, T, M \rangle$ while maintaining an antecedent entity registry $\mathcal{E}_{\text{context}}$ to resolve orphan pronoun chains in $< 0.1\text{ms}$.
+    \item \textbf{Multi-Aspect Verification DAG and 3-Valued Epistemic Logic:} A conjunction engine operating over $\{\texttt{TRUE}, \texttt{FALSE}, \texttt{UNVERIFIABLE}\}$ that enforces the Fatal Discrepancy Rule for compound assertions.
+    \item \textbf{The Symmetrical Master Benchmark Corpus ($N = 1,000$):} A balanced 500-TRUE / 500-FALSE benchmark spanning five modalities, preventing class-prior exploitation.
+    \item \textbf{Open Multi-LLM Road Test \& Empirical Validation:} A rigorous evaluation across 1,798 propositions from seven foundation models, proving HalDetect achieves \textbf{100.0\% recall on real hallucinations} (31/31 errors caught) where Modern SOTA RAG and MiniCheck-7B achieve 0.0\% recall ($p < 10^{-60}$).
 \end{enumerate}
 
 % ******************************************************************************
 \section{Thesis Organization}
-\label{sec:thesis_organization}
+\label{sec:thesis_org}
 % ******************************************************************************
 
-The remainder of this dissertation is organized as follows: Chapter~\ref{ch:related_work} reviews related literature across atomic fact-checking, neural NLI, RAG, and attention probing. Chapter~\ref{ch:methodology} formalizes the HalDetect architecture, its 5-tuple schema atomizer, and specialized ALUs. Chapter~\ref{ch:experiment} details dataset provenance, baseline configurations, and statistical protocols. Chapter~\ref{ch:results} presents comprehensive empirical results across laboratory benchmarks, generative road tests, and ablations. Chapter~\ref{ch:discussion} synthesizes findings, provides theoretical failure analyses, and details threats to validity. Chapter~\ref{ch:conclusion} concludes with future directions and released open-source artifacts.
+The remainder of this dissertation is organized as follows: Chapter~\ref{ch:related_work} surveys related literature across atomic fact-checking, neural NLI, RAG, GraphRAG, and internal attention probing. Chapter~\ref{ch:methodology} formalizes the HalDetect architecture, its 5-tuple schema atomizer, and specialized ALUs. Chapter~\ref{ch:experiment} describes benchmark datasets, generative road-test suites, baseline configurations, and statistical protocols. Chapter~\ref{ch:results} details empirical findings across laboratory benchmarks, multi-LLM road tests, and ablation studies. Chapter~\ref{ch:discussion} provides in-depth synthesis, theoretical failure analyses, and a four-part validity dissection. Chapter~\ref{ch:conclusion} concludes with future directions and released open-source artifacts.

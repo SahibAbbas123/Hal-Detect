@@ -1,0 +1,37 @@
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage{tikz}\n\usepackage{amssymb}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, matrix, fit}
+\definecolor{pbblue}{HTML}{E6F3FF}
+\definecolor{pbdarkblue}{HTML}{1E3A8A}
+\definecolor{pbmint}{HTML}{E0F2F1}
+\definecolor{pbdarkgreen}{HTML}{065F46}
+\definecolor{pblavender}{HTML}{F3E5F5}
+\definecolor{pbdarkpurple}{HTML}{581C87}
+\definecolor{pbyellow}{HTML}{FEF3C7}
+\definecolor{pbdarkorange}{HTML}{9A3412}
+\definecolor{pbcoral}{HTML}{FEE2E2}
+\definecolor{pbdarkred}{HTML}{991B1B}
+\definecolor{pbgray}{HTML}{F3F4F6}
+
+\begin{document}
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    box/.style={draw=black!70, rounded corners=4pt, line width=0.8pt, align=center, inner sep=6pt},
+    arrow/.style={-{Stealth[scale=1.0]}, line width=1pt, draw=black!70}
+]
+
+\node[box, fill=pbcoral!50, text=pbdarkred, minimum width=3.2cm] (p1) {\textbf{Phase 1: Genesis}\\Batch 1 ($N=125$)\\8 Gold FALSE (Skew)};
+\node[box, fill=pbyellow!50, text=pbdarkorange, right=0.8cm of p1, minimum width=3.2cm] (p2) {\textbf{Phase 2: Entity Gate}\\Phase 2 Gold ($N=126$)\\Q22\_C01 Relabeling};
+\node[box, fill=pblavender!50, text=pbdarkpurple, right=0.8cm of p2, minimum width=3.2cm] (p3) {\textbf{Phase 3: Synthetic Negs}\\Batch 3 ($N=122$)\\+ 84 Hard Negatives};
+\node[box, fill=pbmint!80, text=pbdarkgreen, font=\bfseries\sffamily, right=0.8cm of p3, minimum width=3.6cm] (p4) {\textbf{Phase 4: Symmetrical 1K}\\Master Corpus ($N=1,000$)\\500 TRUE / 500 FALSE};
+
+\draw[arrow] (p1) -- (p2);
+\draw[arrow] (p2) -- (p3);
+\draw[arrow] (p3) -- (p4);
+
+\node[box, fill=pbblue!70, text=pbdarkblue, font=\bfseries\sffamily, below=1.2cm of p4, minimum width=4.0cm] (t2) {\textbf{Track 2 Generative Suite}\\7 Models $\times$ 50 Prompts\\1,798 Propositions (31 Confabulations)};
+
+\draw[arrow] (p4) -- (t2);
+
+\end{tikzpicture}
+\end{document}
