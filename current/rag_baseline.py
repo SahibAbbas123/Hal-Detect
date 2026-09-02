@@ -10,7 +10,7 @@ Pipeline Architecture:
   3. Titles -> Plain-Text Extract (action=query&prop=extracts&explaintext=1)
   4. Text -> Paragraph & Sentence-level Passage Chunks
   5. Chunks -> SBERT Dense Retrieval Ranking (all-MiniLM-L6-v2)
-  6. Top-k Passages -> BART-MNLI (facebook/bart-large-mnli) on Apple Silicon MPS / GPU
+  6. Top-k Passages -> BART-MNLI (cross-encoder/nli-deberta-v3-large) on Apple Silicon MPS / GPU
   7. Margin-Calibrated Thresholding -> TRUE / FALSE / UNVERIFIABLE
   8. Statistical Scoring & Cross-Modality Comparison vs HalDetect Router
 
@@ -55,7 +55,7 @@ USER_AGENT = "HalDetectResearchBot/1.0 (academic-thesis; fact-verification-bench
 HEADERS = {"User-Agent": USER_AGENT}
 
 SBERT_MODEL_NAME = "all-MiniLM-L6-v2"
-NLI_MODEL_NAME = "facebook/bart-large-mnli"
+NLI_MODEL_NAME = "cross-encoder/nli-deberta-v3-large"
 
 TOP_K = 2
 MIN_PASSAGE_SCORE = 0.38

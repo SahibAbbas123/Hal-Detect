@@ -17,7 +17,7 @@ torch.set_num_threads(1)
 print("Testing safe_nli directly...")
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 
-name = "facebook/bart-large-mnli"
+name = "cross-encoder/nli-deberta-v3-large"
 print(f"Loading {name} with low_cpu_mem_usage=False...")
 tok = AutoTokenizer.from_pretrained(name)
 model = AutoModelForSequenceClassification.from_pretrained(

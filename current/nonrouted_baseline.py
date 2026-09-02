@@ -8,7 +8,7 @@ Every claim, regardless of type, through ONE generic pipeline:
 
     claim -> Gemini-disambiguated query -> Wikipedia full-text search
           -> page text -> paragraph chunks -> SBERT top-k ranking
-          -> facebook/bart-large-mnli 3-way NLI -> threshold
+          -> cross-encoder/nli-deberta-v3-large 3-way NLI -> threshold
           -> TRUE / FALSE / UNVERIFIABLE
 
 Same claims, same gold labels, same evidence sources as the routed system.
@@ -749,7 +749,7 @@ def nli_check(threads: int, max_chars: int, safe_load: bool = False,
     else:
         from transformers import pipeline
         nli = pipeline("zero-shot-classification",
-                       model="facebook/bart-large-mnli", device=device)
+                       model="cross-encoder/nli-deberta-v3-large", device=device)
     print("loaded.", flush=True)
 
     claim = "Albert Einstein published four papers in 1905."
@@ -980,7 +980,7 @@ def doctor() -> int:
 def safe_nli(threads: int = 1, device: int = -1):
     """Build the zero-shot pipeline with memory-mapping DISABLED.
 
-    Same model -- `facebook/bart-large-mnli` -- so the experimental spec is
+    Same model -- `cross-encoder/nli-deberta-v3-large` -- so the experimental spec is
     untouched and the routed/non-routed comparison stays valid. Only *how* the
     weights reach memory changes, which is not part of the spec.
 
@@ -998,7 +998,7 @@ def safe_nli(threads: int = 1, device: int = -1):
                               AutoTokenizer, pipeline)
     torch.set_num_threads(threads)
 
-    name = "facebook/bart-large-mnli"
+    name = "cross-encoder/nli-deberta-v3-large"
     print(f"loading {name} with low_cpu_mem_usage=False (no mmap), "
           f"device={device}...", flush=True)
     tok = AutoTokenizer.from_pretrained(name)

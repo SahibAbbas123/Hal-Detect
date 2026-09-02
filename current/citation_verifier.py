@@ -95,7 +95,7 @@ def save_cache(cache: dict):
 print("Loading BART NLI model...")
 nli_classifier = pipeline(
     "zero-shot-classification",
-    model="facebook/bart-large-mnli",
+    model="cross-encoder/nli-deberta-v3-large",
     device=-1
 )
 print("BART loaded.")
