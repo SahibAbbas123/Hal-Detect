@@ -102,6 +102,8 @@ HalDetect employs a deterministic, regex-based symbolic router ($< 0.05\text{ms}
     \mathcal{R}(\Pi_k) \in \{\text{Quantitative}, \text{Temporal}, \text{Entity-Attribute}, \text{Citation}, \text{Relational}\}
 \end{equation}
 
+Because HalDetect enforces a strict, mutually exclusive verification pipeline, the Taxonomy Router introduces a hard theoretical upper bound on total system recall. Any misclassification at this stage strictly truncates maximum recall. For example, if a \textit{Quantitative} claim is misrouted to a pipeline lacking dimensional analysis, or inappropriately dropped to \texttt{UNVERIFIABLE}, it generates a permanent false negative that cannot be recovered by downstream components.
+
 % ******************************************************************************
 \section{Domain-Specific Neuro-Symbolic ALUs}
 \label{sec:specialized_alus}
@@ -181,6 +183,8 @@ The final verdict is resolved via a Multi-Aspect Directed Acyclic Graph (DAG) im
 \begin{equation}
     \mathcal{V}_{\text{final}} = \mathcal{V}_1 \wedge \mathcal{V}_2 \wedge \dots \wedge \mathcal{V}_K
 \end{equation}
+
+It is critical to note that the verification micro-checks $\mathcal{V}_i$ are \textit{not} statistically independent. A failure in an upstream component (such as taxonomy routing) guarantees downstream verification failure. Furthermore, the parallel verification engines often suffer from correlated failure modes---such as joint entity disambiguation errors---which strictly violates naive assumptions of statistical independence across the DAG edges.
 
 
 \begin{table}[h]
