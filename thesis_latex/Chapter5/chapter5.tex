@@ -96,14 +96,14 @@ Across the 1,798 generated propositions, manual factual auditing identified \tex
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.95\textwidth]{Chapter5/Figs/fig5_attention_dilution.jpg}
+\includegraphics[width=0.95\textwidth]{Chapter5/Figs/fig5_attention_dilution}
 \caption{The Attention Dilution Breakdown. When an LLM asserts an incorrect transistor count for the Apple M3 Max, continuous neural cross-encoders perceive 85\% matching contextual tokens and emit Entailment. HalDetect's Dimensional SI ALU isolates numerical values and triggers a decisive Contradiction verdict.}
 \label{fig:attention_dilution}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{Chapter5/Figs/fig5_domain_breakdown.png}
+\includegraphics[width=0.92\textwidth]{Chapter5/Figs/fig5_domain_breakdown}
 \caption{Empirical distribution of factual verdicts (\texttt{TRUE}, \texttt{FALSE}, and \texttt{UNVERIFIABLE}) across six technical knowledge domains on the $N=1,798$ multi-LLM benchmark dataset.}
 \label{fig:domain_breakdown}
 \end{figure}
@@ -219,14 +219,14 @@ HalDetect achieves a Brier score of \textbf{0.0297} and an Expected Calibration 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{Chapter5/Figs/fig5_pareto_frontier.png}
+\includegraphics[width=0.92\textwidth]{Chapter5/Figs/fig5_pareto_frontier}
 \caption{Coverage vs. Selective Accuracy Pareto frontier. By varying the rejection threshold $\tau_{\text{abstain}}$, HalDetect traverses from 97.60\% accuracy at 100\% coverage to 98.18\% selective accuracy at high confidence ($N = 494$).}
 \label{fig:pareto_frontier}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{Chapter5/Figs/fig5_calibration_curve.png}
+\includegraphics[width=0.92\textwidth]{Chapter5/Figs/fig5_calibration_curve}
 \caption{Expected Calibration Error (ECE) 10-bin reliability diagram. Predicted model confidence aligns closely with observed empirical accuracy across all 10 confidence deciles ($ECE = 0.0888$, Brier score = $0.0297$).}
 \label{fig:calibration_curve}
 \end{figure}
