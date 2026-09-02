@@ -1,0 +1,119 @@
+\documentclass[tikz,border=15pt]{standalone}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, fit, shadows.blur}
+
+\definecolor{navyDark}{HTML}{0B2545}
+\definecolor{navyLight}{HTML}{F0F4F8}
+\definecolor{navyBorder}{HTML}{134074}
+
+\definecolor{emeraldDark}{HTML}{0E6251}
+\definecolor{emeraldLight}{HTML}{E8F8F5}
+\definecolor{emeraldBorder}{HTML}{16A085}
+
+\definecolor{purpleDark}{HTML}{512E5F}
+\definecolor{purpleLight}{HTML}{F4ECF7}
+\definecolor{purpleBorder}{HTML}{8E44AD}
+
+\definecolor{amberDark}{HTML}{7D6608}
+\definecolor{amberLight}{HTML}{FEF9E7}
+\definecolor{amberBorder}{HTML}{D4AC0D}
+
+\definecolor{slateDark}{HTML}{2C3E50}
+\definecolor{slateLight}{HTML}{F8F9FA}
+\definecolor{slateBorder}{HTML}{BDC3C7}
+
+\begin{document}
+\begin{tikzpicture}[
+    font=\sffamily,
+    >=Stealth,
+    zonebox/.style={
+        draw=#1Border, fill=#1Light!30, line width=1.1pt, rounded corners=8pt,
+        blur shadow={shadow blur steps=4, shadow xshift=1pt, shadow yshift=-1.5pt, shadow opacity=12}
+    },
+    card/.style={
+        draw=#1Border, fill=white, line width=0.9pt, rounded corners=5pt,
+        align=center, inner sep=6pt
+    },
+    wire/.style={
+        ->, line width=1.1pt, draw=#1Border
+    }
+]
+
+% Phase 1: Sentence Parsing & Entity Linking
+\draw[zonebox=navy] (-0.4, -3.8) rectangle (6.2, 3.2);
+\node[fill=navyBorder, text=white, font=\bfseries\sffamily\scriptsize, rounded corners=3pt, inner sep=3pt] at (2.9, 3.2) {Stage 1: Discourse \& Anaphora};
+
+\node[card=navy, minimum width=5.6cm, text width=5.2cm] (raw_text) at (2.9, 2.0) {
+    \textbf{\color{navyDark} Input Paragraph Stream}\\
+    \scriptsize \textit{``The processor was released in 2023.}\\
+    \scriptsize \textit{\textbf{\color{purpleDark}It} features 92B transistors.''}
+};
+
+\node[card=purple, below=0.6cm of raw_text, minimum width=5.6cm, text width=5.2cm] (anaphora_reg) {
+    \textbf{\color{purpleDark} Antecedent Registry ($\mathcal{A}$)}\\
+    \scriptsize Pronoun Resolution: $\text{`It'} \mapsto \text{`M3 Max'}$\\
+    \scriptsize Forward Pointer Cache
+};
+
+\node[card=slate, below=0.6cm of anaphora_reg, minimum width=5.6cm, text width=5.2cm] (resolved_text) {
+    \textbf{\color{slateDark} Grounded Sentence Pairs}\\
+    \scriptsize Disambiguated Canonical Surface
+};
+
+\draw[wire=navy] (raw_text) -- (anaphora_reg);
+\draw[wire=purple] (anaphora_reg) -- (resolved_text);
+
+
+% Phase 2: 5-Tuple Schema Extraction
+\draw[zonebox=purple] (7.0, -3.8) rectangle (13.6, 3.2);
+\node[fill=purpleBorder, text=white, font=\bfseries\sffamily\scriptsize, rounded corners=3pt, inner sep=3pt] at (10.3, 3.2) {Stage 2: 5-Tuple Serialization};
+
+\node[card=purple, minimum width=5.6cm, text width=5.2cm] (slot_s) at (10.3, 2.0) {
+    \textbf{\color{purpleDark} Subject ($S$) \& Predicate ($P$)}\\
+    \scriptsize $S = \text{``Apple M3 Max''}, \quad P = \text{``transistor count''}$
+};
+
+\node[card=purple, below=0.6cm of slot_s, minimum width=5.6cm, text width=5.2cm] (slot_o) {
+    \textbf{\color{purpleDark} Object ($O$) \& Temporal ($T$)}\\
+    \scriptsize $O = 92\times 10^9, \quad T = [2023, \text{present}]$
+};
+
+\node[card=amber, below=0.6cm of slot_o, minimum width=5.6cm, text width=5.2cm] (slot_m) {
+    \textbf{\color{amberDark} Modality Class ($\mathcal{M}$)}\\
+    \scriptsize $\mathcal{M} = \textbf{\texttt{QUANTITATIVE\_SI}}$ ($<0.05\,\text{ms}$)
+};
+
+\draw[wire=purple] (slot_s) -- (slot_o);
+\draw[wire=purple] (slot_o) -- (slot_m);
+
+\draw[wire=slate] (resolved_text.east) -- (slot_s.west);
+
+
+% Phase 3: Symbolic Verifier & Grounding
+\draw[zonebox=emerald] (14.4, -3.8) rectangle (21.0, 3.2);
+\node[fill=emeraldBorder, text=white, font=\bfseries\sffamily\scriptsize, rounded corners=3pt, inner sep=3pt] at (17.7, 3.2) {Stage 3: Deterministic ALU Grounding};
+
+\node[card=emerald, minimum width=5.6cm, text width=5.2cm] (api_query) at (17.7, 2.0) {
+    \textbf{\color{emeraldDark} Ground Truth Fetch}\\
+    \scriptsize SPARQL / Live FRED / SI Registry
+};
+
+\node[card=emerald, below=0.6cm of api_query, minimum width=5.6cm, text width=5.2cm] (error_calc) {
+    \textbf{\color{emeraldDark} Math ALU Evaluation}\\
+    \scriptsize $\Delta = \frac{|40\text{M} - 92\text{B}|}{92\text{B}} = 99.96\% > 5\%$
+};
+
+\node[card=emerald, below=0.6cm of error_calc, minimum width=5.6cm, text width=5.2cm] (epistemic_out) {
+    \textbf{\color{emeraldDark} Atomic Verdict: $\mathcal{V}_k = \bot$}\\
+    \scriptsize \textbf{\color{crimsonDark}\checkmark Fatal Hallucination Flagged}
+};
+
+\draw[wire=emerald] (api_query) -- (error_calc);
+\draw[wire=emerald] (error_calc) -- (epistemic_out);
+
+\draw[wire=amber] (slot_m.east) -- (api_query.west);
+
+\end{tikzpicture}
+\end{document}

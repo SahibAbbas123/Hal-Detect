@@ -5,7 +5,7 @@ This chapter formalizes the architecture of \textbf{HalDetect}, a type-directed 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{Chapter3/Figs/fig3_architecture_pipeline.pdf}
+\includegraphics[width=\textwidth]{Chapter3/Figs/fig3_architecture_pipeline.jpg}
 \caption{End-to-end HalDetect verification pipeline. Unconstrained generative text is atomized into typed 5-tuples $\langle S, P, O, T, M \rangle$ with forward antecedent anaphora resolution, routed via a sub-$0.05\text{ms}$ deterministic classifier, verified across domain-specific symbolic ALUs and calibrated NLI, and evaluated via a 3-valued conjunction DAG.}
 \label{fig:architecture_pipeline}
 \end{figure}
@@ -80,6 +80,13 @@ $\mathcal{S} \leftarrow \text{SentenceSplitter}(\mathcal{R})$\;
 \caption{Proposition Atomization and Paragraph Antecedent Anaphora Resolution}
 \label{alg:atomization}
 \end{algorithm}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{Chapter3/Figs/fig3_anaphora_lifecycle.pdf}
+\caption{Three-stage state machine for paragraph discourse normalization and 5-tuple serialization. The forward antecedent pointer cache $\mathcal{E}_{\text{context}}$ resolves pronouns to canonical entities before modal routing and deterministic ALU execution.}
+\label{fig:anaphora_lifecycle}
+\end{figure}
 
 % ******************************************************************************
 \section{High-Speed Deterministic Taxonomy Router}
@@ -161,7 +168,7 @@ For open-domain assertions ungrounded in structured knowledge graphs, HalDetect 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{Chapter3/Figs/fig3_dag_conjunction.pdf}
+\includegraphics[width=0.92\textwidth]{Chapter3/Figs/fig3_dag_conjunction.png}
 \caption{Multi-Aspect Directed Acyclic Graph (DAG) Conjunction Engine. Compound propositions containing multiple factual dimensions are decomposed into parallel verification micro-checks and resolved via 3-valued conjunction logic.}
 \label{fig:dag_conjunction}
 \end{figure}

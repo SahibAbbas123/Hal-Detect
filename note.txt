@@ -72,3 +72,93 @@ lbsbd.com
 Look at,
 1. an AGM annual report e.g: Lankabangla dot com/uploads/reports/dsdsds.pdf
 2. technical analysis: e.g Lankabangla.com/home/advancedcharts32
+
+---
+
+# 31s Aug
+(Missed class)
+
+---
+
+# 1st Sep
+TM - trademark symbol --> for logo that doesnt need official govt approval, gets a no-forgery privilege 
+(R) - registed symbol --> same but officially registered with govt
+ISO certification - Intl Org for Standardization
+ISO 991: focuses on general quality mgt and customer happiness --> example: gp, lankabangla
+ISO 27001: focuses on data and info sec -->
+ISO 14001: focuses on protecting the environment -->
+SOP: standard operating process
+Why SOP?
+Helps us follow the correct process
+Reduce mistakes
+Protects customers
+Ensures compliance
+Makes work easier and consistent
+example: before opening a customer's BO account, we must collect and verify
+
+BO account --> beneficiary owner account
+Serves as a digital vault for stock market investments for holding securities like shares, bonds, and mutual funds inseadf of physical cash unlike a bank account. Mainly, the account is of and oversee by CDBL (central depository Bangladesh limited) just like any bank account ultimately belongs to Bangladesh bank.
+Types: single BO account, Joint, NRB and corporate BO account [NRB -> Non residential bangladehi]
+> DP depository participation?
+> KYC and eKYC?
+
+Legal and financial docs to open an institutional account (corporate BO account):
+Company credeentials
+Board resolution
+Taxations (eTIN certificate)
+Institutional banking (bank statement or MICCR cheque leaf)
+Authorized signatories
+
+KYC --> know your customer
+Helps a share house: identify the customer, verify customer info, understand the customer's profile, prevent fraud and misuse, meet regulatory requirements.
+eKYC: digital process to verify a customer's identity electronically.
+Simple process: customer info -> digital ID verification -> document check -> verification -> account opening
+
+# 2nd sept
+(Continuing from last day)
+Customer Service Simulation --> means the specialized support, guidance and technical assistance provided by a financial brokerage firm to clients who buy-sell securities like stocks, bonds, options and cryptocurrencies. 
+Why --> Trust building and differentiation. 
+LBSPLC is a service providing company for its customers
+The 5 golden rules for customer service: Listen, verify, explain, resolve, follow up.
+
+Customer Queries: categorized by urgency, regulatory risk and technical complexity. Even a 30 seconds delay could mean financial loss of client hence handling queries is highly sensitive.
+
+5 main categories of brokerage queries:
+1. Market urgency and execution failures -> why is my option order sitting as pending when stock price is moving past my strike
+2. Funding, withdrawals and margin -> I deposited $5000 via ACH this morning. Why isnt my buying power reflecting?
+3. Account security & access -> my account says restricted from trading. Why did you lock me out?
+4. Regulatory, tax and corporate actions -> where can I download my 1099-B tax form for salt year?
+5. Platform and ui explanations -> whats the difference between a market order and a limit order?
+
+> what is placing new price order?
+
+> AML - Anti Money Laundering, CFT = Combating the Financing of Terrorism
+Major Sectors by market Weight:
+Among total 22, one of the highest are: financial and banking
+Companies 360, gotcct reassured bond 220, corporate bonds and debentures 77 (Approx)
+
+Mutual Fund:
+Total approved = 140 (36 closed end + 104 open-end)
+Closed end mutual funds: fixed number of shared and a fixed investment tenure (usually 10 years)
+Open end mutual funds: dont have fixed maturity or unit limit. Not traded on the main DSE stock boards; instead, you buy or redeem them directly through AMCs or specialized platforms.
+> NAB?? --> BD tends to exceed or go lower than NAB unlike others in terms of mutual funds.
+
+Breakdown of Debt Instruments:
+Fgovt backed securities:
+~Govt treasure bonds (bgtb) - 220 bonds, tenors spanning 2, 5, 10, 15, 20 years (find when the auctions are held; bills are Sunday auctions with 6months duration, sukuk has Monday auctions - islamic bonds)
+~Corporate bonds: 16 bonds - private or commercial banking entities utilizing the capital market for longterm financing.
+|---> issuer dominance (14 bonds) and notable alternatives (e.g beximco green sukuk bond, ashuganj power station company bond (state backed corporate energy bond))
+~ debentures: 8 debentures remain under historical tracking, though this sector sees very minimal active secondary market trading compared to treasury instruments.
+> A debenture is a type of ling term debt instrument that companies use to borrow money from the public or institutional investors, only by trust and the company's financial reputation.
+> look for bond rate of bangladesh
+> BP ID -> Bangladesh Bank, BOID -> CDBL
+Deference bonds:
+Zero upon bond : discounted > ACI, Beximco
+Perpetual bond : AB bank, IBBL mudaraba etc
+Convertible bond: textiles, pharmas and banking use convertible bonds to raise capital while minimizing the immediate cash flow pressure or servicing strict bank loan terms; 75% equity and 252% cash/redemtpion or just full conversion at a discounted price relative to market value
+
+Capital market loans:
+Margin loans: equity market only for A category shares, loan = 50% of equity value or 60% of portfolio value (...something about 60%...). 
+> P ratio (not applicable for life insurance)
+Loans against securities (LAS)
+> Margin call - 1:1 first call, 1:2 2nd call and last call.
