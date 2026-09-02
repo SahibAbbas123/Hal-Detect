@@ -156,7 +156,7 @@ _ORDINALS = {
 
 _MAGNITUDE_SUFFIX = {
     "k": 1_000, "thousand": 1_000,
-    "m": 1_000_000, "million": 1_000_000, "mn": 1_000_000,
+    "M": 1_000_000, "million": 1_000_000, "mn": 1_000_000,
     "bn": 1_000_000_000, "billion": 1_000_000_000,
     "tn": 1_000_000_000_000, "trillion": 1_000_000_000_000,
 }
@@ -758,6 +758,10 @@ def compare(claimed: dict, actual: dict,
         return {"verdict": "UNVERIFIABLE", "confidence": 0.0, "rel_error": None,
                 "detail": (f"claim has unit '{claimed.get('unit')}' but Wikidata "
                            f"value is dimensionless — cannot align")}
+    elif not cu and au and au not in _DIMENSIONLESS:
+        return {"verdict": "UNVERIFIABLE", "confidence": 0.0, "rel_error": None,
+                "detail": (f"claim is dimensionless but Wikidata "
+                           f"value has unit '{actual.get('unit')}' ({au}) — cannot align")}
     else:
         c_si, a_si = cv, av
 

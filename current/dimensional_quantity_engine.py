@@ -115,11 +115,22 @@ class DimensionalQuantityEngine:
         # Case 2: Distance / Elevation comparison
         claimed_m = cls.normalize_distance_to_meters(claimed_text)
         if claimed_m is not None:
+            # Bug 12 fix: Strictly enforce unit dimensionality check
+            valid_length_units = {"m", "meter", "meters", "metres", "km", "kilometer", "kilometers", "kilometres", "ft", "foot", "feet", "mi", "mile", "miles", "ly", "light-years"}
+            if ground_truth_unit and ground_truth_unit.lower() not in valid_length_units:
+                return {
+                    "is_match": False,
+                    "dimension": "DIMENSION_MISMATCH",
+                    "detail": f"Claimed length but ground truth unit is '{ground_truth_unit}'"
+                }
+                
             gt_m = ground_truth_val
-            if ground_truth_unit in {"km", "kilometers"}:
+            if ground_truth_unit in {"km", "kilometers", "kilometres"}:
                 gt_m *= 1000.0
-            elif ground_truth_unit in {"ft", "feet"}:
+            elif ground_truth_unit in {"ft", "feet", "foot"}:
                 gt_m *= 0.3048
+            elif ground_truth_unit in {"mi", "mile", "miles"}:
+                gt_m *= 1609.34
 
             rel_err = abs(claimed_m - gt_m) / max(gt_m, 1e-5)
             is_match = (rel_err <= rel_tolerance) or (abs(claimed_m - gt_m) <= 5.0)
