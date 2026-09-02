@@ -1,9 +1,9 @@
 \thispagestyle {empty}
-\contentsline {chapter}{List of figures}{xiv}{chapter*.6}%
-\contentsline {chapter}{List of tables}{xvi}{chapter*.7}%
-\contentsline {chapter}{\nonumberline Nomenclature}{xviii}{chapter*.8}%
-\contentsline {chapter}{\nonumberline Nomenclature}{xx}{chapter*.9}%
-\contentsline {chapter}{\nonumberline Nomenclature}{xxii}{chapter*.10}%
+\contentsline {chapter}{List of figures}{xi}{chapter*.6}%
+\contentsline {chapter}{List of tables}{xii}{chapter*.7}%
+\contentsline {chapter}{\nonumberline Nomenclature}{xiii}{chapter*.8}%
+\contentsline {chapter}{\nonumberline Nomenclature}{xv}{chapter*.9}%
+\contentsline {chapter}{\nonumberline Nomenclature}{xvii}{chapter*.10}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background and the Factual Reliability Crisis}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Structural Failures of Monolithic Neural Fact-Checkers}{3}{section.1.2}%
@@ -20,7 +20,7 @@
 \contentsline {subsection}{\numberline {2.1.2}Agentic Search Evaluators: Google SAFE and Tool-Augmented Fact-Checkers}{7}{subsection.2.1.2}%
 \contentsline {section}{\numberline {2.2}Neural Cross-Encoder NLI and Grounding Models}{7}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Retrieval-Augmented Generation and GraphRAG}{8}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Internal State Probing vs. External Verification}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Internal State Probing vs. External Verification}{8}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Comparative Literature Matrix and The Research Gap}{9}{section.2.5}%
 \contentsline {chapter}{\numberline {3}Proposed Methodology: The HalDetect Architecture}{11}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Formal Task Formulation and 3-Valued Epistemic Logic}{11}{section.3.1}%
@@ -47,14 +47,14 @@
 \contentsline {section}{\numberline {5.1}Track 1: Master 4-Way Paradigm Benchmark}{24}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Symmetrical Error Detection and Prior Invariance}{25}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Track 2: Open Generative Multi-LLM Road Test}{25}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Modality Decomposition and ALU Precision}{26}{section.5.4}%
-\contentsline {section}{\numberline {5.5}In-Depth Forensic Case Studies Across Modalities}{28}{section.5.5}%
+\contentsline {section}{\numberline {5.4}Modality Decomposition and ALU Precision}{27}{section.5.4}%
+\contentsline {section}{\numberline {5.5}In-Depth Forensic Case Studies Across Modalities}{27}{section.5.5}%
 \contentsline {subsection}{\numberline {5.5.1}Case Study 1: Quantitative Hardware Transistor Contradiction}{28}{subsection.5.5.1}%
 \contentsline {subsection}{\numberline {5.5.2}Case Study 2: Macroeconomic Indicator Discrepancy}{28}{subsection.5.5.2}%
 \contentsline {subsection}{\numberline {5.5.3}Case Study 3: Topological Superlative Resolution}{28}{subsection.5.5.3}%
 \contentsline {subsection}{\numberline {5.5.4}Case Study 4: Academic Citation DOI Verification}{29}{subsection.5.5.4}%
 \contentsline {section}{\numberline {5.6}Taxonomy Router Ablation: Symbolic vs. Frontier LLMs}{29}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Probabilistic Calibration and High-Precision Abstention}{30}{section.5.7}%
+\contentsline {section}{\numberline {5.7}Probabilistic Calibration and High-Precision Abstention}{29}{section.5.7}%
 \contentsline {section}{\numberline {5.8}Computational Efficiency and Latency Profile}{30}{section.5.8}%
 \contentsline {chapter}{\numberline {6}Discussion and Threats to Validity}{32}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Synthesis: Direct Answers to Research Questions}{32}{section.6.1}%

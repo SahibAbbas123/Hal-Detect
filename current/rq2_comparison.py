@@ -252,7 +252,7 @@ def print_table(data, variant):
     print("\n" + "=" * 78)
     print(f"  RQ2 -- ROUTED vs NON-ROUTED, Batch 3 (n=122)      variant={variant}")
     print("=" * 78)
-    print("  Non-routed = every claim -> Wikipedia retrieval + BART-MNLI, no type")
+    print("  Non-routed = every claim -> Wikipedia retrieval + DeBERTa-v3, no type")
     print("  filter. Same claims, same gold, same evidence. Routing is the only")
     print("  variable. 3d = 0.50/0.40 (verified: reproduces stored verdicts 356/356)")
     print("  3e = 3d + margin >= 0.15.")
