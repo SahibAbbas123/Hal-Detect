@@ -1,0 +1,441 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loaded 1005 claims from haldetect_master_corpus_v2.csv
+Modality split: {'TEMPORAL': 187, 'RELATIONAL': 272, 'ENTITY_ATTRIBUTE': 248, 'QUANTITATIVE': 189, 'CITATION': 109}
+
+Running taxonomy-routed verifiers with Quantitative Tier 2 (World Bank)...
+  [ 100/1005] MST_0100   RELATIONAL       FALSE          NLI: entail=0.0, contradict=0.0001
+  [ 200/1005] MST_0200   TEMPORAL         FALSE          tier 1 abstained; generic Wikipedia+NLI 
+  [ 300/1005] MST_0300   QUANTITATIVE     UNVERIFIABLE   no matching quantity property: core-term
+  [ 400/1005] MST_0400   ENTITY_ATTRIBUTE TRUE           semantic match to Wikidata 'politician' 
+  [ 500/1005] MST_0500   ENTITY_ATTRIBUTE UNVERIFIABLE   best candidate P19 (place of birth) scor
+  [ 600/1005] MST_0600   TEMPORAL         FALSE          tier 1 abstained; generic Wikipedia+NLI 
+  [ 700/1005] MST_0700   CITATION         UNVERIFIABLE   a year is present but in an unlicensed p
+  [ 800/1005] MST_0800   TEMPORAL         UNVERIFIABLE   best candidate P619 (UTC date of spacecr
+  [ 900/1005] MST_0900   CITATION         UNVERIFIABLE   a year is present but in an unlicensed p
+  [1000/1005] MST_1000   TEMPORAL         UNVERIFIABLE   core-term guard: 'event' vs 'point' =0.2
+  [1005/1005] MST_1005   RELATIONAL       UNVERIFIABLE   open relational claim; outside structure
+
+Wrote 1005 evaluated claims to /Users/sahibabc/8th Semester Materials/ThesisCode_copy/current/master_corpus_v2_evaluation_results.csv
+
+==============================================================================
+  HALDETECT MASTER BENCHMARK CORPUS (v3.0) — EVALUATION REPORT (N=1005)
+==============================================================================
+
+========================================================================
+  Master Corpus v3.0 (Pooled Total)   (n=1005)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           44.6%  [41.5%, 47.7%]  (448/1005 answered)
+  Selective acc.     68.1%  [63.6%, 72.2%]  (305/448 correct)
+  Effective n for that accuracy = 448  (coverage x n, NOT dataset size)
+  !! 27 confident verdict(s) on gold-UNVERIFIABLE claims -- answered something unknowable, counted as errors
+  AURAC              0.572   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.89    0.41    0.56      543        249
+  FALSE             0.42    0.19    0.27      433        199
+  UNVERIFIABLE      0.00    0.07    0.01       29        557
+  Macro-F1 0.277   MCC(FALSE=positive) -0.009   UnR 55.4%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    54.0%     0.23      0.70       0.00   +0.00
+  Always-False                   43.1%     0.20      0.00       0.60   +0.00
+  Always-UNVERIFIABLE             2.9%     0.02      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+==============================================================================
+  BREAKDOWN BY MODALITY TYPE
+==============================================================================
+
+========================================================================
+  Modality: CITATION (N=109)   (n=109)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           10.1%  [5.7%, 17.2%]  (11/109 answered)
+  Selective acc.     90.9%  [62.3%, 98.4%]  (10/11 correct)
+  Effective n for that accuracy = 11  (coverage x n, NOT dataset size)
+  AURAC              0.301   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.00    0.00    0.00       50          0
+  FALSE             0.91    0.17    0.29       58         11
+  UNVERIFIABLE      0.01    1.00    0.02        1         98
+  Macro-F1 0.103   MCC(FALSE=positive) +0.253   UnR 89.9%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    45.9%     0.21      0.63       0.00   +0.00
+  Always-False                   53.2%     0.23      0.00       0.69   +0.00
+  Always-UNVERIFIABLE             0.9%     0.01      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Modality: ENTITY_ATTRIBUTE (N=248)   (n=248)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           39.9%  [34.0%, 46.1%]  (99/248 answered)
+  Selective acc.     75.8%  [66.5%, 83.1%]  (75/99 correct)
+  Effective n for that accuracy = 99  (coverage x n, NOT dataset size)
+  !! 1 confident verdict(s) on gold-UNVERIFIABLE claims -- answered something unknowable, counted as errors
+  AURAC              0.614   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.85    0.59    0.70      105         73
+  FALSE             0.50    0.09    0.15      142         26
+  UNVERIFIABLE      0.00    0.00    0.00        1        149
+  Macro-F1 0.284   MCC(FALSE=positive) -0.050   UnR 60.1%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    42.3%     0.20      0.59       0.00   +0.00
+  Always-False                   57.3%     0.24      0.00       0.73   +0.00
+  Always-UNVERIFIABLE             0.4%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Modality: QUANTITATIVE (N=189)   (n=189)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           22.2%  [16.9%, 28.7%]  (42/189 answered)
+  Selective acc.     97.6%  [87.7%, 99.6%]  (41/42 correct)
+  Effective n for that accuracy = 42  (coverage x n, NOT dataset size)
+  AURAC              0.524   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              1.00    0.22    0.36      101         22
+  FALSE             0.95    0.22    0.36       87         20
+  UNVERIFIABLE      0.01    1.00    0.01        1        147
+  Macro-F1 0.242   MCC(FALSE=positive) +0.338   UnR 77.8%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    53.4%     0.23      0.70       0.00   +0.00
+  Always-False                   46.0%     0.21      0.00       0.63   +0.00
+  Always-UNVERIFIABLE             0.5%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Modality: RELATIONAL (N=272)   (n=272)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           64.0%  [58.1%, 69.4%]  (174/272 answered)
+  Selective acc.     53.4%  [46.0%, 60.7%]  (93/174 correct)
+  Effective n for that accuracy = 174  (coverage x n, NOT dataset size)
+  !! 26 confident verdict(s) on gold-UNVERIFIABLE claims -- answered something unknowable, counted as errors
+  AURAC              0.463   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.89    0.51    0.65      179        102
+  FALSE             0.03    0.03    0.03       67         72
+  UNVERIFIABLE      0.00    0.00    0.00       26         98
+  Macro-F1 0.225   MCC(FALSE=positive) -0.304   UnR 36.0%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    65.8%     0.26      0.79       0.00   +0.00
+  Always-False                   24.6%     0.13      0.00       0.40   +0.00
+  Always-UNVERIFIABLE             9.6%     0.06      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Modality: TEMPORAL (N=187)   (n=187)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           65.2%  [58.2%, 71.7%]  (122/187 answered)
+  Selective acc.     70.5%  [61.9%, 77.9%]  (86/122 correct)
+  Effective n for that accuracy = 122  (coverage x n, NOT dataset size)
+  AURAC              0.737   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.88    0.43    0.57      108         52
+  FALSE             0.57    0.51    0.54       79         70
+  UNVERIFIABLE      0.00    0.00    0.00        0         65
+  Macro-F1 0.556   MCC(FALSE=positive) +0.233   UnR 34.8%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    57.8%     0.37      0.73       0.00   +0.00
+  Always-False                   42.2%     0.30      0.00       0.59   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+==============================================================================
+  BREAKDOWN BY ORIGIN DATASET
+==============================================================================
+
+========================================================================
+  Origin: expansion_1k_plus (N=31)   (n=31)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           19.4%  [9.2%, 36.3%]  (6/31 answered)
+  Selective acc.     66.7%  [30.0%, 90.3%]  (4/6 correct)
+  Effective n for that accuracy = 6  (coverage x n, NOT dataset size)
+  AURAC              0.365   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.67    0.13    0.22       15          3
+  FALSE             0.67    0.12    0.21       16          3
+  UNVERIFIABLE      0.00    0.00    0.00        0         25
+  Macro-F1 0.216   MCC(FALSE=positive) +0.099   UnR 80.6%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    48.4%     0.33      0.65       0.00   +0.00
+  Always-False                   51.6%     0.34      0.00       0.68   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: expansion_domain (N=56)   (n=56)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           28.6%  [18.4%, 41.5%]  (16/56 answered)
+  Selective acc.    100.0%  [80.6%, 100.0%]  (16/16 correct)
+  Effective n for that accuracy = 16  (coverage x n, NOT dataset size)
+  AURAC              0.637   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              1.00    0.29    0.44       28          8
+  FALSE             1.00    0.29    0.44       28          8
+  UNVERIFIABLE      0.00    0.00    0.00        0         40
+  Macro-F1 0.444   MCC(FALSE=positive) +0.408   UnR 71.4%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    50.0%     0.33      0.67       0.00   +0.00
+  Always-False                   50.0%     0.33      0.00       0.67   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: expansion_final_1000 (N=44)   (n=44)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           18.2%  [9.5%, 32.0%]  (8/44 answered)
+  Selective acc.     75.0%  [40.9%, 92.9%]  (6/8 correct)
+  Effective n for that accuracy = 8  (coverage x n, NOT dataset size)
+  AURAC              0.365   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.75    0.14    0.23       22          4
+  FALSE             0.75    0.14    0.23       22          4
+  UNVERIFIABLE      0.00    0.00    0.00        0         36
+  Macro-F1 0.231   MCC(FALSE=positive) +0.158   UnR 81.8%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    50.0%     0.33      0.67       0.00   +0.00
+  Always-False                   50.0%     0.33      0.00       0.67   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: expansion_final_scale (N=53)   (n=53)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           17.0%  [9.2%, 29.2%]  (9/53 answered)
+  Selective acc.     66.7%  [35.4%, 87.9%]  (6/9 correct)
+  Effective n for that accuracy = 9  (coverage x n, NOT dataset size)
+  AURAC              0.344   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.67    0.15    0.24       27          6
+  FALSE             0.67    0.08    0.14       26          3
+  UNVERIFIABLE      0.00    0.00    0.00        0         44
+  Macro-F1 0.190   MCC(FALSE=positive) +0.086   UnR 83.0%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    50.9%     0.34      0.67       0.00   +0.00
+  Always-False                   49.1%     0.33      0.00       0.66   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: expansion_real (N=72)   (n=72)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           23.6%  [15.3%, 34.6%]  (17/72 answered)
+  Selective acc.     94.1%  [73.0%, 99.0%]  (16/17 correct)
+  Effective n for that accuracy = 17  (coverage x n, NOT dataset size)
+  AURAC              0.549   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              1.00    0.26    0.41       35          9
+  FALSE             0.88    0.19    0.31       37          8
+  UNVERIFIABLE      0.00    0.00    0.00        0         55
+  Macro-F1 0.360   MCC(FALSE=positive) +0.255   UnR 76.4%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    48.6%     0.33      0.65       0.00   +0.00
+  Always-False                   51.4%     0.34      0.00       0.68   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: expansion_science_legal (N=43)   (n=43)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           25.6%  [14.9%, 40.2%]  (11/43 answered)
+  Selective acc.     81.8%  [52.3%, 94.9%]  (9/11 correct)
+  Effective n for that accuracy = 11  (coverage x n, NOT dataset size)
+  AURAC              0.528   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.75    0.29    0.41       21          8
+  FALSE             1.00    0.14    0.24       22          3
+  UNVERIFIABLE      0.00    0.00    0.00        0         32
+  Macro-F1 0.327   MCC(FALSE=positive) +0.268   UnR 74.4%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    48.8%     0.33      0.66       0.00   +0.00
+  Always-False                   51.2%     0.34      0.00       0.68   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: expansion_v3 (N=64)   (n=64)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           10.9%  [5.4%, 20.9%]  (7/64 answered)
+  Selective acc.    100.0%  [64.6%, 100.0%]  (7/7 correct)
+  Effective n for that accuracy = 7  (coverage x n, NOT dataset size)
+  AURAC              0.345   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              1.00    0.16    0.27       32          5
+  FALSE             1.00    0.06    0.12       32          2
+  UNVERIFIABLE      0.00    0.00    0.00        0         57
+  Macro-F1 0.194   MCC(FALSE=positive) +0.180   UnR 89.1%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    50.0%     0.33      0.67       0.00   +0.00
+  Always-False                   50.0%     0.33      0.00       0.67   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: external_neg (N=75)   (n=75)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage            0.0%  [0.0%, 4.9%]  (0/75 answered)
+  Selective acc.      0.0%  [0.0%, 0.0%]  (0/0 correct)
+  AURAC              0.000   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.00    0.00    0.00        0          0
+  FALSE             0.00    0.00    0.00       75          0
+  UNVERIFIABLE      0.00    0.00    0.00        0         75
+  Macro-F1 0.000   MCC(FALSE=positive) +0.000   UnR 100.0%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                     0.0%     0.00      0.00       0.00   +0.00
+  Always-False                  100.0%     1.00      0.00       1.00   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: factscore_b1 (N=100)   (n=100)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           32.0%  [23.7%, 41.7%]  (32/100 answered)
+  Selective acc.     81.2%  [64.7%, 91.1%]  (26/32 correct)
+  Effective n for that accuracy = 32  (coverage x n, NOT dataset size)
+  AURAC              0.570   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.86    0.36    0.51       50         21
+  FALSE             0.73    0.16    0.26       50         11
+  UNVERIFIABLE      0.00    0.00    0.00        0         68
+  Macro-F1 0.385   MCC(FALSE=positive) +0.160   UnR 68.0%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    50.0%     0.33      0.67       0.00   +0.00
+  Always-False                   50.0%     0.33      0.00       0.67   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: natural_corpus (N=383)   (n=383)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           76.0%  [71.5%, 80.0%]  (291/383 answered)
+  Selective acc.     58.4%  [52.7%, 63.9%]  (170/291 correct)
+  Effective n for that accuracy = 291  (coverage x n, NOT dataset size)
+  !! 27 confident verdict(s) on gold-UNVERIFIABLE claims -- answered something unknowable, counted as errors
+  AURAC              0.563   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.93    0.53    0.67      313        179
+  FALSE             0.04    0.10    0.05       41        112
+  UNVERIFIABLE      0.02    0.07    0.03       29         92
+  Macro-F1 0.253   MCC(FALSE=positive) -0.148   UnR 24.0%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                    81.7%     0.30      0.90       0.00   +0.00
+  Always-False                   10.7%     0.06      0.00       0.19   +0.00
+  Always-UNVERIFIABLE             7.6%     0.05      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00
+
+========================================================================
+  Origin: synthetic_diag (N=84)   (n=84)
+========================================================================
+
+-- Selective view (our design's own terms) --
+  Coverage           60.7%  [50.0%, 70.5%]  (51/84 answered)
+  Selective acc.     88.2%  [76.6%, 94.5%]  (45/51 correct)
+  Effective n for that accuracy = 51  (coverage x n, NOT dataset size)
+  AURAC              0.861   (area under rejection-accuracy curve; rewards correct abstention)
+
+-- Three-way view (UNVERIFIABLE as a real class; RealFactBench-style) --
+  class                P       R      F1  support  predicted
+  TRUE              0.00    0.00    0.00        0          6
+  FALSE             1.00    0.54    0.70       84         45
+  UNVERIFIABLE      0.00    0.00    0.00        0         33
+  Macro-F1 0.698   MCC(FALSE=positive) +0.000   UnR 39.3%
+
+-- Degenerate baselines (must be beaten to have shown anything) --
+  baseline                         acc  macroF1  F1(TRUE)  F1(FALSE)     MCC
+  Always-True                     0.0%     0.00      0.00       0.00   +0.00
+  Always-False                  100.0%     1.00      0.00       1.00   +0.00
+  Always-UNVERIFIABLE             0.0%     0.00      0.00       0.00   +0.00
+  Random (uniform, analytic)     33.3%      n/a       n/a        n/a   +0.00

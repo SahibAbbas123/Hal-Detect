@@ -1,9 +1,9 @@
 \thispagestyle {empty}
-\contentsline {chapter}{List of figures}{xi}{chapter*.6}%
-\contentsline {chapter}{List of tables}{xii}{chapter*.7}%
-\contentsline {chapter}{\nonumberline Nomenclature}{xiii}{chapter*.8}%
-\contentsline {chapter}{\nonumberline Nomenclature}{xv}{chapter*.9}%
-\contentsline {chapter}{\nonumberline Nomenclature}{xvii}{chapter*.10}%
+\contentsline {chapter}{List of figures}{xiv}{chapter*.6}%
+\contentsline {chapter}{List of tables}{xvi}{chapter*.7}%
+\contentsline {chapter}{\nonumberline Nomenclature}{xviii}{chapter*.8}%
+\contentsline {chapter}{\nonumberline Nomenclature}{xx}{chapter*.9}%
+\contentsline {chapter}{\nonumberline Nomenclature}{xxii}{chapter*.10}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background and the Factual Reliability Crisis}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Structural Failures of Monolithic Neural Fact-Checkers}{3}{section.1.2}%
@@ -20,7 +20,7 @@
 \contentsline {subsection}{\numberline {2.1.2}Agentic Search Evaluators: Google SAFE and Tool-Augmented Fact-Checkers}{7}{subsection.2.1.2}%
 \contentsline {section}{\numberline {2.2}Neural Cross-Encoder NLI and Grounding Models}{7}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Retrieval-Augmented Generation and GraphRAG}{8}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Internal State Probing vs. External Verification}{8}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Internal State Probing vs. External Verification}{9}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Comparative Literature Matrix and The Research Gap}{9}{section.2.5}%
 \contentsline {chapter}{\numberline {3}Proposed Methodology: The HalDetect Architecture}{11}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Formal Task Formulation and 3-Valued Epistemic Logic}{11}{section.3.1}%

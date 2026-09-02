@@ -1,0 +1,3089 @@
+[
+  {
+    "claim_id": "Q1_C01",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q1_C02",
+    "entail": 0.0002,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q1_C03",
+    "entail": 0.0007,
+    "contradict": 0.9972,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9972
+  },
+  {
+    "claim_id": "Q1_C04",
+    "entail": 0.8932,
+    "contradict": 0.0297,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.8932
+  },
+  {
+    "claim_id": "Q1_C05",
+    "entail": 0.0012,
+    "contradict": 0.9794,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9794
+  },
+  {
+    "claim_id": "Q1_C06",
+    "entail": 0.0006,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0006
+  },
+  {
+    "claim_id": "Q1_C07",
+    "entail": 0.0,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q1_C08",
+    "entail": 0.0,
+    "contradict": 0.9999,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9999
+  },
+  {
+    "claim_id": "Q1_C09",
+    "entail": 0.0005,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q1_C10",
+    "entail": 0.0004,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q1_C11",
+    "entail": 0.0,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q1_C12",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q2_C01",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q2_C02",
+    "entail": 0.0001,
+    "contradict": 0.0005,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q2_C03",
+    "entail": 0.0005,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q2_C04",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q2_C05",
+    "entail": 0.0002,
+    "contradict": 0.0378,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0378
+  },
+  {
+    "claim_id": "Q2_C06",
+    "entail": 0.0142,
+    "contradict": 0.0015,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0142
+  },
+  {
+    "claim_id": "Q2_C07",
+    "entail": 0.0,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q2_C08",
+    "entail": 0.9975,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9975
+  },
+  {
+    "claim_id": "Q2_C09",
+    "entail": 0.0003,
+    "contradict": 0.0018,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0018
+  },
+  {
+    "claim_id": "Q2_C10",
+    "entail": 0.9679,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9679
+  },
+  {
+    "claim_id": "Q2_C11",
+    "entail": 0.0,
+    "contradict": 0.0007,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0007
+  },
+  {
+    "claim_id": "Q2_C12",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q2_C13",
+    "entail": 0.0001,
+    "contradict": 0.0004,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q5_C01",
+    "entail": 0.0,
+    "contradict": 0.0081,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0081
+  },
+  {
+    "claim_id": "Q5_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q5_C03",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q5_C04",
+    "entail": 0.0004,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q5_C05",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q5_C06",
+    "entail": 0.0004,
+    "contradict": 0.0005,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q5_C07",
+    "entail": 0.0942,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0942
+  },
+  {
+    "claim_id": "Q5_C08",
+    "entail": 0.9712,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9712
+  },
+  {
+    "claim_id": "Q5_C09",
+    "entail": 0.0004,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q7_C01",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q7_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q7_C03",
+    "entail": 0.0023,
+    "contradict": 0.9652,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9652
+  },
+  {
+    "claim_id": "Q7_C04",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q7_C05",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q7_C06",
+    "entail": 0.9768,
+    "contradict": 0.0025,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9768
+  },
+  {
+    "claim_id": "Q7_C07",
+    "entail": 0.0,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q7_C08",
+    "entail": 0.008,
+    "contradict": 0.8381,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.8381
+  },
+  {
+    "claim_id": "Q7_C09",
+    "entail": 0.9765,
+    "contradict": 0.0024,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9765
+  },
+  {
+    "claim_id": "Q7_C10",
+    "entail": 0.981,
+    "contradict": 0.005,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.981
+  },
+  {
+    "claim_id": "Q7_C11",
+    "entail": 0.0005,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q7_C12",
+    "entail": 0.4414,
+    "contradict": 0.2169,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.4414
+  },
+  {
+    "claim_id": "Q7_C13",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q7_C14",
+    "entail": 0.0009,
+    "contradict": 0.0205,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0205
+  },
+  {
+    "claim_id": "Q7_C15",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q7_C16",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q7_C17",
+    "entail": 0.0,
+    "contradict": 0.0004,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q9_C01",
+    "entail": 0.7477,
+    "contradict": 0.1716,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.7477
+  },
+  {
+    "claim_id": "Q9_C02",
+    "entail": 0.0001,
+    "contradict": 0.0031,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0031
+  },
+  {
+    "claim_id": "Q9_C03",
+    "entail": 0.0002,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q9_C04",
+    "entail": 0.0011,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0011
+  },
+  {
+    "claim_id": "Q9_C05",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q9_C06",
+    "entail": 0.0001,
+    "contradict": 0.0005,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q9_C07",
+    "entail": 0.0004,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q9_C08",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "Q9_C09",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q10_C01",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q10_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q10_C03",
+    "entail": 0.001,
+    "contradict": 0.0029,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0029
+  },
+  {
+    "claim_id": "Q10_C04",
+    "entail": 0.0,
+    "contradict": 0.0008,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0008
+  },
+  {
+    "claim_id": "Q10_C05",
+    "entail": 0.0029,
+    "contradict": 0.014,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.014
+  },
+  {
+    "claim_id": "Q10_C06",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q10_C07",
+    "entail": 0.0001,
+    "contradict": 0.9604,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9604
+  },
+  {
+    "claim_id": "Q10_C08",
+    "entail": 0.1813,
+    "contradict": 0.1,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.1813
+  },
+  {
+    "claim_id": "Q10_C09",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q10_C10",
+    "entail": 0.9937,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9937
+  },
+  {
+    "claim_id": "Q10_C11",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q10_C12",
+    "entail": 0.0001,
+    "contradict": 0.0005,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q10_C13",
+    "entail": 0.0019,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0019
+  },
+  {
+    "claim_id": "Q10_C14",
+    "entail": 0.0005,
+    "contradict": 0.0005,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q10_C15",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q10_C16",
+    "entail": 0.0,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q10_C17",
+    "entail": 0.0003,
+    "contradict": 0.0025,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0025
+  },
+  {
+    "claim_id": "Q10_C18",
+    "entail": 0.0003,
+    "contradict": 0.0029,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0029
+  },
+  {
+    "claim_id": "Q10_C19",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q11_C01",
+    "entail": 0.0003,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q11_C02",
+    "entail": 0.0,
+    "contradict": 0.0004,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q11_C03",
+    "entail": 0.0001,
+    "contradict": 0.9625,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9625
+  },
+  {
+    "claim_id": "Q11_C04",
+    "entail": 0.0002,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q11_C05",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q11_C06",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q11_C07",
+    "entail": 0.0001,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q11_C08",
+    "entail": 0.1091,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.1091
+  },
+  {
+    "claim_id": "Q11_C09",
+    "entail": 0.0001,
+    "contradict": 0.0198,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0198
+  },
+  {
+    "claim_id": "Q11_C10",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q11_C11",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q11_C12",
+    "entail": 0.056,
+    "contradict": 0.0007,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.056
+  },
+  {
+    "claim_id": "Q12_C01",
+    "entail": 0.0004,
+    "contradict": 0.9879,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9879
+  },
+  {
+    "claim_id": "Q12_C02",
+    "entail": 0.0001,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q12_C03",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q12_C04",
+    "entail": 0.0004,
+    "contradict": 0.0022,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0022
+  },
+  {
+    "claim_id": "Q12_C05",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "Q12_C06",
+    "entail": 0.0004,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q12_C07",
+    "entail": 0.0002,
+    "contradict": 0.0023,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0023
+  },
+  {
+    "claim_id": "Q12_C08",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q12_C09",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q12_C10",
+    "entail": 0.0005,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q12_C11",
+    "entail": 0.0001,
+    "contradict": 0.0046,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0046
+  },
+  {
+    "claim_id": "Q12_C12",
+    "entail": 0.0,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q12_C13",
+    "entail": 0.0001,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q12_C14",
+    "entail": 0.0,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q12_C15",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "Q13_C01",
+    "entail": 0.01,
+    "contradict": 0.9872,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9872
+  },
+  {
+    "claim_id": "Q13_C02",
+    "entail": 0.0105,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0105
+  },
+  {
+    "claim_id": "Q13_C03",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q13_C04",
+    "entail": 0.0077,
+    "contradict": 0.0042,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0077
+  },
+  {
+    "claim_id": "Q13_C05",
+    "entail": 0.0016,
+    "contradict": 0.0035,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0035
+  },
+  {
+    "claim_id": "Q13_C06",
+    "entail": 0.0231,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0231
+  },
+  {
+    "claim_id": "Q13_C07",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q13_C08",
+    "entail": 0.0,
+    "contradict": 0.9998,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9998
+  },
+  {
+    "claim_id": "Q13_C09",
+    "entail": 0.0011,
+    "contradict": 0.0014,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0014
+  },
+  {
+    "claim_id": "Q13_C10",
+    "entail": 0.0003,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q14_C01",
+    "entail": 0.0003,
+    "contradict": 0.0062,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0062
+  },
+  {
+    "claim_id": "Q14_C02",
+    "entail": 0.0,
+    "contradict": 0.9999,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9999
+  },
+  {
+    "claim_id": "Q14_C03",
+    "entail": 0.0,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q14_C04",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q14_C05",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q14_C06",
+    "entail": 0.0001,
+    "contradict": 0.0008,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0008
+  },
+  {
+    "claim_id": "Q14_C07",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "Q14_C08",
+    "entail": 0.009,
+    "contradict": 0.0017,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.009
+  },
+  {
+    "claim_id": "Q14_C09",
+    "entail": 0.0064,
+    "contradict": 0.0026,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0064
+  },
+  {
+    "claim_id": "Q15_C01",
+    "entail": 0.0001,
+    "contradict": 0.0005,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "Q15_C03",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q15_C04",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q15_C05",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q15_C06",
+    "entail": 0.017,
+    "contradict": 0.0003,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.017
+  },
+  {
+    "claim_id": "Q16_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q16_C03",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q16_C04",
+    "entail": 0.0,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q16_C05",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q16_C06",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q16_C07",
+    "entail": 0.0005,
+    "contradict": 0.3842,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.3842
+  },
+  {
+    "claim_id": "Q16_C13",
+    "entail": 0.9202,
+    "contradict": 0.0068,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9202
+  },
+  {
+    "claim_id": "Q17_C01",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q17_C02",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "Q17_C03",
+    "entail": 0.0058,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0058
+  },
+  {
+    "claim_id": "Q17_C04",
+    "entail": 0.0001,
+    "contradict": 0.6564,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.6564
+  },
+  {
+    "claim_id": "Q17_C06",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q17_C07",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q17_C08",
+    "entail": 0.0018,
+    "contradict": 0.0107,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0107
+  },
+  {
+    "claim_id": "Q18_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q18_C03",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q18_C05",
+    "entail": 0.0003,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q18_C07",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q18_C08",
+    "entail": 0.0003,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q18_C09",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q19_C01",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q19_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q19_C03",
+    "entail": 0.0102,
+    "contradict": 0.0006,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0102
+  },
+  {
+    "claim_id": "Q19_C04",
+    "entail": 0.0054,
+    "contradict": 0.0003,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0054
+  },
+  {
+    "claim_id": "Q19_C05",
+    "entail": 0.0001,
+    "contradict": 0.0008,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0008
+  },
+  {
+    "claim_id": "Q19_C06",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q19_C07",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q19_C08",
+    "entail": 0.0,
+    "contradict": 0.0004,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q19_C09",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q19_C10",
+    "entail": 0.0,
+    "contradict": 0.0007,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0007
+  },
+  {
+    "claim_id": "Q19_C11",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q19_C12",
+    "entail": 0.0009,
+    "contradict": 0.0004,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0009
+  },
+  {
+    "claim_id": "Q19_C13",
+    "entail": 0.0004,
+    "contradict": 0.0008,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0008
+  },
+  {
+    "claim_id": "Q20_C01",
+    "entail": 0.0087,
+    "contradict": 0.0121,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0121
+  },
+  {
+    "claim_id": "Q20_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q20_C03",
+    "entail": 0.0066,
+    "contradict": 0.9857,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9857
+  },
+  {
+    "claim_id": "Q20_C05",
+    "entail": 0.6622,
+    "contradict": 0.1693,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.6622
+  },
+  {
+    "claim_id": "Q20_C06",
+    "entail": 0.0001,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q20_C07",
+    "entail": 0.0535,
+    "contradict": 0.0017,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0535
+  },
+  {
+    "claim_id": "Q20_C08",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q20_C09",
+    "entail": 0.0554,
+    "contradict": 0.0067,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0554
+  },
+  {
+    "claim_id": "Q20_C10",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q20_C11",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q20_C12",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q21_C01",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q21_C03",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q21_C05",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q21_C06",
+    "entail": 0.1296,
+    "contradict": 0.0078,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.1296
+  },
+  {
+    "claim_id": "Q21_C07",
+    "entail": 0.004,
+    "contradict": 0.0025,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.004
+  },
+  {
+    "claim_id": "Q21_C08",
+    "entail": 0.0,
+    "contradict": 0.0009,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0009
+  },
+  {
+    "claim_id": "Q21_C09",
+    "entail": 0.9544,
+    "contradict": 0.003,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9544
+  },
+  {
+    "claim_id": "Q21_C10",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q22_C01",
+    "entail": 0.0002,
+    "contradict": 0.0169,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0169
+  },
+  {
+    "claim_id": "Q22_C03",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q22_C04",
+    "entail": 0.0003,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q22_C05",
+    "entail": 0.0003,
+    "contradict": 0.0004,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q22_C06",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q22_C07",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q22_C08",
+    "entail": 0.0,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "Q22_C09",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q23_C01",
+    "entail": 0.0002,
+    "contradict": 0.9594,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9594
+  },
+  {
+    "claim_id": "Q23_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q23_C03",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q23_C04",
+    "entail": 0.0009,
+    "contradict": 0.1618,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.1618
+  },
+  {
+    "claim_id": "Q23_C05",
+    "entail": 0.9589,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9589
+  },
+  {
+    "claim_id": "Q23_C06",
+    "entail": 0.1581,
+    "contradict": 0.0458,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.1581
+  },
+  {
+    "claim_id": "Q23_C07",
+    "entail": 0.0001,
+    "contradict": 0.9953,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9953
+  },
+  {
+    "claim_id": "Q23_C08",
+    "entail": 0.0001,
+    "contradict": 0.9985,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9985
+  },
+  {
+    "claim_id": "Q23_C09",
+    "entail": 0.0001,
+    "contradict": 0.0026,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0026
+  },
+  {
+    "claim_id": "Q23_C10",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q24_C01",
+    "entail": 0.952,
+    "contradict": 0.0143,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.952
+  },
+  {
+    "claim_id": "Q24_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q24_C03",
+    "entail": 0.0001,
+    "contradict": 0.9988,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9988
+  },
+  {
+    "claim_id": "Q24_C04",
+    "entail": 0.0001,
+    "contradict": 0.9974,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9974
+  },
+  {
+    "claim_id": "Q24_C05",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "Q24_C06",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "Q24_C07",
+    "entail": 0.9988,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9988
+  },
+  {
+    "claim_id": "Q24_C08",
+    "entail": 0.999,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.999
+  },
+  {
+    "claim_id": "Q24_C09",
+    "entail": 0.8386,
+    "contradict": 0.1058,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.8386
+  },
+  {
+    "claim_id": "Q24_C10",
+    "entail": 0.0004,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q24_C11",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q24_C12",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q24_C13",
+    "entail": 0.998,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.998
+  },
+  {
+    "claim_id": "Q24_C14",
+    "entail": 0.0,
+    "contradict": 0.0013,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0013
+  },
+  {
+    "claim_id": "Q24_C15",
+    "entail": 0.0,
+    "contradict": 0.0007,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0007
+  },
+  {
+    "claim_id": "Q25_C01",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q25_C03",
+    "entail": 0.0004,
+    "contradict": 0.0314,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0314
+  },
+  {
+    "claim_id": "Q25_C04",
+    "entail": 0.0031,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0031
+  },
+  {
+    "claim_id": "Q25_C05",
+    "entail": 0.0066,
+    "contradict": 0.0397,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0397
+  },
+  {
+    "claim_id": "Q25_C06",
+    "entail": 0.0001,
+    "contradict": 0.9993,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9993
+  },
+  {
+    "claim_id": "Q25_C07",
+    "entail": 0.0001,
+    "contradict": 0.0004,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q25_C08",
+    "entail": 0.0001,
+    "contradict": 0.0004,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "Q25_C09",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "Q25_C10",
+    "entail": 0.0009,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0009
+  },
+  {
+    "claim_id": "Q25_C11",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "Q25_C12",
+    "entail": 0.0011,
+    "contradict": 0.3539,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.3539
+  },
+  {
+    "claim_id": "Q26_C01",
+    "entail": 0.9988,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9988
+  },
+  {
+    "claim_id": "Q26_C02",
+    "entail": 0.0009,
+    "contradict": 0.9319,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9319
+  },
+  {
+    "claim_id": "Q26_C03",
+    "entail": 0.0011,
+    "contradict": 0.0044,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0044
+  },
+  {
+    "claim_id": "Q26_C04",
+    "entail": 0.4298,
+    "contradict": 0.2032,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.4298
+  },
+  {
+    "claim_id": "Q26_C05",
+    "entail": 0.0,
+    "contradict": 0.0018,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0018
+  },
+  {
+    "claim_id": "Q26_C06",
+    "entail": 0.0007,
+    "contradict": 0.0057,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0057
+  },
+  {
+    "claim_id": "Q26_C07",
+    "entail": 0.1011,
+    "contradict": 0.0139,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.1011
+  },
+  {
+    "claim_id": "Q26_C08",
+    "entail": 0.001,
+    "contradict": 0.9922,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9922
+  },
+  {
+    "claim_id": "B3_01_C01",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_01_C02",
+    "entail": 0.0,
+    "contradict": 0.9999,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9999
+  },
+  {
+    "claim_id": "B3_01_C03",
+    "entail": 0.0002,
+    "contradict": 0.9807,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9807
+  },
+  {
+    "claim_id": "B3_01_C04",
+    "entail": 0.0029,
+    "contradict": 0.0004,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0029
+  },
+  {
+    "claim_id": "B3_01_C05",
+    "entail": 0.9989,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9989
+  },
+  {
+    "claim_id": "B3_01_C06",
+    "entail": 0.3428,
+    "contradict": 0.0874,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.3428
+  },
+  {
+    "claim_id": "B3_01_C07",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_01_C08",
+    "entail": 0.6436,
+    "contradict": 0.3203,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.6436
+  },
+  {
+    "claim_id": "B3_01_C09",
+    "entail": 0.0002,
+    "contradict": 0.9935,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9935
+  },
+  {
+    "claim_id": "B3_01_C10",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_01_C11",
+    "entail": 0.0003,
+    "contradict": 0.0011,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0011
+  },
+  {
+    "claim_id": "B3_01_C12",
+    "entail": 0.0003,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "B3_02_C01",
+    "entail": 0.0003,
+    "contradict": 0.0019,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0019
+  },
+  {
+    "claim_id": "B3_02_C02",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_02_C03",
+    "entail": 0.0001,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "B3_02_C04",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_02_C05",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_02_C06",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_02_C07",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_02_C08",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_02_C09",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_03_C01",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_03_C02",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "B3_03_C03",
+    "entail": 0.001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.001
+  },
+  {
+    "claim_id": "B3_03_C04",
+    "entail": 0.0,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_03_C05",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "B3_03_C06",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_03_C07",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "B3_03_C08",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "B3_04_C01",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_04_C02",
+    "entail": 0.9789,
+    "contradict": 0.008,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9789
+  },
+  {
+    "claim_id": "B3_04_C03",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_04_C04",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_04_C05",
+    "entail": 0.9944,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9944
+  },
+  {
+    "claim_id": "B3_04_C06",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_04_C07",
+    "entail": 0.9966,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9966
+  },
+  {
+    "claim_id": "B3_04_C08",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_04_C09",
+    "entail": 0.9869,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9869
+  },
+  {
+    "claim_id": "B3_04_C10",
+    "entail": 0.9167,
+    "contradict": 0.0049,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9167
+  },
+  {
+    "claim_id": "B3_04_C11",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_04_C12",
+    "entail": 0.9985,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9985
+  },
+  {
+    "claim_id": "B3_04_C13",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "B3_04_C14",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "B3_05_C01",
+    "entail": 0.0,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_05_C02",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_05_C03",
+    "entail": 0.9749,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9749
+  },
+  {
+    "claim_id": "B3_05_C04",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_05_C05",
+    "entail": 0.6015,
+    "contradict": 0.1221,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.6015
+  },
+  {
+    "claim_id": "B3_05_C06",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_05_C07",
+    "entail": 0.0623,
+    "contradict": 0.0219,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0623
+  },
+  {
+    "claim_id": "B3_06_C01",
+    "entail": 0.0004,
+    "contradict": 0.9987,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9987
+  },
+  {
+    "claim_id": "B3_06_C02",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_06_C03",
+    "entail": 0.0,
+    "contradict": 0.0026,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0026
+  },
+  {
+    "claim_id": "B3_06_C04",
+    "entail": 0.0004,
+    "contradict": 0.0005,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "B3_06_C05",
+    "entail": 0.9986,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9986
+  },
+  {
+    "claim_id": "B3_06_C06",
+    "entail": 0.0002,
+    "contradict": 0.9997,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9997
+  },
+  {
+    "claim_id": "B3_06_C07",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_06_C08",
+    "entail": 0.0,
+    "contradict": 1.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 1.0
+  },
+  {
+    "claim_id": "B3_06_C09",
+    "entail": 0.9989,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9989
+  },
+  {
+    "claim_id": "B3_06_C10",
+    "entail": 0.0,
+    "contradict": 0.0015,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0015
+  },
+  {
+    "claim_id": "B3_06_C11",
+    "entail": 0.0034,
+    "contradict": 0.0015,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0034
+  },
+  {
+    "claim_id": "B3_06_C12",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_06_C13",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_07_C01",
+    "entail": 0.9502,
+    "contradict": 0.0008,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9502
+  },
+  {
+    "claim_id": "B3_07_C02",
+    "entail": 0.0003,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "B3_07_C03",
+    "entail": 0.0003,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "B3_07_C04",
+    "entail": 0.9983,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9983
+  },
+  {
+    "claim_id": "B3_07_C05",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_07_C06",
+    "entail": 0.0001,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_07_C07",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_07_C08",
+    "entail": 0.9983,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9983
+  },
+  {
+    "claim_id": "B3_07_C09",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_08_C01",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_08_C02",
+    "entail": 0.0101,
+    "contradict": 0.0013,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0101
+  },
+  {
+    "claim_id": "B3_08_C03",
+    "entail": 0.0012,
+    "contradict": 0.0007,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0012
+  },
+  {
+    "claim_id": "B3_08_C04",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_08_C05",
+    "entail": 0.0003,
+    "contradict": 0.9875,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9875
+  },
+  {
+    "claim_id": "B3_08_C06",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_08_C07",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_08_C08",
+    "entail": 0.0017,
+    "contradict": 0.0572,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0572
+  },
+  {
+    "claim_id": "B3_08_C09",
+    "entail": 0.0001,
+    "contradict": 0.0008,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0008
+  },
+  {
+    "claim_id": "B3_08_C10",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_09_C01",
+    "entail": 0.0086,
+    "contradict": 0.0134,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0134
+  },
+  {
+    "claim_id": "B3_09_C02",
+    "entail": 0.0004,
+    "contradict": 0.0039,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0039
+  },
+  {
+    "claim_id": "B3_09_C03",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_09_C04",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_09_C05",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_09_C06",
+    "entail": 0.0403,
+    "contradict": 0.0004,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0403
+  },
+  {
+    "claim_id": "B3_09_C07",
+    "entail": 0.0148,
+    "contradict": 0.4566,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.4566
+  },
+  {
+    "claim_id": "B3_10_C01",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_10_C02",
+    "entail": 0.0087,
+    "contradict": 0.0035,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0087
+  },
+  {
+    "claim_id": "B3_10_C03",
+    "entail": 0.9193,
+    "contradict": 0.0026,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9193
+  },
+  {
+    "claim_id": "B3_10_C04",
+    "entail": 0.1065,
+    "contradict": 0.0027,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.1065
+  },
+  {
+    "claim_id": "B3_10_C05",
+    "entail": 0.1536,
+    "contradict": 0.4064,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.4064
+  },
+  {
+    "claim_id": "B3_10_C06",
+    "entail": 0.9729,
+    "contradict": 0.0003,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9729
+  },
+  {
+    "claim_id": "B3_10_C07",
+    "entail": 0.1704,
+    "contradict": 0.0623,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.1704
+  },
+  {
+    "claim_id": "B3_10_C08",
+    "entail": 0.0002,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_10_C09",
+    "entail": 0.0005,
+    "contradict": 0.0003,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0005
+  },
+  {
+    "claim_id": "B3_10_C10",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_10_C11",
+    "entail": 0.9792,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9792
+  },
+  {
+    "claim_id": "B3_10_C12",
+    "entail": 0.0083,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0083
+  },
+  {
+    "claim_id": "B3_10_C13",
+    "entail": 0.9773,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9773
+  },
+  {
+    "claim_id": "B3_10_C14",
+    "entail": 0.9984,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9984
+  },
+  {
+    "claim_id": "B3_10_C15",
+    "entail": 0.9862,
+    "contradict": 0.0006,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.9862
+  },
+  {
+    "claim_id": "B3_10_C16",
+    "entail": 0.0026,
+    "contradict": 0.001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0026
+  },
+  {
+    "claim_id": "B3_10_C17",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_11_C01",
+    "entail": 0.0116,
+    "contradict": 0.0035,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0116
+  },
+  {
+    "claim_id": "B3_11_C02",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_11_C03",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_11_C04",
+    "entail": 0.0001,
+    "contradict": 0.9983,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9983
+  },
+  {
+    "claim_id": "B3_11_C05",
+    "entail": 0.0002,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "B3_11_C06",
+    "entail": 0.0002,
+    "contradict": 0.0035,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0035
+  },
+  {
+    "claim_id": "B3_11_C07",
+    "entail": 0.0032,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0032
+  },
+  {
+    "claim_id": "B3_11_C08",
+    "entail": 0.7692,
+    "contradict": 0.0104,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.7692
+  },
+  {
+    "claim_id": "B3_11_C09",
+    "entail": 0.0067,
+    "contradict": 0.0021,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0067
+  },
+  {
+    "claim_id": "B3_12_C01",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "B3_12_C02",
+    "entail": 0.0001,
+    "contradict": 0.0024,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0024
+  },
+  {
+    "claim_id": "B3_12_C03",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_12_C04",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "B3_12_C05",
+    "entail": 0.0003,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "B3_12_C06",
+    "entail": 0.0008,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0008
+  },
+  {
+    "claim_id": "B3_12_C07",
+    "entail": 0.0,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "SYN_CITA_001",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "SYN_CITA_002",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_ENTI_003",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "SYN_ENTI_004",
+    "entail": 0.0,
+    "contradict": 1.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 1.0
+  },
+  {
+    "claim_id": "SYN_ENTI_005",
+    "entail": 0.0,
+    "contradict": 0.9999,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9999
+  },
+  {
+    "claim_id": "SYN_ENTI_006",
+    "entail": 0.0,
+    "contradict": 0.9999,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9999
+  },
+  {
+    "claim_id": "SYN_ENTI_007",
+    "entail": 0.0,
+    "contradict": 1.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 1.0
+  },
+  {
+    "claim_id": "SYN_QUAN_008",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_QUAN_009",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_QUAN_010",
+    "entail": 0.0004,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0004
+  },
+  {
+    "claim_id": "SYN_QUAN_011",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_QUAN_012",
+    "entail": 0.0004,
+    "contradict": 0.994,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.994
+  },
+  {
+    "claim_id": "SYN_QUAN_013",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_QUAN_014",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_QUAN_015",
+    "entail": 0.0001,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "SYN_QUAN_016",
+    "entail": 0.3173,
+    "contradict": 0.0089,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.3173
+  },
+  {
+    "claim_id": "SYN_QUAN_017",
+    "entail": 0.068,
+    "contradict": 0.0021,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.068
+  },
+  {
+    "claim_id": "SYN_QUAN_018",
+    "entail": 0.0001,
+    "contradict": 0.0003,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0003
+  },
+  {
+    "claim_id": "SYN_QUAN_019",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_TEMP_020",
+    "entail": 0.3957,
+    "contradict": 0.208,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.3957
+  },
+  {
+    "claim_id": "SYN_TEMP_021",
+    "entail": 0.0001,
+    "contradict": 0.9804,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9804
+  },
+  {
+    "claim_id": "SYN_TEMP_022",
+    "entail": 0.001,
+    "contradict": 0.0019,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0019
+  },
+  {
+    "claim_id": "SYN_TEMP_023",
+    "entail": 0.0002,
+    "contradict": 0.9987,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9987
+  },
+  {
+    "claim_id": "SYN_TEMP_024",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "SYN_TEMP_025",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_TEMP_026",
+    "entail": 0.0,
+    "contradict": 0.9995,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9995
+  },
+  {
+    "claim_id": "SYN_QUAN_027",
+    "entail": 0.0,
+    "contradict": 0.0015,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0015
+  },
+  {
+    "claim_id": "SYN_QUAN_028",
+    "entail": 0.0,
+    "contradict": 0.0014,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0014
+  },
+  {
+    "claim_id": "SYN_QUAN_029",
+    "entail": 0.0,
+    "contradict": 0.0016,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0016
+  },
+  {
+    "claim_id": "SYN_QUAN_030",
+    "entail": 0.0,
+    "contradict": 0.0021,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0021
+  },
+  {
+    "claim_id": "SYN_QUAN_031",
+    "entail": 0.0,
+    "contradict": 0.0019,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0019
+  },
+  {
+    "claim_id": "SYN_QUAN_032",
+    "entail": 0.0,
+    "contradict": 0.0032,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0032
+  },
+  {
+    "claim_id": "SYN_QUAN_033",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "SYN_QUAN_034",
+    "entail": 0.0002,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "SYN_QUAN_035",
+    "entail": 0.0001,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_QUAN_036",
+    "entail": 0.0001,
+    "contradict": 0.0006,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0006
+  },
+  {
+    "claim_id": "SYN_QUAN_037",
+    "entail": 0.0003,
+    "contradict": 0.9875,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9875
+  },
+  {
+    "claim_id": "SYN_QUAN_038",
+    "entail": 0.0001,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_TEMP_039",
+    "entail": 0.0,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "SYN_TEMP_040",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_TEMP_041",
+    "entail": 0.0002,
+    "contradict": 0.9944,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9944
+  },
+  {
+    "claim_id": "SYN_TEMP_042",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "SYN_TEMP_043",
+    "entail": 0.0002,
+    "contradict": 0.9966,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9966
+  },
+  {
+    "claim_id": "SYN_TEMP_044",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_TEMP_045",
+    "entail": 0.0001,
+    "contradict": 0.9974,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9974
+  },
+  {
+    "claim_id": "SYN_TEMP_046",
+    "entail": 0.0001,
+    "contradict": 0.9985,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9985
+  },
+  {
+    "claim_id": "SYN_TEMP_047",
+    "entail": 0.0042,
+    "contradict": 0.0857,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0857
+  },
+  {
+    "claim_id": "SYN_TEMP_048",
+    "entail": 0.0146,
+    "contradict": 0.3087,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.3087
+  },
+  {
+    "claim_id": "SYN_TEMP_049",
+    "entail": 0.0021,
+    "contradict": 0.0401,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0401
+  },
+  {
+    "claim_id": "SYN_TEMP_050",
+    "entail": 0.0079,
+    "contradict": 0.2852,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.2852
+  },
+  {
+    "claim_id": "SYN_TEMP_051",
+    "entail": 0.0001,
+    "contradict": 0.0062,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0062
+  },
+  {
+    "claim_id": "SYN_TEMP_052",
+    "entail": 0.0001,
+    "contradict": 0.0086,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0086
+  },
+  {
+    "claim_id": "SYN_TEMP_053",
+    "entail": 0.0,
+    "contradict": 0.9995,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9995
+  },
+  {
+    "claim_id": "SYN_TEMP_054",
+    "entail": 0.0001,
+    "contradict": 0.0014,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0014
+  },
+  {
+    "claim_id": "SYN_TEMP_055",
+    "entail": 0.0001,
+    "contradict": 0.0033,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0033
+  },
+  {
+    "claim_id": "SYN_TEMP_056",
+    "entail": 0.0002,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "SYN_TEMP_057",
+    "entail": 0.0002,
+    "contradict": 0.0001,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "SYN_TEMP_058",
+    "entail": 0.0002,
+    "contradict": 0.0002,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "SYN_TEMP_059",
+    "entail": 0.0,
+    "contradict": 0.9999,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9999
+  },
+  {
+    "claim_id": "SYN_TEMP_060",
+    "entail": 0.0,
+    "contradict": 1.0,
+    "verdict": "FALSE",
+    "verdict_confidence": 1.0
+  },
+  {
+    "claim_id": "SYN_TEMP_061",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  },
+  {
+    "claim_id": "SYN_TEMP_062",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_CITA_063",
+    "entail": 0.0028,
+    "contradict": 0.0671,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0671
+  },
+  {
+    "claim_id": "SYN_CITA_064",
+    "entail": 0.0021,
+    "contradict": 0.9795,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9795
+  },
+  {
+    "claim_id": "SYN_CITA_065",
+    "entail": 0.0001,
+    "contradict": 0.011,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.011
+  },
+  {
+    "claim_id": "SYN_CITA_066",
+    "entail": 0.0001,
+    "contradict": 0.0037,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0037
+  },
+  {
+    "claim_id": "SYN_CITA_067",
+    "entail": 0.0063,
+    "contradict": 0.9746,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9746
+  },
+  {
+    "claim_id": "SYN_CITA_068",
+    "entail": 0.001,
+    "contradict": 0.9758,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9758
+  },
+  {
+    "claim_id": "SYN_CITA_069",
+    "entail": 0.0013,
+    "contradict": 0.9816,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9816
+  },
+  {
+    "claim_id": "SYN_CITA_070",
+    "entail": 0.0043,
+    "contradict": 0.9645,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9645
+  },
+  {
+    "claim_id": "SYN_CITA_071",
+    "entail": 0.0046,
+    "contradict": 0.9732,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9732
+  },
+  {
+    "claim_id": "SYN_CITA_072",
+    "entail": 0.0769,
+    "contradict": 0.0897,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0897
+  },
+  {
+    "claim_id": "SYN_CITA_073",
+    "entail": 0.0006,
+    "contradict": 0.0066,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0066
+  },
+  {
+    "claim_id": "SYN_CITA_074",
+    "entail": 0.0,
+    "contradict": 0.9997,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9997
+  },
+  {
+    "claim_id": "SYN_CITA_075",
+    "entail": 0.0,
+    "contradict": 0.0002,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0002
+  },
+  {
+    "claim_id": "SYN_CITA_076",
+    "entail": 0.0002,
+    "contradict": 0.9965,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9965
+  },
+  {
+    "claim_id": "SYN_CITA_077",
+    "entail": 0.0004,
+    "contradict": 0.0829,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0829
+  },
+  {
+    "claim_id": "SYN_CITA_078",
+    "entail": 0.0196,
+    "contradict": 0.1488,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.1488
+  },
+  {
+    "claim_id": "SYN_CITA_079",
+    "entail": 0.0549,
+    "contradict": 0.0035,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0549
+  },
+  {
+    "claim_id": "SYN_CITA_080",
+    "entail": 0.0,
+    "contradict": 0.9998,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9998
+  },
+  {
+    "claim_id": "SYN_CITA_081",
+    "entail": 0.0,
+    "contradict": 0.0001,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0001
+  },
+  {
+    "claim_id": "SYN_CITA_082",
+    "entail": 0.0,
+    "contradict": 0.9996,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9996
+  },
+  {
+    "claim_id": "SYN_CITA_083",
+    "entail": 0.0,
+    "contradict": 0.9979,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.9979
+  },
+  {
+    "claim_id": "SYN_CITA_084",
+    "entail": 0.0,
+    "contradict": 0.0021,
+    "verdict": "FALSE",
+    "verdict_confidence": 0.0021
+  },
+  {
+    "claim_id": "SYN_CITA_085",
+    "entail": 0.0,
+    "contradict": 0.0,
+    "verdict": "TRUE",
+    "verdict_confidence": 0.0
+  }
+]

@@ -1,0 +1,144 @@
+import json
+
+notebook = {
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# HalDetect Phase 10: Full DeBERTa-v3-Large Rescore\n",
+        "Upload `nli_full_rescore_worklist.json` to Kaggle, ensure a T4 GPU is attached, and run all."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": None,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "!pip install transformers accelerate sentencepiece torch"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": None,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "import json\n",
+        "import time\n",
+        "import torch\n",
+        "from transformers import pipeline\n",
+        "\n",
+        "# CHANGE THIS TO MATCH KAGGLE'S UPLOAD PATH\n",
+        "INPUT_FILE = \"/kaggle/input/YOUR_DATASET_NAME_HERE/nli_full_rescore_worklist.json\"\n",
+        "OUTPUT_FILE = \"nli_full_rescore_scores.json\"\n",
+        "\n",
+        "print(f\"Loading {INPUT_FILE}...\")\n",
+        "with open(INPUT_FILE, \"r\", encoding=\"utf-8\") as f:\n",
+        "    data = json.load(f)\n",
+        "\n",
+        "items = data[\"items\"]\n",
+        "print(f\"Loaded {len(items)} claims to evaluate.\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": None,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "device = 0 if torch.cuda.is_available() else -1\n",
+        "print(f\"Loading cross-encoder/nli-deberta-v3-large on device={device}...\")\n",
+        "classifier = pipeline(\"text-classification\", \n",
+        "                      model=\"cross-encoder/nli-deberta-v3-large\", \n",
+        "                      device=device,\n",
+        "                      top_k=None) # top_k=None returns all scores\n",
+        "print(\"Model loaded successfully!\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": None,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "results = []\n",
+        "t0 = time.time()\n",
+        "\n",
+        "for i, row in enumerate(items, 1):\n",
+        "    claim = row[\"claim\"]\n",
+        "    passage = row[\"passage\"]\n",
+        "    cid = row[\"claim_id\"]\n",
+        "    \n",
+        "    if not passage.strip() or passage.startswith(\"NLI \"):\n",
+        "        # Clean up the passage string if it has the NLI prefix from the old cache\n",
+        "        if \"|\" in passage:\n",
+        "            passage = passage.split(\"|\", 1)[1].strip().strip(\"'\")\n",
+        "        \n",
+        "    if not passage.strip():\n",
+        "        results.append({\n",
+        "            \"claim_id\": cid,\n",
+        "            \"entail\": 0.0,\n",
+        "            \"contradict\": 0.0,\n",
+        "            \"verdict\": \"UNVERIFIABLE\",\n",
+        "            \"verdict_confidence\": 0.0\n",
+        "        })\n",
+        "        continue\n",
+        "        \n",
+        "    try:\n",
+        "        res = classifier({\"text\": passage, \"text_pair\": claim})\n",
+        "        \n",
+        "        # DeBERTa-v3 outputs CONTRADICTION, ENTAILMENT, NEUTRAL\n",
+        "        scores = {item['label'].upper(): item['score'] for item in res}\n",
+        "        \n",
+        "        entail = scores.get(\"ENTAILMENT\", 0.0)\n",
+        "        contra = scores.get(\"CONTRADICTION\", 0.0)\n",
+        "        \n",
+        "        if entail > contra:\n",
+        "            verdict = \"TRUE\"\n",
+        "            conf = entail\n",
+        "        else:\n",
+        "            verdict = \"FALSE\"\n",
+        "            conf = contra\n",
+        "            \n",
+        "        results.append({\n",
+        "            \"claim_id\": cid,\n",
+        "            \"entail\": round(entail, 4),\n",
+        "            \"contradict\": round(contra, 4),\n",
+        "            \"verdict\": verdict,\n",
+        "            \"verdict_confidence\": round(conf, 4)\n",
+        "        })\n",
+        "    except Exception as e:\n",
+        "        print(f\"Error on {cid}: {e}\")\n",
+        "        \n",
+        "    if i % 50 == 0 or i == len(items):\n",
+        "        print(f\"Processed {i}/{len(items)} ({(time.time()-t0):.1f}s)\")\n",
+        "\n",
+        "print(\"Finished inference!\")\n",
+        "with open(OUTPUT_FILE, \"w\", encoding=\"utf-8\") as f:\n",
+        "    json.dump(results, f, indent=2)\n",
+        "print(f\"Saved results to {OUTPUT_FILE}\")"
+      ]
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "version": "3.10.12"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 4
+}
+
+with open("current/haldetect_deberta_full_rescore_kaggle.ipynb", "w", encoding="utf-8") as f:
+    json.dump(notebook, f, indent=2)
+

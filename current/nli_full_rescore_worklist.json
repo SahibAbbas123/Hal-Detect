@@ -1,0 +1,2214 @@
+{
+  "meta": {
+    "description": "Full HalDetect Master Corpus NLI Rescore",
+    "model_target": "cross-encoder/nli-deberta-v3-large",
+    "total_items": 441
+  },
+  "items": [
+    {
+      "claim_id": "Q1_C01",
+      "claim": "Albert Einstein published four papers in 1905.",
+      "passage": "NLI entailment 0.75 | 'The annus mirabilis papers (from Latin: annus mirabilis, lit.\u2009'miraculous year') are four papers that Albert Einstein pu...'"
+    },
+    {
+      "claim_id": "Q1_C02",
+      "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1905.",
+      "passage": "NLI contradiction 0.50 | 'Patent applications that landed on Einstein's desk for his evaluation included ideas for a gravel sorter and an electric...'"
+    },
+    {
+      "claim_id": "Q1_C03",
+      "claim": "Albert Einstein derived the equation E=mc\u00b2.",
+      "passage": "NLI entailment 0.73 | 'Einstein returned to the topic once again after World War II and this time he wrote E = mc2 in the title of his article ...'"
+    },
+    {
+      "claim_id": "Q1_C04",
+      "claim": "The equation E=mc\u00b2 shows that mass and energy are interchangeable.",
+      "passage": "NLI entailment 0.79 | 'Merrifield, Michael; Copeland, Ed; Bowley, Roger. \"E=mc2 \u2013 Mass\u2013Energy Equivalence\". Sixty Symbols. Brady Haran for the ...'"
+    },
+    {
+      "claim_id": "Q1_C05",
+      "claim": "Albert Einstein proposed that light consists of discrete packets called quanta.",
+      "passage": "NLI entailment 0.73 | 'In 1905 Albert Einstein suggested that electromagnetic radiation exists in spatially localized packets which he called \"...'"
+    },
+    {
+      "claim_id": "Q1_C06",
+      "claim": "Albert Einstein explained the photoelectric effect by proposing that light consists of discrete packets called quanta.",
+      "passage": "NLI entailment 0.83 | 'In 1905, Albert Einstein proposed a theory of the photoelectric effect using a concept that light consists of tiny packe...'"
+    },
+    {
+      "claim_id": "Q1_C07",
+      "claim": "Albert Einstein received the Nobel Prize in Physics in 1921.",
+      "passage": "NLI contradiction 0.75 | 'The Nobel Prize in Physics is an annual award given by the Royal Swedish Academy of Sciences for those who have made the...'"
+    },
+    {
+      "claim_id": "Q1_C08",
+      "claim": "Albert Einstein published the general theory of relativity in 1915.",
+      "passage": "NLI entailment 0.73 | 'Henri Poincar\u00e9's 1905 theory of the dynamics of the electron was a relativistic theory which he applied to all forces, i...'"
+    },
+    {
+      "claim_id": "Q1_C09",
+      "claim": "The general theory of relativity describes gravity as the curvature of spacetime.",
+      "passage": "NLI entailment 0.69 | 'General relativity, also known as the general theory of relativity, and as Einstein's theory of gravity, is the geometri...'"
+    },
+    {
+      "claim_id": "Q1_C10",
+      "claim": "Albert Einstein predicted that gravity bends light.",
+      "passage": "NLI entailment 0.72 | 'Tests of general relativity serve to establish observational evidence for the theory of general relativity. The first th...'"
+    },
+    {
+      "claim_id": "Q1_C11",
+      "claim": "Arthur Eddington verified that gravity bends light during a solar eclipse in 1919.",
+      "passage": "NLI entailment 0.55 | 'The Eddington experiment was an observational test of general relativity, organised by the British astronomers Frank Wat...'"
+    },
+    {
+      "claim_id": "Q1_C12",
+      "claim": "Albert Einstein spent his final years at the Institute for Advanced Study in Princeton.",
+      "passage": "NLI contradiction 0.53 | 'This award should not be confused with many others named after the famous physicist, such as the Albert Einstein World A...'"
+    },
+    {
+      "claim_id": "Q2_C01",
+      "claim": "The 2008 financial crisis began with a collapse in the United States housing market.",
+      "passage": "NLI entailment 0.54 | 'On the basis of 2006 market data that were indicating a marked decline, including lower sales, rising inventories, falli...'"
+    },
+    {
+      "claim_id": "Q2_C02",
+      "claim": "Lenders issued subprime mortgages to borrowers with poor credit scores between 2001 and 2006.",
+      "passage": "NLI entailment 0.67 | 'Subprime mortgages grew from 5% of total originations ($35 billion) in 1994, to 20% ($600 billion) in 2006. Another indi...'"
+    },
+    {
+      "claim_id": "Q2_C03",
+      "claim": "Investment banks bundled high-risk loans into mortgage-backed securities.",
+      "passage": "NLI inconclusive (entail=0.49, contradict=0.39)"
+    },
+    {
+      "claim_id": "Q2_C04",
+      "claim": "Investment banks sold mortgage-backed securities to global investors.",
+      "passage": "NLI entailment 0.59 | 'The securitization of mortgages in the 1970s had the advantage of providing more capital for housing at a time when the ...'"
+    },
+    {
+      "claim_id": "Q2_C05",
+      "claim": "Home prices peaked in 2006.",
+      "passage": "NLI entailment 0.78 | 'During the 2000s, United States housing prices experienced a sharp run up and subsequent collapse affecting over half of...'"
+    },
+    {
+      "claim_id": "Q2_C06",
+      "claim": "Home prices fell after 2006.",
+      "passage": "NLI entailment 0.86 | 'The booming housing market halted abruptly in many parts of the United States in the late summer of 2005, and as of summ...'"
+    },
+    {
+      "claim_id": "Q2_C07",
+      "claim": "Millions of homeowners defaulted on their loans.",
+      "passage": "NLI entailment 0.56 | 'The Los Angeles Times reported the results of a study that found homeowners with high credit scores at the time of enter...'"
+    },
+    {
+      "claim_id": "Q2_C08",
+      "claim": "Lehman Brothers filed for bankruptcy on September 15, 2008.",
+      "passage": "NLI entailment 0.82 | 'The bankruptcy of Lehman Brothers, also known as the Crash of '08 and the Lehman Shock, on September 15, 2008, was the c...'"
+    },
+    {
+      "claim_id": "Q2_C09",
+      "claim": "The bankruptcy of Lehman Brothers triggered a global liquidity freeze.",
+      "passage": "NLI entailment 0.57 | 'Close to 100 hedge funds used Lehman as their prime broker and relied largely on the firm for financing. In an attempt t...'"
+    },
+    {
+      "claim_id": "Q2_C10",
+      "claim": "The U.S. government passed the Emergency Economic Stabilization Act of 2008.",
+      "passage": "NLI entailment 0.67 | 'On October 3, 2008, the Emergency Economic Stabilization Act became law with the signing of Public Law 110-343, which in...'"
+    },
+    {
+      "claim_id": "Q2_C11",
+      "claim": "The Emergency Economic Stabilization Act of 2008 provided $700 billion for bank bailouts.",
+      "passage": "NLI entailment 0.72 | 'The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\",...'"
+    },
+    {
+      "claim_id": "Q2_C12",
+      "claim": "The 2008 financial crisis led to the Great Recession.",
+      "passage": "NLI entailment 0.73 | 'Many factors directly and indirectly serve as the causes of the Great Recession that started in 2008 with the US subprim...'"
+    },
+    {
+      "claim_id": "Q2_C13",
+      "claim": "The global GDP contracted by 0.1% in 2009.",
+      "passage": "NLI contradiction 0.40 | 'Of the seven largest economies in the world by GDP, only China avoided a recession in 2008. In the year to the third qua...'"
+    },
+    {
+      "claim_id": "Q5_C01",
+      "claim": "The IPCC Sixth Assessment Report was published in 2023.",
+      "passage": "NLI entailment 0.67 | 'The Sixth Assessment Report (AR6) of the United Nations (UN) Intergovernmental Panel on Climate Change (IPCC) is the six...'"
+    },
+    {
+      "claim_id": "Q5_C02",
+      "claim": "The IPCC Sixth Assessment Report states that human activities have caused global warming.",
+      "passage": "NLI entailment 0.62 | 'There is a nearly unanimous scientific consensus that the climate is warming and that this is caused by human activities...'"
+    },
+    {
+      "claim_id": "Q5_C03",
+      "claim": "Human activities have caused global warming.",
+      "passage": "NLI entailment 0.81 | 'There is scientific consensus that the Earth has been consistently warming since the start of the Industrial Revolution,...'"
+    },
+    {
+      "claim_id": "Q5_C04",
+      "claim": "Global surface temperatures have increased by approximately 1.1 degrees Celsius since 1850.",
+      "passage": "NLI entailment 0.61 | 'The global average and combined land and ocean surface temperature show a warming of 1.09 \u00b0C (range: 0.95 to 1.20 \u00b0C) fr...'"
+    },
+    {
+      "claim_id": "Q5_C05",
+      "claim": "The emission of greenhouse gases from fossil fuel combustion and land use drives global warming.",
+      "passage": "NLI entailment 0.68 | 'The vast majority of carbon dioxide emissions by humans come from the burning of fossil fuels. Additional contributions ...'"
+    },
+    {
+      "claim_id": "Q5_C06",
+      "claim": "The IPCC Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.",
+      "passage": "NLI inconclusive (entail=0.49, contradict=0.33)"
+    },
+    {
+      "claim_id": "Q5_C07",
+      "claim": "A temperature rise causes more frequent and intense extreme weather events.",
+      "passage": "NLI entailment 0.80 | 'Climate change might make some extreme weather events more frequent and more intense. This applies in particular to heat...'"
+    },
+    {
+      "claim_id": "Q5_C08",
+      "claim": "Reductions in carbon dioxide emissions are required to limit warming to 1.5 degrees Celsius.",
+      "passage": "NLI entailment 0.62 | 'Recent works indicate that the achievability of the 1.5-degree target through the retroactive withdrawal of CO2 emission...'"
+    },
+    {
+      "claim_id": "Q5_C09",
+      "claim": "Net-zero emissions must be achieved by 2050 to stabilize the global climate.",
+      "passage": "NLI entailment 0.56 | 'Many companies often claim a commitment to reach net-zero emissions by the year 2050. These promises are often made at t...'"
+    },
+    {
+      "claim_id": "Q7_C01",
+      "claim": "The Silk Road began during the Han Dynasty around 130 BCE.",
+      "passage": "NLI entailment 0.73 | 'The Silk Road derives its name from the highly lucrative trade of silk textiles that were primarily produced in China. T...'"
+    },
+    {
+      "claim_id": "Q7_C02",
+      "claim": "Emperor Wu dispatched Zhang Qian to establish alliances in Central Asia.",
+      "passage": "NLI entailment 0.83 | 'During his reign, Emperor Wu led the Han dynasty through its greatest territorial expansion. At its height, the Empire's...'"
+    },
+    {
+      "claim_id": "Q7_C03",
+      "claim": "The Silk Road network of trade routes connected Chang'an in China to the Mediterranean Sea.",
+      "passage": "NLI contradiction 0.43 | 'Despite the popular imagination, Silk Road was never a singular east-west trade route that linked China to the Mediterra...'"
+    },
+    {
+      "claim_id": "Q7_C04",
+      "claim": "The Silk Road network of trade routes spanned a distance of approximately 6,400 kilometers.",
+      "passage": "NLI entailment 0.58 | 'The Great Silk Road was a network of Asian trade routes active from the second century BCE until the mid-15th century. S...'"
+    },
+    {
+      "claim_id": "Q7_C05",
+      "claim": "Merchants transported Chinese silk westward.",
+      "passage": "NLI entailment 0.60 | 'The Silk Road derives its name from the highly lucrative trade of silk textiles that were primarily produced in China. T...'"
+    },
+    {
+      "claim_id": "Q7_C06",
+      "claim": "Merchants transported Chinese lacquerware westward.",
+      "passage": "NLI inconclusive (entail=0.47, contradict=0.40)"
+    },
+    {
+      "claim_id": "Q7_C07",
+      "claim": "Merchants transported Chinese paper westward.",
+      "passage": "NLI contradiction 0.60 | 'During the Tang dynasty (618\u2013907) paper was folded and sewn into square bags to preserve the flavor of tea. In the same ...'"
+    },
+    {
+      "claim_id": "Q7_C08",
+      "claim": "Merchants received horses from the Roman Empire.",
+      "passage": "NLI contradiction 0.46 | 'During the 1st century BC silk was still a rare commodity in the Roman world; by the 1st century AD this valuable trade ...'"
+    },
+    {
+      "claim_id": "Q7_C09",
+      "claim": "Merchants received glassware from the Roman Empire.",
+      "passage": "NLI inconclusive (entail=0.44, contradict=0.23)"
+    },
+    {
+      "claim_id": "Q7_C10",
+      "claim": "Merchants received grapes from the Roman Empire.",
+      "passage": "NLI inconclusive (entail=0.40, contradict=0.38)"
+    },
+    {
+      "claim_id": "Q7_C11",
+      "claim": "Buddhism spread from India to China during the 1st century CE.",
+      "passage": "NLI entailment 0.55 | 'Around the first century CE, Buddhism was introduced into China by its western neighboring populations during the Han dy...'"
+    },
+    {
+      "claim_id": "Q7_C12",
+      "claim": "Genghis Khan led Mongol conquests in the 13th century.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q7_C13",
+      "claim": "Mongol conquests secured the Silk Road routes.",
+      "passage": "NLI entailment 0.54 | 'The Mongol expansion throughout the Asian continent from around 1207 to 1360 helped bring political stability and re-est...'"
+    },
+    {
+      "claim_id": "Q7_C14",
+      "claim": "The Pax Mongolica increased trade volume.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q7_C15",
+      "claim": "The Black Death plague traveled from Central Asia to Europe in the 14th century.",
+      "passage": "NLI contradiction 0.44 | 'The Black Death was a plague pandemic that occurred in Europe from 1346 to 1353. It was one of the most fatal pandemics ...'"
+    },
+    {
+      "claim_id": "Q7_C16",
+      "claim": "The Ottoman Empire blocked traditional paths to the East in 1453.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q7_C17",
+      "claim": "Maritime trade routes replaced land travel after 1453.",
+      "passage": "NLI contradiction 0.52 | 'This trade, which drove world trade from the end of the Middle Ages well into the Renaissance, ushered in an age of Euro...'"
+    },
+    {
+      "claim_id": "Q9_C01",
+      "claim": "Classical computers use bits to represent data as either a 0 or a 1.",
+      "passage": "NLI inconclusive (entail=0.35, contradict=0.14)"
+    },
+    {
+      "claim_id": "Q9_C02",
+      "claim": "Quantum computers use qubits that exist in superpositions of both states simultaneously.",
+      "passage": "NLI inconclusive (entail=0.31, contradict=0.20)"
+    },
+    {
+      "claim_id": "Q9_C03",
+      "claim": "Quantum systems can perform certain calculations exponentially faster than classical binary systems.",
+      "passage": "NLI inconclusive (entail=0.30, contradict=0.37)"
+    },
+    {
+      "claim_id": "Q9_C04",
+      "claim": "Peter Shor developed an algorithm in 1994 that allows quantum computers to factor large integers efficiently.",
+      "passage": "NLI entailment 0.63 | 'Shor's algorithm is a quantum algorithm for finding the prime factors of an integer. It was developed in 1994 by the Ame...'"
+    },
+    {
+      "claim_id": "Q9_C05",
+      "claim": "Classical computers require sub-exponential time to solve the factoring problems addressed by Peter Shor's algorithm.",
+      "passage": "NLI contradiction 0.61 | 'Not all numbers of a given length are equally hard to factor. The hardest instances of these problems (for currently kno...'"
+    },
+    {
+      "claim_id": "Q9_C06",
+      "claim": "Google claimed quantum supremacy in 2019.",
+      "passage": "NLI contradiction 0.75 | 'This announcement was met with a rebuttal from Google's direct competitor, IBM. IBM contended that the calculation Googl...'"
+    },
+    {
+      "claim_id": "Q9_C07",
+      "claim": "Google used a 53-qubit processor called Sycamore to claim quantum supremacy.",
+      "passage": "NLI entailment 0.71 | 'Sycamore is a transmon superconducting quantum processor created by Google's Artificial Intelligence division. It has 53...'"
+    },
+    {
+      "claim_id": "Q9_C08",
+      "claim": "The Sycamore processor completed a specific sampling task in 200 seconds.",
+      "passage": "NLI contradiction 0.49 | 'However, separate from this debate, the demonstration that Google's Sycamore processor could perform a specific calculat...'"
+    },
+    {
+      "claim_id": "Q9_C09",
+      "claim": "A classical supercomputer would take 10,000 years to complete the sampling task performed by the Sycamore processor.",
+      "passage": "NLI contradiction 0.40 | 'In 2019, Sycamore completed a task in 200 seconds that Google claimed, in a Nature paper, would take a state-of-the-art ...'"
+    },
+    {
+      "claim_id": "Q10_C01",
+      "claim": "Archduke Franz Ferdinand was assassinated on June 28, 1914.",
+      "passage": "NLI entailment 0.74 | 'Archduke Franz Ferdinand of Austria, heir presumptive to the Austro-Hungarian throne, and his wife, Sophie, Duchess of H...'"
+    },
+    {
+      "claim_id": "Q10_C02",
+      "claim": "The assassination of Archduke Franz Ferdinand triggered a series of alliance obligations between European powers.",
+      "passage": "NLI contradiction 0.50 | 'The assassinations, along with the arms race, nationalism, imperialism, militarism of Imperial Germany and the alliance ...'"
+    },
+    {
+      "claim_id": "Q10_C03",
+      "claim": "Germany entered the conflict due to mutual defense treaties.",
+      "passage": "NLI contradiction 0.48 | 'Few historians agreed wholly with his [Fischer's] thesis of a premeditated war to achieve aggressive foreign policy aims...'"
+    },
+    {
+      "claim_id": "Q10_C04",
+      "claim": "Austria-Hungary entered the conflict due to mutual defense treaties.",
+      "passage": "NLI contradiction 0.68 | 'In addition, German diplomacy before, during, and after the Second Balkan War was pro-Greek and pro-Romanian and against...'"
+    },
+    {
+      "claim_id": "Q10_C05",
+      "claim": "Great Britain entered the conflict due to mutual defense treaties.",
+      "passage": "NLI contradiction 0.47 | 'History of the foreign relations of the United Kingdom...'"
+    },
+    {
+      "claim_id": "Q10_C06",
+      "claim": "France entered the conflict due to mutual defense treaties.",
+      "passage": "NLI contradiction 0.58 | 'When the war began in 1914, France could only win if Britain joined with France and Russia to stop Germany. There was no...'"
+    },
+    {
+      "claim_id": "Q10_C07",
+      "claim": "Russia entered the conflict due to mutual defense treaties.",
+      "passage": "NLI contradiction 0.80 | 'Between 1873 and 1887, Russia was allied with Germany and Austria-Hungary in the League of the Three Emperors, and later...'"
+    },
+    {
+      "claim_id": "Q10_C08",
+      "claim": "The war resulted in approximately 20 million deaths.",
+      "passage": "NLI entailment 0.64 | 'The total number of military and civilian casualties in World War I is estimated to be 15 to 22 million deaths and about...'"
+    },
+    {
+      "claim_id": "Q10_C09",
+      "claim": "The war resulted in 21 million wounded soldiers.",
+      "passage": "NLI entailment 0.86 | 'The total number of military and civilian casualties in World War I is estimated to be 15 to 22 million deaths and about...'"
+    },
+    {
+      "claim_id": "Q10_C10",
+      "claim": "The Treaty of Versailles was signed in 1919.",
+      "passage": "NLI entailment 0.68 | 'The Treaty of Versailles was a peace treaty signed on 28 June 1919. As the most important treaty of World War I, it ende...'"
+    },
+    {
+      "claim_id": "Q10_C11",
+      "claim": "The Treaty of Versailles forced Germany to pay 132 billion gold marks in reparations.",
+      "passage": "NLI entailment 0.54 | 'On 5 May 1921, the reparation Commission established the London Schedule of Payments and a final reparation sum of 132 b...'"
+    },
+    {
+      "claim_id": "Q10_C12",
+      "claim": "The conflict led to the collapse of the German empire.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q10_C13",
+      "claim": "The conflict led to the collapse of the Austro-Hungarian empire.",
+      "passage": "NLI entailment 0.63 | 'In the aftermath of the war, the German, Austro-Hungarian, Ottoman, and Russian empires had disappeared. Numerous nation...'"
+    },
+    {
+      "claim_id": "Q10_C14",
+      "claim": "The conflict led to the collapse of the Ottoman empire.",
+      "passage": "NLI entailment 0.64 | 'The partition of the Ottoman Empire (30 October 1918 \u2013 1 November 1922) was a geopolitical event that occurred after Wor...'"
+    },
+    {
+      "claim_id": "Q10_C15",
+      "claim": "The conflict led to the collapse of the Russian empire.",
+      "passage": "NLI contradiction 0.64 | 'After the entry of the Ottoman Empire on the side of the Central Powers in October 1914, Russia was deprived of a major ...'"
+    },
+    {
+      "claim_id": "Q10_C16",
+      "claim": "The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Poland.",
+      "passage": "NLI contradiction 0.46 | 'Lukowski, Jerzy and Zawadzki, Hubert. A Concise History of Poland. Cambridge U. Press, 2nd ed 2006. 408pp....'"
+    },
+    {
+      "claim_id": "Q10_C17",
+      "claim": "The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Czechoslovakia.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q10_C18",
+      "claim": "The collapse of the German, Austro-Hungarian, Ottoman, and Russian empires created Yugoslavia.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q10_C19",
+      "claim": "The League of Nations formed in 1920.",
+      "passage": "NLI entailment 0.71 | 'The League's primary goals were stated in its eponymous Covenant. They included preventing wars through collective secur...'"
+    },
+    {
+      "claim_id": "Q11_C01",
+      "claim": "The World Health Organization reports that air pollution causes approximately 7 million premature deaths globally each year.",
+      "passage": "NLI inconclusive (entail=0.42, contradict=0.36)"
+    },
+    {
+      "claim_id": "Q11_C02",
+      "claim": "The World Health Organization updated its Global Air Quality Guidelines in 2021.",
+      "passage": "NLI entailment 0.58 | 'Along with cardiopulmonary and lung cancer deaths, the chances of which an individual increases their risk of being diag...'"
+    },
+    {
+      "claim_id": "Q11_C03",
+      "claim": "The World Health Organization's Global Air Quality Guidelines lower the recommended levels of fine particulate matter.",
+      "passage": "NLI contradiction 0.41 | 'As required by the Clean Air Act, the United States Environmental Protection Agency (EPA) sets National Ambient Air Qual...'"
+    },
+    {
+      "claim_id": "Q11_C04",
+      "claim": "The Global Air Quality Guidelines state that PM2.5 concentrations should not exceed an annual average of 5 micrograms per cubic meter.",
+      "passage": "NLI inconclusive (entail=0.42, contradict=0.34)"
+    },
+    {
+      "claim_id": "Q11_C05",
+      "claim": "High levels of fine particulate matter cause respiratory infections in human populations.",
+      "passage": "NLI entailment 0.72 | 'Airborne particulate matter can carry microbes into the respiratory system and increase the risk of respiratory infectio...'"
+    },
+    {
+      "claim_id": "Q11_C06",
+      "claim": "High levels of fine particulate matter cause heart disease in human populations.",
+      "passage": "NLI entailment 0.73 | 'Particulate matter is associated with increases in blood pressure, blood clotting, and insulin resistance; damage to the...'"
+    },
+    {
+      "claim_id": "Q11_C07",
+      "claim": "High levels of fine particulate matter cause strokes in human populations.",
+      "passage": "NLI inconclusive (entail=0.48, contradict=0.40)"
+    },
+    {
+      "claim_id": "Q11_C08",
+      "claim": "Ambient air pollution is a primary driver of respiratory infections, heart disease, and strokes.",
+      "passage": "NLI entailment 0.67 | 'Air pollution is an important risk factor for various diseases, such as COPD (a common lung disease), stroke, heart dise...'"
+    },
+    {
+      "claim_id": "Q11_C09",
+      "claim": "Household air pollution from solid fuels is a primary driver of respiratory infections, heart disease, and strokes.",
+      "passage": "NLI entailment 0.56 | 'Indoor combustion, such as for cooking or heating, is a major cause of indoor air pollution and causes significant healt...'"
+    },
+    {
+      "claim_id": "Q11_C10",
+      "claim": "The World Health Organization identifies low- and middle-income countries as the regions with the highest burden of pollution-related mortality.",
+      "passage": "NLI entailment 0.58 | 'Water pollution is a major problem in many developing countries. It requires ongoing evaluation and revision of water re...'"
+    },
+    {
+      "claim_id": "Q11_C11",
+      "claim": "Pollution-related deaths result from the inhalation of toxic chemicals and particles.",
+      "passage": "NLI entailment 0.61 | 'Overall, air pollution causes the deaths of around ca. 7 million people worldwide each year, and is the world's largest ...'"
+    },
+    {
+      "claim_id": "Q11_C12",
+      "claim": "Toxic chemicals and particles enter the bloodstream through the lungs.",
+      "passage": "NLI inconclusive (entail=0.43, contradict=0.30)"
+    },
+    {
+      "claim_id": "Q12_C01",
+      "claim": "The 2020 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.",
+      "passage": "NLI inconclusive (entail=0.49, contradict=0.38)"
+    },
+    {
+      "claim_id": "Q12_C02",
+      "claim": "Low education levels in childhood and adolescence increase the risk of dementia.",
+      "passage": "NLI entailment 0.54 | 'On a global level, people in low-and middle-income countries have fewer available facilities and services, and have grea...'"
+    },
+    {
+      "claim_id": "Q12_C03",
+      "claim": "Hypertension is a midlife risk factor for dementia.",
+      "passage": "NLI entailment 0.88 | 'While the results of studies are somewhat inconsistent, it has been recommended that hypertension in mid-life (45\u201365 yea...'"
+    },
+    {
+      "claim_id": "Q12_C04",
+      "claim": "Obesity is a midlife risk factor for dementia.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q12_C05",
+      "claim": "Diabetes is a midlife risk factor for dementia.",
+      "passage": "NLI entailment 0.50 | 'Insulin resistance in the brain caused by Alzheimer's disease has been termed by some researchers as Type 3 diabetes, th...'"
+    },
+    {
+      "claim_id": "Q12_C06",
+      "claim": "Hearing loss is a midlife risk factor for dementia.",
+      "passage": "NLI entailment 0.63 | 'Hearing loss is an increasing concern, especially in aging populations. The prevalence of hearing loss increases about t...'"
+    },
+    {
+      "claim_id": "Q12_C07",
+      "claim": "Smoking is a midlife risk factor for dementia.",
+      "passage": "NLI inconclusive (entail=0.39, contradict=0.40)"
+    },
+    {
+      "claim_id": "Q12_C08",
+      "claim": "Social isolation is a later life risk factor for dementia.",
+      "passage": "NLI entailment 0.79 | 'Research indicates that perceived social isolation (PSI) is a risk factor for and may contribute to \"poorer overall cogn...'"
+    },
+    {
+      "claim_id": "Q12_C09",
+      "claim": "Physical inactivity is a later life risk factor for dementia.",
+      "passage": "NLI entailment 0.74 | 'In a global report of 2017, nine risk factors for dementia were recognized. These were, lower levels of education, high ...'"
+    },
+    {
+      "claim_id": "Q12_C10",
+      "claim": "Air pollution is a later life risk factor for dementia.",
+      "passage": "NLI entailment 0.76 | 'Air pollution is linked to various diseases of the brain. It increases the risk of dementia....'"
+    },
+    {
+      "claim_id": "Q12_C11",
+      "claim": "The 2020 Lancet Commission reports that treating hypertension and hearing loss provides the largest potential reductions in risk.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q12_C12",
+      "claim": "Treating hypertension and hearing loss provides the largest potential reductions in dementia risk.",
+      "passage": "NLI contradiction 0.43 | 'In the United States in 2017, over 37% of dementia cases were associated with cardiometabolic conditions, though the ris...'"
+    },
+    {
+      "claim_id": "Q12_C13",
+      "claim": "Vascular damage is a causal pathway through which modifiable risk factors contribute to dementia.",
+      "passage": "NLI entailment 0.68 | 'In the United States in 2017, over 37% of dementia cases were associated with cardiometabolic conditions, though the ris...'"
+    },
+    {
+      "claim_id": "Q12_C14",
+      "claim": "Cognitive decline is a causal pathway through which modifiable risk factors contribute to dementia.",
+      "passage": "NLI entailment 0.61 | 'By the 1960s, the link between neurodegenerative diseases and age-related cognitive decline had become more established....'"
+    },
+    {
+      "claim_id": "Q12_C15",
+      "claim": "Addressing the 12 modifiable risk factors can prevent or delay approximately 12 million cases of dementia globally.",
+      "passage": "NLI contradiction 0.62 | 'The number of cases of dementia worldwide in 2021 was estimated at 57 million, with close to 10 million new cases each y...'"
+    },
+    {
+      "claim_id": "Q13_C01",
+      "claim": "The CDC recommends a specific immunization schedule for children from birth through age 18.",
+      "passage": "NLI entailment 0.55 | 'CDC 2013 Recommended Immunizations for Children from Birth Through 6 Years Old...'"
+    },
+    {
+      "claim_id": "Q13_C02",
+      "claim": "The CDC immunization schedule includes vaccines for polio.",
+      "passage": "NLI entailment 0.62 | '\"Polio Vaccine Information Statement\". U.S. Centers for Disease Control and Prevention (CDC). 24 July 2025....'"
+    },
+    {
+      "claim_id": "Q13_C03",
+      "claim": "The CDC immunization schedule includes vaccines for measles.",
+      "passage": "NLI entailment 0.54 | 'CDC.gov \u2013 'Overview of Vaccine Safety', National Immunization Program...'"
+    },
+    {
+      "claim_id": "Q13_C04",
+      "claim": "The CDC immunization schedule includes vaccines for mumps.",
+      "passage": "NLI entailment 0.63 | 'Measles-Mumps-Rubella Vaccine at the U.S. National Library of Medicine Medical Subject Headings (MeSH)...'"
+    },
+    {
+      "claim_id": "Q13_C05",
+      "claim": "The CDC immunization schedule includes vaccines for rubella.",
+      "passage": "NLI entailment 0.60 | 'Rubella Vaccine at the U.S. National Library of Medicine Medical Subject Headings (MeSH)...'"
+    },
+    {
+      "claim_id": "Q13_C06",
+      "claim": "Infants typically receive their first dose of the Hepatitis B vaccine within 24 hours of birth.",
+      "passage": "NLI entailment 0.73 | 'Hepatitis B vaccine is a vaccine that prevents hepatitis B. The first dose is recommended within 24 hours of birth with ...'"
+    },
+    {
+      "claim_id": "Q13_C07",
+      "claim": "The CDC updates the immunization recommendations annually.",
+      "passage": "NLI contradiction 0.55 | 'In the United States, a temperate country, the Centers for Disease Control and Prevention (CDC) do not require state hea...'"
+    },
+    {
+      "claim_id": "Q13_C08",
+      "claim": "Healthcare providers use the CDC guidelines to determine the timing for each injection.",
+      "passage": "NLI entailment 0.52 | 'UN World Health Organization: \"Immunization schedules by antigens\". apps.who.int....'"
+    },
+    {
+      "claim_id": "Q13_C09",
+      "claim": "Healthcare providers use the CDC guidelines to determine the dosage for each injection.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q13_C10",
+      "claim": "The current immunization schedule is accessible on the official CDC website.",
+      "passage": "NLI entailment 0.58 | 'National Center for Immunization and Respiratory Diseases. \"CDC National Immunization Program\". (U.S.) Centers for Disea...'"
+    },
+    {
+      "claim_id": "Q14_C01",
+      "claim": "The World Bank reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.",
+      "passage": "NLI inconclusive (entail=0.42, contradict=0.34)"
+    },
+    {
+      "claim_id": "Q14_C02",
+      "claim": "The global extreme poverty rate remained stagnant at 8.4% of the population.",
+      "passage": "NLI contradiction 0.50 | 'This reduction in extreme poverty took place most notably in China, India, Indonesia, and Pakistan. These five countries...'"
+    },
+    {
+      "claim_id": "Q14_C03",
+      "claim": "The global extreme poverty rate of 8.4% represents approximately 685 million people living on less than $2.15 per day.",
+      "passage": "NLI entailment 0.55 | 'Extreme poverty mainly refers to an income below the international poverty line of $3 per day in 2025 ($2.99 in 2025 dol...'"
+    },
+    {
+      "claim_id": "Q14_C04",
+      "claim": "The COVID-19 pandemic pushed an estimated 70 million to 100 million additional people into extreme poverty between 2020 and 2022.",
+      "passage": "NLI contradiction 0.60 | 'On 11 March 2020, the outbreak of COVID-19 was declared a pandemic by the World Health Organization (WHO). By 5 July 202...'"
+    },
+    {
+      "claim_id": "Q14_C05",
+      "claim": "Conflict and climate shocks in Sub-Saharan Africa caused a 10% increase in food insecurity during 2023.",
+      "passage": "NLI contradiction 0.47 | 'Food insecurity goes beyond hunger; it includes people who do not have regular access to nutritious and sufficient food,...'"
+    },
+    {
+      "claim_id": "Q14_C06",
+      "claim": "High inflation rates in low-income countries reduced the purchasing power of households by an average of 5% in 2022.",
+      "passage": "NLI contradiction 0.43 | 'However, since the 1980s, inflation has been held low and stable in countries with independent central banks. This has l...'"
+    },
+    {
+      "claim_id": "Q14_C07",
+      "claim": "Rising fuel costs caused increased malnutrition in rural regions.",
+      "passage": "NLI contradiction 0.50 | 'Many countries experience ongoing food shortages and distribution problems. These result in chronic and often widespread...'"
+    },
+    {
+      "claim_id": "Q14_C08",
+      "claim": "Debt distress exists in 60% of low-income countries.",
+      "passage": "NLI inconclusive (entail=0.48, contradict=0.32)"
+    },
+    {
+      "claim_id": "Q14_C09",
+      "claim": "Debt distress in 60% of low-income countries limits government spending on healthcare and education.",
+      "passage": "NLI contradiction 0.53 | 'Due to the 2008 financial crisis, central banks in the U.S. and Europe lowered interest rates, leading to low interest r...'"
+    },
+    {
+      "claim_id": "Q15_C01",
+      "claim": "The International Monetary Fund is a specialized agency of the United Nations.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q15_C03",
+      "claim": "The International Monetary Fund was established in 1944.",
+      "passage": "NLI entailment 0.70 | 'Established in July 1944 at the Bretton Woods Conference based on the ideas of Harry Dexter White and John Maynard Keyne...'"
+    },
+    {
+      "claim_id": "Q15_C04",
+      "claim": "The International Monetary Fund was established following the Bretton Woods Conference.",
+      "passage": "NLI entailment 0.83 | 'The conference was held from July 1 to 22, 1944. Agreements were signed that, after legislative ratification by member g...'"
+    },
+    {
+      "claim_id": "Q15_C05",
+      "claim": "The International Monetary Fund provides temporary loans to member nations to resolve balance of payments problems.",
+      "passage": "NLI entailment 0.76 | 'The International Monetary Fund (IMF) is an international financial institution and a specialized agency of the United N...'"
+    },
+    {
+      "claim_id": "Q15_C06",
+      "claim": "The International Monetary Fund monitors the economic and financial policies of its members.",
+      "passage": "NLI entailment 0.68 | 'The board of governors is advised by the International Monetary and Financial Committee and the Development Committee. T...'"
+    },
+    {
+      "claim_id": "Q16_C02",
+      "claim": "China is a permanent member of the United Nations Security Council.",
+      "passage": "NLI contradiction 0.51 | 'Permanent members of the United Nations Security Council...'"
+    },
+    {
+      "claim_id": "Q16_C03",
+      "claim": "France is a permanent member of the United Nations Security Council.",
+      "passage": "NLI entailment 0.64 | 'The permanent members of the United Nations Security Council (also known as the Permanent Five, Big Five, or P5) are the...'"
+    },
+    {
+      "claim_id": "Q16_C04",
+      "claim": "The Russian Federation is a permanent member of the United Nations Security Council.",
+      "passage": "NLI entailment 0.66 | 'The permanent members of the United Nations Security Council (also known as the Permanent Five, Big Five, or P5) are the...'"
+    },
+    {
+      "claim_id": "Q16_C05",
+      "claim": "The United Kingdom is a permanent member of the United Nations Security Council.",
+      "passage": "NLI entailment 0.73 | 'The permanent members of the United Nations Security Council (also known as the Permanent Five, Big Five, or P5) are the...'"
+    },
+    {
+      "claim_id": "Q16_C06",
+      "claim": "The United States is a permanent member of the United Nations Security Council.",
+      "passage": "NLI entailment 0.61 | 'The permanent members of the United Nations Security Council (also known as the Permanent Five, Big Five, or P5) are the...'"
+    },
+    {
+      "claim_id": "Q16_C07",
+      "claim": "China, France, the Russian Federation, the United Kingdom, and the United States were the primary victors of World War II.",
+      "passage": "NLI contradiction 0.53 | 'In December 1941 after the attack on Pearl Harbor, China formally declared war on Japan, as well as Germany and Italy. A...'"
+    },
+    {
+      "claim_id": "Q16_C13",
+      "claim": "A United Nations Security Council resolution requires the absence of a veto from any permanent member to pass.",
+      "passage": "NLI inconclusive (entail=0.38, contradict=0.16)"
+    },
+    {
+      "claim_id": "Q17_C01",
+      "claim": "CRISPR-Cas9 is a genome editing technology derived from a prokaryotic adaptive immune system.",
+      "passage": "NLI entailment 0.59 | 'CRISPR gene editing is a revolutionary technology that allows for precise, targeted modifications to the DNA of living o...'"
+    },
+    {
+      "claim_id": "Q17_C02",
+      "claim": "Jennifer Doudna and Emmanuelle Charpentier published the foundational mechanism for CRISPR-Cas9 in 2012.",
+      "passage": "NLI contradiction 0.47 | 'Cas9 (or \"CRISPR-associated protein 9\") is an enzyme that uses CRISPR sequences as a guide to recognize and open up spec...'"
+    },
+    {
+      "claim_id": "Q17_C03",
+      "claim": "The CRISPR-Cas9 system consists of the Cas9 protein and a guide RNA.",
+      "passage": "NLI entailment 0.71 | 'CRISPR-Cas9 genome editing uses a Type II CRISPR system. This system includes a ribonucleoprotein (RNP), consisting of C...'"
+    },
+    {
+      "claim_id": "Q17_C04",
+      "claim": "The Cas9 protein creates a double-strand break in DNA.",
+      "passage": "NLI contradiction 0.49 | 'Another type of DNA double-strand breaks originates from the DNA heat-sensitive or heat-labile sites. These DNA sites ar...'"
+    },
+    {
+      "claim_id": "Q17_C06",
+      "claim": "The guide RNA sequence matches a specific target DNA site.",
+      "passage": "NLI entailment 0.64 | 'In 2012, Jinek et al. fused crRNA and tracrRNA into a single-guide RNA, simplifying Cas9 targeting. \u0160ik\u0161nys, et al., rep...'"
+    },
+    {
+      "claim_id": "Q17_C07",
+      "claim": "The guide RNA guides the Cas9 protein to a genomic location through complementary base pairing.",
+      "passage": "NLI entailment 0.57 | 'In 2012, Jinek et al. fused crRNA and tracrRNA into a single-guide RNA, simplifying Cas9 targeting. \u0160ik\u0161nys, et al., rep...'"
+    },
+    {
+      "claim_id": "Q17_C08",
+      "claim": "The cell uses internal repair mechanisms to delete or insert genetic material after the Cas9 protein cuts the DNA.",
+      "passage": "NLI entailment 0.70 | 'CRISPR gene editing is a revolutionary technology that allows for precise, targeted modifications to the DNA of living o...'"
+    },
+    {
+      "claim_id": "Q18_C02",
+      "claim": "The Paris Agreement was adopted at the COP21 conference.",
+      "passage": "NLI contradiction 0.43 | 'The 2015 United Nations Climate Change Conference, COP 21 or CMP 11 was held in Paris, France, from 30 November to 12 De...'"
+    },
+    {
+      "claim_id": "Q18_C03",
+      "claim": "The Paris Agreement was adopted on December 12, 2015.",
+      "passage": "NLI contradiction 0.49 | 'The Paris Agreement (also called the Paris Accords or Paris Climate Accords) is an international treaty on climate chang...'"
+    },
+    {
+      "claim_id": "Q18_C05",
+      "claim": "The Paris Agreement requires each party to prepare Nationally Determined Contributions to reduce greenhouse gas emissions.",
+      "passage": "NLI entailment 0.68 | 'The nationally determined contributions (NDCs) are commitments that countries make to reduce their greenhouse gas emissi...'"
+    },
+    {
+      "claim_id": "Q18_C07",
+      "claim": "The Paris Agreement mandates a transparency framework to track progress through regular reporting of emissions and climate actions.",
+      "passage": "NLI entailment 0.91 | 'The Enhanced Transparency Framework (ETF) specifies how parties to the Paris Agreement, which includes almost every coun...'"
+    },
+    {
+      "claim_id": "Q18_C08",
+      "claim": "The commitments in the Paris Agreement aim to reach a peak of global emissions.",
+      "passage": "NLI contradiction 0.42 | 'World leaders have lauded the agreement. However, there is debate about its effectiveness, with some environmentalists a...'"
+    },
+    {
+      "claim_id": "Q18_C09",
+      "claim": "The commitments in the Paris Agreement aim to achieve climate neutrality by 2050.",
+      "passage": "NLI contradiction 0.60 | 'In 2015 all UN countries negotiated the Paris Agreement, which aims to keep global warming well below 2.0 \u00b0C and contain...'"
+    },
+    {
+      "claim_id": "Q19_C01",
+      "claim": "The World Health Organization reports that approximately one billion people worldwide live with a mental disorder.",
+      "passage": "NLI entailment 0.54 | 'Mental disorders have been found to be common, with over a third of people in most countries reporting sufficient criter...'"
+    },
+    {
+      "claim_id": "Q19_C02",
+      "claim": "Depression and anxiety disorders are the most common mental health conditions globally.",
+      "passage": "NLI contradiction 0.52 | 'The prevalence of mental disorders has been studied around the world, providing estimates on how common mental disorders...'"
+    },
+    {
+      "claim_id": "Q19_C03",
+      "claim": "Depression and anxiety disorders cause disability.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q19_C04",
+      "claim": "Depression and anxiety disorders cause loss of productive years.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q19_C05",
+      "claim": "Low- and middle-income countries bear the highest burden of depression and anxiety disorders.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q19_C06",
+      "claim": "Low- and middle-income countries have the lowest access to care for depression and anxiety disorders.",
+      "passage": "NLI inconclusive (entail=0.46, contradict=0.39)"
+    },
+    {
+      "claim_id": "Q19_C07",
+      "claim": "The WHO World Mental Health Report 2022 emphasizes that mental health gaps are driven by insufficient funding and systemic neglect.",
+      "passage": "NLI inconclusive (entail=0.47, contradict=0.27)"
+    },
+    {
+      "claim_id": "Q19_C08",
+      "claim": "Mental health gaps are driven by insufficient funding.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q19_C09",
+      "claim": "Mental health gaps are driven by systemic neglect.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q19_C10",
+      "claim": "Insufficient funding and systemic neglect lead to higher rates of untreated psychosis.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q19_C11",
+      "claim": "Insufficient funding and systemic neglect lead to higher rates of untreated severe depressive episodes.",
+      "passage": "NLI inconclusive (entail=0.40, contradict=0.35)"
+    },
+    {
+      "claim_id": "Q19_C12",
+      "claim": "Untreated psychosis and severe depressive episodes increase the risk of premature mortality through suicide.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q19_C13",
+      "claim": "Untreated psychosis and severe depressive episodes increase the risk of premature mortality through comorbid physical health failures.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q20_C01",
+      "claim": "UNICEF reports that approximately 149 million children under five suffered from stunting in 2022.",
+      "passage": "NLI inconclusive (entail=0.47, contradict=0.37)"
+    },
+    {
+      "claim_id": "Q20_C02",
+      "claim": "Stunting results from chronic malnutrition.",
+      "passage": "NLI contradiction 0.41 | 'In developed countries, the diseases of malnutrition are most often associated with nutritional imbalances or excessive ...'"
+    },
+    {
+      "claim_id": "Q20_C03",
+      "claim": "Stunting results from poor maternal health.",
+      "passage": "NLI entailment 0.91 | 'Poor maternal nutrition during pregnancy and breastfeeding can lead to stunted growth of children. Proper nutrition for ...'"
+    },
+    {
+      "claim_id": "Q20_C05",
+      "claim": "Wasting in children under five in 2023 was caused by acute malnutrition.",
+      "passage": "NLI inconclusive (entail=0.47, contradict=0.28)"
+    },
+    {
+      "claim_id": "Q20_C06",
+      "claim": "Conflict drives rates of food insecurity in the Sahel.",
+      "passage": "NLI entailment 0.53 | 'Sought to maintain influence in the Sahel through political or economic pressure...'"
+    },
+    {
+      "claim_id": "Q20_C07",
+      "claim": "Climate shocks drive rates of food insecurity in the Sahel.",
+      "passage": "NLI inconclusive (entail=0.39, contradict=0.37)"
+    },
+    {
+      "claim_id": "Q20_C08",
+      "claim": "Inflation reduces household purchasing power.",
+      "passage": "NLI entailment 0.60 | 'If one's income remains constant but prices rise, their purchasing power decreases. Inflation does not always result in ...'"
+    },
+    {
+      "claim_id": "Q20_C09",
+      "claim": "Debt crises reduce household purchasing power.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q20_C10",
+      "claim": "Economic pressures prevent families from accessing nutrient-dense foods.",
+      "passage": "NLI entailment 0.60 | 'Food access refers to the affordability and allocation of food, as well as the preferences of individuals and households...'"
+    },
+    {
+      "claim_id": "Q20_C11",
+      "claim": "Poor nutrition causes permanent cognitive impairment in young children.",
+      "passage": "NLI contradiction 0.55 | 'Cognitive impairments may be caused by many different factors including environmental factors or injuries to the brain (...'"
+    },
+    {
+      "claim_id": "Q20_C12",
+      "claim": "Poor nutrition causes physical growth failure in young children.",
+      "passage": "NLI entailment 0.64 | 'Stunted growth in children has the following public health impacts:...'"
+    },
+    {
+      "claim_id": "Q21_C01",
+      "claim": "The World Health Organization reports that the prevalence of diabetes has risen over the past three decades.",
+      "passage": "NLI entailment 0.65 | 'Over the past three decades, the burden of diabetes in terms of deaths and Disability-adjusted life year (DALYs) has mor...'"
+    },
+    {
+      "claim_id": "Q21_C03",
+      "claim": "The increase in diabetes prevalence is linked to rising rates of overweight and obesity globally.",
+      "passage": "NLI entailment 0.65 | 'There has been an increase in obesity-related medical problems, including type II diabetes, hypertension, cardiovascular...'"
+    },
+    {
+      "claim_id": "Q21_C05",
+      "claim": "Many people with diabetes remain undiagnosed.",
+      "passage": "NLI entailment 0.71 | 'India has the second highest number of people with diabetes. Diabetes currently affects more than 74 million Indians, wh...'"
+    },
+    {
+      "claim_id": "Q21_C06",
+      "claim": "Many people with diabetes do not receive treatment.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q21_C07",
+      "claim": "Diabetes leads to blindness.",
+      "passage": "NLI entailment 0.76 | 'Diabetic retinopathy (also known as diabetic eye disease) is a medical condition in which damage occurs to the retina du...'"
+    },
+    {
+      "claim_id": "Q21_C08",
+      "claim": "Diabetes leads to heart failure.",
+      "passage": "NLI contradiction 0.45 | 'There are a number of medications and other health problems that can predispose to diabetes. Some of the medications inc...'"
+    },
+    {
+      "claim_id": "Q21_C09",
+      "claim": "Diabetes leads to kidney failure.",
+      "passage": "NLI entailment 0.64 | 'Diabetic nephropathy in type 2 diabetes can be more difficult to predict because the onset of diabetes is not usually we...'"
+    },
+    {
+      "claim_id": "Q21_C10",
+      "claim": "Diabetes is a leading cause of death globally.",
+      "passage": "NLI entailment 0.70 | 'The number of people worldwide diagnosed as living with diabetes has increased sharply in recent decades, from 200 milli...'"
+    },
+    {
+      "claim_id": "Q22_C01",
+      "claim": "The FAO reported in 2023 that global food insecurity increased during 2022.",
+      "passage": "NLI entailment 0.77 | 'There has been a global increase in food insecurity and hunger between 2011 and 2020. In 2015, 795 million people (about...'"
+    },
+    {
+      "claim_id": "Q22_C03",
+      "claim": "The FAO report attributed the rise in food insecurity to the combined effects of conflict, economic shocks, and climate extremes.",
+      "passage": "NLI entailment 0.67 | 'In 2023, the Global Report on Food Crises revealed that acute hunger affected approximately 282 million people across 59...'"
+    },
+    {
+      "claim_id": "Q22_C04",
+      "claim": "The war in Ukraine disrupted global grain exports.",
+      "passage": "NLI entailment 0.50 | 'Disruptions to the grain and oilseed sectors of Ukraine were thought inevitable. On the eve of the invasion, an estimate...'"
+    },
+    {
+      "claim_id": "Q22_C05",
+      "claim": "The war in Ukraine disrupted global fertilizer exports.",
+      "passage": "NLI entailment 0.68 | 'Europe's energy crisis and the 2022 Russian invasion of Ukraine caused significant price increases for European fertiliz...'"
+    },
+    {
+      "claim_id": "Q22_C06",
+      "claim": "Supply chain disruptions caused food prices to rise globally.",
+      "passage": "NLI entailment 0.77 | 'By March 2022, the Russian invasion of Ukraine caused food and energy prices to begin climbing in the United States and ...'"
+    },
+    {
+      "claim_id": "Q22_C07",
+      "claim": "Droughts destroyed crops in multiple regions.",
+      "passage": "NLI entailment 0.68 | 'Droughts can cause land degradation and loss of soil moisture, resulting in the destruction of cropland productivity. Th...'"
+    },
+    {
+      "claim_id": "Q22_C08",
+      "claim": "Floods destroyed crops in multiple regions.",
+      "passage": "NLI contradiction 0.53 | '309 people died and 600,000 others were displaced by floods in the province. Among them were five children in Upper Dir ...'"
+    },
+    {
+      "claim_id": "Q22_C09",
+      "claim": "Conflict, economic shocks, and climate extremes pushed millions more people into acute food insecurity.",
+      "passage": "NLI entailment 0.80 | 'In 2023, the Global Report on Food Crises revealed that acute hunger affected approximately 282 million people across 59...'"
+    },
+    {
+      "claim_id": "Q23_C01",
+      "claim": "On October 14, 1962, a United States U-2 spy plane photographed Soviet medium-range ballistic missiles in Cuba.",
+      "passage": "NLI entailment 0.63 | 'When reconnaissance missions were permitted again, on 9 October 1962, poor weather kept the planes from flying. The US f...'"
+    },
+    {
+      "claim_id": "Q23_C02",
+      "claim": "President John F. Kennedy convened the Executive Committee of the National Security Council.",
+      "passage": "NLI entailment 0.59 | 'The Executive Committee of the National Security Council (commonly referred to as simply the Executive Committee or ExCo...'"
+    },
+    {
+      "claim_id": "Q23_C03",
+      "claim": "The purpose of the Executive Committee of the National Security Council meeting was to determine a response.",
+      "passage": "NLI inconclusive (entail=0.41, contradict=0.32)"
+    },
+    {
+      "claim_id": "Q23_C04",
+      "claim": "On October 22, John F. Kennedy announced a naval quarantine of Cuba.",
+      "passage": "NLI entailment 0.53 | 'A U-2 spy plane captured photographic evidence of medium- and long-range launch facilities in October. US president John...'"
+    },
+    {
+      "claim_id": "Q23_C05",
+      "claim": "The goal of the naval quarantine of Cuba was to prevent further Soviet shipments.",
+      "passage": "NLI entailment 0.76 | 'Blockade: Use the US Navy to block any missiles from arriving in Cuba....'"
+    },
+    {
+      "claim_id": "Q23_C06",
+      "claim": "Soviet Premier Nikita Khrushchev sent a letter on October 26.",
+      "passage": "NLI inconclusive (entail=0.35, contradict=0.39)"
+    },
+    {
+      "claim_id": "Q23_C07",
+      "claim": "Nikita Khrushchev offered in the October 26 letter to remove the missiles if the United States promised not to invade Cuba.",
+      "passage": "NLI contradiction 0.53 | 'On 27 October, Khrushchev also received a letter from Castro, what is now known as the Armageddon Letter (dated the day ...'"
+    },
+    {
+      "claim_id": "Q23_C08",
+      "claim": "The United States agreed to remove American missiles from Turkey.",
+      "passage": "NLI entailment 0.58 | 'The Cuban Missile Crisis was solved in part by a secret agreement between John F. Kennedy and Nikita Khrushchev. The Ken...'"
+    },
+    {
+      "claim_id": "Q23_C09",
+      "claim": "The removal of American missiles from Turkey was part of the deal with Nikita Khrushchev.",
+      "passage": "NLI entailment 0.56 | 'These compromises embarrassed Khrushchev and the Soviet Union because the withdrawal of US missiles from Italy and Turke...'"
+    },
+    {
+      "claim_id": "Q23_C10",
+      "claim": "Nikita Khrushchev ordered the dismantling of the missiles on October 28.",
+      "passage": "NLI entailment 0.76 | 'With this background, when Khrushchev heard of Kennedy's threats as relayed by Robert Kennedy to Soviet Ambassador Dobry...'"
+    },
+    {
+      "claim_id": "Q24_C01",
+      "claim": "Marie Curie was born Maria Sk\u0142odowska.",
+      "passage": "NLI inconclusive (entail=0.47, contradict=0.32)"
+    },
+    {
+      "claim_id": "Q24_C02",
+      "claim": "Marie Curie was born in 1867.",
+      "passage": "NLI contradiction 0.63 | 'Entities that have been named after Marie Curie include:...'"
+    },
+    {
+      "claim_id": "Q24_C03",
+      "claim": "Marie Curie was born in Warsaw, Poland.",
+      "passage": "NLI contradiction 0.49 | 'In 1956, after a final convalescent period in the French Alps, Joliot-Curie was admitted to the Curie Hospital in Paris,...'"
+    },
+    {
+      "claim_id": "Q24_C04",
+      "claim": "Marie Curie moved to Paris in 1891.",
+      "passage": "NLI contradiction 0.54 | 'Pierre Curie (15 May 1859 \u2013 19 April 1906) was a French physicist and chemist, and a pioneer in crystallography and magn...'"
+    },
+    {
+      "claim_id": "Q24_C05",
+      "claim": "Marie Curie studied physics at the Sorbonne.",
+      "passage": "NLI contradiction 0.52 | 'Sorbonne University is one of the most sought after universities by students and researchers from France, Europe, and th...'"
+    },
+    {
+      "claim_id": "Q24_C06",
+      "claim": "Marie Curie studied mathematics at the Sorbonne.",
+      "passage": "NLI contradiction 0.50 | 'Sorbonne University is one of the most sought after universities by students and researchers from France, Europe, and th...'"
+    },
+    {
+      "claim_id": "Q24_C07",
+      "claim": "Marie Curie and Pierre Curie discovered the element polonium in 1898.",
+      "passage": "NLI entailment 0.77 | 'Tentatively called \"radium F\", polonium was discovered by Marie and Pierre Curie in July 1898, and was named after Marie...'"
+    },
+    {
+      "claim_id": "Q24_C08",
+      "claim": "Marie Curie and Pierre Curie identified the element radium in 1898.",
+      "passage": "NLI entailment 0.68 | 'Radium, in the form of radium chloride, was discovered by Marie and Pierre Curie in 1898 from ore mined at J\u00e1chymov. The...'"
+    },
+    {
+      "claim_id": "Q24_C09",
+      "claim": "Marie Curie received the Nobel Prize in Physics in 1903.",
+      "passage": "NLI entailment 0.72 | 'Nobel Prize in Physics (1903, with her husband Pierre Curie and Henri Becquerel)...'"
+    },
+    {
+      "claim_id": "Q24_C10",
+      "claim": "Marie Curie received the Nobel Prize in Physics for her research on radiation.",
+      "passage": "NLI contradiction 0.53 | 'As one of the most famous scientists in history, Marie Curie has become an icon in the scientific world and has received...'"
+    },
+    {
+      "claim_id": "Q24_C11",
+      "claim": "Marie Curie won the Nobel Prize in Chemistry in 1911.",
+      "passage": "NLI entailment 0.56 | 'Maria Salomea Sk\u0142odowska Curie, better known as Marie Curie (7 November 1867 \u2013 4 July 1934) was a Polish and naturalised...'"
+    },
+    {
+      "claim_id": "Q24_C12",
+      "claim": "Marie Curie won the Nobel Prize in Chemistry for isolating pure radium.",
+      "passage": "NLI entailment 0.61 | 'International recognition for her work had been growing to new heights, and the Royal Swedish Academy of Sciences, overc...'"
+    },
+    {
+      "claim_id": "Q24_C13",
+      "claim": "Marie Curie died in 1934.",
+      "passage": "NLI entailment 0.84 | 'Curie visited Poland for the last time in early 1934. A few months later, on 4 July 1934, she died aged 66 at the Sancel...'"
+    },
+    {
+      "claim_id": "Q24_C14",
+      "claim": "Marie Curie died from aplastic anemia.",
+      "passage": "NLI entailment 0.87 | 'Curie visited Poland for the last time in early 1934. A few months later, on 4 July 1934, she died aged 66 at the Sancel...'"
+    },
+    {
+      "claim_id": "Q24_C15",
+      "claim": "Aplastic anemia in Marie Curie was caused by prolonged exposure to ionizing radiation.",
+      "passage": "NLI entailment 0.84 | 'Both the Curies experienced radium burns, both accidentally and voluntarily, and were exposed to extensive doses of radi...'"
+    },
+    {
+      "claim_id": "Q25_C01",
+      "claim": "The U.S. Department of Defense established ARPANET in 1969.",
+      "passage": "NLI entailment 0.53 | 'The Advanced Research Projects Agency Network (ARPANET) was the first wide-area packet-switched network with distributed...'"
+    },
+    {
+      "claim_id": "Q25_C03",
+      "claim": "Vint Cerf and Bob Kahn developed the TCP/IP protocols in 1974.",
+      "passage": "NLI contradiction 0.47 | 'TCP was standardized in January 1980 as RFC 761. About 315 Internet hosts advertised TCP support by 1983, with only a po...'"
+    },
+    {
+      "claim_id": "Q25_C04",
+      "claim": "The TCP/IP protocols allow different networks to communicate.",
+      "passage": "NLI entailment 0.73 | 'The TCP/IP Guide \u2013 A comprehensive look at the protocols and the procedure and processes involved...'"
+    },
+    {
+      "claim_id": "Q25_C05",
+      "claim": "ARPANET adopted TCP/IP on January 1, 1983.",
+      "passage": "NLI entailment 0.53 | 'In March 1982, the US Department of Defense declared TCP/IP as the standard for all military computer networking. In the...'"
+    },
+    {
+      "claim_id": "Q25_C06",
+      "claim": "Tim Berners-Lee invented the World Wide Web at CERN in 1989.",
+      "passage": "NLI inconclusive (entail=0.47, contradict=0.39)"
+    },
+    {
+      "claim_id": "Q25_C07",
+      "claim": "Tim Berners-Lee combined HTML, HTTP, and URLs to invent the World Wide Web.",
+      "passage": "NLI entailment 0.71 | 'Sir Timothy John Berners-Lee (born 8 June 1955), also known as TimBL, is an English computer scientist best known as the...'"
+    },
+    {
+      "claim_id": "Q25_C08",
+      "claim": "The National Science Foundation Network expanded internet access to academic institutions throughout the 1980s.",
+      "passage": "NLI entailment 0.57 | 'Following the deployment of the Computer Science Network (CSNET), a network that provided Internet services to academic ...'"
+    },
+    {
+      "claim_id": "Q25_C09",
+      "claim": "Marc Andreessen released the Mosaic web browser in 1993.",
+      "passage": "NLI entailment 0.84 | 'Marc Andreessen's realization of Mosaic, based on the work of Berners-Lee and the hypertext theorists before him, is gen...'"
+    },
+    {
+      "claim_id": "Q25_C10",
+      "claim": "The Mosaic web browser enabled the display of images alongside text.",
+      "passage": "NLI entailment 0.73 | 'Mosaic is not the first web browser for Microsoft Windows; this is Thomas R. Bruce's little-known Cello. The Unix versio...'"
+    },
+    {
+      "claim_id": "Q25_C11",
+      "claim": "Commercial restrictions on the internet ended in 1995.",
+      "passage": "NLI contradiction 0.43 | 'Initially, as with its predecessor networks, the system that would evolve into the Internet was primarily for government...'"
+    },
+    {
+      "claim_id": "Q25_C12",
+      "claim": "The end of commercial restrictions on the internet in 1995 led to the rise of private internet service providers.",
+      "passage": "NLI entailment 0.54 | 'In the late 1970s, national and international public data networks emerged based on the X.25 protocol, designed by R\u00e9mi ...'"
+    },
+    {
+      "claim_id": "Q26_C01",
+      "claim": "Traditional vaccines introduce weakened or inactivated pathogens to trigger an immune response.",
+      "passage": "NLI entailment 0.82 | 'Traditional vaccines stimulate an antibody response by injecting either antigens, an attenuated (weakened) virus, an ina...'"
+    },
+    {
+      "claim_id": "Q26_C02",
+      "claim": "mRNA vaccines provide a synthetic sequence of messenger RNA that instructs cells to produce a specific viral protein.",
+      "passage": "NLI entailment 0.74 | 'An mRNA vaccine is a type of vaccine that uses a copy of a molecule called messenger RNA (mRNA) to produce an immune res...'"
+    },
+    {
+      "claim_id": "Q26_C03",
+      "claim": "The Pfizer-BioNTech vaccine used mRNA to produce the SARS-CoV-2 spike protein in 2020.",
+      "passage": "NLI contradiction 0.43 | 'The Pfizer\u2013BioNTech COVID-19 vaccine, sold under the brand name Comirnaty, is an mRNA-based COVID-19 vaccine developed b...'"
+    },
+    {
+      "claim_id": "Q26_C04",
+      "claim": "The Moderna vaccine used mRNA to produce the SARS-CoV-2 spike protein in 2020.",
+      "passage": "NLI inconclusive (entail=0.46, contradict=0.39)"
+    },
+    {
+      "claim_id": "Q26_C05",
+      "claim": "mRNA is encapsulated in lipid nanoparticles to enter human cells.",
+      "passage": "NLI entailment 0.57 | 'Sometimes the term \"LNP\" describes all lipid-based nanoparticles. In specific applications, LNPs describe a specific typ...'"
+    },
+    {
+      "claim_id": "Q26_C06",
+      "claim": "Ribosomes read the mRNA sequence to synthesize the spike protein.",
+      "passage": "NLI contradiction 0.43 | 'The later reading frames encode the four major structural proteins: spike, envelope, membrane, and nucleocapsid. Intersp...'"
+    },
+    {
+      "claim_id": "Q26_C07",
+      "claim": "The synthesis of the spike protein triggers the production of antibodies.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "Q26_C08",
+      "claim": "mRNA vaccines use genetic instructions instead of the actual virus.",
+      "passage": "NLI entailment 0.72 | 'An mRNA vaccine is a type of vaccine that uses a copy of a molecule called messenger RNA (mRNA) to produce an immune res...'"
+    },
+    {
+      "claim_id": "B3_01_C01",
+      "claim": "France began construction of the Panama Canal in 1881.",
+      "passage": "NLI contradiction 0.48 | 'The construction of the canal was completed in 1914, 401 years after Panama was first crossed overland by the Europeans ...'"
+    },
+    {
+      "claim_id": "B3_01_C02",
+      "claim": "Ferdinand de Lesseps led the French construction of the Panama Canal.",
+      "passage": "NLI contradiction 0.45 | 'In May 1879, a congress of 136 delegates (including Lesseps) assembled in the rooms of the Soci\u00e9t\u00e9 de g\u00e9ographie in Pari...'"
+    },
+    {
+      "claim_id": "B3_01_C03",
+      "claim": "The French effort to build the Panama Canal failed by 1889.",
+      "passage": "NLI contradiction 0.65 | 'Construction of the canal began on 1 January 1881, with digging at Culebra beginning on 22 January. A large labor force ...'"
+    },
+    {
+      "claim_id": "B3_01_C04",
+      "claim": "Yellow fever and malaria caused over 20,000 deaths during the French effort to build the Panama Canal.",
+      "passage": "NLI inconclusive (entail=0.46, contradict=0.29)"
+    },
+    {
+      "claim_id": "B3_01_C05",
+      "claim": "The United States took over the Panama Canal project in 1904.",
+      "passage": "NLI entailment 0.57 | 'By the time the United States took control of the Panama Canal project on May 4, 1904, the Isthmus of Panama was notorio...'"
+    },
+    {
+      "claim_id": "B3_01_C06",
+      "claim": "The United States supported Panamanian independence from Colombia.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_01_C07",
+      "claim": "Engineers replaced the sea-level plan for the Panama Canal with a lock system.",
+      "passage": "NLI contradiction 0.46 | 'The Panama Canal (Spanish: Canal de Panam\u00e1) is an artificial 82-kilometer (51-mile) waterway in Panama that connects the...'"
+    },
+    {
+      "claim_id": "B3_01_C08",
+      "claim": "Engineers created Gatun Lake to manage the terrain of the Panama Canal.",
+      "passage": "NLI inconclusive (entail=0.50, contradict=0.38)"
+    },
+    {
+      "claim_id": "B3_01_C09",
+      "claim": "Three sets of locks lift ships 85 feet above sea level to cross the Continental Divide.",
+      "passage": "NLI contradiction 0.42 | 'There are twelve locks (six pairs) in total. A two-step flight at Miraflores and a single pair at Pedro Miguel lift ship...'"
+    },
+    {
+      "claim_id": "B3_01_C10",
+      "claim": "The Panama Canal opened on August 15, 1914.",
+      "passage": "NLI entailment 0.69 | 'The construction of the canal was completed in 1914, 401 years after Panama was first crossed overland by the Europeans ...'"
+    },
+    {
+      "claim_id": "B3_01_C11",
+      "claim": "The Panama Canal reduced the sea voyage from New York to San Francisco by 8,000 miles.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_01_C12",
+      "claim": "The Panama Canal enables the transit of large vessels between the Atlantic and Pacific Oceans.",
+      "passage": "NLI entailment 0.52 | 'The Panama Canal (Spanish: Canal de Panam\u00e1) is an artificial 82-kilometer (51-mile) waterway in Panama that connects the...'"
+    },
+    {
+      "claim_id": "B3_02_C01",
+      "claim": "The International Energy Agency reported in its 2024 Renewables report that global renewable capacity additions grew by 50% in 2023.",
+      "passage": "NLI inconclusive (entail=0.49, contradict=0.30)"
+    },
+    {
+      "claim_id": "B3_02_C02",
+      "claim": "Solar PV accounted for three-quarters of the 2023 global renewable capacity additions.",
+      "passage": "NLI contradiction 0.42 | 'The Intergovernmental Panel on Climate Change has said that there are few fundamental technological limits to integratin...'"
+    },
+    {
+      "claim_id": "B3_02_C03",
+      "claim": "China installed more solar capacity in 2023 than the entire world did in 2022.",
+      "passage": "NLI entailment 0.71 | 'In 2024, China added 277 gigawatts (GW) of solar power, which was equivalent to 15% of the world's total cumulative inst...'"
+    },
+    {
+      "claim_id": "B3_02_C04",
+      "claim": "Lower module prices resulted in the growth of global renewable capacity additions.",
+      "passage": "NLI entailment 0.55 | 'With over 100% year-on-year growth in PV system installation, PV module makers dramatically increased their shipments of...'"
+    },
+    {
+      "claim_id": "B3_02_C05",
+      "claim": "Increased government support resulted in the growth of global renewable capacity additions.",
+      "passage": "NLI entailment 0.86 | 'During the five-years from the end of 2004 through 2009, worldwide renewable energy capacity grew at rates of 10\u201360% ann...'"
+    },
+    {
+      "claim_id": "B3_02_C06",
+      "claim": "The International Energy Agency expects renewable capacity to increase by 2.5 times by 2030.",
+      "passage": "NLI inconclusive (entail=0.43, contradict=0.35)"
+    },
+    {
+      "claim_id": "B3_02_C07",
+      "claim": "The International Energy Agency's projection of a 2.5 times increase in renewable capacity by 2030 relies on the implementation of current policies.",
+      "passage": "NLI inconclusive (entail=0.41, contradict=0.14)"
+    },
+    {
+      "claim_id": "B3_02_C08",
+      "claim": "The International Energy Agency's projection of a 2.5 times increase in renewable capacity by 2030 relies on the implementation of planned projects.",
+      "passage": "NLI inconclusive (entail=0.49, contradict=0.29)"
+    },
+    {
+      "claim_id": "B3_02_C09",
+      "claim": "Total global renewable capacity reached 3,372 gigawatts by the end of 2023.",
+      "passage": "NLI contradiction 0.52 | 'In 2022, solar power supplied around 41.0% of Australia's renewable electricity and around 14.7% of Australia's total el...'"
+    },
+    {
+      "claim_id": "B3_03_C01",
+      "claim": "Coral bleaching occurs when corals expel symbiotic algae called zooxanthellae from their tissues.",
+      "passage": "NLI entailment 0.72 | 'The corals that form the great reef ecosystems of tropical seas depend upon a symbiotic relationship with algae-like sin...'"
+    },
+    {
+      "claim_id": "B3_03_C02",
+      "claim": "Zooxanthellae provide up to 90 percent of the coral's energy through photosynthesis.",
+      "passage": "NLI entailment 0.52 | 'Zooxanthellae are photoautotrophs that contain chlorophyll a and chlorophyll c, as well as the dinoflagellate pigments p...'"
+    },
+    {
+      "claim_id": "B3_03_C03",
+      "claim": "Increased ocean temperatures trigger a stress response that disrupts the relationship between the coral host and the zooxanthellae.",
+      "passage": "NLI entailment 0.65 | 'Increased sea surface temperature leads to the thinning of the epidermis and apoptosis of gastrodermis cells in the host...'"
+    },
+    {
+      "claim_id": "B3_03_C04",
+      "claim": "The loss of zooxanthellae pigments reveals the white calcium carbonate skeleton beneath.",
+      "passage": "NLI entailment 0.52 | 'The corals that form the great reef ecosystems of tropical seas depend upon a symbiotic relationship with algae-like sin...'"
+    },
+    {
+      "claim_id": "B3_03_C05",
+      "claim": "The 2014 to 2017 global bleaching event affected over 70 percent of the world's coral reefs.",
+      "passage": "NLI entailment 0.57 | 'With the increase of coral bleaching events worldwide, National Geographic noted in 2017, \"In the past three years, 25 r...'"
+    },
+    {
+      "claim_id": "B3_03_C06",
+      "claim": "Ocean acidification is a trigger for coral bleaching.",
+      "passage": "NLI entailment 0.90 | 'Coral bleaching is the process where corals become white due to loss of symbiotic algae and photosynthetic pigments. Thi...'"
+    },
+    {
+      "claim_id": "B3_03_C07",
+      "claim": "Extreme low tides are a trigger for coral bleaching.",
+      "passage": "NLI contradiction 0.50 | 'Coral bleaching in the Red Sea is more common in the northern section of the reefs; the southern part of the reef has be...'"
+    },
+    {
+      "claim_id": "B3_03_C08",
+      "claim": "Corals can recover if water temperatures return to normal within a few weeks.",
+      "passage": "NLI entailment 0.50 | 'In 2010, researchers from Stanford University also found corals around the Samoan Islands that experience a drastic temp...'"
+    },
+    {
+      "claim_id": "B3_04_C01",
+      "claim": "Mount Everest is the tallest peak in Asia.",
+      "passage": "NLI contradiction 0.46 | 'The summit of Everest is the point at which Earth's surface reaches the greatest distance above sea level. Several other...'"
+    },
+    {
+      "claim_id": "B3_04_C02",
+      "claim": "Mount Everest reaches 8,848.86 meters.",
+      "passage": "NLI inconclusive (entail=0.49, contradict=0.34)"
+    },
+    {
+      "claim_id": "B3_04_C03",
+      "claim": "Aconcagua is the highest point in South America.",
+      "passage": "NLI entailment 0.60 | 'Aconcagua (Spanish pronunciation: [ako\u014b\u02c8ka\u0263wa]) is a mountain in the Principal Cordillera of the Andes range, located in...'"
+    },
+    {
+      "claim_id": "B3_04_C04",
+      "claim": "Aconcagua is 6,961 meters.",
+      "passage": "NLI entailment 0.63 | 'Aconcagua (Spanish pronunciation: [ako\u014b\u02c8ka\u0263wa]) is a mountain in the Principal Cordillera of the Andes range, located in...'"
+    },
+    {
+      "claim_id": "B3_04_C05",
+      "claim": "Denali is the tallest mountain in North America.",
+      "passage": "NLI entailment 0.67 | 'Denali has a summit elevation of 20,310 feet (6,190 m) above sea level, making it the highest peak in North America and ...'"
+    },
+    {
+      "claim_id": "B3_04_C06",
+      "claim": "Denali has an elevation of 6,190 meters.",
+      "passage": "NLI entailment 0.70 | 'Denali ( d\u0259-NAH-lee; Koyukon: Deenaalee), federally designated as Mount McKinley, is the highest mountain peak in North ...'"
+    },
+    {
+      "claim_id": "B3_04_C07",
+      "claim": "Kilimanjaro is the tallest mountain in Africa.",
+      "passage": "NLI entailment 0.82 | 'Mount Kilimanjaro () is a large dormant volcano in Tanzania. It is the highest mountain in Africa and the highest free-s...'"
+    },
+    {
+      "claim_id": "B3_04_C08",
+      "claim": "Kilimanjaro measures 5,895 meters.",
+      "passage": "NLI entailment 0.73 | 'Mount Kilimanjaro () is a large dormant volcano in Tanzania. It is the highest mountain in Africa and the highest free-s...'"
+    },
+    {
+      "claim_id": "B3_04_C09",
+      "claim": "Mount Elbrus is the highest peak in Europe.",
+      "passage": "NLI entailment 0.68 | 'Mount Elbrus is the highest mountain in Russia and Europe. It is a dormant stratovolcano rising 5,642 m (18,510 ft) abov...'"
+    },
+    {
+      "claim_id": "B3_04_C10",
+      "claim": "Mount Elbrus is 5,642 meters.",
+      "passage": "NLI inconclusive (entail=0.46, contradict=0.38)"
+    },
+    {
+      "claim_id": "B3_04_C11",
+      "claim": "Mount Vinson is the tallest mountain in Antarctica.",
+      "passage": "NLI contradiction 0.58 | 'Vinson Massif () is a large mountain massif in Antarctica that is 21 km (13 mi) long and 13 km (8 mi) wide and lies with...'"
+    },
+    {
+      "claim_id": "B3_04_C12",
+      "claim": "Mount Vinson is 4,892 meters.",
+      "passage": "NLI entailment 0.75 | 'The current height (4,892 metres or 16,050 feet) of Mount Vinson was measured by a GPS survey that was conducted by the ...'"
+    },
+    {
+      "claim_id": "B3_04_C13",
+      "claim": "Puncak Jaya is the highest peak in Oceania.",
+      "passage": "NLI entailment 0.69 | 'Puncak Jaya (Indonesian: [\u02c8punt\u0283ak \u02c8d\u0292aja]; literally 'Victorious Peak', Damal: Nemangkawi Ninggok) or Carstensz Pyramid...'"
+    },
+    {
+      "claim_id": "B3_04_C14",
+      "claim": "Puncak Jaya is 4,884 meters.",
+      "passage": "NLI entailment 0.70 | 'Puncak Jaya (Indonesian: [\u02c8punt\u0283ak \u02c8d\u0292aja]; literally 'Victorious Peak', Damal: Nemangkawi Ninggok) or Carstensz Pyramid...'"
+    },
+    {
+      "claim_id": "B3_05_C01",
+      "claim": "The World Heritage Committee evaluates nominations based on ten specific criteria.",
+      "passage": "NLI entailment 0.83 | 'A country must first identify its significant cultural and natural sites in a document known as the Tentative List. Next...'"
+    },
+    {
+      "claim_id": "B3_05_C02",
+      "claim": "These ten specific criteria were established by the 1972 World Heritage Convention.",
+      "passage": "NLI inconclusive (entail=0.33, contradict=0.39)"
+    },
+    {
+      "claim_id": "B3_05_C03",
+      "claim": "A site must meet at least one of the ten criteria to demonstrate Outstanding Universal Value.",
+      "passage": "NLI entailment 0.58 | 'UNESCO lists sites under ten criteria; each entry must meet at least one of the criteria. Criteria i through vi are cult...'"
+    },
+    {
+      "claim_id": "B3_05_C04",
+      "claim": "The World Heritage Committee assesses the integrity of the site.",
+      "passage": "NLI inconclusive (entail=0.44, contradict=0.28)"
+    },
+    {
+      "claim_id": "B3_05_C05",
+      "claim": "Nominations must include a detailed management plan.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_05_C06",
+      "claim": "The World Heritage Committee reviews the site's comparative analysis against similar properties globally.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_05_C07",
+      "claim": "The World Heritage Committee votes on designations during its annual session.",
+      "passage": "NLI inconclusive (entail=0.44, contradict=0.36)"
+    },
+    {
+      "claim_id": "B3_06_C01",
+      "claim": "The Rosetta Stone is a granodiorite stele.",
+      "passage": "NLI inconclusive (entail=0.42, contradict=0.34)"
+    },
+    {
+      "claim_id": "B3_06_C02",
+      "claim": "The Rosetta Stone was discovered in 1799.",
+      "passage": "NLI contradiction 0.42 | 'The Rosetta Stone was originally displayed at a slight angle from the horizontal, and rested within a metal cradle that ...'"
+    },
+    {
+      "claim_id": "B3_06_C03",
+      "claim": "French soldiers discovered the Rosetta Stone.",
+      "passage": "NLI entailment 0.63 | 'Led by Napoleon, the French Army of the Orient invaded Egypt in 1798. The French army was accompanied by a corps of 151 ...'"
+    },
+    {
+      "claim_id": "B3_06_C04",
+      "claim": "French soldiers discovered the Rosetta Stone during the Napoleonic campaign in Egypt.",
+      "passage": "NLI entailment 0.61 | 'A young engineering officer, Pierre-Fran\u00e7ois Bouchard, discovered the Rosetta Stone in July 1799. Many of the antiquitie...'"
+    },
+    {
+      "claim_id": "B3_06_C05",
+      "claim": "The Rosetta Stone contains a decree issued in 196 BC.",
+      "passage": "NLI entailment 0.61 | 'The Rosetta Stone is a stele of granodiorite inscribed with three versions of a decree issued in 196 BC during the Ptole...'"
+    },
+    {
+      "claim_id": "B3_06_C06",
+      "claim": "King Ptolemy V issued the decree on the Rosetta Stone.",
+      "passage": "NLI inconclusive (entail=0.39, contradict=0.28)"
+    },
+    {
+      "claim_id": "B3_06_C07",
+      "claim": "The text on the Rosetta Stone is written in Ancient Egyptian hieroglyphs.",
+      "passage": "NLI entailment 0.52 | 'The Rosetta Stone is a stele of granodiorite inscribed with three versions of a decree issued in 196 BC during the Ptole...'"
+    },
+    {
+      "claim_id": "B3_06_C08",
+      "claim": "The text on the Rosetta Stone is written in Demotic script.",
+      "passage": "NLI inconclusive (entail=0.40, contradict=0.30)"
+    },
+    {
+      "claim_id": "B3_06_C09",
+      "claim": "The text on the Rosetta Stone is written in Ancient Greek.",
+      "passage": "NLI entailment 0.65 | 'The Greek text on the Rosetta Stone provided the starting point. Ancient Greek was widely known to scholars, but they we...'"
+    },
+    {
+      "claim_id": "B3_06_C10",
+      "claim": "Jean-Fran\u00e7ois Champollion used the Greek text to decipher the hieroglyphs in 1822.",
+      "passage": "NLI contradiction 0.46 | 'Building on Champollion's grammar, his student Karl Richard Lepsius continued to develop the decipherment, realizing in ...'"
+    },
+    {
+      "claim_id": "B3_06_C11",
+      "claim": "Jean-Fran\u00e7ois Champollion identified that the hieroglyphs represented sounds.",
+      "passage": "NLI entailment 0.59 | 'That all of the hieroglyphic texts are composed almost entirely of the phonetic signs that he had discovered....'"
+    },
+    {
+      "claim_id": "B3_06_C12",
+      "claim": "Jean-Fran\u00e7ois Champollion identified that the hieroglyphs represented concepts.",
+      "passage": "NLI entailment 0.55 | 'Champollion's interest in Egyptian history and the hieroglyphic script developed at an early age. At the age of 16, he g...'"
+    },
+    {
+      "claim_id": "B3_06_C13",
+      "claim": "Egyptian texts had been unreadable for 1,500 years.",
+      "passage": "NLI contradiction 0.44 | 'Decipherment efforts languished after Young and Champollion died, but in 1837 Karl Richard Lepsius pointed out that many...'"
+    },
+    {
+      "claim_id": "B3_07_C01",
+      "claim": "Usain Bolt holds the men's 100m world record with a time of 9.58 seconds.",
+      "passage": "NLI entailment 0.61 | 'Bolt improved upon his second 100 m world record of 9.69 with 9.58 seconds in 2009 \u2013 the biggest improvement since the s...'"
+    },
+    {
+      "claim_id": "B3_07_C02",
+      "claim": "Usain Bolt achieved the time of 9.58 seconds on August 16, 2009.",
+      "passage": "NLI entailment 0.60 | 'Usain Bolt wins the 2009 IAAF World Championships in Athletics men's 100 metres final in 9.58 seconds via IAAF on YouTub...'"
+    },
+    {
+      "claim_id": "B3_07_C03",
+      "claim": "Usain Bolt achieved the time of 9.58 seconds during the World Athletics Championships in Berlin.",
+      "passage": "NLI entailment 0.51 | 'Usain Bolt wins the 2009 IAAF World Championships in Athletics men's 100 metres final in 9.58 seconds via IAAF on YouTub...'"
+    },
+    {
+      "claim_id": "B3_07_C04",
+      "claim": "Florence Griffith-Joyner holds the women's 100m world record with a time of 10.49 seconds.",
+      "passage": "NLI entailment 0.64 | '\"10.49 sec - Florence Griffith-Joyner\". 100m Women's World Records. Track and Field Video. Indianapolis: SprintIC. July ...'"
+    },
+    {
+      "claim_id": "B3_07_C05",
+      "claim": "Florence Griffith-Joyner set the record of 10.49 seconds on July 16, 1988.",
+      "passage": "NLI entailment 0.68 | '\"10.49 sec - Florence Griffith-Joyner\". 100m Women's World Records. Track and Field Video. Indianapolis: SprintIC. July ...'"
+    },
+    {
+      "claim_id": "B3_07_C06",
+      "claim": "Florence Griffith-Joyner set the record of 10.49 seconds at the Olympic Trials in Indianapolis.",
+      "passage": "NLI contradiction 0.48 | 'Before the 1988 U.S. Olympic trials, Griffith Joyner continued to work with her coach and husband's brother-in-law, Kers...'"
+    },
+    {
+      "claim_id": "B3_07_C07",
+      "claim": "World Athletics reports that Usain Bolt's 9.58 seconds and Florence Griffith-Joyner's 10.49 seconds remain the official standings.",
+      "passage": "NLI contradiction 0.50 | 'World records in athletics are ratified by World Athletics. Athletics records comprise the best performances in the spor...'"
+    },
+    {
+      "claim_id": "B3_07_C08",
+      "claim": "Usain Bolt established the mark of 9.58 seconds during a sanctioned international competition.",
+      "passage": "NLI entailment 0.84 | 'Usain Bolt wins the 2009 IAAF World Championships in Athletics men's 100 metres final in 9.58 seconds via IAAF on YouTub...'"
+    },
+    {
+      "claim_id": "B3_07_C09",
+      "claim": "Florence Griffith-Joyner established the mark of 10.49 seconds during a sanctioned international competition.",
+      "passage": "NLI entailment 0.59 | 'In the first race of the quarterfinals of the U.S. Olympic trials, she stunned her colleagues when she sprinted 100 mete...'"
+    },
+    {
+      "claim_id": "B3_08_C01",
+      "claim": "The Soviet Union diverted the Amu Darya and Syr Darya rivers starting in the 1960s.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_08_C02",
+      "claim": "The Soviet Union diverted the Amu Darya and Syr Darya rivers to irrigate cotton fields in Uzbekistan and Turkmenistan.",
+      "passage": "NLI contradiction 0.43 | 'Sokolov, V. (2018). Handbook on Water Resources Management in Uzbekistan, 102\u2013146...'"
+    },
+    {
+      "claim_id": "B3_08_C03",
+      "claim": "The diversion of the Amu Darya and Syr Darya rivers reduced the freshwater inflow into the Aral Sea.",
+      "passage": "NLI contradiction 0.48 | 'Levintanus, A. (1992). Saving the Aral sea. International Journal of Water Resources Development, 8(1), 60\u201364. https://d...'"
+    },
+    {
+      "claim_id": "B3_08_C04",
+      "claim": "The Aral Sea shrank to less than 10 percent of its original surface area by the 2010s.",
+      "passage": "NLI contradiction 0.50 | 'Levintanus, A. (1992). Saving the Aral sea. International Journal of Water Resources Development, 8(1), 60\u201364. https://d...'"
+    },
+    {
+      "claim_id": "B3_08_C05",
+      "claim": "The collapse of the Aral Sea increased the salinity of the water.",
+      "passage": "NLI contradiction 0.52 | 'Economically significant stocks of fish have returned, and observers who had written off the North Aral Sea as an enviro...'"
+    },
+    {
+      "claim_id": "B3_08_C06",
+      "claim": "The collapse of the Aral Sea killed most endemic fish species.",
+      "passage": "NLI contradiction 0.72 | 'Despite its former vast size, the Aral Sea had relatively low indigenous biodiversity. However, the Aral Sea basin had a...'"
+    },
+    {
+      "claim_id": "B3_08_C07",
+      "claim": "Receding waters of the Aral Sea left a salt-crusted desert known as the Aralkum.",
+      "passage": "NLI contradiction 0.48 | 'While the level of the Aral Sea has fluctuated over its existence, the most recent level drop since the 1960s was caused...'"
+    },
+    {
+      "claim_id": "B3_08_C08",
+      "claim": "Winds carry toxic dust and pesticides from the Aralkum seabed into nearby populations.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_08_C09",
+      "claim": "Pollutants from the Aralkum seabed caused increased rates of throat cancer in the Karakalpakstan region.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_08_C10",
+      "claim": "Pollutants from the Aralkum seabed caused increased rates of respiratory diseases in the Karakalpakstan region.",
+      "passage": "NLI entailment 0.66 | 'In Turkmenistan alone, 50% of all reported illnesses in children are related to respiratory system difficulties.  The ef...'"
+    },
+    {
+      "claim_id": "B3_09_C01",
+      "claim": "The OECD reports that income inequality increased in most member countries between 1985 and 2015.",
+      "passage": "NLI entailment 0.66 | 'The growth in inequality between 1985 and the early 2010s was the largest among all OECD countries, increasing by one th...'"
+    },
+    {
+      "claim_id": "B3_09_C02",
+      "claim": "Income inequality between 1985 and 2015 was driven by a rise in the share of income held by the top 10% of households.",
+      "passage": "NLI entailment 0.62 | 'In May 2017, they reported that income shares for those in the bottom half stagnated and declined from 1980 to 2014. The...'"
+    },
+    {
+      "claim_id": "B3_09_C03",
+      "claim": "The OECD found that the Gini coefficient rose in 14 out of 34 member states between 1985 and 2015.",
+      "passage": "NLI contradiction 0.40 | 'The Gini coefficient is a number between 0 and 100, where 0 represents perfect equality (everyone has the same income). ...'"
+    },
+    {
+      "claim_id": "B3_09_C04",
+      "claim": "Market income inequality grew due to the decline of manufacturing jobs.",
+      "passage": "NLI contradiction 0.52 | 'The labor market has been creating much more inequality over the last thirty years, with the very top earners capturing ...'"
+    },
+    {
+      "claim_id": "B3_09_C05",
+      "claim": "Market income inequality grew due to the rise of automation.",
+      "passage": "NLI entailment 0.56 | 'decline of labor unions \u2013 Unions weakened in part due to globalization and automation may account for one-third to more ...'"
+    },
+    {
+      "claim_id": "B3_09_C06",
+      "claim": "Government taxes and transfers reduced market income inequality.",
+      "passage": "NLI entailment 0.76 | 'Measuring inequality after accounting for taxes and transfers reduces observed inequality, because both the income tax s...'"
+    },
+    {
+      "claim_id": "B3_09_C07",
+      "claim": "The OECD report highlights that high-income inequality correlates with slower growth in real median household income.",
+      "passage": "NLI entailment 0.53 | 'Following the results of Alesina and Rodrick (1994), Bourguignon (2004), and Birdsall (2005) show that developing countr...'"
+    },
+    {
+      "claim_id": "B3_10_C01",
+      "claim": "The human liver is the largest internal organ.",
+      "passage": "NLI entailment 0.66 | 'The liver is a dark reddish brown, wedge-shaped organ with two lobes of unequal size and shape. A human liver normally w...'"
+    },
+    {
+      "claim_id": "B3_10_C02",
+      "claim": "The human liver weighs approximately 1.5 kilograms in an average adult.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_10_C03",
+      "claim": "The human liver is divided into two primary lobes.",
+      "passage": "NLI inconclusive (entail=0.40, contradict=0.27)"
+    },
+    {
+      "claim_id": "B3_10_C04",
+      "claim": "The two primary lobes of the human liver are the right and left lobes.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_10_C05",
+      "claim": "The right and left lobes of the human liver are separated by the falciform ligament.",
+      "passage": "NLI entailment 0.76 | 'In human anatomy, the falciform ligament (from Latin 'sickle-shaped') is a ligament that attaches the liver to the front...'"
+    },
+    {
+      "claim_id": "B3_10_C06",
+      "claim": "The human liver consists of functional units called lobules.",
+      "passage": "NLI entailment 0.84 | 'In histology (microscopic anatomy), the lobules of liver, or hepatic lobules, are small divisions of the liver defined a...'"
+    },
+    {
+      "claim_id": "B3_10_C07",
+      "claim": "Lobules contain hepatocytes.",
+      "passage": "NLI entailment 0.85 | 'In histology (microscopic anatomy), the lobules of liver, or hepatic lobules, are small divisions of the liver defined a...'"
+    },
+    {
+      "claim_id": "B3_10_C08",
+      "claim": "Lobules contain a central vein.",
+      "passage": "NLI entailment 0.52 | 'The hepatic lobule can be described in terms of metabolic \"zones\", describing the hepatic acinus (terminal acinus). Each...'"
+    },
+    {
+      "claim_id": "B3_10_C09",
+      "claim": "Hepatocytes produce bile.",
+      "passage": "NLI entailment 0.59 | 'There is a significant overlap between cholestasis resulting from a hepatocellular origin and cholestasis caused by bile...'"
+    },
+    {
+      "claim_id": "B3_10_C10",
+      "claim": "Bile travels through the hepatic ducts to the gallbladder for storage.",
+      "passage": "NLI entailment 0.85 | 'The main functions of the gallbladder are to store and concentrate bile, also called gall, needed for the digestion of f...'"
+    },
+    {
+      "claim_id": "B3_10_C11",
+      "claim": "The human liver filters blood from the digestive tract via the portal vein.",
+      "passage": "NLI entailment 0.74 | 'The portal vein or hepatic portal vein (HPV) is a blood vessel that carries blood from the gastrointestinal tract, gallb...'"
+    },
+    {
+      "claim_id": "B3_10_C12",
+      "claim": "The human liver removes toxins from the blood.",
+      "passage": "NLI entailment 0.55 | 'The liver and kidney are naturally capable of detox, as are intracellular (specifically, inner membrane of mitochondria ...'"
+    },
+    {
+      "claim_id": "B3_10_C13",
+      "claim": "The human liver metabolizes nutrients.",
+      "passage": "NLI entailment 0.89 | 'The liver plays a major role in carbohydrate, protein, amino acid, and lipid metabolism....'"
+    },
+    {
+      "claim_id": "B3_10_C14",
+      "claim": "The human liver synthesizes albumin.",
+      "passage": "NLI entailment 0.83 | 'The liver produces albumin, the most abundant protein in blood serum. Albumin is essential in the maintenance of oncotic...'"
+    },
+    {
+      "claim_id": "B3_10_C15",
+      "claim": "The human liver synthesizes clotting factors.",
+      "passage": "NLI entailment 0.59 | 'In acute or chronic liver failure, there is insufficient production of coagulation factors, possibly increasing risk of ...'"
+    },
+    {
+      "claim_id": "B3_10_C16",
+      "claim": "Albumin and clotting factors maintain osmotic pressure and blood coagulation.",
+      "passage": "NLI entailment 0.62 | 'Fibrinogen proteins make up most of the remaining proteins in the blood. Fibrinogens are responsible for clotting blood ...'"
+    },
+    {
+      "claim_id": "B3_10_C17",
+      "claim": "The human liver converts excess glucose into glycogen for energy storage during periods of fasting.",
+      "passage": "NLI entailment 0.76 | 'Glycogenesis is the process of glycogen synthesis or the process of converting glucose into glycogen  in which glucose m...'"
+    },
+    {
+      "claim_id": "B3_11_C01",
+      "claim": "The United States has over 5,000 active satellites as of 2024.",
+      "passage": "NLI entailment 0.69 | 'In January 2026 SpaceX announced plans to lower approximately 4,400 satellites from their current 550 km orbit to 480 km...'"
+    },
+    {
+      "claim_id": "B3_11_C02",
+      "claim": "China operates approximately 600 active satellites.",
+      "passage": "NLI inconclusive (entail=0.46, contradict=0.25)"
+    },
+    {
+      "claim_id": "B3_11_C03",
+      "claim": "Russia maintains around 200 active satellites in orbit.",
+      "passage": "NLI contradiction 0.41 | 'Kosmos (satellite) \u2013 Series of Soviet and Russian military satellites...'"
+    },
+    {
+      "claim_id": "B3_11_C04",
+      "claim": "The United States leads in launch volume.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_11_C05",
+      "claim": "The SpaceX Starlink constellation is deployed.",
+      "passage": "NLI entailment 0.53 | 'Starlink Services, LLC is a telecommunications subsidiary of the American spaceflight company SpaceX, providing broadban...'"
+    },
+    {
+      "claim_id": "B3_11_C06",
+      "claim": "China ranks second in annual launch frequency.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_11_C07",
+      "claim": "China is expanding the Beidou navigation system.",
+      "passage": "NLI entailment 0.67 | 'By 2012: regional BeiDou navigation system covering China and neighboring regions...'"
+    },
+    {
+      "claim_id": "B3_11_C08",
+      "claim": "The Indian Space Research Organisation has a commercial satellite program.",
+      "passage": "NLI inconclusive (entail=0.45, contradict=0.30)"
+    },
+    {
+      "claim_id": "B3_11_C09",
+      "claim": "India increases its launch count through the Indian Space Research Organisation's commercial satellite program.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "B3_12_C01",
+      "claim": "The Food and Agriculture Organization (FAO) publishes the State of World Fisheries and Aquaculture report every two years.",
+      "passage": "NLI inconclusive (entail=0.41, contradict=0.36)"
+    },
+    {
+      "claim_id": "B3_12_C02",
+      "claim": "The 2022 State of World Fisheries and Aquaculture report states that 35.4 percent of global fish stocks are fished at biologically unsustainable levels.",
+      "passage": "NLI inconclusive (entail=0.43, contradict=0.20)"
+    },
+    {
+      "claim_id": "B3_12_C03",
+      "claim": "The percentage of global fish stocks fished at biologically unsustainable levels was 10.1 percent in 1974.",
+      "passage": "NLI contradiction 0.45 | 'The environmental impact of fishing includes issues such as the availability of fish, overfishing, fisheries, and fisher...'"
+    },
+    {
+      "claim_id": "B3_12_C04",
+      "claim": "Overfishing causes the biomass of fish stocks to fall below a level that can produce the maximum sustainable yield.",
+      "passage": "NLI contradiction 0.55 | 'In population ecology and economics, maximum sustainable yield (MSY) is theoretically, the largest yield (or catch) that...'"
+    },
+    {
+      "claim_id": "B3_12_C05",
+      "claim": "Illegal, unreported, and unregulated fishing bypasses national quotas.",
+      "passage": "NLI entailment 0.61 | 'Sumaila, U.R, Alder, J., and Keith, H. (2006). Global scope and economics of illegal fishing. Marine Policy, 30(6), 696\u2013...'"
+    },
+    {
+      "claim_id": "B3_12_C06",
+      "claim": "Illegal, unreported, and unregulated fishing contributes to the depletion of fish stocks.",
+      "passage": "NLI entailment 0.84 | 'Food insecurity is another effect of IUU fishing. Illegal fishing undermines the economy and human security of coastal c...'"
+    },
+    {
+      "claim_id": "B3_12_C07",
+      "claim": "The FAO reports that sustainable management practices in 82.6 percent of assessed stocks prevented further declines in 2021.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_001",
+      "claim": "The IPCC Sixth Assessment Report states that human activities have caused conflict, economic shocks, and climate extremes.",
+      "passage": "NLI entailment 0.62 | 'There is a nearly unanimous scientific consensus that the climate is warming and that this is caused by human activities...'"
+    },
+    {
+      "claim_id": "SYN_CITA_002",
+      "claim": "The FAO report attributed the rise in food insecurity to the combined effects of global warming.",
+      "passage": "NLI entailment 0.68 | 'In 2023, climate change significantly impacted food security, with extreme weather events being primary drivers in 18 co...'"
+    },
+    {
+      "claim_id": "SYN_ENTI_003",
+      "claim": "Mount Elbrus is the highest peak in Oceania.",
+      "passage": "NLI contradiction 0.56 | 'Elbrus has two summits, both of which are dormant volcanic domes. The taller, western summit is 5,642 metres (18,510 ft)...'"
+    },
+    {
+      "claim_id": "SYN_ENTI_004",
+      "claim": "Puncak Jaya is the highest peak in Europe.",
+      "passage": "NLI contradiction 0.72 | 'When regarding New Guinea as part of the Australian continent in a biogeographical sense, Puncak Jaya can be considered ...'"
+    },
+    {
+      "claim_id": "SYN_ENTI_005",
+      "claim": "Denali is the tallest mountain in Africa.",
+      "passage": "NLI contradiction 0.49 | 'Denali has a summit elevation of 20,310 feet (6,190 m) above sea level, making it the highest peak in North America and ...'"
+    },
+    {
+      "claim_id": "SYN_ENTI_006",
+      "claim": "Kilimanjaro is the tallest mountain in Antarctica.",
+      "passage": "NLI contradiction 0.43 | 'One of several mountains arising from the East African Rift, Kilimanjaro was formed from volcanic activity over 2 millio...'"
+    },
+    {
+      "claim_id": "SYN_ENTI_007",
+      "claim": "Mount Vinson is the tallest mountain in North America.",
+      "passage": "NLI contradiction 0.42 | 'Mount Vinson is the highest peak in Antarctica, at 4,892 meters (16,050 ft). It lies in the north part of Vinson Massif'...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_008",
+      "claim": "The war resulted in approximately over 20,000 deaths.",
+      "passage": "NLI contradiction 0.44 | 'Casualties of War opened in 1,487 theaters, and ranked number 4 in box office for the first week of its release. It went...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_009",
+      "claim": "Yellow fever and malaria caused 20 million deaths during the French effort to build the Panama Canal.",
+      "passage": "NLI contradiction 0.53 | 'From the beginning, the French canal project faced difficulties. Although the Panama Canal needed to be only 40 percent ...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_010",
+      "claim": "Mount Everest reaches 6,961 meters.",
+      "passage": "NLI entailment 0.53 | 'List of Mount Everest summiters by number of times to the summit...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_011",
+      "claim": "Aconcagua is 6,190 meters.",
+      "passage": "NLI entailment 0.62 | 'Aconcagua (Spanish pronunciation: [ako\u014b\u02c8ka\u0263wa]) is a mountain in the Principal Cordillera of the Andes range, located in...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_012",
+      "claim": "Denali has an elevation of 5,895 meters.",
+      "passage": "NLI entailment 0.65 | 'Denali has two significant summits: the South Summit is the higher one, while the North Summit has an elevation of 19,47...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_013",
+      "claim": "Kilimanjaro measures 5,642 meters.",
+      "passage": "NLI entailment 0.53 | 'Mount Kilimanjaro () is a large dormant volcano in Tanzania. It is the highest mountain in Africa and the highest free-s...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_014",
+      "claim": "Mount Elbrus is 4,892 meters.",
+      "passage": "NLI contradiction 0.46 | 'Mount Elbrus was formed more than 2.5 million years ago. The volcano is currently considered dormant. Elbrus was active ...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_015",
+      "claim": "Puncak Jaya is 8,848.86 meters.",
+      "passage": "NLI contradiction 0.65 | 'When regarding New Guinea as part of the Australian continent in a biogeographical sense, Puncak Jaya can be considered ...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_016",
+      "claim": "The United States has 200 active satellites as of 2024.",
+      "passage": "NLI inconclusive (entail=0.40, contradict=0.30)"
+    },
+    {
+      "claim_id": "SYN_QUAN_017",
+      "claim": "Russia maintains around over 5,000 active satellites in orbit.",
+      "passage": "NLI inconclusive (entail=0.49, contradict=0.37)"
+    },
+    {
+      "claim_id": "SYN_QUAN_018",
+      "claim": "Usain Bolt achieved the time of 10.49 seconds seconds during the World Athletics Championships in Berlin.",
+      "passage": "NLI contradiction 0.54 | 'Bolt went undefeated over 100 and 200 m in the 2011 season. He began with wins in Rome and Ostrava in May. He ran his fi...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_019",
+      "claim": "Florence Griffith-Joyner set the record of 9.58 at the Olympic Trials in Indianapolis.",
+      "passage": "NLI contradiction 0.53 | 'In the first race of the quarterfinals of the U.S. Olympic trials, she stunned her colleagues when she sprinted 100 mete...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_020",
+      "claim": "The Paris Agreement was adopted on January 1, 1983.",
+      "passage": "NLI inconclusive (entail=0.41, contradict=0.39)"
+    },
+    {
+      "claim_id": "SYN_TEMP_021",
+      "claim": "ARPANET adopted TCP/IP on December 12, 2015.",
+      "passage": "NLI contradiction 0.53 | 'The Advanced Research Projects Agency Network (ARPANET) was the first wide-area packet-switched network with distributed...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_022",
+      "claim": "The Silk Road began during the Han Dynasty around August 15, 1914.",
+      "passage": "NLI entailment 0.57 | 'The Han dynasty army regularly policed the trade route against nomadic bandit forces generally identified as Xiongnu. Ha...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_023",
+      "claim": "The Panama Canal opened on 130 BCE.",
+      "passage": "NLI contradiction 0.63 | 'LaFeber, Walter. The Panama Canal: the crisis in historical perspective (Oxford University Press, 1978)....'"
+    },
+    {
+      "claim_id": "SYN_TEMP_024",
+      "claim": "The League of Nations formed in 1944.",
+      "passage": "NLI entailment 0.53 | 'The League of Nations (LN or LoN; French: Soci\u00e9t\u00e9 des Nations [s\u0254sjete de n\u0251sj\u0254\u0303], SdN) was the first worldwide intergov...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_025",
+      "claim": "The International Monetary Fund was established in 1920.",
+      "passage": "NLI contradiction 0.48 | 'The International Monetary Fund (IMF) is an international financial institution and a specialized agency of the United N...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_026",
+      "claim": "Tim Berners-Lee invented the Shor's algorithm at CERN in 1989.",
+      "passage": "NLI contradiction 0.43 | 'In 1976, Berners-Lee took a first in physics from The Queen's College, Oxford. While there, he made a computer out of an...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_027",
+      "claim": "The Emergency Economic Stabilization Act of 2008 provided $707 billion for bank bailouts.",
+      "passage": "NLI entailment 0.72 | 'The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\",...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_028",
+      "claim": "The Emergency Economic Stabilization Act of 2008 provided $735 billion for bank bailouts.",
+      "passage": "NLI entailment 0.72 | 'The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\",...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_029",
+      "claim": "The Emergency Economic Stabilization Act of 2008 provided $875 billion for bank bailouts.",
+      "passage": "NLI contradiction 0.45 | 'Emergency Economic Stabilization Act of 2008 as enacted (details) in the US Statutes at Large...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_030",
+      "claim": "The Emergency Economic Stabilization Act of 2008 provided $1050 billion for bank bailouts.",
+      "passage": "NLI contradiction 0.42 | 'Emergency Economic Stabilization Act of 2008 as enacted (details) in the US Statutes at Large...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_031",
+      "claim": "The Emergency Economic Stabilization Act of 2008 provided $1400 billion for bank bailouts.",
+      "passage": "NLI contradiction 0.42 | 'Emergency Economic Stabilization Act of 2008 as enacted (details) in the US Statutes at Large...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_032",
+      "claim": "The Emergency Economic Stabilization Act of 2008 provided $7000 billion for bank bailouts.",
+      "passage": "NLI entailment 0.72 | 'The Emergency Economic Stabilization Act of 2008, also known as the \"bank bailout of 2008\" or the \"Wall Street bailout\",...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_033",
+      "claim": "Global surface temperatures have increased by approximately 1.2 degrees Celsius since 1850.",
+      "passage": "NLI entailment 0.61 | 'The global average and combined land and ocean surface temperature, show a warming of 1.09 \u00b0C (range: 0.95 to 1.20 \u00b0C) f...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_034",
+      "claim": "Global surface temperatures have increased by approximately 1.4 degrees Celsius since 1850.",
+      "passage": "NLI entailment 0.61 | 'The global average and combined land and ocean surface temperature, show a warming of 1.09 \u00b0C (range: 0.95 to 1.20 \u00b0C) f...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_035",
+      "claim": "Global surface temperatures have increased by approximately 1.7 degrees Celsius since 1850.",
+      "passage": "NLI entailment 0.61 | 'The global average and combined land and ocean surface temperature, show a warming of 1.09 \u00b0C (range: 0.95 to 1.20 \u00b0C) f...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_036",
+      "claim": "Global surface temperatures have increased by approximately 2.2 degrees Celsius since 1850.",
+      "passage": "NLI entailment 0.61 | 'The global average and combined land and ocean surface temperature, show a warming of 1.09 \u00b0C (range: 0.95 to 1.20 \u00b0C) f...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_037",
+      "claim": "Global surface temperatures have increased by approximately 11.0 degrees Celsius since 1850.",
+      "passage": "NLI entailment 0.61 | 'The global average and combined land and ocean surface temperature show a warming of 1.09 \u00b0C (range: 0.95 to 1.20 \u00b0C) fr...'"
+    },
+    {
+      "claim_id": "SYN_QUAN_038",
+      "claim": "The Silk Road network of trade routes spanned a distance of approximately 6,464 kilometers.",
+      "passage": "NLI entailment 0.58 | 'The Great Silk Road was a network of Asian trade routes active from the second century BCE until the mid-15th century. S...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_039",
+      "claim": "Egyptian texts had been unreadable for 1,515 years.",
+      "passage": "NLI contradiction 0.44 | 'It was not until 1799, with the Napoleonic discovery of a trilingual (i.e. hieroglyphic, Demotic, Greek) stela inscripti...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_040",
+      "claim": "Egyptian texts had been unreadable for 1,575 years.",
+      "passage": "NLI contradiction 0.49 | 'The writing systems used in ancient Egypt were deciphered in the early nineteenth century through the work of several Eu...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_041",
+      "claim": "Egyptian texts had been unreadable for 1,875 years.",
+      "passage": "NLI contradiction 0.55 | 'Arab scholars were aware of the connection between Coptic and the ancient Egyptian language, and Coptic monks in Islamic...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_042",
+      "claim": "Egyptian texts had been unreadable for 2,250 years.",
+      "passage": "NLI contradiction 0.43 | 'The writing systems used in ancient Egypt were deciphered in the early nineteenth century through the work of several Eu...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_043",
+      "claim": "Egyptian texts had been unreadable for 3,000 years.",
+      "passage": "NLI contradiction 0.48 | 'Arab scholars were aware of the connection between Coptic and the ancient Egyptian language, and Coptic monks in Islamic...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_044",
+      "claim": "Egyptian texts had been unreadable for 15,000 years.",
+      "passage": "NLI contradiction 0.47 | 'The writing systems used in ancient Egypt were deciphered in the early nineteenth century through the work of several Eu...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_045",
+      "claim": "Usain Bolt achieved the time of 9.68 seconds on August 16, 2009.",
+      "passage": "NLI inconclusive (entail=0.42, contradict=0.37)"
+    },
+    {
+      "claim_id": "SYN_TEMP_046",
+      "claim": "Usain Bolt achieved the time of 10.06 seconds on August 16, 2009.",
+      "passage": "NLI inconclusive (entail=0.44, contradict=0.35)"
+    },
+    {
+      "claim_id": "SYN_TEMP_047",
+      "claim": "Usain Bolt achieved the time of 11.97 seconds on August 16, 2009.",
+      "passage": "NLI contradiction 0.54 | 'Bolt went undefeated over 100 and 200 m in the 2011 season. He began with wins in Rome and Ostrava in May. He ran his fi...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_048",
+      "claim": "Usain Bolt achieved the time of 14.37 seconds on August 16, 2009.",
+      "passage": "NLI contradiction 0.51 | 'Bolt went undefeated over 100 and 200 m in the 2011 season. He began with wins in Rome and Ostrava in May. He ran his fi...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_049",
+      "claim": "Usain Bolt achieved the time of 19.16 seconds on August 16, 2009.",
+      "passage": "NLI contradiction 0.47 | 'Bolt went undefeated over 100 and 200 m in the 2011 season. He began with wins in Rome and Ostrava in May. He ran his fi...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_050",
+      "claim": "Usain Bolt achieved the time of 95.80 seconds on August 16, 2009.",
+      "passage": "NLI contradiction 0.49 | 'Bolt went undefeated over 100 and 200 m in the 2011 season. He began with wins in Rome and Ostrava in May. He ran his fi...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_051",
+      "claim": "Albert Einstein published four papers in 1906.",
+      "passage": "NLI contradiction 0.41 | 'The paper mentions the names of only five other scientists: Isaac Newton, James Clerk Maxwell, Heinrich Hertz, Christian...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_052",
+      "claim": "Albert Einstein published four papers in 1907.",
+      "passage": "NLI contradiction 0.41 | 'The paper mentions the names of only five other scientists: Isaac Newton, James Clerk Maxwell, Heinrich Hertz, Christian...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_053",
+      "claim": "Albert Einstein published four papers in 1910.",
+      "passage": "NLI contradiction 0.59 | 'Bernhard Caesar Einstein (10 July 1930 \u2013 30 September 2008), who was a physicist and engineer....'"
+    },
+    {
+      "claim_id": "SYN_TEMP_054",
+      "claim": "Albert Einstein published four papers in 1915.",
+      "passage": "NLI contradiction 0.49 | 'There were also five volumes of Einstein's Collected Papers (volumes 1, 5, 8\u201310) that are devoted to his correspondence,...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_055",
+      "claim": "Albert Einstein published four papers in 2005.",
+      "passage": "NLI contradiction 0.47 | 'These four papers, together with quantum mechanics and Einstein's later general theory of relativity, are the foundation...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_056",
+      "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1906.",
+      "passage": "NLI contradiction 0.50 | 'Patent applications that landed on Einstein's desk for his evaluation included ideas for a gravel sorter and an electric...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_057",
+      "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1907.",
+      "passage": "NLI contradiction 0.50 | 'Patent applications that landed on Einstein's desk for his evaluation included ideas for a gravel sorter and an electric...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_058",
+      "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1910.",
+      "passage": "NLI contradiction 0.50 | 'Patent applications that landed on Einstein's desk for his evaluation included ideas for a gravel sorter and an electric...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_059",
+      "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 1915.",
+      "passage": "NLI contradiction 0.46 | 'Einstein's sabbatical as a civil servant approached its end in 1908, when he secured a junior teaching position at the U...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_060",
+      "claim": "Albert Einstein worked at the Swiss Patent Office in Bern in 2005.",
+      "passage": "NLI contradiction 0.46 | 'Einstein's sabbatical as a civil servant approached its end in 1908, when he secured a junior teaching position at the U...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_061",
+      "claim": "Albert Einstein received the Nobel Prize in Physics in 1922.",
+      "passage": "NLI entailment 0.68 | 'Albert Einstein (14 March 1879 \u2013 18 April 1955) was a German-born theoretical physicist best known for developing the th...'"
+    },
+    {
+      "claim_id": "SYN_TEMP_062",
+      "claim": "Albert Einstein received the Nobel Prize in Physics in 1923.",
+      "passage": "NLI entailment 0.67 | 'Albert Einstein (14 March 1879 \u2013 18 April 1955) was a German-born theoretical physicist best known for developing the th...'"
+    },
+    {
+      "claim_id": "SYN_CITA_063",
+      "claim": "The IPCC Sixth Assessment Report was published in 2024.",
+      "passage": "NLI inconclusive (entail=0.43, contradict=0.31)"
+    },
+    {
+      "claim_id": "SYN_CITA_064",
+      "claim": "The IPCC Sixth Assessment Report was published in 2025.",
+      "passage": "NLI inconclusive (entail=0.44, contradict=0.32)"
+    },
+    {
+      "claim_id": "SYN_CITA_065",
+      "claim": "The IPCC Sixth Assessment Report was published in 2028.",
+      "passage": "NLI contradiction 0.44 | 'The Sixth Assessment Report (AR6) of the United Nations (UN) Intergovernmental Panel on Climate Change (IPCC) is the six...'"
+    },
+    {
+      "claim_id": "SYN_CITA_066",
+      "claim": "The IPCC Sixth Assessment Report was published in 2033.",
+      "passage": "NLI contradiction 0.47 | 'The Sixth Assessment Report (AR6) of the United Nations (UN) Intergovernmental Panel on Climate Change (IPCC) is the six...'"
+    },
+    {
+      "claim_id": "SYN_CITA_067",
+      "claim": "The IPCC Sixth Assessment Report was published in 2123.",
+      "passage": "NLI inconclusive (entail=0.49, contradict=0.29)"
+    },
+    {
+      "claim_id": "SYN_CITA_068",
+      "claim": "The 2021 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_069",
+      "claim": "The 2022 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_070",
+      "claim": "The 2025 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_071",
+      "claim": "The 2030 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_072",
+      "claim": "The 2120 Lancet Commission identified 12 modifiable risk factors that account for 40% of dementia cases.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_073",
+      "claim": "The World Bank reported in 2024 that the global extreme poverty rate remained stagnant at 8.4% of the population.",
+      "passage": "NLI inconclusive (entail=0.40, contradict=0.32)"
+    },
+    {
+      "claim_id": "SYN_CITA_074",
+      "claim": "The World Bank reported in 2025 that the global extreme poverty rate remained stagnant at 8.4% of the population.",
+      "passage": "NLI contradiction 0.46 | 'This reduction in extreme poverty took place most notably in China, India, Indonesia, and Pakistan. These five countries...'"
+    },
+    {
+      "claim_id": "SYN_CITA_075",
+      "claim": "The WHO Sixth Assessment Report was published in 2023.",
+      "passage": "NLI entailment 0.61 | 'The sixth assessment report is made up of the reports of three working groups (WG I, II, and III) and a synthesis report...'"
+    },
+    {
+      "claim_id": "SYN_CITA_076",
+      "claim": "The WHO Sixth Assessment Report states that human activities have caused global warming.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_077",
+      "claim": "The WHO Sixth Assessment Report states that the world will likely reach a 1.5 degrees Celsius increase by the early 2030s.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_078",
+      "claim": "The 2020 WHO Commission identified 12 modifiable risk factors that account for 40% of dementia cases.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_079",
+      "claim": "The WHO recommends a specific immunization schedule for children from birth through age 18.",
+      "passage": "No passages above similarity threshold 0.5"
+    },
+    {
+      "claim_id": "SYN_CITA_080",
+      "claim": "The WHO reported in 2023 that the global extreme poverty rate remained stagnant at 8.4% of the population.",
+      "passage": "NLI contradiction 0.43 | 'This reduction in extreme poverty took place most notably in China, India, Indonesia, and Pakistan. These five countries...'"
+    },
+    {
+      "claim_id": "SYN_CITA_081",
+      "claim": "The CDC World Mental Health Report 2022 emphasizes that mental health gaps are driven by insufficient funding and systemic neglect.",
+      "passage": "NLI inconclusive (entail=0.46, contradict=0.25)"
+    },
+    {
+      "claim_id": "SYN_CITA_082",
+      "claim": "WHO reports that approximately 149 million children under five suffered from stunting in 2022.",
+      "passage": "NLI entailment 0.63 | 'According to UNICEF, at least 1 in every 10 children under five is overweight in 33 countries....'"
+    },
+    {
+      "claim_id": "SYN_CITA_083",
+      "claim": "The WHO reported in 2023 that global food insecurity increased during 2022.",
+      "passage": "NLI entailment 0.58 | 'The Brookings Institution found that the United States experienced a 65% increase in food insecurity among households wi...'"
+    },
+    {
+      "claim_id": "SYN_CITA_084",
+      "claim": "The WHO report attributed the rise in food insecurity to the combined effects of conflict, economic shocks, and climate extremes.",
+      "passage": "NLI entailment 0.56 | 'Food insecurity among undocumented immigrants can in some cases be traced to environmental injustices. Researchers argue...'"
+    },
+    {
+      "claim_id": "SYN_CITA_085",
+      "claim": "The Food and Agriculture Organization (WHO) publishes the State of World Fisheries and Aquaculture report every two years.",
+      "passage": "NLI contradiction 0.44 | 'The contribution of aquaculture to the global production of capture fisheries and aquaculture combined has risen continu...'"
+    }
+  ]
+}

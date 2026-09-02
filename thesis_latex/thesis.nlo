@@ -1,20 +1,20 @@
-\nomenclatureentry{aALU@[{ALU}]\begingroup Arithmetic Logic Unit (Quantitative Verification Engine)\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aAPI@[{API}]\begingroup Application Programming Interface\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aAURAC@[{AURAC}]\begingroup Area Under the Risk-Accuracy Curve\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aCI@[{CI}]\begingroup Confidence Interval\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aCPU@[{CPU}]\begingroup Central Processing Unit\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aDAG@[{DAG}]\begingroup Directed Acyclic Graph\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aDOI@[{DOI}]\begingroup Digital Object Identifier\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aDPR@[{DPR}]\begingroup Dense Passage Retrieval\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aECE@[{ECE}]\begingroup Expected Calibration Error\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aGPU@[{GPU}]\begingroup Graphics Processing Unit\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aKG@[{KG}]\begingroup Knowledge Graph\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aLLM@[{LLM}]\begingroup Large Language Model\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aMCC@[{MCC}]\begingroup Matthews Correlation Coefficient\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aMoE@[{MoE}]\begingroup Mixture of Experts\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aNER@[{NER}]\begingroup Named Entity Recognition\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aNLI@[{NLI}]\begingroup Natural Language Inference\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aRAG@[{RAG}]\begingroup Retrieval-Augmented Generation\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aSBERT@[{SBERT}]\begingroup Sentence-BERT\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aSI@[{SI}]\begingroup Système International d'Unités\nomeqref {0}|nompageref}{xvi}
-\nomenclatureentry{aSPARQL@[{SPARQL}]\begingroup SPARQL Protocol and RDF Query Language\nomeqref {0}|nompageref}{xvi}
+\nomenclatureentry{aALU@[{ALU}]\begingroup Arithmetic Logic Unit (Quantitative Verification Engine)\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aAPI@[{API}]\begingroup Application Programming Interface\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aAURAC@[{AURAC}]\begingroup Area Under the Risk-Accuracy Curve\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aCI@[{CI}]\begingroup Confidence Interval\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aCPU@[{CPU}]\begingroup Central Processing Unit\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aDAG@[{DAG}]\begingroup Directed Acyclic Graph\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aDOI@[{DOI}]\begingroup Digital Object Identifier\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aDPR@[{DPR}]\begingroup Dense Passage Retrieval\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aECE@[{ECE}]\begingroup Expected Calibration Error\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aGPU@[{GPU}]\begingroup Graphics Processing Unit\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aKG@[{KG}]\begingroup Knowledge Graph\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aLLM@[{LLM}]\begingroup Large Language Model\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aMCC@[{MCC}]\begingroup Matthews Correlation Coefficient\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aMoE@[{MoE}]\begingroup Mixture of Experts\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aNER@[{NER}]\begingroup Named Entity Recognition\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aNLI@[{NLI}]\begingroup Natural Language Inference\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aRAG@[{RAG}]\begingroup Retrieval-Augmented Generation\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aSBERT@[{SBERT}]\begingroup Sentence-BERT\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aSI@[{SI}]\begingroup Système International d'Unités\nomeqref {0}|nompageref}{xxi}
+\nomenclatureentry{aSPARQL@[{SPARQL}]\begingroup SPARQL Protocol and RDF Query Language\nomeqref {0}|nompageref}{xxi}

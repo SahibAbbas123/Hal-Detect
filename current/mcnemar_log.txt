@@ -1,0 +1,104 @@
+  nonrouted_baseline_results.csv         supplied  174 routed verdicts for ['RELATIONAL']
+  temporal_ea_hybrid_b3.csv              supplied   34 routed verdicts for ['ENTITY_ATTRIBUTE', 'TEMPORAL']
+  quantitative_b3_results.csv            supplied   29 routed verdicts for ['QUANTITATIVE']
+  citation_l1_results.csv                supplied   29 routed verdicts for ['CITATION']
+
+Paired claims (both systems + gold): 266
+By type: {'CITATION': 29, 'ENTITY_ATTRIBUTE': 22, 'QUANTITATIVE': 29, 'RELATIONAL': 174, 'TEMPORAL': 12}
+By gold: {'FALSE': 9, 'TRUE': 230, 'UNVERIFIABLE': 27}
+
+========================================================================
+  McNEMAR TEST — Overall (3-way exact match)
+========================================================================
+  Paired claims: 266
+
+                                  Routed correct  Routed wrong
+                Baseline correct             124            25
+                  Baseline wrong              18            99
+
+  Discordant pairs: 43 (b=25, c=18)
+  Direction: baseline better
+  Odds ratio (c/b): 0.72
+  p-value (exact binomial, 2-sided): 0.3604
+      Not significant at α=0.10
+
+========================================================================
+  McNEMAR TEST — Binarised on FALSE (hallucination detection)
+========================================================================
+  Paired claims: 266
+
+                                  Routed correct  Routed wrong
+                Baseline correct             152             7
+                  Baseline wrong              31            76
+
+  Discordant pairs: 38 (b=7, c=31)
+  Direction: routed better
+  Odds ratio (c/b): 4.43
+  p-value (exact binomial, 2-sided): 0.0001
+  *** Significant at α=0.05 ***
+
+========================================================================
+  PER-TYPE McNEMAR TESTS
+========================================================================
+
+  Type                    n  disc.  b(NR+)   c(R+)   p-value         direction   sig
+  ──────────────────────────────────────────────────────────────────────────────────
+  RELATIONAL            174      0       0       0    1.0000no discordant pairs      
+  TEMPORAL               12      3       1       2    1.0000     routed better      
+    B3_02_C03          gold=TRUE          R=TRUE           NR=FALSE          → R
+    B3_06_C02          gold=TRUE          R=TRUE           NR=FALSE          → R
+    B3_08_C01          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+  ENTITY_ATTRIBUTE       22     10       6       4    0.7539   baseline better      
+    B3_04_C01          gold=TRUE          R=FALSE          NR=TRUE           → NR
+    B3_04_C11          gold=TRUE          R=FALSE          NR=TRUE           → NR
+    B3_04_C13          gold=TRUE          R=TRUE           NR=FALSE          → R
+    B3_05_C05          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_06_C01          gold=TRUE          R=TRUE           NR=FALSE          → R
+    B3_06_C08          gold=TRUE          R=TRUE           NR=FALSE          → R
+    B3_10_C03          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_10_C04          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_10_C05          gold=TRUE          R=TRUE           NR=FALSE          → R
+    B3_11_C08          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+  QUANTITATIVE           29     14      13       1    0.0018   baseline better    **
+    B3_01_C04          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_02_C02          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_02_C09          gold=FALSE         R=UNVERIFIABLE   NR=FALSE          → NR
+    B3_03_C02          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_03_C05          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_04_C14          gold=TRUE          R=TRUE           NR=FALSE          → R
+    B3_05_C03          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_07_C01          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_07_C03          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_07_C04          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_07_C08          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_10_C02          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_11_C01          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+    B3_12_C03          gold=TRUE          R=UNVERIFIABLE   NR=TRUE           → NR
+  CITATION               29     16       5      11    0.2101     routed better      
+
+========================================================================
+  McNEMAR TEST — Non-RELATIONAL only (where routing actually differs)
+========================================================================
+  Paired claims: 92
+
+                                  Routed correct  Routed wrong
+                Baseline correct              31            25
+                  Baseline wrong              18            18
+
+  Discordant pairs: 43 (b=25, c=18)
+  Direction: baseline better
+  Odds ratio (c/b): 0.72
+  p-value (exact binomial, 2-sided): 0.3604
+      Not significant at α=0.10
+
+========================================================================
+  SUMMARY & INTERPRETATION
+========================================================================
+
+  Overall: 18 claims improved by routing vs 25 worsened (p=0.3604)
+  → NOT significant. The difference could be due to chance.
+  → This does NOT mean the systems are equivalent — it means
+    we lack statistical power to detect the difference with
+    only 43 discordant pairs.
+
+  Results written: /Users/sahibabc/8th Semester Materials/ThesisCode_copy/current/mcnemar_results.csv

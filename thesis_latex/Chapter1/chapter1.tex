@@ -76,7 +76,7 @@ This dissertation delivers five principal theoretical, architectural, and empiri
     \item \textbf{5-Tuple Schema Atomizer with Forward Anaphora Resolution:} A decomposition engine that converts raw text into typed tuples $\langle S, P, O, T, M \rangle$ while maintaining an antecedent entity registry $\mathcal{E}_{\text{context}}$ to resolve orphan pronoun chains in $< 0.1\text{ms}$.
     \item \textbf{Multi-Aspect Verification DAG and 3-Valued Epistemic Logic:} A conjunction engine operating over $\{\texttt{TRUE}, \texttt{FALSE}, \texttt{UNVERIFIABLE}\}$ that enforces the Fatal Discrepancy Rule for compound assertions.
     \item \textbf{The Symmetrical Master Benchmark Corpus ($N = 1,000$):} A balanced 500-TRUE / 500-FALSE benchmark spanning five modalities, preventing class-prior exploitation.
-    \item \textbf{Open Multi-LLM Road Test \& Empirical Validation:} A rigorous evaluation across 1,798 propositions from seven foundation models, proving HalDetect achieves \textbf{100.0\% recall on real hallucinations} (31/31 errors caught) where Modern SOTA RAG and MiniCheck-7B achieve 0.0\% recall ($p < 10^{-60}$).
+    \item \textbf{Open Multi-LLM Road Test \& Empirical Validation:} A rigorous evaluation across 1,798 propositions from seven foundation models, proving HalDetect reliably isolates deterministic truth and exposes real-world hallucinations, where Modern SOTA RAG and MiniCheck-7B struggle with token overlap blindness.
 \end{enumerate}
 
 % ******************************************************************************

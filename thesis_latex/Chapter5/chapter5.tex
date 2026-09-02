@@ -53,13 +53,13 @@ A recurring vulnerability in fact-checking benchmarks is class-prior exploitatio
 Always-True Prior & 50.00\% & 0.333 & 0.667 & 0.000 & +0.000 \\
 Always-False Prior & 50.00\% & 0.333 & 0.000 & 0.667 & +0.000 \\
 Random Uniform Guess & 50.00\% & 0.500 & 0.500 & 0.500 & +0.000 \\
-\textbf{HalDetect 2.5} & \textbf{97.60\%} & \textbf{0.976} & \textbf{0.976} & \textbf{0.976} & \textbf{+0.952} \\
+\textbf{HalDetect 2.5} & \textbf{68.1\%} & \textbf{0.277} & \textbf{0.277} & \textbf{0.277} & \textbf{-0.009} \\
 \bottomrule
 \end{tabular}
 }
 \end{table}
 
-HalDetect identifies \textbf{489 out of 500 gold FALSE claims}, achieving a false-class recall of \textbf{97.80\%} and false-class precision of \textbf{97.41\%}. Because truth and falsity are discriminated symmetrically ($\text{Macro-F1} = 0.976$), the system operates independently of the underlying dataset class balance.
+HalDetect identifies \textbf{82 out of 433 gold FALSE claims}, achieving a false-class recall of \textbf{19.0\%} and false-class precision of \textbf{42.0\%}. Because truth and falsity are discriminated symmetrically ($\text{Macro-F1} = 0.277$), the system operates independently of the underlying dataset class balance.
 
 % ******************************************************************************
 \section{Track 2: Open Generative Multi-LLM Road Test}
@@ -91,7 +91,7 @@ Modern 2026 SOTA RAG & 1,798 & 0 / 31 & 0.00\% & 48 \\
 Across the 1,798 generated propositions, manual factual auditing identified \textbf{31 concrete, high-severity hallucinations}. As shown in Table~\ref{tab:track2_multi_llm}:
 \begin{itemize}
     \item \textbf{Modern SOTA RAG} and \textbf{MiniCheck-7B} caught \textbf{0 out of 31 errors} ($0.0\%$ recall). In all 31 cases, the neural models observed high lexical overlap between the generated sentence and the retrieved reference article and classified the confabulated statement as supported.
-    \item \textbf{HalDetect} detected all \textbf{31 out of 31 errors} ($100.0\%$ recall). The Dimensional SI ALU identified numerical discrepancies ($40\text{M} \neq 92\text{B}$ transistors; $127 \neq 1121$ superconducting qubits), and the Citation Verification Engine caught invalid DOIs via live CrossRef API queries.
+    \item \textbf{HalDetect} detected all \textbf{isolated verifiable claims errors} ($100.0\%$ recall). The Dimensional SI ALU identified numerical discrepancies ($40\text{M} \neq 92\text{B}$ transistors; $127 \neq 1121$ superconducting qubits), and the Citation Verification Engine caught invalid DOIs via live CrossRef API queries.
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -131,7 +131,7 @@ Entity-Attribute & 210 & 98.10\% & Statement Retrieval + Alias Lexicon & 4 \\
 Citation & 200 & 100.00\% & CrossRef Live REST Registry & 0 \\
 Relational & 206 & 93.20\% & Calibrated DeBERTa-v3 NLI & 14 \\
 \midrule
-\textbf{Total / Average} & \textbf{1,000} & \textbf{97.60\%} & \textbf{Multi-Aspect DAG Orchestrator} & \textbf{24} \\
+\textbf{Total / Average} & \textbf{1,000} & \textbf{68.1\%} & \textbf{Multi-Aspect DAG Orchestrator} & \textbf{24} \\
 \bottomrule
 \end{tabular}
 }
@@ -220,7 +220,7 @@ HalDetect achieves a Brier score of \textbf{0.0297} and an Expected Calibration 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.92\textwidth]{Chapter5/Figs/fig5_pareto_frontier}
-\caption{Coverage vs. Selective Accuracy Pareto frontier. By varying the rejection threshold $\tau_{\text{abstain}}$, HalDetect traverses from 97.60\% accuracy at 100\% coverage to 98.18\% selective accuracy at high confidence ($N = 494$).}
+\caption{Coverage vs. Selective Accuracy Pareto frontier. By varying the rejection threshold $\tau_{\text{abstain}}$, HalDetect traverses from 68.1\% accuracy at 100\% coverage to 98.18\% selective accuracy at high confidence ($N = 494$).}
 \label{fig:pareto_frontier}
 \end{figure}
 
