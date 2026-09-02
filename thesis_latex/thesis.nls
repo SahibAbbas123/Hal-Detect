@@ -1,0 +1,25 @@
+
+\begin{thenomenclature} 
+\nomgroup{A}
+  \item [{ALU}]\begingroup Arithmetic Logic Unit (Quantitative Verification Engine)\nomeqref {0}\nompageref{xvii}
+  \item [{API}]\begingroup Application Programming Interface\nomeqref {0}\nompageref{xvii}
+  \item [{AURAC}]\begingroup Area Under the Risk-Accuracy Curve\nomeqref {0}\nompageref{xvii}
+  \item [{CI}]\begingroup Confidence Interval\nomeqref {0}\nompageref{xvii}
+  \item [{CPU}]\begingroup Central Processing Unit\nomeqref {0}\nompageref{xvii}
+  \item [{DAG}]\begingroup Directed Acyclic Graph\nomeqref {0}\nompageref{xvii}
+  \item [{DOI}]\begingroup Digital Object Identifier\nomeqref {0}\nompageref{xvii}
+  \item [{DPR}]\begingroup Dense Passage Retrieval\nomeqref {0}\nompageref{xvii}
+  \item [{ECE}]\begingroup Expected Calibration Error\nomeqref {0}\nompageref{xvii}
+  \item [{GPU}]\begingroup Graphics Processing Unit\nomeqref {0}\nompageref{xvii}
+  \item [{KG}]\begingroup Knowledge Graph\nomeqref {0}\nompageref{xvii}
+  \item [{LLM}]\begingroup Large Language Model\nomeqref {0}\nompageref{xvii}
+  \item [{MCC}]\begingroup Matthews Correlation Coefficient\nomeqref {0}\nompageref{xvii}
+  \item [{MoE}]\begingroup Mixture of Experts\nomeqref {0}\nompageref{xvii}
+  \item [{NER}]\begingroup Named Entity Recognition\nomeqref {0}\nompageref{xvii}
+  \item [{NLI}]\begingroup Natural Language Inference\nomeqref {0}\nompageref{xvii}
+  \item [{RAG}]\begingroup Retrieval-Augmented Generation\nomeqref {0}\nompageref{xvii}
+  \item [{SBERT}]\begingroup Sentence-BERT\nomeqref {0}\nompageref{xvii}
+  \item [{SI}]\begingroup Système International d'Unités\nomeqref {0}\nompageref{xvii}
+  \item [{SPARQL}]\begingroup SPARQL Protocol and RDF Query Language\nomeqref {0}\nompageref{xvii}
+
+\end{thenomenclature}

@@ -19,7 +19,7 @@ Constructing a reliable benchmark for hallucination detection requires rigorous 
 
 \begin{enumerate}
     \item \textbf{Phase 1: Exploratory Genesis (Batch 1, $N=125$):} Initial natural assertions extracted from factual question answering. While effective for validating the initial 5-modality router, this partition suffered from extreme negative scarcity (only 8 gold \texttt{FALSE} assertions, representing a severe 6.4\% false-class base rate).
-    \item \textbf{Phase 2: Entity Disambiguation and Bug B Discovery (Phase 2 Gold, $N=126$):} Sourced to evaluate structured entity resolution. Forensic auditing uncovered two foundational phenomena: (a) entity ambiguity collisions (e.g., musical bands sharing names with historical artifacts), resolved via the candidate-commit SBERT gate ($s > 0.60$), and (b) source-existence misattributions (e.g., claim \texttt{Q22\_C01} regarding FAO food insecurity trends, corrected to gold \texttt{FALSE}).
+    \item \textbf{Phase 2: Entity Disambiguation and Bug B Discovery (Phase 2 Gold, $N=126$):} Sourced to evaluate structured entity resolution. Forensic auditing uncovered two foundational phenomena: (a) entity ambiguity collisions (e.g., musical bands sharing names with historical artifacts), resolved via the candidate-commit SBERT gate ($s > 0.60$), and (b) ``Bug B'', an entity disambiguation defect where unscored Wikidata search queries fetched incorrect homonyms instead of committing via SBERT, resulting in 14 label revisions across Phase 2.
     \item \textbf{Phase 3: Synthetic Hard Negatives and Perturbations (Batch 3, $N=122$ + 84 Negatives):} Introduced structured entity and numerical perturbations to stress-test arithmetic ALUs across magnitude variations and temporal shifts.
     \item \textbf{Phase 4: Expansion Corpora v2 ($N=731$) and v3 ($N=2,130$):} Scaled coverage across sovereign macroeconomic metrics and scientific constants.
     \item \textbf{Phase 5: Symmetrical Master Benchmark ($N = 1,000$):} Symmetrically balanced partition comprising exactly 500 gold \texttt{TRUE} and 500 gold \texttt{FALSE} claims across all five verification modalities.
@@ -87,7 +87,7 @@ In addition to Track 1 and Track 2, three specialized diagnostic suites probe sp
 \begin{itemize}
     \item \textbf{Stanford FActScore Block 1 Slice ($N=100$):} Evaluates atomic biographical precision against Wikipedia reference articles~\cite{min2023factscore}.
     \item \textbf{100 Adversarial Stumpers Suite ($N=100$):} Stress-tests scale polysemy (Kelvin vs Celsius, base-to-peak elevation vs sea-level datum), entity homonyms, and temporal interval shifts.
-    \item \textbf{Paragraph Anaphora Road Test ($N=200$):} Evaluates multi-sentence coreference resolution across 1,437 extracted propositions.
+    \item \textbf{Paragraph Anaphora Road Test ($N=200$):} Evaluates multi-sentence coreference resolution on a curated subset of 200 propositions randomly sampled from a larger corpus of 1,437 extracted propositions.
 \end{itemize}
 
 % ******************************************************************************

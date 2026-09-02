@@ -1,6 +1,8 @@
 \chapter{Proposed Methodology: The HalDetect Architecture}
 \label{ch:methodology}
 
+The system described in this chapter, referred to as HalDetect~2.5 in the results tables, represents the final iteration of the pipeline incorporating all refinements documented in Appendix~I.
+
 This chapter formalizes the architecture of \textbf{HalDetect}, a type-directed neuro-symbolic fact verification engine. Rather than treating fact verification as an undifferentiated sequence-to-sequence generation task or relying on unbounded, non-deterministic web search agents, HalDetect establishes a modular, three-tier verification hierarchy: (1) 5-Tuple Proposition Atomization and Paragraph Anaphora Normalization, (2) Deterministic Taxonomy Routing, and (3) Modality-Specific Neuro-Symbolic Verification via specialized Arithmetic Logic Units (ALUs) unified by a Multi-Aspect Directed Acyclic Graph (DAG) Conjunction Engine.
 
 \begin{figure}[htbp]
@@ -41,7 +43,7 @@ Raw generative prose frequently contains compound sentences, parenthetical claus
 \subsection{5-Tuple Schema Atomization}
 The \textbf{Schema Atomizer} decomposes raw input text into a set of atomic, self-contained 5-tuples:
 \begin{equation}
-    \mathcal{T}_k = \langle S_k, P_k, O_k, T_k, M_k \rangle
+    \Pi_k = \langle S_k, P_k, O_k, T_k, M_k \rangle
 \end{equation}
 where:
 \begin{itemize}
@@ -93,11 +95,11 @@ $\mathcal{S} \leftarrow \text{SentenceSplitter}(\mathcal{R})$\;
 \label{sec:deterministic_router}
 % ******************************************************************************
 
-Following tuple extraction, each proposition $\mathcal{T}_k$ is dispatched to a specialized verification engine. While prior works employ large generative LLMs for classification, our empirical ablation (Section~\ref{sec:router_ablation}) reveals that 120B-parameter LLMs suffer from severe \textbf{Relational Mode Collapse} and 100\% Citation Blindness.
+Following tuple extraction, each proposition $\Pi_k$ is dispatched to a specialized verification engine. While prior works employ large generative LLMs for classification, our empirical ablation (Section~\ref{sec:router_ablation}) reveals that 120B-parameter LLMs suffer from severe \textbf{Relational Mode Collapse} and 100\% Citation Blindness.
 
 HalDetect employs a deterministic, regex-based symbolic router ($< 0.05\text{ms}$ latency, zero GPU memory) that categorizes propositions into five mutually exclusive primary verification pipelines:
 \begin{equation}
-    \mathcal{M}(\mathcal{T}_k) \in \{\text{Quantitative}, \text{Temporal}, \text{Entity-Attribute}, \text{Citation}, \text{Relational}\}
+    \mathcal{R}(\Pi_k) \in \{\text{Quantitative}, \text{Temporal}, \text{Entity-Attribute}, \text{Citation}, \text{Relational}\}
 \end{equation}
 
 % ******************************************************************************
@@ -136,12 +138,12 @@ The Quantitative ALU evaluates mathematical assertions via a two-tier hierarchy:
     \item \textbf{Dynamic Macroeconomic REST API:} Queries the World Bank OData API for sovereign indicators (e.g., GDP, GDP per capita, inflation rate) across 217 nations.
 \end{enumerate}
 
-\subsection{Temporal ALU and 7-Continent Topological Superlative Engine}
-The Temporal ALU executes time-scoped SPARQL statement filtering over Wikidata ($P580$ start time, $P582$ end time) to verify historical appointments, terms, and state transitions.
+\subsection{Temporal Verification Engine and 7-Continent Topological Superlative Engine}
+The Temporal Verification Engine executes time-scoped SPARQL statement filtering over Wikidata ($P580$ start time, $P582$ end time) to verify historical appointments, terms, and state transitions.
 
 To resolve inverse topological container assertions (e.g., \textit{"Denali is the highest peak in North America"}), the \texttt{BidirectionalKGResolver} queries topological parent containers across all seven global continents (Denali, Aconcagua, Everest, Kilimanjaro, Elbrus, Vinson, Puncak Jaya) dynamically, eliminating hardcoded prototype stubs.
 
-\subsection{Entity-Attribute ALU and Alias Lexicon Matching}
+\subsection{Entity-Attribute Verification Engine and Alias Lexicon Matching}
 Verifies static invariant properties (e.g., chemical formulas, founders, birthplaces). To prevent homonym collisions, it implements a \textbf{Score-then-Commit Candidate Gate}: surface mentions are matched to candidate Wikidata entities using Sentence-BERT cosine similarity combined with Wikipedia sitelink prominence:
 \begin{equation}
     \text{Score}(e) = \alpha \cdot \text{SBERT}(S_k, \text{Label}(e)) + (1-\alpha) \cdot \log(1 + \text{Sitelinks}(e))
@@ -173,29 +175,46 @@ For open-domain assertions ungrounded in structured knowledge graphs, HalDetect 
 \label{fig:dag_conjunction}
 \end{figure}
 
-When an assertion contains multiple interdependent factual constraints (e.g., \textit{"Germany's GDP was \$4.4T in 2023"}), HalDetect executes parallel micro-checks across the Quantitative, Temporal, and Relational ALUs.
+When an assertion contains multiple interdependent factual constraints (e.g., \textit{"Germany's GDP was \$4.4T in 2023"}), HalDetect executes parallel micro-checks across the Quantitative, Temporal, and Relational Verification Engines.
 
 The final verdict is resolved via a Multi-Aspect Directed Acyclic Graph (DAG) implementing 3-valued conjunction logic. In accordance with the \textbf{Fatal Discrepancy Rule}, if any single constituent aspect contradicts ground truth, the compound assertion is marked \texttt{FALSE}:
 \begin{equation}
-    \mathcal{V}_{\text{final}} = \mathcal{V}_1 \wedge \mathcal{V}_2 \wedge \dots \wedge \mathcal{V}_M
+    \mathcal{V}_{\text{final}} = \mathcal{V}_1 \wedge \mathcal{V}_2 \wedge \dots \wedge \mathcal{V}_K
 \end{equation}
+
+
+\begin{table}[h]
+\centering
+\caption{Complete three-valued (Kleene) conjunction truth table.}
+\label{tab:kleene}
+\begin{tabular}{l|ccc}
+$\wedge_3$ & \texttt{TRUE} & \texttt{FALSE} & \texttt{UNVERIFIABLE} \\
+\hline
+\texttt{TRUE}         & \texttt{TRUE}  & \texttt{FALSE} & \texttt{UNVERIFIABLE} \\
+\texttt{FALSE}        & \texttt{FALSE} & \texttt{FALSE} & \texttt{FALSE} \\
+\texttt{UNVERIFIABLE} & \texttt{UNVERIFIABLE} & \texttt{FALSE} & \texttt{UNVERIFIABLE} \\
+\end{tabular}
+\end{table}
+
+Abstention propagation: if any aspect abstains and none contradicts, the compound verdict is \texttt{UNVERIFIABLE}, propagating epistemic uncertainty conservatively.
+
 where $\top \wedge \top = \top$, $\bot \wedge x = \bot$, and $? \wedge \top = ?$.
 
 \begin{algorithm}[htbp]
 \small
 \SetAlgoLined
-\KwIn{Atomic Proposition $\mathcal{T} = \langle S, P, O, T, M \rangle$}
+\KwIn{Atomic Proposition $\Pi = \langle S, P, O, T, M \rangle$}
 \KwOut{Epistemic Verdict $\mathcal{V} \in \{\texttt{TRUE}, \texttt{FALSE}, \texttt{UNVERIFIABLE}\}$, Confidence $c \in [0, 1]$}
-$\mathcal{M} \leftarrow \text{TaxonomyRouter}(\mathcal{T})$\;
+$\mathcal{M} \leftarrow \text{TaxonomyRouter}(\Pi)$\;
 \Switch{$\mathcal{M}$}{
     \Case{\text{Quantitative}}{
-        $\langle \mathcal{V}, c \rangle \leftarrow \text{VerifyQuantitative}(\mathcal{T}, \tau_{\text{rel}}=0.05)$\;
+        $\langle \mathcal{V}, c \rangle \leftarrow \text{VerifyQuantitative}(\Pi, \tau_{\text{rel}}=0.05)$\;
     }
     \Case{\text{Temporal}}{
-        $\langle \mathcal{V}, c \rangle \leftarrow \text{VerifyTemporal}(\mathcal{T})$\;
+        $\langle \mathcal{V}, c \rangle \leftarrow \text{VerifyTemporal}(\Pi)$\;
     }
     \Case{\text{Entity-Attribute}}{
-        $\langle \mathcal{V}, c \rangle \leftarrow \text{VerifyEntityAttribute}(\mathcal{T}, s_{\text{thresh}}=0.60)$\;
+        $\langle \mathcal{V}, c \rangle \leftarrow \text{VerifyEntityAttribute}(\Pi, s_{\text{thresh}}=0.60)$\;
     }
     \Case{\text{Citation}}{
         $\langle \mathcal{V}, c \rangle \leftarrow \text{VerifyCitationCrossRef}(\mathcal{T})$\;
