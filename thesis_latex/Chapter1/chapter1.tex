@@ -12,7 +12,7 @@ The hallucination phenomenon arises from the objective function governing auto-r
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{Chapter1/Figs/fig1_triage_paradigm}
+\includegraphics[width=\textwidth]{../exported_diagrams_preview/iteration_5_ai_diffusion_suite/fig1_triage_paradigm_ai}
 \caption{Architectural comparison of hallucination verification paradigms. (A) Traditional monolithic black-box verification passes entire paragraphs to neural judges, leading to attention dilution and token overlap failure. (B) HalDetect's proposed type-directed neuro-symbolic triage decomposes prose into atomic 5-tuples and dispatches them to specialized deterministic ALUs.}
 \label{fig:triage_paradigm}
 \end{figure}
@@ -31,14 +31,14 @@ To categorize the failure space, factual discrepancies can be partitioned into d
 \label{sec:structural_failures}
 % ******************************************************************************
 
-Prior efforts to automate hallucination detection predominantly employ monolithic neural approaches, including Retrieval-Augmented Generation (RAG)~\cite{lewis2020retrieval}, fine-tuned Natural Language Inference (NLI) cross-encoders~\cite{niu2024ragtruth,he2023deberta}, and multi-turn agentic web search pipelines~\cite{wei2024safe,gao2023factool}. 
+Prior efforts to automate hallucination detection predominantly employ monolithic neural approaches, including Retrieval-Augmented Generation (RAG)~\cite{lewis2020retrieval}, fine-tuned Natural Language Inference (NLI) cross-encoders~\cite{tang2024minicheck,he2023deberta}, and multi-turn agentic web search pipelines~\cite{wei2024safe,gao2023factool}. 
 
 As illustrated in Figure~\ref{fig:triage_paradigm}(A), these monolithic approaches suffer from four foundational vulnerabilities:
 
 \subsection{The Attention Dilution Phenomenon and Lexical Overlap Bias}
 When an LLM generates a sentence containing a factual error embedded in otherwise accurate contextual prose (e.g., \textit{"The Apple M3 Max is manufactured on TSMC's process with 40 million transistors"}), a dense retrieval engine retrieves the true reference article containing TSMC, Apple, M3 Max, and transistors. 
 
-When passed to a neural cross-encoder, the self-attention weights distribute broadly across the high-frequency matching contextual nouns. Because over 85\% of the token sequence aligns with the reference passage, the continuous embedding layer perceives overwhelming semantic overlap and computes a high entailment score, missing the numerical contradiction entirely~\cite{fisch2026finground}.
+When passed to a neural cross-encoder, the self-attention weights distribute broadly across the high-frequency matching contextual nouns. Because over 85\% of the token sequence aligns with the reference passage, the continuous embedding layer perceives overwhelming semantic overlap and computes a high entailment score, missing the numerical contradiction entirely.
 
 \subsection{Absence of Arithmetic and Symbolic Calculators}
 Neural cross-encoders are continuous function approximators rather than symbolic calculators. They cannot perform basic arithmetic subtraction, scale unit conversions (e.g., Megahertz to Gigahertz, Fahrenheit to Kelvin), or evaluate mathematical tolerances ($\Delta \le \tau_{\text{rel}}$) with absolute certainty.
@@ -75,7 +75,7 @@ This dissertation delivers five principal theoretical, architectural, and empiri
     \item \textbf{The HalDetect Neuro-Symbolic Verification Architecture:} A hierarchical, modular fact-checking engine combining a sub-$0.05\text{ms}$ deterministic taxonomy router with five domain-specific ALUs: Dimensional SI Quantitative, 7-Continent Topological Temporal, Entity-Attribute Statement Matcher, CrossRef Citation Gateway, and Calibrated Relational NLI.
     \item \textbf{5-Tuple Schema Atomizer with Forward Anaphora Resolution:} A decomposition engine that converts raw text into typed tuples $\langle S, P, O, T, M \rangle$ while maintaining an antecedent entity registry $\mathcal{E}_{\text{context}}$ to resolve orphan pronoun chains in $< 0.1\text{ms}$.
     \item \textbf{Multi-Aspect Verification DAG and 3-Valued Epistemic Logic:} A conjunction engine operating over $\{\texttt{TRUE}, \texttt{FALSE}, \texttt{UNVERIFIABLE}\}$ that enforces the Fatal Discrepancy Rule for compound assertions.
-    \item \textbf{The Symmetrical Master Benchmark Corpus ($N = 1,000$):} A balanced 500-TRUE / 500-FALSE benchmark spanning five modalities, preventing class-prior exploitation.
+    \item \textbf{The Master Benchmark Corpus ($N = 1{,}005$):} An unbalanced five-modality benchmark (543 TRUE / 433 FALSE / 29 UNVERIFIABLE), evaluated to prevent class-prior exploitation via Macro-F1 and MCC reporting.
     \item \textbf{Open Multi-LLM Road Test \& Empirical Validation:} A rigorous evaluation across 1,798 propositions from seven foundation models, proving HalDetect reliably isolates deterministic truth and exposes real-world hallucinations, where Modern SOTA RAG and MiniCheck-7B struggle with token overlap blindness.
 \end{enumerate}
 

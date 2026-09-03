@@ -6,7 +6,7 @@ This chapter details the benchmark corpora, generative road-test suites, baselin
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{Chapter4/Figs/fig4_dataset_lineage.pdf}
-\caption{Chronological evolution and lineage of benchmark datasets across five developmental phases, culminating in the symmetrical 1,000-claim Master Corpus and the 1,798-proposition Track 2 Multi-LLM generative testbed.}
+\caption{Chronological evolution and lineage of benchmark datasets across five developmental phases, culminating in the 1,005-claim Master Corpus and the 1,798-proposition Track 2 Multi-LLM generative testbed.}
 \label{fig:dataset_lineage}
 \end{figure}
 
@@ -22,26 +22,26 @@ Constructing a reliable benchmark for hallucination detection requires rigorous 
     \item \textbf{Phase 2: Entity Disambiguation and Bug B Discovery (Phase 2 Gold, $N=126$):} Sourced to evaluate structured entity resolution. Forensic auditing uncovered two foundational phenomena: (a) entity ambiguity collisions (e.g., musical bands sharing names with historical artifacts), resolved via the candidate-commit SBERT gate ($s > 0.60$), and (b) ``Bug B'', an entity disambiguation defect where unscored Wikidata search queries fetched incorrect homonyms instead of committing via SBERT, resulting in 14 label revisions across Phase 2.
     \item \textbf{Phase 3: Synthetic Hard Negatives and Perturbations (Batch 3, $N=122$ + 84 Negatives):} Introduced structured entity and numerical perturbations to stress-test arithmetic ALUs across magnitude variations and temporal shifts.
     \item \textbf{Phase 4: Expansion Corpora v2 ($N=731$) and v3 ($N=2,130$):} Scaled coverage across sovereign macroeconomic metrics and scientific constants.
-    \item \textbf{Phase 5: Symmetrical Master Benchmark ($N = 1,000$):} Symmetrically balanced partition comprising exactly 500 gold \texttt{TRUE} and 500 gold \texttt{FALSE} claims across all five verification modalities.
+    \item \textbf{Phase 5: Master Benchmark ($N = 1{,}005$):} Partition comprising exactly 543 gold \texttt{TRUE}, 433 gold \texttt{FALSE}, and 29 gold \texttt{UNVERIFIABLE} claims across all five verification modalities.
 \end{enumerate}
 
 \begin{table}[htbp]
 \centering
 \small
-\caption{Distribution of claim modalities, ground-truth balance, and origin slices in the symmetrical Master Benchmark Corpus ($N=1,000$).}
+\caption{Distribution of claim modalities, ground-truth balance, and origin slices in the Master Benchmark Corpus ($N=1{,}005$).}
 \label{tab:dataset_composition}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{lcccccl}
 \toprule
 \textbf{Modality} & \textbf{Gold TRUE} & \textbf{Gold FALSE} & \textbf{Total} & \textbf{Balance} & \textbf{Target Verification ALU} & \textbf{Primary Source} \\
 \midrule
-Quantitative & 95 & 94 & 189 & 50.3\% T / 49.7\% F & Dimensional SI + World Bank & Wikidata / World Bank \\
-Temporal & 98 & 97 & 195 & 50.3\% T / 49.7\% F & 2-Hop SPARQL + Topo Resolver & Wikidata SPARQL \\
-Entity-Attribute & 105 & 105 & 210 & 50.0\% T / 50.0\% F & Statement Retrieval & Wikidata Entities \\
-Citation & 100 & 100 & 200 & 50.0\% T / 50.0\% F & CrossRef Live REST Registry & CrossRef DOI API \\
-Relational & 102 & 104 & 206 & 49.5\% T / 50.5\% F & Calibrated DeBERTa-v3 NLI & Curated Grounding Corpus \\
+Quantitative & 100 & 88 & 189 & 52.9\% T / 46.5\% F & Dimensional SI + World Bank & Wikidata / World Bank \\
+Temporal & 100 & 83 & 187 & 53.4\% T / 44.3\% F & 2-Hop SPARQL + Topo Resolver & Wikidata SPARQL \\
+Entity-Attribute & 120 & 120 & 248 & 48.3\% T / 48.3\% F & Statement Retrieval & Wikidata Entities \\
+Citation & 60 & 49 & 109 & 55.0\% T / 44.9\% F & CrossRef Live REST Registry & CrossRef DOI API \\
+Relational & 163 & 93 & 272 & 59.9\% T / 34.1\% F & Calibrated DeBERTa-v3 NLI & Curated Grounding Corpus \\
 \midrule
-\textbf{Master Corpus} & \textbf{500} & \textbf{500} & \textbf{1,000} & \textbf{50.0\% T / 50.0\% F} & \textbf{HalDetect 2.5 Multi-Engine} & \textbf{Unified Master Benchmark} \\
+\textbf{Master Corpus} & \textbf{543} & \textbf{433} & \textbf{1{,}005} & \textbf{54\% T / 43\% F} & \textbf{HalDetect 2.5 Multi-Engine} & \textbf{Unified Master Benchmark} \\
 \bottomrule
 \end{tabular}
 }
@@ -68,7 +68,7 @@ Qwen 2.5-7B-Instruct & Dense Decoder-Only & 7 Billion & 32k Tokens & FP16 & Loca
 Mistral-7B-Instruct-v0.3 & Sliding Window Attention & 7 Billion & 32k Tokens & FP16 & Local Ollama Node \\
 Qwen 2.5-Coder-7B & Code Specialized & 7 Billion & 32k Tokens & FP16 & Local Ollama Node \\
 DeepSeek-R1-Distill-7B & Reasoning Distilled & 7 Billion & 64k Tokens & FP16 & Local Ollama Node \\
-Gemma 31B & Dense Transformer & 31 Billion & 8k Tokens & BF16 & Cloud API Cluster \\
+Gemma31B:Cloud & Dense Transformer & 31 Billion & 8k Tokens & BF16 & Cloud API Cluster \\
 GPT-OSS 120B & Large Open Foundation & 120 Billion & 16k Tokens & FP8 & Cloud Multi-GPU Node \\
 MiniMax Text-01 M3 & Frontier Dense & 230 Billion & 128k Tokens & FP8 & Cloud API Endpoint \\
 \bottomrule
@@ -76,7 +76,7 @@ MiniMax Text-01 M3 & Frontier Dense & 230 Billion & 128k Tokens & FP8 & Cloud AP
 }
 \end{table}
 
-Fifty standardized prompts across six domains (hardware specifications, macroeconomic indices, physical constants, historical state transitions, academic citations, and organic chemistry), fully detailed in Appendix~\ref{app:prompts_suite}\footnote{The complete 50-prompt benchmark dataset and generation scripts are openly hosted at \url{https://github.com/SahibAbbas123/Hal-Detect}.}, were submitted to each model, generating 350 multi-sentence responses. Automated 5-tuple decomposition via the schema atomizer yielded \textbf{1,798 atomic propositions}.
+Fifty standardized prompts across five domains (hardware specifications, macroeconomic indices, physical constants, historical state transitions, and academic citations), fully detailed in Appendix~\ref{app:prompts_suite}\footnote{The complete 50-prompt benchmark dataset and generation scripts are openly hosted at \url{https://github.com/SahibAbbas123/Hal-Detect}.}, were submitted to each model, generating 350 multi-sentence responses. Automated 5-tuple decomposition via the schema atomizer yielded \textbf{1,798 atomic propositions}.
 
 % ******************************************************************************
 \section{Diagnostic Evaluation Suites}
@@ -126,25 +126,6 @@ Let $N$ denote total claims, $N_{\text{ans}}$ denote answered claims, and $N_{\t
     \begin{equation}
         J = \text{Sensitivity} + \text{Specificity} - 1 = \frac{TP}{TP+FN} + \frac{TN}{TN+FP} - 1
     \end{equation}
-    \item \textbf{Expected Calibration Error (ECE):} Partitioning predictions into $M=10$ equal-frequency confidence bins $\{B_1, \dots, B_M\}$:
-    \begin{equation}
-        \text{ECE} = \sum_{m=1}^M \frac{|B_m|}{N} \left| \text{acc}(B_m) - \text{conf}(B_m) \right|
-    \end{equation}
-    \item \textbf{Brier Score:} Mean squared error of probabilistic predictions:
-    \begin{equation}
-        \text{Brier} = \frac{1}{N} \sum_{i=1}^N (c_i - \mathbb{I}(\hat{y}_i = y_i^*))^2
-    \end{equation}
-    where $c_i \in [0, 1]$ represents model confidence.
-    \item \textbf{Wilson Score 95\% Confidence Intervals:} For all observed proportions $\hat{p} = k/n$:
-    \begin{equation}
-        w = \frac{\hat{p} + \frac{z^2}{2n} \pm z \sqrt{\frac{\hat{p}(1-\hat{p})}{n} + \frac{z^2}{4n^2}}}{1 + \frac{z^2}{n}}
-    \end{equation}
-    where $z = 1.95996$ for the two-sided 95\% confidence level.
-    \item \textbf{Statistical Significance Testing:} Paired McNemar test with Edwards continuity correction:
-    \begin{equation}
-        \chi^2 = \frac{(|b - c| - 1)^2}{b + c}
-    \end{equation}
-    where $b$ denotes claims where HalDetect is correct and baseline is incorrect, and $c$ denotes claims where baseline is correct and HalDetect is incorrect.
 \end{itemize}
 
 % ******************************************************************************

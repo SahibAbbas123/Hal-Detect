@@ -1,0 +1,60 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, fit}
+
+\definecolor{pbblue}{HTML}{EBF5FB}
+\definecolor{pbdarkblue}{HTML}{1B4F72}
+\definecolor{pbmint}{HTML}{E8F8F5}
+\definecolor{pbdarkgreen}{HTML}{0E6251}
+\definecolor{pbcoral}{HTML}{FDEDEC}
+\definecolor{pbdarkred}{HTML}{78281F}
+
+\begin{document}
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    box/.style={draw=black!70, rounded corners=5pt, line width=0.8pt, align=left, inner sep=7pt},
+    arrow/.style={-{Stealth[scale=1.0]}, line width=1.0pt}
+]
+
+% Top Input Containers
+\node[box, fill=white, draw=black!70, text width=15cm] (claim) at (7.5, 4.0) {
+    \textbf{Generated Model Assertion:}\\
+    \textit{"The Apple M3 Max processor integrates \textbf{\color{red}40 million} transistors on a \textbf{\color{red}40nm} process node."}
+};
+
+\node[box, fill=white, draw=black!70, text width=15cm, below=0.4cm of claim] (ground) {
+    \textbf{Retrieved Reference Ground Truth:}\\
+    \textit{"The Apple M3 Max processor integrates \textbf{\color{pbdarkgreen}92 billion} transistors on TSMC's \textbf{\color{pbdarkgreen}3nm} process node."}
+};
+
+% Left Path: Neural Cross-Encoder Failure
+\node[box, fill=pbcoral, draw=pbdarkred, text width=7.0cm, below left=1.2cm and 0.2cm of ground.south, anchor=north east] (left_box) {
+    \textbf{\color{pbdarkred}Continuous Neural Cross-Encoder}\\
+    \textbf{\color{pbdarkred}(MiniCheck-7B / DeBERTa-v3)}\\
+    \vspace{4pt}
+    $\bullet$ \textbf{Attention Dilution:} $>85\%$ token overlap on semantic context (\textit{Apple, M3, Max, processor, transistors}).\\
+    $\bullet$ Continuous cross-attention weights dominate magnitude discrepancy.\\
+    $\bullet$ \textbf{Verdict: ENTAILMENT (TRUE)}\\
+    $\bullet$ \textbf{Result: MISSED ERROR (0\% Recall)}
+};
+
+% Right Path: HalDetect SI ALU Success
+\node[box, fill=pbmint, draw=pbdarkgreen, text width=7.0cm, below right=1.2cm and 0.2cm of ground.south, anchor=north west] (right_box) {
+    \textbf{\color{pbdarkgreen}HalDetect Type-Directed Symbolic ALU}\\
+    \textbf{\color{pbdarkgreen}(Dimensional Quantity Engine)}\\
+    \vspace{4pt}
+    $\bullet$ \textbf{Discrete Slot Extraction:}\\
+    \quad Claim: $40\times 10^6$ vs Ground Truth: $92\times 10^9$.\\
+    $\bullet$ \textbf{Relative Error Calculus:}\\
+    \quad $\Delta = \frac{|40\text{M} - 92\text{B}|}{92\text{B}} = 99.96\% > 5\%$.\\
+    $\bullet$ \textbf{Verdict: CONTRADICTION (FALSE)}\\
+    $\bullet$ \textbf{Result: 100\% ERROR RECALL (31/31)}
+};
+
+\draw[arrow, draw=pbdarkred] (ground.south -| left_box.north) -- (left_box.north);
+\draw[arrow, draw=pbdarkgreen] (ground.south -| right_box.north) -- (right_box.north);
+
+\end{tikzpicture}
+\end{document}

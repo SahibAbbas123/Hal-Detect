@@ -7,7 +7,7 @@ This chapter formalizes the architecture of \textbf{HalDetect}, a type-directed 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{Chapter3/Figs/fig3_architecture_pipeline}
+\includegraphics[width=\textwidth]{../exported_diagrams_preview/iteration_5_ai_diffusion_suite/fig3_methodology_pipeline_ai}
 \caption{End-to-end HalDetect verification pipeline. Unconstrained generative text is atomized into typed 5-tuples $\langle S, P, O, T, M \rangle$ with forward antecedent anaphora resolution, routed via a sub-$0.05\text{ms}$ deterministic classifier, verified across domain-specific symbolic ALUs and calibrated NLI, and evaluated via a 3-valued conjunction DAG.}
 \label{fig:architecture_pipeline}
 \end{figure}
@@ -85,7 +85,7 @@ $\mathcal{S} \leftarrow \text{SentenceSplitter}(\mathcal{R})$\;
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{Chapter3/Figs/fig3_anaphora_lifecycle.pdf}
+\includegraphics[width=\textwidth]{../exported_diagrams_preview/iteration_3_expanded_suite/fig3_anaphora_lifecycle_upgraded_preview-1}
 \caption{Three-stage state machine for paragraph discourse normalization and 5-tuple serialization. The forward antecedent pointer cache $\mathcal{E}_{\text{context}}$ resolves pronouns to canonical entities before modal routing and deterministic ALU execution.}
 \label{fig:anaphora_lifecycle}
 \end{figure}
@@ -172,7 +172,7 @@ For open-domain assertions ungrounded in structured knowledge graphs, HalDetect 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{Chapter3/Figs/fig3_dag_conjunction}
+\includegraphics[width=0.92\textwidth]{../exported_diagrams_preview/iteration_5_ai_diffusion_suite/fig3_conjunction_dag_ai}
 \caption{Multi-Aspect Directed Acyclic Graph (DAG) Conjunction Engine. Compound propositions containing multiple factual dimensions are decomposed into parallel verification micro-checks and resolved via 3-valued conjunction logic.}
 \label{fig:dag_conjunction}
 \end{figure}

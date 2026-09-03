@@ -28,43 +28,43 @@ Database file #1: References/references.bib
 Warning--can't use both volume and number fields in naeini2015obtaining
 You've used 43 entries,
             1935 wiz_defined-function locations,
-            714 strings with 14127 characters,
-and the built_in function-call counts, 22417 in all, are:
-= -- 2104
-> -- 1363
-< -- 26
-+ -- 503
-- -- 496
-* -- 1950
-:= -- 3842
+            712 strings with 14330 characters,
+and the built_in function-call counts, 22990 in all, are:
+= -- 2150
+> -- 1428
+< -- 27
++ -- 528
+- -- 522
+* -- 2006
+:= -- 3931
 add.period$ -- 129
 call.type$ -- 43
-change.case$ -- 453
-chr.to.int$ -- 42
+change.case$ -- 466
+chr.to.int$ -- 43
 cite$ -- 44
-duplicate$ -- 785
-empty$ -- 1299
-format.name$ -- 549
-if$ -- 4378
-int.to.chr$ -- 2
+duplicate$ -- 800
+empty$ -- 1316
+format.name$ -- 575
+if$ -- 4494
+int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 43
 newline$ -- 218
 num.names$ -- 129
-pop$ -- 472
+pop$ -- 491
 preamble$ -- 1
-purify$ -- 453
+purify$ -- 466
 quote$ -- 0
-skip$ -- 637
+skip$ -- 652
 stack$ -- 0
-substring$ -- 1300
-swap$ -- 191
-text.length$ -- 15
+substring$ -- 1318
+swap$ -- 202
+text.length$ -- 16
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 258
 warning$ -- 1
-while$ -- 146
+while$ -- 147
 width$ -- 0
 write$ -- 545
 (There was 1 warning)

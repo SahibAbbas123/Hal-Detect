@@ -24,6 +24,8 @@
 \definecolor{slateLight}{HTML}{F8F9FA}
 \definecolor{slateBorder}{HTML}{BDC3C7}
 
+\definecolor{crimsonDark}{HTML}{78281F}
+
 \begin{document}
 \begin{tikzpicture}[
     font=\sffamily,
@@ -48,7 +50,7 @@
 \node[card=navy, minimum width=5.6cm, text width=5.2cm] (raw_text) at (2.9, 2.0) {
     \textbf{\color{navyDark} Input Paragraph Stream}\\
     \scriptsize \textit{``The processor was released in 2023.}\\
-    \scriptsize \textit{\textbf{\color{purpleDark}It} features 92B transistors.''}
+    \scriptsize \textit{\textbf{\color{purpleDark}It} features 40 million transistors.''}
 };
 
 \node[card=purple, below=0.6cm of raw_text, minimum width=5.6cm, text width=5.2cm] (anaphora_reg) {
@@ -77,7 +79,7 @@
 
 \node[card=purple, below=0.6cm of slot_s, minimum width=5.6cm, text width=5.2cm] (slot_o) {
     \textbf{\color{purpleDark} Object ($O$) \& Temporal ($T$)}\\
-    \scriptsize $O = 92\times 10^9, \quad T = [2023, \text{present}]$
+    \scriptsize $O = 40\times 10^6, \quad T = [2023, \text{present}]$
 };
 
 \node[card=amber, below=0.6cm of slot_o, minimum width=5.6cm, text width=5.2cm] (slot_m) {

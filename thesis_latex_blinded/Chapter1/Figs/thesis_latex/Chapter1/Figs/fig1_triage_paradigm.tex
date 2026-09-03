@@ -1,0 +1,53 @@
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, matrix, fit}
+\definecolor{pbblue}{HTML}{E6F3FF}
+\definecolor{pbdarkblue}{HTML}{1E3A8A}
+\definecolor{pbmint}{HTML}{E0F2F1}
+\definecolor{pbdarkgreen}{HTML}{065F46}
+\definecolor{pblavender}{HTML}{F3E5F5}
+\definecolor{pbdarkpurple}{HTML}{581C87}
+\definecolor{pbcoral}{HTML}{FEE2E2}
+\definecolor{pbdarkred}{HTML}{991B1B}
+\definecolor{pbgray}{HTML}{F3F4F6}
+
+\begin{document}
+\begin{tikzpicture}[
+    font=\sffamily,
+    box/.style={draw=black!70, rounded corners=4pt, line width=0.8pt, align=center, inner sep=6pt},
+    arrow/.style={-{Stealth[scale=1.0]}, line width=1pt, draw=black!70}
+]
+
+% Top: Traditional Paradigm
+\node[box, fill=pbcoral!60, text=pbdarkred, font=\bfseries\sffamily, minimum width=3.5cm] (input1) {Generated LLM\\Response (Paragraph)};
+\node[box, fill=pbgray, right=1.5cm of input1, minimum width=3.5cm] (rag) {Monolithic Neural\\Cross-Encoder / Judge};
+\node[box, fill=pbcoral, text=pbdarkred, right=1.5cm of rag, font=\bfseries\sffamily, minimum width=3.2cm] (out1) {Binary Flag (Whole Output)\\$\times$ Token Overlap Trap\\$\times$ Zero Audit Trail};
+
+\draw[arrow] (input1) -- (rag);
+\draw[arrow] (rag) -- (out1);
+
+% Divider
+\draw[dashed, line width=0.8pt, black!40] ($(input1.south west)+(-0.5,-0.8)$) -- ($(out1.south east)+(0.5,-0.8)$);
+
+% Bottom: HalDetect Triage
+\node[box, fill=pbblue!70, text=pbdarkblue, font=\bfseries\sffamily, minimum width=3.5cm, below=1.6cm of input1] (input2) {Generated LLM\\Response (Paragraph)};
+\node[box, fill=pblavender!70, right=0.8cm of input2, minimum width=3.0cm] (atom) {5-Tuple Atomizer\\+ Anaphora Engine};
+\node[box, fill=pbyellow!70, text=black!80, right=0.8cm of atom, minimum width=2.8cm] (router) {Deterministic\\Taxonomy Router};
+
+\node[box, fill=pbmint!80, text=pbdarkgreen, above right=-0.3cm and 0.8cm of router, minimum width=2.6cm, font=\small] (alu1) {Symbolic ALUs\\(Exact Math \& KG)};
+\node[box, fill=pbmint!80, text=pbdarkgreen, below right=-0.3cm and 0.8cm of router, minimum width=2.6cm, font=\small] (alu2) {Calibrated NLI\\(Open Semantics)};
+
+\node[box, fill=pbmint, text=pbdarkgreen, font=\bfseries\sffamily, right=3.8cm of router, minimum width=3.2cm] (out2) {Proposition Verifications\\$\checkmark$ 68.1\% Selective Accuracy\\$\checkmark$ Exact Factual Audit};
+
+\draw[arrow] (input2) -- (atom);
+\draw[arrow] (atom) -- (router);
+\draw[arrow] (router.north east) -- (alu1.west);
+\draw[arrow] (router.south east) -- (alu2.west);
+\draw[arrow] (alu1.east) -- (out2.north west);
+\draw[arrow] (alu2.east) -- (out2.south west);
+
+\node[above=0.1cm of input1, font=\bfseries\sffamily\small, text=pbdarkred] {(A) Monolithic Black-Box Paradigm (Prone to Attention Dilution)};
+\node[above=0.1cm of input2, font=\bfseries\sffamily\small, text=pbdarkblue] {(B) HalDetect Type-Directed Neuro-Symbolic Triage};
+
+\end{tikzpicture}
+\end{document}

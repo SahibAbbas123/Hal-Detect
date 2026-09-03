@@ -1,5 +1,6 @@
 \documentclass[tikz,border=10pt]{standalone}
 \usepackage{tikz}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, fit}
 
@@ -44,7 +45,7 @@
 \node[box, fill=pbmint, draw=pbdarkgreen, text=pbdarkgreen, right=1.4cm of b_router.north east, anchor=west, yshift=0.4cm, minimum width=3.6cm] (b_alu) {\textbf{Domain-Specific ALUs}\\SI Math, SPARQL, DOIs};
 \node[box, fill=pbgray, draw=black!60, text=black!90, right=1.4cm of b_router.south east, anchor=west, yshift=-0.4cm, minimum width=3.6cm] (b_nli) {\textbf{Calibrated NLI}\\Open Relational Fallback};
 
-\node[box, fill=pbmint, draw=pbdarkgreen, text=pbdarkgreen, right=1.4cm of $(b_alu)!0.5!(b_nli)$, minimum width=3.8cm] (b_final) {\textbf{Proposition Verifications}\\$\checkmark$ \textbf{97.60\% Accuracy} ($+37.6\%$)\\$\checkmark$ \textbf{Exact Factual Audit Trail}};
+\node[box, fill=pbmint, draw=pbdarkgreen, text=pbdarkgreen, right=1.4cm of $(b_alu)!0.5!(b_nli)$, minimum width=3.8cm] (b_final) {\textbf{Proposition Verifications}\\$\checkmark$ \textbf{68.1\% Selective Accuracy (44.6\% Coverage)}\\$\checkmark$ \textbf{Exact Factual Audit Trail}};
 
 \draw[arrow] (b_input) -- (b_atom);
 \draw[arrow] (b_atom) -- (b_router);

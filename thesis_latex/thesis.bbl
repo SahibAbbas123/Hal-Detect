@@ -17,12 +17,20 @@ Brier, G.~W. (1950).
 \newblock Verification of forecasts expressed in terms of probability.
 \newblock {\em Monthly Weather Review}, 78(1):1--3.
 
+\bibitem[Chern et~al., 2023]{gao2023factool}
+Chern, I.-C., Chern, S., Chen, S., Yuan, W., Feng, K., Zhou, C., He, J.,
+  Neubig, G., and Liu, P. (2023).
+\newblock {FacTool}: Factuality detection in generative {AI} -- a tool
+  augmented framework for multi-task and multi-domain scenarios.
+\newblock In {\em arXiv preprint arXiv:2307.13528}.
+
 \bibitem[Chuang et~al., 2024]{chuang2024lookback}
-Chuang, Y.-S., Goyal, T., Hida, D., and Glass, J. (2024).
+Chuang, Y.-S., Qiu, L., Hsieh, C.-Y., Krishna, R., Kim, Y., and Glass, J.~R.
+  (2024).
 \newblock Lookback lens: Detecting and mitigating contextual hallucinations in
-  large language models.
+  large language models using only attention maps.
 \newblock In {\em Proceedings of the 2024 Conference on Empirical Methods in
-  Natural Language Processing (EMNLP)}, pages 8450--8468.
+  Natural Language Processing (EMNLP)}, pages 1419--1436.
 
 \bibitem[{DeepSeek-AI} et~al., 2025]{deepseek2025r1}
 {DeepSeek-AI}, Guo, D., Yang, D., Zhang, H., Song, J., Zhang, R., Xu, R., Zhu,
@@ -44,26 +52,13 @@ Edge, D., Trinh, H., Cheng, N., Bradley, J., Chao, A., Mody, A., Truitt, S.,
   summarization.
 \newblock {\em arXiv preprint arXiv:2404.16130}.
 
-\bibitem[Fisch et~al., 2026]{fisch2026finground}
-Fisch, A., Schuster, T., and Barzilay, R. (2026).
-\newblock {FinGround}: Grounded numerical verification over heterogeneous
-  financial disclosures.
-\newblock {\em Transactions of the Association for Computational Linguistics
-  (TACL)}, 14:89--107.
-
-\bibitem[Gao et~al., 2023a]{gao2023rarr}
+\bibitem[Gao et~al., 2023]{gao2023rarr}
 Gao, L., Dai, Z., Pasupat, P., Chen, A., Chaganty, A.~T., Fan, Y., Zhao, V.~Y.,
-  Lao, N., and Lee, K. (2023a).
-\newblock {RARR}: Researching and refining language model outputs with
-  attribution.
+  Lao, N., Lee, H., Juan, D.-C., and Guu, K. (2023).
+\newblock {RARR}: Researching and revising what language models say, using
+  language models.
 \newblock In {\em Proceedings of the 61st Annual Meeting of the Association for
-  Computational Linguistics (ACL)}, pages 16408--16434.
-
-\bibitem[Gao et~al., 2023b]{gao2023factool}
-Gao, Y., Pan, L., Dou, Z., Feng, S., Ding, H., and Ji, H. (2023b).
-\newblock {FacTool}: Factuality detection in generative {AI} -- a tool
-  augmented framework.
-\newblock In {\em arXiv preprint arXiv:2307.13528}.
+  Computational Linguistics (ACL)}, pages 16477--16508.
 
 \bibitem[{Gemma Team} et~al., 2024]{gemmateam2024gemma}
 {Gemma Team}, Mesnard, T., Hardin, C., Dadashi, R., Bhupatiraju, S., Pathak,
@@ -78,12 +73,12 @@ Guo, C., Pleiss, G., Sun, Y., and Weinberger, K.~Q. (2017).
   1321--1330.
 
 \bibitem[Guo et~al., 2024]{guo2024lightrag}
-Guo, Z., Zhang, L., Yan, Y., and Liu, Q. (2024).
-\newblock {LightRAG}: Simple and fast knowledge graph integration for {LLMs}.
+Guo, Z., Xia, L., Yu, Y., Ao, T., and Huang, C. (2024).
+\newblock {LightRAG}: Simple and fast retrieval-augmented generation.
 \newblock {\em arXiv preprint arXiv:2410.05779}.
 
 \bibitem[Guti{\'e}rrez et~al., 2024]{gutierrez2024hipporag}
-Guti{\'e}rrez, B.~J., McAleer, S., and Su, Y. (2024).
+Guti{\'e}rrez, B.~J., Shu, Y., Gu, Y., Yasunaga, M., and Su, Y. (2024).
 \newblock {HippoRAG}: Neurobiologically inspired long-term memory for large
   language models.
 \newblock {\em Advances in Neural Information Processing Systems (NeurIPS)},
@@ -167,8 +162,8 @@ Mensh, B. and Kording, K. (2017).
 \newblock {\em PLoS Computational Biology}, 13(9):e1005619.
 
 \bibitem[Min et~al., 2023]{min2023factscore}
-Min, S., Krishna, K., Lyu, X., Ueoka, K., Aky{\"u}rek, E., Zheng, S., Yih,
-  W.-t., Hajishirzi, H., and Zettlemoyer, L. (2023).
+Min, S., Krishna, K., Lyu, X., Lewis, M., Yih, W.-t., Koh, P.~W., Iyyer, M.,
+  Zettlemoyer, L., and Hajishirzi, H. (2023).
 \newblock {FActScore}: Fine-grained atomic evaluation of factual precision in
   long form text generation.
 \newblock In {\em Proceedings of the 2023 Conference on Empirical Methods in
@@ -182,18 +177,18 @@ Naeini, M.~P., Cooper, G., and Hauskrecht, M. (2015).
   Crowdsourcing (AAAI)}, volume~29, pages 2901--2907.
 
 \bibitem[Niu et~al., 2024]{niu2024ragtruth}
-Niu, C., Wu, Y., Liu, J., Zhao, W.~X., and Wen, J.-R. (2024).
-\newblock {RAGTruth}: A hallucination corpus for retrieval-augmented generation
-  applications.
+Niu, C., Wu, Y., Zhu, J., Xu, S., Shum, K., Zhong, R., Song, J., and Zhang, T.
+  (2024).
+\newblock {RAGTruth}: A hallucination corpus for developing trustworthy
+  retrieval-augmented language models.
 \newblock In {\em Proceedings of the 62nd Annual Meeting of the Association for
-  Computational Linguistics (ACL)}, pages 11200--11221.
+  Computational Linguistics (ACL)}, pages 10862--10878.
 
 \bibitem[Ogasa and Arase, 2025]{ogasa2025multiview}
-Ogasa, K. and Arase, Y. (2025).
-\newblock Multi-view attention probing for token-level span hallucination
-  detection.
+Ogasa, Y. and Arase, Y. (2025).
+\newblock Hallucinated span detection with multi-view attention features.
 \newblock In {\em Proceedings of the 14th Joint Conference on Lexical and
-  Computational Semantics (*SEM 2025)}, pages 112--125.
+  Computational Semantics (*SEM 2025)}, pages 381--394.
 
 \bibitem[Reimers and Gurevych, 2019]{reimers2019sentencebert}
 Reimers, N. and Gurevych, I. (2019).
@@ -207,6 +202,13 @@ Schlichtkrull, M., Guo, Z., and Vlachos, A. (2023).
   from the web.
 \newblock In {\em Advances in Neural Information Processing Systems (NeurIPS)},
   volume~36, pages 67123--67145.
+
+\bibitem[Tang et~al., 2024]{tang2024minicheck}
+Tang, L., Laban, P., and Durrett, G. (2024).
+\newblock {MiniCheck}: Efficient fact-checking of {LLM}s on grounding
+  documents.
+\newblock In {\em Proceedings of the 2024 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 8818--8847.
 
 \bibitem[Thorne et~al., 2018]{thorne2018fever}
 Thorne, J., Vlachos, A., Christodoulopoulos, C., and Mittal, A. (2018).

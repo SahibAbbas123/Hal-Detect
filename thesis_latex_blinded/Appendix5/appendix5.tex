@@ -1,0 +1,38 @@
+\chapter{100 Adversarial Stumpers and Scale Polysemy Test Suite}
+\label{app:adversarial_stumpers}
+
+This diagnostic suite evaluates the robustness of verification ALUs against semantic traps, homonyms, dimensional polysemy (e.g., base-to-peak versus sea-level elevation datums, Kelvin versus Celsius, nominal versus PPP GDP), and temporal boundary shifts.
+
+\section{Representative Adversarial Evaluation Claims}
+
+\begin{enumerate}
+    \item \textbf{Datum and Elevation Polysemy:}
+    \begin{itemize}
+        \item \textit{"Mauna Kea is the tallest mountain on Earth from base to peak (10,210 meters), whereas Mount Everest is the highest above sea level (8,848.86 meters)."} \hfill [\textbf{Gold: TRUE}]
+        \item \textit{"Mount Everest is the tallest mountain on Earth measured from base to peak."} \hfill [\textbf{Gold: FALSE}]
+        \item \textit{"Denali has the third-highest topographic prominence of any mountain peak on Earth."} \hfill [\textbf{Gold: TRUE}]
+    \end{itemize}
+    
+    \item \textbf{Unit and Dimensional Scale Polysemy:}
+    \begin{itemize}
+        \item \textit{"Absolute zero corresponds exactly to 0 Kelvin and -273.15 degrees Celsius."} \hfill [\textbf{Gold: TRUE}]
+        \item \textit{"Absolute zero corresponds to -459.67 degrees Fahrenheit."} \hfill [\textbf{Gold: TRUE}]
+        \item \textit{"The speed of light in vacuum is approximately 300,000 meters per second."} \hfill [\textbf{Gold: FALSE (Scale Error: km/s vs m/s)}]
+        \item \textit{"A metric tonne is equal to 2,000 standard avoirdupois pounds."} \hfill [\textbf{Gold: FALSE (Short Ton vs Metric Tonne)}]
+    \end{itemize}
+    
+    \item \textbf{Entity Homonym Collisions:}
+    \begin{itemize}
+        \item \textit{"Michael Jordan won six NBA championships with the Chicago Bulls."} \hfill [\textbf{Gold: TRUE (Athlete Q41421)}]
+        \item \textit{"Michael Jordan is a leading researcher in machine learning and professor at UC Berkeley."} \hfill [\textbf{Gold: TRUE (Computer Scientist Q13563914)}]
+        \item \textit{"Michael Jordan, the UC Berkeley professor, won six NBA MVP awards."} \hfill [\textbf{Gold: FALSE (Homonym Collision)}]
+    \end{itemize}
+
+    \item \textbf{Temporal Boundary Discrepancies:}
+    \begin{itemize}
+        \item \textit{"The Soviet Union was officially dissolved on December 26, 1991."} \hfill [\textbf{Gold: TRUE}]
+        \item \textit{"The Soviet Union was dissolved on July 4, 1990."} \hfill [\textbf{Gold: FALSE}]
+        \item \textit{"Winston Churchill served his second term as Prime Minister of the United Kingdom from 1951 to 1955."} \hfill [\textbf{Gold: TRUE}]
+        \item \textit{"Winston Churchill served as Prime Minister continuously from 1940 to 1955."} \hfill [\textbf{Gold: FALSE}]
+    \end{itemize}
+\end{enumerate}

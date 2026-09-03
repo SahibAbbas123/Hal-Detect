@@ -1,0 +1,82 @@
+\chapter{System Environment, Dependencies, and Reproducibility Guide}
+\label{app:reproducibility}
+
+This appendix provides the full computational environment specifications, hardware configurations, software dependencies, and step-by-step instructions to reproduce all empirical evaluations and ablation benchmarks reported in this dissertation.
+
+% ******************************************************************************
+\section{Hardware and Execution Environment}
+\label{sec:app_hardware_env}
+% ******************************************************************************
+
+All benchmark evaluations and latency profiling were conducted on standard consumer workstation hardware:
+\begin{itemize}
+    \item \textbf{Host Processor:} Apple Silicon M-Series (12-Core ARM64 CPU).
+    \item \textbf{System Memory:} 36 GB Unified Memory.
+    \item \textbf{Operating System:} macOS Sonoma 14.6 (Darwin 23.6.0).
+    \item \textbf{Local Foundation Model Node:} Ollama v0.3.12 serving quantized GGUF/FP16 models.
+    \item \textbf{Python Runtime:} CPython 3.11.9 inside isolated virtual environments (\texttt{.venv}).
+\end{itemize}
+
+% ******************************************************************************
+\section{Software Dependencies}
+\label{sec:app_software_deps}
+% ******************************************************************************
+
+The primary Python packages and version locks utilized throughout the verification pipeline include:
+\begin{itemize}
+    \item \texttt{transformers == 4.44.2}: HuggingFace Transformers for cross-encoder inference.
+    \item \texttt{torch == 2.4.1}: PyTorch deep learning framework for CPU tensor operations.
+    \item \texttt{sentence-transformers == 3.0.1}: Dense embedding models for candidate entity linking.
+    \item \texttt{SPARQLWrapper == 2.0.0}: W3C SPARQL client for live Wikidata knowledge graph queries.
+    \item \texttt{requests == 2.32.3}: HTTP client for World Bank OData REST and CrossRef APIs.
+    \item \texttt{scikit-learn == 1.5.1}: Statistical metrics, confusion matrices, and calibration scoring.
+    \item \texttt{pandas == 2.2.2}: DataFrame manipulation and dataset provenance management.
+    \item \texttt{numpy == 1.26.4}: Numerical array processing and relative error calculus.
+\end{itemize}
+
+% ******************************************************************************
+\section{Step-by-Step Reproduction Instructions}
+\label{sec:app_reproduction_steps}
+% ******************************************************************************
+
+To reproduce the full evaluation suite from a clean environment:
+
+\begin{enumerate}
+    \item \textbf{Clone the Repository and Initialize Virtual Environment:}
+\begin{verbatim}
+git clone https://github.com/SahibAbbas123/Hal-Detect.git
+cd Hal-Detect
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+\end{verbatim}
+
+    \item \textbf{Execute Mechanical Zero-Leakage AST Inspection:}
+\begin{verbatim}
+python3 current/honest_ablation_runner.py --leak-check
+\end{verbatim}
+    Confirms that zero predictor functions access ground-truth labels.
+
+    \item \textbf{Run the Master Benchmark ($N=1{,}005$):}
+\begin{verbatim}
+python3 current/evaluate_master_corpus.py \
+    --input current/haldetect_master_corpus_v3.csv \
+    --output results/master_benchmark_results.csv
+\end{verbatim}
+
+    \item \textbf{Run the 7-Model Generative Road Test ($N=1,798$):}
+\begin{verbatim}
+python3 current/evaluate_roadtest_suite.py \
+    --input current/unified_7model_roadtest_benchmark.csv \
+    --output results/roadtest_results.csv
+\end{verbatim}
+
+    \item \textbf{Compile the LaTeX Dissertation:}
+\begin{verbatim}
+cd thesis_latex
+pdflatex -interaction=nonstopmode thesis.tex
+bibtex thesis
+pdflatex -interaction=nonstopmode thesis.tex
+pdflatex -interaction=nonstopmode thesis.tex
+\end{verbatim}
+\end{enumerate}

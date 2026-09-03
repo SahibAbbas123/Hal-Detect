@@ -36,7 +36,7 @@ and optimize cross-attention across tokens to predict probabilities over $\{\tex
 
 In the hallucination detection domain, Bespoke-MiniCheck-7B~\cite{niu2024ragtruth} fine-tunes open foundation models on synthetically perturbed document-claim pairs to distinguish grounded from ungrounded assertions. 
 
-However, recent empirical analyses by \citet{fisch2026finground} demonstrate that continuous neural cross-encoders suffer from severe failure modes when evaluating numerical, dimensional, or structured relational claims. Specifically, neural cross-encoders exhibit \textbf{Lexical Overlap Bias}: if a generated hypothesis shares extensive vocabulary with the evidence passage, the model assigns high entailment mass even when numerical quantities or dates directly contradict the evidence.
+However, recent empirical analyses demonstrate that continuous neural cross-encoders suffer from severe failure modes when evaluating numerical, dimensional, or structured relational claims. Specifically, neural cross-encoders exhibit \textbf{Lexical Overlap Bias}: if a generated hypothesis shares extensive vocabulary with the evidence passage, the model assigns high entailment mass even when numerical quantities or dates directly contradict the evidence.
 
 % ******************************************************************************
 \section{Retrieval-Augmented Generation and GraphRAG}

@@ -1,0 +1,88 @@
+\chapter{Track 2 Generative Model Responses and Verbatim Hallucination Case Log}
+\label{app:hallucination_cases}
+
+This appendix documents representative generative outputs, extracted atomic propositions, and ground truth discrepancy traces across the seven foundation models evaluated in the Track 2 Generative Road Test.
+
+% ******************************************************************************
+\section{Hardware and Microprocessor Hallucination Cases}
+\label{sec:app_hardware_cases}
+% ******************************************************************************
+
+\begin{enumerate}
+    \item \textbf{Case HW-01: Apple M3 Max Transistor Fabrication Error}
+    \begin{itemize}
+        \item \textbf{Model:} DeepSeek-R1-Distill-Qwen-7B
+        \item \textbf{Prompt:} \textit{"Detail the fabrication process, core architecture, transistor count, and memory bandwidth of the Apple M3 Max processor."}
+        \item \textbf{Generated Output Fragment:} \textit{"The Apple M3 Max is manufactured on TSMC's 40-nanometer process technology and features approximately 40 million transistors."}
+        \item \textbf{Isolated Proposition:} $\langle \text{Apple M3 Max}, \text{transistor\_count}, 40\times 10^6, \text{None}, \text{None} \rangle$
+        \item \textbf{Ground Truth:} $92\times 10^9$ transistors on TSMC 3nm N3B node.
+        \item \textbf{Discrepancy:} $\Delta = \frac{|40\times 10^6 - 92\times 10^9|}{92\times 10^9} = 0.999565 > 0.05 \implies \texttt{FALSE}$.
+        \item \textbf{Baseline Behavior:} Modern SOTA RAG and MiniCheck-7B emitted \texttt{TRUE} due to token overlap on \textit{"Apple M3 Max transistors"}.
+    \end{itemize}
+
+    \item \textbf{Case HW-02: NVIDIA H100 SXM Memory Capacity Overstatement}
+    \begin{itemize}
+        \item \textbf{Model:} Qwen 2.5-7B-Instruct
+        \item \textbf{Prompt:} \textit{"Describe the architecture, CUDA core count, and HBM memory configuration of the NVIDIA H100 SXM5 GPU."}
+        \item \textbf{Generated Output Fragment:} \textit{"The NVIDIA H100 SXM5 features 128GB of HBM3 memory across a 5120-bit bus width."}
+        \item \textbf{Isolated Proposition:} $\langle \text{NVIDIA H100 SXM5}, \text{memory\_capacity}, 128\text{GB}, \text{None}, \text{None} \rangle$
+        \item \textbf{Ground Truth:} 80GB HBM3 memory (the H200 features 141GB, while H100 SXM features 80GB).
+        \item \textbf{Discrepancy:} $\Delta = \frac{|128 - 80|}{80} = 0.600 > 0.05 \implies \texttt{FALSE}$.
+    \end{itemize}
+
+    \item \textbf{Case HW-03: IBM Condor Quantum Processor Qubit Deficit}
+    \begin{itemize}
+        \item \textbf{Model:} Mistral-7B-Instruct-v0.3
+        \item \textbf{Prompt:} \textit{"Provide the qubit count, coherence time, and quantum architecture of the IBM Condor quantum processor."}
+        \item \textbf{Generated Output Fragment:} \textit{"IBM Condor is based on IBM's Eagle architecture with 127 superconducting transmon qubits."}
+        \item \textbf{Isolated Proposition:} $\langle \text{IBM Condor}, \text{qubit\_count}, 127, \text{None}, \text{None} \rangle$
+        \item \textbf{Ground Truth:} 1,121 superconducting qubits (IBM Eagle has 127; Condor has 1,121).
+        \item \textbf{Discrepancy:} $\Delta = \frac{|127 - 1121|}{1121} = 0.8867 > 0.05 \implies \texttt{FALSE}$.
+    \end{itemize}
+\end{enumerate}
+
+% ******************************************************************************
+\section{Macroeconomic Indicator Hallucination Cases}
+\label{sec:app_macro_cases}
+% ******************************************************************************
+
+\begin{enumerate}
+    \setcounter{enumi}{3}
+    \item \textbf{Case ECON-01: German Nominal GDP Exaggeration}
+    \begin{itemize}
+        \item \textbf{Model:} GPT-OSS 120B
+        \item \textbf{Prompt:} \textit{"Summarize the nominal GDP, GDP per capita, and inflation rate of Germany for 2023."}
+        \item \textbf{Generated Output Fragment:} \textit{"In 2023, Germany recorded a nominal GDP of approximately \$8.20 trillion USD."}
+        \item \textbf{Isolated Proposition:} $\langle \text{Germany}, \text{nominal\_gdp}, \$8.20\times 10^{12}, 2023, \text{None} \rangle$
+        \item \textbf{Ground Truth:} World Bank indicator \texttt{NY.GDP.MKTP.CD} records $\$4,456,081,000,000$ USD.
+        \item \textbf{Discrepancy:} $\Delta = \frac{|8.20 - 4.456|}{4.456} = 0.8402 > 0.05 \implies \texttt{FALSE}$.
+    \end{itemize}
+
+    \item \textbf{Case ECON-02: Japan Inflation Rate Sign Reversal}
+    \begin{itemize}
+        \item \textbf{Model:} MiniMax Text-01 M3
+        \item \textbf{Prompt:} \textit{"Detail the inflation rate and sovereign interest rate of Japan for calendar year 2023."}
+        \item \textbf{Generated Output Fragment:} \textit{"Japan maintained negative inflation with a CPI contraction of -1.4\% throughout 2023."}
+        \item \textbf{Isolated Proposition:} $\langle \text{Japan}, \text{inflation\_rate\_cpi}, -1.4\%, 2023, \text{None} \rangle$
+        \item \textbf{Ground Truth:} World Bank indicator \texttt{FP.CPI.TOTL.ZG} records $+3.27\%$ for 2023.
+        \item \textbf{Discrepancy:} Contradiction in numerical polarity and magnitude $\implies \texttt{FALSE}$.
+    \end{itemize}
+\end{enumerate}
+
+% ******************************************************************************
+\section{Academic Citation DOI Fabrication Cases}
+\label{sec:app_citation_cases}
+% ******************************************************************************
+
+\begin{enumerate}
+    \setcounter{enumi}{5}
+    \item \textbf{Case CITE-01: Sentence-BERT Fabricated DOI Prefix}
+    \begin{itemize}
+        \item \textbf{Model:} Gemma31B:Cloud
+        \item \textbf{Prompt:} \textit{"Cite the foundational publication, authors, year, and DOI for Sentence-BERT."}
+        \item \textbf{Generated Output Fragment:} \textit{"Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks (Reimers and Gurevych, 2019), DOI: 10.18653/v1/D19-1410-fake."}
+        \item \textbf{Isolated Proposition:} $\langle \text{Sentence-BERT}, \text{has\_doi}, \text{10.18653/v1/D19-1410-fake}, 2019, \text{None} \rangle$
+        \item \textbf{CrossRef API Query:} Live REST query returns HTTP 404 Not Found.
+        \item \textbf{Verdict:} Emits \texttt{FALSE} with confidence $1.00$.
+    \end{itemize}
+\end{enumerate}

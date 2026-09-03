@@ -1,0 +1,73 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\definecolor{pbdarkblue}{HTML}{1B4F72}
+\definecolor{pbdarkred}{HTML}{78281F}
+\definecolor{pbdarkgreen}{HTML}{0E6251}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+    title={\textbf{Coverage vs. Selective Accuracy Pareto Frontier}},
+    xlabel={Coverage (\%)},
+    ylabel={Selective Accuracy (\%)},
+    xmin=0, xmax=110,
+    ymin=45, ymax=108,
+    grid=major,
+    grid style={dashed, gray!30},
+    legend style={at={(0.96,0.30)}, anchor=east, font=\sffamily\small},
+    width=11cm, height=7.5cm,
+    font=\sffamily
+]
+
+% HalDetect Curve
+\addplot[
+    color=pbdarkblue,
+    mark=square*,
+    line width=1.6pt
+] coordinates {
+    (11.5, 86.20)
+    (13.5, 83.10)
+    (17.0, 81.90)
+    (24.8, 77.90)
+    (44.6, 68.10)
+};
+\addlegendentry{HalDetect 2.5 (Neuro-Symbolic)}
+
+% Modern SOTA RAG Sweep
+\addplot[
+    color=pbdarkred,
+    mark=triangle*,
+    dashed,
+    line width=1.3pt
+] coordinates {
+    (25.0, 56.50)
+    (50.0, 54.00)
+    (75.0, 53.20)
+    (100.0, 52.10)
+};
+\addlegendentry{Modern SOTA RAG}
+
+% Non-Routed Baseline Sweep
+\addplot[
+    color=gray,
+    mark=diamond*,
+    dotted,
+    line width=1.3pt
+] coordinates {
+    (25.0, 60.40)
+    (50.0, 58.10)
+    (75.0, 55.20)
+    (85.5, 54.60)
+};
+\addlegendentry{Non-Routed Baseline}
+
+% Distinctly separated non-overlapping annotations
+\node[above right, text=pbdarkgreen, font=\bfseries\sffamily\small] at (axis cs: 11.5, 86.2) {86.2\% (11.5\% Coverage)};
+\node[below right, text=pbdarkblue, font=\bfseries\sffamily\small] at (axis cs: 44.6, 68.1) {68.1\% (44.6\% Coverage)};
+
+\end{axis}
+\end{tikzpicture}
+\end{document}

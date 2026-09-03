@@ -1,5 +1,6 @@
 \documentclass[tikz,border=10pt]{standalone}
 \usepackage{tikz}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, fit}
 
@@ -29,7 +30,7 @@
 \node[box, fill=pbyellow, draw=pbdarkyellow, text=pbdarkyellow, right=0.6cm of p1, minimum width=2.7cm] (p2) {\textbf{Phase 2: Entity Gate}\\Phase 2 Gold ($N=126$)\\Bug B Relabeling};
 \node[box, fill=pblavender, draw=pbdarkpurple, text=pbdarkpurple, right=0.6cm of p2, minimum width=2.7cm] (p3) {\textbf{Phase 3: Hard Negs}\\Batch 3 ($N=206$)\\+ 84 Perturbations};
 \node[box, fill=pbgray, draw=black!60, text=black!90, right=0.6cm of p3, minimum width=2.7cm] (p4) {\textbf{Phase 4: Expansion}\\v2 ($N=731$) / v3 ($2.1\text{k}$)\\Macro \& Constants};
-\node[box, fill=pbmint, draw=pbdarkgreen, text=pbdarkgreen, right=0.6cm of p4, minimum width=2.9cm] (p5) {\textbf{Phase 5: Symmetrical 1K}\\Master Benchmark ($N=1,000$)\\\textbf{500 TRUE / 500 FALSE}};
+\node[box, fill=pbmint, draw=pbdarkgreen, text=pbdarkgreen, right=0.6cm of p4, minimum width=2.9cm] (p5) {\textbf{Phase 5: Master Benchmark}\\($N=1{,}005$)\\\textbf{543 T / 433 F / 29 U}};
 
 \draw[arrow] (p1) -- (p2);
 \draw[arrow] (p2) -- (p3);

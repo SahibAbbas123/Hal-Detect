@@ -1,0 +1,35 @@
+\chapter{Master Benchmark Corpus 1,005-Claim Sample Index}
+\label{app:master_claims_sample}
+
+This appendix provides representative claim samples from the Master Benchmark Corpus ($N=1{,}005$), illustrating the five verification modalities, ground-truth verdicts, assigned ALUs, and origin dataset slices.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Representative sample of claims across all five verification modalities in the Master Benchmark Corpus.}
+\label{tab:app_claims_sample}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllllcc}
+\toprule
+\textbf{Master ID} & \textbf{Subject Entity} & \textbf{Claim Text} & \textbf{Modality} & \textbf{Target ALU} & \textbf{Gold Verdict} & \textbf{Origin Slice} \\
+\midrule
+MST\_0001 & Apple M3 Max & The Apple M3 Max has 92 billion transistors. & Quantitative & Dimensional SI & TRUE & Natural QA \\
+MST\_0002 & Apple M3 Max & The Apple M3 Max has 40 million transistors. & Quantitative & Dimensional SI & FALSE & Hard Negative \\
+MST\_0015 & NVIDIA H100 & NVIDIA H100 SXM features 80GB HBM3 memory. & Quantitative & Dimensional SI & TRUE & Expansion v2 \\
+MST\_0016 & NVIDIA H100 & NVIDIA H100 SXM features 128GB HBM3 memory. & Quantitative & Dimensional SI & FALSE & Hard Negative \\
+MST\_0045 & Germany & Germany nominal GDP was \$4.45 trillion in 2023. & Quantitative & World Bank REST & TRUE & Natural QA \\
+MST\_0046 & Germany & Germany nominal GDP was \$8.20 trillion in 2023. & Quantitative & World Bank REST & FALSE & Hard Negative \\
+MST\_0101 & Denali & Denali is the highest mountain peak in North America. & Temporal & Topo Superlative & TRUE & Expansion v3 \\
+MST\_0102 & Denali & Mount Logan is the highest peak in North America. & Temporal & Topo Superlative & FALSE & Hard Negative \\
+MST\_0125 & Barack Obama & Barack Obama assumed the US presidency in 2009. & Temporal & 2-Hop SPARQL & TRUE & Batch 1 \\
+MST\_0126 & Barack Obama & Barack Obama assumed the US presidency in 2017. & Temporal & 2-Hop SPARQL & FALSE & Hard Negative \\
+MST\_0250 & Caffeine & The chemical formula of caffeine is C8H10N4O2. & Entity-Attribute & Statement Matcher & TRUE & Batch 3 \\
+MST\_0251 & Caffeine & The chemical formula of caffeine is C6H12O6. & Entity-Attribute & Statement Matcher & FALSE & Hard Negative \\
+MST\_0401 & Sentence-BERT & Reimers and Gurevych published Sentence-BERT in 2019. & Citation & CrossRef Gateway & TRUE & Batch 2 \\
+MST\_0402 & Sentence-BERT & Sentence-BERT has official DOI 10.9999/fake.doi.2019. & Citation & CrossRef Gateway & FALSE & Hard Negative \\
+MST\_0601 & Transformer & Vaswani et al. introduced the Transformer at NeurIPS 2017. & Relational & Calibrated NLI & TRUE & Natural QA \\
+MST\_0602 & Transformer & Vaswani et al. introduced the Transformer at ICML 1995. & Relational & Calibrated NLI & FALSE & Hard Negative \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

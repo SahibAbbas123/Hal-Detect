@@ -1,5 +1,6 @@
 \documentclass[tikz,border=10pt]{standalone}
 \usepackage{tikz}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds, fit}
 
@@ -62,7 +63,7 @@
 
 \node[box, fill=white, draw=pbdarkpurple, text=pbdarkpurple, minimum width=5.2cm] (dag) at (18.2, 1.2) {\textbf{3-Valued Conjunction DAG}\\$\mathcal{V}_{\text{final}} = \mathcal{V}_1 \wedge \mathcal{V}_2 \wedge \dots \wedge \mathcal{V}_M$\\\textbf{Fatal Discrepancy Rule}};
 
-\node[box, fill=pbmint, draw=pbdarkgreen, text=pbdarkgreen, minimum width=5.2cm, below=1.0cm of dag] (decision) {\textbf{Calibrated Epistemic Verdict}\\\{\texttt{TRUE}, \texttt{FALSE}, \texttt{UNVERIFIABLE}\}\\\textbf{97.60\% Accuracy} | \textbf{ECE 8.88\%}};
+\node[box, fill=pbmint, draw=pbdarkgreen, text=pbdarkgreen, minimum width=5.2cm, below=1.0cm of dag] (decision) {\textbf{Calibrated Epistemic Verdict}\\\{\texttt{TRUE}, \texttt{FALSE}, \texttt{UNVERIFIABLE}\}\\\textbf{68.1\% Selective Accuracy}};
 
 \draw[arrow] (alu_q.east) -| ++(0.4,-0.6) |- (dag.west);
 \draw[arrow] (alu_t.east) -| ++(0.3,-0.3) |- (dag.west);

@@ -162,3 +162,47 @@ Margin loans: equity market only for A category shares, loan = 50% of equity val
 > P ratio (not applicable for life insurance)
 Loans against securities (LAS)
 > Margin call - 1:1 first call, 1:2 2nd call and last call.
+
+# 3 sept
+(Continuing from last day)
+Complete customer journey:
+A visual rep of customers experience with brand, product or service throughout their journey. For brokerage service, this map shows the complete te experience of a client - from first hearing about brokerage to opening account, depositing funs and so on.
+1. The perfect match (the profile): you dont sell to everyone. -> if you sell expensive sales s/w, flow shop isnt perfect match. It's a fast growing tech company with 100 sales reps.
+2. The right person (the buyer): 
+(Truncated)
+Customer Journey map in 6 simple steps:
+1. Identify customer
+2.
+3. Identify customer touchpoint: awareness via Facebook, website, seminer, interst via phone call, sales officer, BO and eKYC account opening, fund transfer via and, naps etc, trading on TradeXpress 2.0 app, trade execution i.e buy/sell order confirmation, and after sales: sms, email , sutomer support etc.
+4. Understand customer needs and feelings: ask customer thoughts, feelings, expectations at each stage. Example: opening account(wants simple process, may worry about documentation, expects rapid service), trading (fast and reliable platform, expects accurate order execution, may feel nervous when placing first trade)
+5. Identify pain points and oportunities: too many forms, slow account activation, difficulty with eKYC, consfuing transfer process, trading platform problems, slow customer support, lack of info; opportunities: simplify account opening, provide eKYC, give step by step instructions, provide customer training, improve tradeXpress app experience, provide dedicated relatisinhip support
+6. Take action and improve the experience: finally converting the findings into improvements example: pain point: customer doesnt understand how to transfer funds, action: provide a simple fund transfer guide and customer support. Pain point: new customer doesnt know how to trade, action: provide a short trading tutorial/demo. Awareness: interest and enquirer-> bo acc + eKYC -> acc activation -> fund transfer -> tradexpress login -> buy/sell order -> trade execution -> confirmation and settlement -> customer support and retention
+One line formula: know customer -> map the journey -> find pain points -> improve the experience -> build loyalty
+
+Customer acquisition challenges and solutions:
+Challenge: high competition, low brand awareness, high acquisition cost, long sales process, customer churning 
+Easy solution: be different, build the brand, use effective channels, make it simple, keep customers happy
+
+Purpose of customer acquisition:
+Means finding, attracting, and converting new customers.
+1. Increase the number of customers
+2. Increase revenue and profit
+3. Build brand awareness and customer segments
+5. Increase market share
+
+Customer escalation:
+Issue may not be solved at first level, should be escalated to appropriate dept or authority.
+When?
+Usse can't be solved at frontline
+Technical problem 
+Etc
+
+How to develop a customer acquisition strategy:
+Means planning how to find and get new customers. KYC: find out who your customers are, what they need and what problems they have.
+Create good content, choose right channels (fb, site, email, ad, phone call etc.)
+
+End2end role-play: brokerage service:
+Customer: I want invest in stock but not sure which shares to buy
+Sales officerL 1st well understand your investment objectives and risk preferences and guide you through the account opening process.
+Finance offer: let's review your available funds, investment horizon and financial analysis
+..... And so on.

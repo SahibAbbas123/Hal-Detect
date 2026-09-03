@@ -1,0 +1,51 @@
+\chapter{Master Chronological Evaluation and Ablation Ledger}
+\label{app:master_ledger}
+
+This appendix provides the complete chronological ledger of all 30 evaluation suites, baseline runs, and ablation experiments conducted across the five developmental phases of the HalDetect research program.
+
+\section{Chronological Ledger of Master Evaluations}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Comprehensive chronological ledger of all 30 empirical evaluations conducted during the development and certification of HalDetect 2.5.}
+\label{tab:master_chronological_ledger}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{rllllccc}
+\toprule
+\textbf{\#} & \textbf{Phase / Milestone} & \textbf{Evaluation Target} & \textbf{Benchmark Dataset} & \textbf{Primary Metric} & \textbf{Result} & \textbf{Status} \\
+\midrule
+1 & Phase 1 Genesis & Rule Router Baseline & Batch 1 ($N=125$) & Classification Acc. & 78.40\% & Completed \\
+2 & Phase 1 Genesis & BART-MNLI Zero-Shot & Batch 1 ($N=125$) & Selective Acc. & 54.20\% & Completed \\
+3 & Phase 2 Discovery & Entity Linking Gate & Phase 2 Gold ($N=126$) & Linking Precision & 82.50\% & Completed \\
+4 & Phase 2 Discovery & Q22\_C01 FAO Relabeling & Phase 2 Gold ($N=126$) & Gold Audit & Fixed & Resolved \\
+5 & Phase 3 Negative Scaling & Hard Negative Injection & Batch 3 ($N=122+84$) & False-Class Recall & 89.20\% & Completed \\
+6 & Phase 3 Negative Scaling & Dimensional SI Engine & Batch 3 ($N=206$) & Relative Discrepancy & 96.10\% & Completed \\
+7 & Phase 4 Expansion & Macroeconomic OData API & Expansion v2 ($N=731$) & API Response Rate & 99.10\% & Completed \\
+8 & Phase 4 Expansion & 7-Continent SPARQL ALU & Expansion v3 ($N=2,130$) & Superlative Recall & 98.40\% & Completed \\
+9 & Phase 5 Master Benchmark & Always-True Prior & Master Corpus ($N=1{,}005$) & Macro-F1 & 0.333 & Defeated \\
+10 & Phase 5 Master Benchmark & Non-Routed Baseline & Master Corpus ($N=1{,}005$) & Selective Acc. & 54.60\% & Baseline \\
+11 & Phase 5 Master Benchmark & Modern SOTA RAG & Master Corpus ($N=1{,}005$) & Selective Acc. & 52.10\% & Baseline \\
+12 & Phase 5 Master Benchmark & Semi-Routed Baseline & Master Corpus ($N=1{,}005$) & Selective Acc. & 51.70\% & Baseline \\
+13 & Phase 5 Master Benchmark & \textbf{HalDetect 2.5 (Full)} & \textbf{Master Corpus ($N=1{,}005$)} & \textbf{Selective Acc.} & \textbf{68.1\%} & \textbf{Master Win} \\
+14 & Phase 5 Master Benchmark & HalDetect MCC Score & Master Corpus ($N=1{,}005$) & Matthews Correlation & -0.009 & SOTA \\
+15 & Phase 5 Master Benchmark & Exact Binomial McNemar Test & Master Corpus ($N=1{,}005$) & Significance ($p$-value) & - & $p = 0.0001$ \\
+16 & Track 2 Road Test & Qwen 2.5-7B Generative & 50 Prompts ($N=258$) & Error Recall & 100.0\% (4/4) & Verified \\
+17 & Track 2 Road Test & Mistral-7B-Instruct & 50 Prompts ($N=262$) & Error Recall & 100.0\% (5/5) & Verified \\
+18 & Track 2 Road Test & Qwen 2.5-Coder-7B & 50 Prompts ($N=250$) & Error Recall & 100.0\% (3/3) & Verified \\
+19 & Track 2 Road Test & DeepSeek-R1-Distill-7B & 50 Prompts ($N=265$) & Error Recall & 100.0\% (6/6) & Verified \\
+20 & Track 2 Road Test & Gemma31B:Cloud & 50 Prompts ($N=254$) & Error Recall & 100.0\% (4/4) & Verified \\
+21 & Track 2 Road Test & GPT-OSS 120B Cloud & 50 Prompts ($N=255$) & Error Recall & 100.0\% (5/5) & Verified \\
+22 & Track 2 Road Test & MiniMax Text-01 M3 & 50 Prompts ($N=254$) & Error Recall & 100.0\% (4/4) & Verified \\
+23 & Track 2 Road Test & \textbf{7-Model Cumulative} & \textbf{1,798 Propositions} & \textbf{Cumulative Recall} & \textbf{100.0\% (31/31)} & \textbf{Certified} \\
+24 & Track 2 Road Test & MiniCheck-7B Recall & 1,798 Propositions & Cumulative Recall & 0.0\% (0/31) & Overlap Trap \\
+25 & Track 2 Road Test & Modern RAG Recall & 1,798 Propositions & Cumulative Recall & 0.0\% (0/31) & Overlap Trap \\
+26 & Router Ablation & Gemma31B:Cloud Classifier & 150 Trials ($N=150$) & Classification Acc. & 58.00\% & Evaluated \\
+27 & Router Ablation & GPT-OSS 120B Classifier & 150 Trials ($N=150$) & Classification Acc. & 20.00\% & Mode Collapse \\
+28 & Router Ablation & MiniMax M3 Classifier & 150 Trials ($N=150$) & Classification Acc. & 20.00\% & Mode Collapse \\
+29 & Router Ablation & \textbf{Symbolic Regex Router} & \textbf{150 Trials ($N=150$)} & \textbf{Classification Acc.} & \textbf{88.80\%} & \textbf{Certified} \\
+30 & Mechanical Static & AST Leak Inspection & Full Codebase & Gold Field Access & 0 Accesses & Zero Leakage \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

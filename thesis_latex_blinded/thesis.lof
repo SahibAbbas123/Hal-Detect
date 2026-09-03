@@ -1,0 +1,22 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Architectural comparison of hallucination verification paradigms. (A) Traditional monolithic black-box verification passes entire paragraphs to neural judges, leading to attention dilution and token overlap failure. (B) HalDetect's proposed type-directed neuro-symbolic triage decomposes prose into atomic 5-tuples and dispatches them to specialized deterministic ALUs.}}{2}{figure.caption.7}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces End-to-end HalDetect verification pipeline. Unconstrained generative text is atomized into typed 5-tuples $\langle S, P, O, T, M \rangle $ with forward antecedent anaphora resolution, routed via a sub-$0.05\text {ms}$ deterministic classifier, verified across domain-specific symbolic ALUs and calibrated NLI, and evaluated via a 3-valued conjunction DAG.}}{12}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Three-stage state machine for paragraph discourse normalization and 5-tuple serialization. The forward antecedent pointer cache $\mathcal {E}_{\text {context}}$ resolves pronouns to canonical entities before modal routing and deterministic ALU execution.}}{14}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Multi-Aspect Directed Acyclic Graph (DAG) Conjunction Engine. Compound propositions containing multiple factual dimensions are decomposed into parallel verification micro-checks and resolved via 3-valued conjunction logic.}}{17}{figure.caption.13}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Chronological evolution and lineage of benchmark datasets across five developmental phases, culminating in the 1,005-claim Master Corpus and the 1,798-proposition Track 2 Multi-LLM generative testbed.}}{19}{figure.caption.16}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Coverage vs. Selective Accuracy Pareto frontier. By varying the rejection threshold $\tau _{\text {abstain}}$, HalDetect traverses from 68.1\% selective accuracy at 44.6\% coverage to 86.2\% selective accuracy at 11.5\% coverage.}}{27}{figure.caption.20}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

@@ -1,0 +1,109 @@
+\chapter{Related Work}
+\label{ch:related_work}
+
+The challenge of verifying factual precision and mitigating hallucinations in Large Language Models has spurred diverse research across natural language processing, knowledge representation, and neuro-symbolic computing~\cite{zhang2023sirens,huang2023survey,ji2023survey}. This chapter provides an exhaustive, comparative survey of existing literature, categorizing prior work into five primary paradigms: atomic proposition decomposition, neural cross-encoder NLI, retrieval-augmented generation, structured knowledge graph reasoning, and internal model state probing. We conclude by identifying the specific architectural gap that HalDetect resolves.
+
+% ******************************************************************************
+\section{Atomic Proposition Verification Frameworks}
+\label{sec:atomic_fact_verification}
+% ******************************************************************************
+
+Evaluating long-form generative text requires decomposing complex, compound sentences into granular factual statements that can be verified independently. Early fact-checking datasets, such as \textsc{FEVER}~\cite{thorne2018fever}, pioneered claim verification over Wikipedia text but focused on short, synthetic assertions rather than generative model outputs.
+
+\subsection{Stanford FActScore Framework}
+\citet{min2023factscore} formalized atomic decomposition for generative AI with \textsc{FActScore}, breaking biographical text into discrete subject-predicate-object propositions. In \textsc{FActScore}, each atomic proposition is evaluated against Wikipedia reference articles using an LLM-based prompting judge (e.g., GPT-4 or fine-tuned LLaMA-7B~\cite{touvron2023llama2}). While \textsc{FActScore} demonstrated that atomic decomposition dramatically improves evaluation consistency over whole-response scoring, relying on generative LLMs as judges introduces three structural limitations:
+\begin{enumerate}
+    \item \textbf{Judge Sycophancy and Hallucination:} The judge LLM itself inherits generative hallucinations, frequently validating incorrect assertions that appear fluent or plausible.
+    \item \textbf{Class-Prior Skew:} Because Wikipedia biographies contain predominantly true claims, prompting judges achieve deceptively high accuracy by exploiting true-class priors while failing on subtle negative perturbations.
+    \item \textbf{High Compute Cost:} Prompting frontier LLMs for hundreds of propositions per document incurs prohibitive inference costs ($\sim \$0.02$ per claim).
+\end{enumerate}
+
+\subsection{Agentic Search Evaluators: Google SAFE and Tool-Augmented Fact-Checkers}
+To extend verification to open-domain web retrieval, Google DeepMind proposed \textsc{SAFE} (Search-Augmented Factuality Evaluator)~\cite{wei2024safe}. \textsc{SAFE} employs an agentic loop where an LLM recursively issues multi-step Google Search queries, reads search snippets, and evaluates proposition entailment. Although \textsc{SAFE} achieves high human-correlation on general trivia, its iterative multi-agent architecture requires upwards of 12.5 seconds per prompt and costs approximately \$0.19 per response, rendering it impractical for real-time deployment.
+
+Other tool-augmented approaches, such as \textsc{FacTool}~\cite{gao2023factool} and \textsc{RARR}~\cite{gao2023rarr}, utilize Python code execution for mathematical queries and search APIs for factual claims. However, these systems treat fact-checking as an uncalibrated binary decision task without explicit open-world abstention, leading to high false-alarm rates when authoritative evidence is missing or ambiguous.
+
+% ******************************************************************************
+\section{Neural Cross-Encoder NLI and Grounding Models}
+\label{sec:cross_encoder_nli}
+% ******************************************************************************
+
+Natural Language Inference (NLI) cross-encoders serve as the primary algorithmic engine for automated consistency checking in retrieval pipelines. Modern cross-encoders, such as DeBERTa-v3~\cite{he2023deberta} and RoBERTa~\cite{liu2019roberta}, concatenate an evidence passage $E$ and a hypothesis claim $H$ as input:
+\begin{equation}
+    \mathbf{x} = [\texttt{CLS}] \circ E \circ [\texttt{SEP}] \circ H \circ [\texttt{SEP}]
+\end{equation}
+and optimize cross-attention across tokens to predict probabilities over $\{\text{Entailment}, \text{Neutral}, \text{Contradiction}\}$.
+
+In the hallucination detection domain, Bespoke-MiniCheck-7B~\cite{niu2024ragtruth} fine-tunes open foundation models on synthetically perturbed document-claim pairs to distinguish grounded from ungrounded assertions. 
+
+However, recent empirical analyses demonstrate that continuous neural cross-encoders suffer from severe failure modes when evaluating numerical, dimensional, or structured relational claims. Specifically, neural cross-encoders exhibit \textbf{Lexical Overlap Bias}: if a generated hypothesis shares extensive vocabulary with the evidence passage, the model assigns high entailment mass even when numerical quantities or dates directly contradict the evidence.
+
+% ******************************************************************************
+\section{Retrieval-Augmented Generation and GraphRAG}
+\label{sec:rag_and_graphrag}
+% ******************************************************************************
+
+Retrieval-Augmented Generation (RAG)~\cite{lewis2020retrieval} attempts to ground LLM generations by dynamically retrieving relevant context passages from external corpora using Dense Passage Retrieval (DPR)~\cite{karpukhin2020dense} or Sentence-BERT (SBERT)~\cite{reimers2019sentencebert}. Advanced iterations include \textsc{Self-RAG}~\cite{asai2024selfrag}, which trains models to emit special reflection tokens to critique retrieved passages, and \textsc{Corrective RAG (CRAG)}~\cite{yan2024corrective}, which triggers web search fallbacks when local retrieval confidence is low.
+
+To handle complex multi-hop dependencies across non-contiguous documents, modern GraphRAG architectures have emerged:
+\begin{itemize}
+    \item \textbf{HippoRAG}~\cite{gutierrez2024hipporag}: Inspired by neurobiological memory systems, HippoRAG uses Personalized PageRank over an LLM-extracted knowledge graph to achieve multi-hop evidence retrieval without iterative re-prompting.
+    \item \textbf{Microsoft GraphRAG}~\cite{edge2024graphrag}: Partitions source documents into hierarchical semantic clusters and builds community summaries via LLMs, enabling holistic thematic summarization.
+    \item \textbf{LightRAG}~\cite{guo2024lightrag}: Integrates dual-level graph structures (low-level entity nodes and high-level theme nodes) with vector search to accelerate graph retrieval.
+\end{itemize}
+
+While GraphRAG significantly improves evidence recall on narrative multi-hop queries, it remains reliant on LLM-driven graph extraction, inheriting extraction errors and substantial compute overhead during indexing. Crucially, GraphRAG still routes retrieved text to generative LLMs for synthesis, leaving the system vulnerable to the same attention dilution and arithmetic failure modes as standard RAG.
+
+% ******************************************************************************
+\section{Internal State Probing vs. External Verification}
+\label{sec:internal_vs_external}
+% ******************************************************************************
+
+A parallel branch of research attempts to detect hallucinations by inspecting the internal activations and attention distributions of the generating model itself:
+\begin{itemize}
+    \item \textbf{Lookback Lens}~\cite{chuang2024lookback}: Compares the ratio of attention directed at the prompt context versus generated prefix tokens, identifying tokens produced without contextual grounding.
+    \item \textbf{Multi-View Attention Probing}~\cite{ogasa2025multiview}: Extracts multi-head attention weights to train lightweight token-level hallucination classifiers.
+    \item \textbf{Internal Activation Probing}~\cite{azaria2023internal}: Trains linear classifiers on intermediate MLP hidden states to determine if the model's internal representation encodes truthfulness.
+\end{itemize}
+
+Related investigations on the RAGTruth benchmark~\cite{niu2024ragtruth} demonstrated that internal attention features can achieve token-level span localization ($F_1 = 0.6046$).
+
+However, internal probing approaches share three fundamental operational constraints:
+\begin{enumerate}
+    \item \textbf{White-Box Dependency:} They require direct access to internal model weights and attention matrices, rendering them unusable for black-box commercial APIs (e.g., Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro).
+    \item \textbf{Absence of Ground Truth Grounding:} Internal probes only measure whether the model \textit{believes} it is confident, failing on false memories or training distribution errors where the model is confidently wrong.
+    \item \textbf{No Arithmetic or Registry Validation:} Probes cannot query live international registries (e.g., CrossRef DOIs or World Bank indices) to verify real-world facts.
+\end{enumerate}
+
+HalDetect provides the complementary external solution: an open-world, black-box verification architecture that operates with complete model agnosticism.
+
+% ******************************************************************************
+\section{Comparative Literature Matrix and The Research Gap}
+\label{sec:literature_matrix}
+% ******************************************************************************
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Comprehensive feature comparison of state-of-the-art hallucination detection frameworks. HalDetect is the only system offering deterministic arithmetic, live registry querying, sub-25ms latency, and open-world 3-valued abstention.}
+\label{tab:sota_comparison}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Framework} & \textbf{Paradigm} & \textbf{Black-Box?} & \textbf{Deterministic Math} & \textbf{Live Registries} & \textbf{Logic Model} & \textbf{Avg. Latency} \\
+\midrule
+FActScore~\cite{min2023factscore} & LLM Judge & Yes & No & No & 2-Valued & $\sim 1,240$ ms \\
+Google SAFE~\cite{wei2024safe} & Agentic Search & Yes & No & No & 2-Valued & $\sim 12,500$ ms \\
+FacTool~\cite{gao2023factool} & Tool Augmented & Yes & Code Exec & No & 2-Valued & $\sim 3,400$ ms \\
+Bespoke MiniCheck~\cite{niu2024ragtruth} & Fine-Tuned NLI & Yes & No & No & 2-Valued & $\sim 450$ ms \\
+HippoRAG~\cite{gutierrez2024hipporag} & Graph Retrieval & Yes & No & No & Continuous & $\sim 850$ ms \\
+Lookback Lens~\cite{chuang2024lookback} & Attention Probe & No (White-Box) & No & No & Continuous & $\sim 15$ ms \\
+Multi-View Attention~\cite{ogasa2025multiview} & Attention Probe & No (White-Box) & No & No & Continuous & $\sim 18$ ms \\
+\midrule
+\textbf{HalDetect 2.5 (Ours)} & \textbf{Neuro-Symbolic} & \textbf{Yes} & \textbf{Yes (SI ALUs)} & \textbf{Yes (CrossRef/WB)} & \textbf{3-Valued} & \textbf{24.3 ms} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+As summarized in Table~\ref{tab:sota_comparison}, no existing fact-checking architecture integrates deterministic symbolic triage with live structured knowledge bases, calibrated open-world abstention, and sub-25ms latency on consumer hardware. HalDetect bridges this critical gap.
